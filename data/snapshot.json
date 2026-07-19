@@ -1,0 +1,33 @@
+{
+  "receivedAt": "2026-07-19T00:00:00.000Z",
+  "payload": {
+    "timestamp": "2026-07-19T00:00:00.000Z",
+    "contabilidades": [
+      {
+        "accountName": "CUENTA DAYANA BS",
+        "rows": [
+          { "fecha": "27/06/2026", "asiento": "Donativa en BS (Daniel Musica) - Cuenta Dayana", "debe": 21000, "haber": null, "saldo": 21000, "evidencia": "" },
+          { "fecha": "27/06/2026", "asiento": "Compra insumos medicos - Cuenta Dayana", "debe": null, "haber": 12500, "saldo": 11500, "evidencia": "" }
+        ]
+      },
+      {
+        "accountName": "CUENTA USD",
+        "rows": [
+          { "fecha": "27/06/2026", "asiento": "Donativo Binance 4768", "debe": 15, "haber": null, "saldo": 15, "evidencia": "" }
+        ]
+      }
+    ],
+    "inventario": [
+      { "cod": "1", "producto": "Alcohol 500ml", "entradas": 2, "salidas": 2, "stock": 0 },
+      { "cod": "2", "producto": "Acetaminofen Tab", "entradas": 84, "salidas": 33, "stock": 51 }
+    ],
+    "entradas": [
+      { "cod": "1", "producto": "Alcohol 500ml", "fecha": "27/6/2026", "cantidad": 2 },
+      { "cod": "2", "producto": "Acetaminofen Tab", "fecha": "27/6/2026", "cantidad": 10 }
+    ],
+    "donado": [
+      { "cod": "15", "producto": "Gerdex", "fecha": "27/6/2026", "cantidad": 1, "centro": "Hospital Dr. Miguel Pérez Carreño", "combo": "1" },
+      { "cod": "18", "producto": "Jeringa 10cc", "fecha": "27/6/2026", "cantidad": 3, "centro": "Hospital Dr. Miguel Pérez Carreño", "combo": "1" }
+    ]
+  }
+}
