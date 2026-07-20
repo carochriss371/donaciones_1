@@ -1,16 +1,1 @@
-[
-  {
-    "cod": "1",
-    "producto": "Alcohol 500ml",
-    "entradas": 2,
-    "salidas": 2,
-    "stock": 0
-  },
-  {
-    "cod": "2",
-    "producto": "Acetaminofen Tab",
-    "entradas": 84,
-    "salidas": 33,
-    "stock": 51
-  }
-]
+[]
