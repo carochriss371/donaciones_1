@@ -1,43 +1,73 @@
-name: Actualizar Datos desde Google Apps Script
+name: Actualizar Datos desde Apps Script
 
 on:
-  schedule:
-    # Ejecutar cada hora
-    - cron: '0 * * * *'
-    # También cada 30 minutos en horario laboral (opcional)
-    # - cron: '*/30 8-20 * * 1-5'
-  # Ejecutar manualmente desde Actions
+  # Permitir que sea llamado desde la API
+  repository_dispatch:
+    types: [update-data]
+  
+  # Ejecución manual para pruebas
   workflow_dispatch:
+    inputs:
+      data:
+        description: 'Datos JSON'
+        required: true
+        type: string
+      secret:
+        description: 'Webhook Secret'
+        required: true
+        type: string
 
 jobs:
   update-data:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: write  # Permiso para escribir en el repositorio
     
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
       
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
+      - name: Verify secret
+        run: |
+          EXPECTED_SECRET="${{ secrets.WEBHOOK_SECRET }}"
+          # Para repository_dispatch
+          RECEIVED_SECRET="${{ github.event.client_payload.secret }}"
+          # Para workflow_dispatch
+          if [ -z "$RECEIVED_SECRET" ]; then
+            RECEIVED_SECRET="${{ github.event.inputs.secret }}"
+          fi
+          
+          if [ "$EXPECTED_SECRET" != "$RECEIVED_SECRET" ]; then
+            echo "❌ Secret inválido"
+            exit 1
+          fi
+          echo "✅ Secret verificado"
       
-      - name: Install dependencies
-        run: npm install axios
-      
-      - name: Fetch data from Google Apps Script
-        run: node scripts/fetch-data.js
-        env:
-          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
-          WEBHOOK_SECRET: ${{ secrets.WEBHOOK_SECRET }}
+      - name: Extract and save data
+        run: |
+          # Obtener datos según el tipo de evento
+          if [ -n "${{ github.event.client_payload.data }}" ]; then
+            DATA='${{ github.event.client_payload.data }}'
+          elif [ -n "${{ github.event.inputs.data }}" ]; then
+            DATA='${{ github.event.inputs.data }}'
+          else
+            echo "❌ No se recibieron datos"
+            exit 1
+          fi
+          
+          # Crear directorio y guardar datos
+          mkdir -p public/data
+          echo "$DATA" | jq '.contabilidades' > public/data/contabilidad.json
+          echo "$DATA" | jq '.inventario' > public/data/inventario.json
+          echo "$DATA" | jq '.donado' > public/data/donado.json
+          echo "$DATA" | jq '{summary: .summary, timestamp: .timestamp}' > public/data/metadata.json
+          
+          echo "✅ Datos guardados correctamente"
       
       - name: Commit and push changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add public/data/
-          # Solo commit si hay cambios
           git diff --staged --quiet || git commit -m "Actualizar datos desde Apps Script $(date +'%Y-%m-%d %H:%M:%S')"
           git push
