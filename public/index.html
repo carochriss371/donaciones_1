@@ -4,34 +4,21 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>LOS BUENOS SOMOS MÁS | Panel de Transparencia</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-    
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries">
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+
     <style>
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
-        body { font-family: 'Inter', sans-serif; }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
         .glass-card {
             background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(8px);
-        }
-        .stock-low {
-            background-color: #ffdad6;
-            color: #93000a;
-            padding: 2px 10px;
-            border-radius: 9999px;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
-        .stock-normal {
-            background-color: #80f98b;
-            color: #007327;
-            padding: 2px 10px;
-            border-radius: 9999px;
-            font-size: 0.7rem;
-            font-weight: 600;
         }
         .fade-in {
             animation: fadeIn 0.3s ease-in;
@@ -77,6 +64,22 @@
             color: #424752;
             margin-right: 12px;
         }
+        .stock-low {
+            background-color: #ffdad6;
+            color: #93000a;
+            padding: 2px 10px;
+            border-radius: 9999px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .stock-normal {
+            background-color: #80f98b;
+            color: #007327;
+            padding: 2px 10px;
+            border-radius: 9999px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
     </style>
 
     <script id="tailwind-config">
@@ -84,80 +87,156 @@
             darkMode: "class",
             theme: {
                 extend: {
-                    colors: {
+                    "colors": {
                         "error": "#ba1a1a",
                         "on-error": "#ffffff",
+                        "on-secondary-fixed-variant": "#00531a",
+                        "on-tertiary-container": "#ffc581",
                         "primary-container": "#0056b3",
                         "on-background": "#141d23",
+                        "on-secondary": "#ffffff",
                         "surface-container-low": "#ecf5fe",
                         "on-surface": "#141d23",
+                        "on-tertiary-fixed": "#2b1700",
+                        "tertiary": "#5e3900",
                         "surface-container-high": "#e0e9f2",
                         "surface-container-lowest": "#ffffff",
                         "surface-container": "#e6eff8",
+                        "tertiary-fixed": "#ffddb9",
+                        "on-tertiary-fixed-variant": "#663e00",
+                        "inverse-surface": "#293138",
+                        "secondary-fixed-dim": "#66df75",
                         "error-container": "#ffdad6",
+                        "primary-fixed": "#d7e2ff",
+                        "surface-dim": "#d2dbe4",
+                        "on-secondary-fixed": "#002106",
+                        "secondary-fixed": "#83fc8e",
                         "primary": "#003f87",
+                        "inverse-on-surface": "#e9f2fb",
+                        "on-primary-fixed": "#001a40",
                         "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb961",
+                        "surface-tint": "#115cb9",
                         "outline-variant": "#c2c6d4",
                         "on-surface-variant": "#424752",
                         "secondary-container": "#80f98b",
+                        "on-primary-container": "#bbd0ff",
                         "secondary": "#006e25",
+                        "surface-bright": "#f6faff",
+                        "tertiary-container": "#7e4e00",
                         "on-secondary-container": "#007327",
                         "on-error-container": "#93000a",
+                        "surface-container-highest": "#dbe4ed",
+                        "inverse-primary": "#acc7ff",
+                        "primary-fixed-dim": "#acc7ff",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed-variant": "#004491",
                         "outline": "#727784",
-                        "surface": "#f6faff"
+                        "background": "#f6faff",
+                        "surface": "#f6faff",
+                        "surface-variant": "#dbe4ed"
                     },
-                    borderRadius: {
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
                         "xl": "0.5rem",
                         "full": "0.75rem"
                     },
-                    spacing: {
+                    "spacing": {
                         "sm": "8px",
                         "lg": "24px",
+                        "base": "4px",
                         "md": "16px",
                         "gutter": "24px",
                         "xs": "4px",
-                        "container-max": "1280px"
+                        "container-max": "1280px",
+                        "xl": "48px"
                     },
-                    fontFamily: {
+                    "fontFamily": {
                         "headline-md": ["Inter"],
+                        "body-lg": ["Inter"],
                         "label-bold": ["Inter"],
                         "display-lg": ["Inter"],
                         "body-sm": ["Inter"],
                         "headline-sm": ["Inter"],
                         "body-md": ["Inter"],
+                        "display-lg-mobile": ["Inter"],
                         "tabular-nums": ["Inter"]
                     },
-                    fontSize: {
-                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
-                        "label-bold": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
-                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
-                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
-                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
-                        "tabular-nums": ["14px", {"lineHeight": "20px", "fontWeight": "500"}]
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-bold": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "tabular-nums": ["14px", { "lineHeight": "20px", "fontWeight": "500" }]
                     }
-                },
-            },
+                }
+            }
         }
     </script>
 </head>
+
 <body class="bg-surface text-on-surface min-h-screen">
-    <!-- Header - solo el título y totales -->
+
+    <!-- TopNavBar -->
     <header class="fixed top-0 left-0 w-full z-50 bg-surface border-b border-outline-variant flex justify-between items-center px-gutter h-16 max-w-container-max mx-auto">
-        <h1 class="text-headline-md font-headline-md font-bold text-primary">LOS BUENOS SOMOS MÁS</h1>
+        <div class="flex items-center gap-md">
+            <h1 class="text-headline-md font-headline-md font-bold text-primary">LOS BUENOS SOMOS MÁS</h1>
+            <nav class="hidden md:flex gap-md items-center h-full">
+                <a class="text-primary border-b-2 border-primary pb-1 font-label-bold text-label-bold" href="#">Panel</a>
+                <a class="text-on-surface-variant hover:text-primary transition-colors font-label-bold text-label-bold" href="#inventario">Inventario</a>
+                <a class="text-on-surface-variant hover:text-primary transition-colors font-label-bold text-label-bold" href="#donaciones">Donaciones</a>
+            </nav>
+        </div>
         <div class="flex items-center gap-md">
             <div class="flex flex-col items-end">
-                <span class="text-headline-sm font-headline-sm text-primary font-bold" id="totalRecaudado">Cargando...</span>
-                <span class="text-body-sm font-body-sm text-on-surface-variant" id="lastUpdate"></span>
+                <span class="text-headline-sm font-headline-sm text-primary font-bold" id="totalRecaudadoHeader">Cargando...</span>
+                <span class="text-body-sm font-body-sm text-on-surface-variant" id="lastUpdateHeader"></span>
             </div>
+            <button class="bg-primary text-on-primary px-md py-sm rounded-lg text-label-bold font-label-bold hover:opacity-90 transition-opacity" id="updateButton">Actualizar</button>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="pt-16 min-h-screen">
+    <!-- SideNavBar -->
+    <aside class="hidden lg:flex flex-col fixed left-0 top-16 bottom-0 w-64 p-md bg-surface-container-lowest border-r border-outline-variant shadow-sm z-40">
+        <div class="mb-lg px-sm">
+            <div class="flex items-center gap-sm mb-xs">
+                <div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center">
+                    <span class="material-symbols-outlined text-on-primary-container" style="font-size: 20px;">account_balance</span>
+                </div>
+                <h2 class="text-headline-sm font-headline-sm text-primary">Operaciones</h2>
+            </div>
+            <p class="text-body-sm font-body-sm text-on-surface-variant">Estado Verificado: Activo</p>
+        </div>
+        <nav class="flex flex-col gap-xs flex-grow">
+            <a class="rounded-lg px-4 py-3 flex items-center gap-md transition-all duration-200 bg-secondary-container text-on-secondary-container" href="#contabilidad">
+                <span class="material-symbols-outlined">account_balance_wallet</span>
+                <span class="text-label-bold font-label-bold">Contabilidad</span>
+            </a>
+            <a class="hover:bg-surface-container px-4 py-3 rounded-lg flex items-center gap-md transition-all duration-200 text-on-surface-variant" href="#inventario">
+                <span class="material-symbols-outlined">inventory_2</span>
+                <span class="text-label-bold font-label-bold">Inventario</span>
+            </a>
+            <a class="hover:bg-surface-container px-4 py-3 rounded-lg flex items-center gap-md transition-all duration-200 text-on-surface-variant" href="#donaciones">
+                <span class="material-symbols-outlined">volunteer_activism</span>
+                <span class="text-label-bold font-label-bold">Donaciones</span>
+            </a>
+        </nav>
+        <button class="mt-auto w-full bg-primary-container text-on-primary-container p-md rounded-xl flex items-center justify-center gap-sm hover:bg-opacity-90 transition-all">
+            <span class="material-symbols-outlined">visibility</span>
+            <span class="text-label-bold font-label-bold">Ver Evidencia</span>
+        </button>
+    </aside>
+
+    <!-- Main Content Canvas -->
+    <main class="lg:pl-64 pt-16 min-h-screen">
         <div class="max-w-container-max mx-auto p-gutter space-y-lg">
-            
-            <!-- Tarjetas de resumen -->
+
+            <!-- Hero / Summary Cards -->
             <section class="grid grid-cols-1 md:grid-cols-3 gap-md" id="summaryCards">
                 <div class="bg-white border border-outline-variant rounded-xl p-lg shadow-sm hover:shadow-md transition-shadow fade-in">
                     <div class="flex justify-between items-start mb-sm">
@@ -182,7 +261,7 @@
                 </div>
             </section>
 
-            <!-- Contabilidad -->
+            <!-- Accounting Section -->
             <section class="bg-white border border-outline-variant rounded-xl shadow-sm overflow-hidden" id="contabilidad">
                 <div class="p-md border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest">
                     <h3 class="text-headline-sm font-headline-sm text-primary flex items-center gap-sm">
@@ -211,65 +290,61 @@
                 <div class="pagination-container" id="contabilidadPagination"></div>
             </section>
 
-            <!-- Inventario -->
-            <section id="inventario">
-                <div class="flex items-center gap-md mb-lg">
+            <!-- Inventory Grid Section -->
+            <section class="space-y-lg" id="inventario">
+                <div class="flex items-center gap-md">
                     <h3 class="text-headline-md font-headline-md text-on-background">Control de Inventario</h3>
                     <div class="h-[2px] flex-grow bg-outline-variant"></div>
                 </div>
-                <div class="bg-white border border-outline-variant rounded-xl shadow-sm overflow-hidden">
-                    <div class="p-md bg-surface-container border-b border-outline-variant flex justify-between items-center">
-                        <h4 class="text-headline-sm font-headline-sm text-primary">Stock Actual</h4>
-                        <span class="text-body-sm text-on-surface-variant" id="inventarioCount">0 productos</span>
+                <div class="grid grid-cols-1 xl:grid-cols-2 gap-lg">
+                    <!-- Current Stock -->
+                    <div class="bg-white border border-outline-variant rounded-xl shadow-sm overflow-hidden h-full">
+                        <div class="p-md bg-surface-container border-b border-outline-variant flex justify-between items-center">
+                            <h4 class="text-headline-sm font-headline-sm text-primary">Stock Actual</h4>
+                            <span class="text-body-sm text-on-surface-variant" id="inventarioCount">0 productos</span>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left">
+                                <thead class="bg-surface-container-low">
+                                    <tr>
+                                        <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant">Código</th>
+                                        <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant text-right">Entradas</th>
+                                        <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant text-right">Salidas</th>
+                                        <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant text-right">Stock</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-outline-variant" id="inventarioBody">
+                                    <tr><td colspan="4" class="px-md py-md text-center text-on-surface-variant">Cargando datos...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="pagination-container" id="inventarioPagination"></div>
                     </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left">
-                            <thead class="bg-surface-container-low">
-                                <tr>
-                                    <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant">Código</th>
-                                    <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant">Producto</th>
-                                    <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant text-right">Entradas</th>
-                                    <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant text-right">Salidas</th>
-                                    <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant text-right">Stock</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-outline-variant" id="inventarioBody">
-                                <tr><td colspan="5" class="px-md py-md text-center text-on-surface-variant">Cargando datos...</td></tr>
-                            </tbody>
-                        </table>
+                    <!-- Entry Table -->
+                    <div class="bg-white border border-outline-variant rounded-xl shadow-sm overflow-hidden h-full">
+                        <div class="p-md bg-surface-container border-b border-outline-variant flex justify-between items-center">
+                            <h4 class="text-headline-sm font-headline-sm text-primary">Registro de Entradas</h4>
+                            <span class="text-body-sm text-on-surface-variant" id="entradasCount">0 registros</span>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left">
+                                <thead class="bg-surface-container-low">
+                                    <tr>
+                                        <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant">Fecha</th>
+                                        <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant">Producto</th>
+                                        <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant text-right">Cantidad</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-outline-variant" id="entradasBody">
+                                    <tr><td colspan="3" class="px-md py-md text-center text-on-surface-variant">Cargando datos...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="pagination-container" id="entradasPagination"></div>
                     </div>
-                    <div class="pagination-container" id="inventarioPagination"></div>
                 </div>
-            </section>
-
-            <!-- Entradas -->
-            <section>
-                <div class="bg-white border border-outline-variant rounded-xl shadow-sm overflow-hidden">
-                    <div class="p-md bg-surface-container border-b border-outline-variant flex justify-between items-center">
-                        <h4 class="text-headline-sm font-headline-sm text-primary">Registro de Entradas</h4>
-                        <span class="text-body-sm text-on-surface-variant" id="entradasCount">0 registros</span>
-                    </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left">
-                            <thead class="bg-surface-container-low">
-                                <tr>
-                                    <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant">Fecha</th>
-                                    <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant">Producto</th>
-                                    <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant text-right">Cantidad</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-outline-variant" id="entradasBody">
-                                <tr><td colspan="3" class="px-md py-md text-center text-on-surface-variant">Cargando datos...</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="pagination-container" id="entradasPagination"></div>
-                </div>
-            </section>
-
-            <!-- Donaciones -->
-            <section id="donaciones">
-                <div class="bg-white border border-outline-variant rounded-xl shadow-sm overflow-hidden">
+                <!-- Donations/Outputs Table -->
+                <div class="bg-white border border-outline-variant rounded-xl shadow-sm overflow-hidden" id="donaciones">
                     <div class="p-md bg-surface-container border-b border-outline-variant flex justify-between items-center">
                         <h4 class="text-headline-sm font-headline-sm text-primary">Donaciones y Salidas</h4>
                         <span class="text-body-sm text-on-surface-variant" id="donadoCount">0 registros</span>
@@ -294,7 +369,47 @@
                 </div>
             </section>
 
-            <!-- Impacto -->
+            <!-- Donation Methods Section -->
+            <section class="bg-surface-container-low rounded-xl p-lg border border-primary-container">
+                <div class="flex flex-col md:flex-row gap-lg items-center">
+                    <div class="md:w-1/3 space-y-md text-center md:text-left">
+                        <h3 class="text-headline-md font-headline-md text-primary">Métodos de Donación</h3>
+                        <p class="text-body-md font-body-md text-on-surface-variant">Tu transparencia es nuestra prioridad. Utiliza cualquiera de estos canales oficiales para apoyarnos.</p>
+                        <div class="bg-primary-container text-on-primary-container p-md rounded-lg inline-flex items-center gap-sm">
+                            <span class="material-symbols-outlined">call</span>
+                            <span class="text-headline-sm font-headline-sm">+58 412 366 3847</span>
+                        </div>
+                    </div>
+                    <div class="md:w-2/3 grid grid-cols-2 sm:grid-cols-3 gap-md w-full">
+                        <div class="bg-white p-md rounded-xl border border-outline-variant flex flex-col items-center gap-sm text-center hover:border-primary transition-colors">
+                            <span class="material-symbols-outlined text-primary" style="font-size: 32px;">account_balance</span>
+                            <span class="text-label-bold font-label-bold">Zelle</span>
+                        </div>
+                        <div class="bg-white p-md rounded-xl border border-outline-variant flex flex-col items-center gap-sm text-center hover:border-primary transition-colors">
+                            <span class="material-symbols-outlined text-primary" style="font-size: 32px;">smartphone</span>
+                            <span class="text-label-bold font-label-bold">Pago Móvil</span>
+                        </div>
+                        <div class="bg-white p-md rounded-xl border border-outline-variant flex flex-col items-center gap-sm text-center hover:border-primary transition-colors">
+                            <span class="material-symbols-outlined text-primary" style="font-size: 32px;">currency_bitcoin</span>
+                            <span class="text-label-bold font-label-bold">Binance</span>
+                        </div>
+                        <div class="bg-white p-md rounded-xl border border-outline-variant flex flex-col items-center gap-sm text-center hover:border-primary transition-colors">
+                            <span class="material-symbols-outlined text-primary" style="font-size: 32px;">credit_card</span>
+                            <span class="text-label-bold font-label-bold">Zinli</span>
+                        </div>
+                        <div class="bg-white p-md rounded-xl border border-outline-variant flex flex-col items-center gap-sm text-center hover:border-primary transition-colors">
+                            <span class="material-symbols-outlined text-primary" style="font-size: 32px;">account_balance_wallet</span>
+                            <span class="text-label-bold font-label-bold">Transferencia</span>
+                        </div>
+                        <div class="bg-white p-md rounded-xl border border-outline-variant flex flex-col items-center gap-sm text-center hover:border-primary transition-colors">
+                            <span class="material-symbols-outlined text-primary" style="font-size: 32px;">payments</span>
+                            <span class="text-label-bold font-label-bold">Efectivo</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Impact Section -->
             <section class="space-y-lg">
                 <div class="flex items-center gap-md">
                     <h3 class="text-headline-md font-headline-md text-on-background">Impacto de tu Ayuda</h3>
@@ -317,15 +432,80 @@
                     </div>
                 </div>
             </section>
+
         </div>
     </main>
 
     <!-- Footer -->
     <footer class="w-full py-lg px-gutter flex flex-col md:flex-row justify-between items-center gap-md bg-surface-container-highest border-t border-outline-variant mt-8">
-        <span class="text-label-bold font-label-bold text-primary">LOS BUENOS SOMOS MÁS</span>
-        <p class="text-body-sm font-body-sm text-on-surface-variant">© 2026 Plataforma de Transparencia. Datos actualizados automáticamente.</p>
+        <div class="flex flex-col gap-xs items-center md:items-start">
+            <span class="text-label-bold font-label-bold text-primary">LOS BUENOS SOMOS MÁS</span>
+            <p class="text-body-sm font-body-sm text-on-surface-variant max-w-sm text-center md:text-left">
+                © 2026 Plataforma de Transparencia. Datos actualizados automáticamente.
+            </p>
+        </div>
+        <div class="flex gap-md flex-wrap justify-center">
+            <a class="text-on-surface-variant hover:text-on-surface text-label-bold font-label-bold hover:underline" href="#">Política de Privacidad</a>
+            <a class="text-on-surface-variant hover:text-on-surface text-label-bold font-label-bold hover:underline" href="#">Reportes de Auditoría</a>
+            <a class="text-on-surface-variant hover:text-on-surface text-label-bold font-label-bold hover:underline" href="#">Términos de Servicio</a>
+            <a class="text-on-surface-variant hover:text-on-surface text-label-bold font-label-bold hover:underline" href="#">Soporte</a>
+        </div>
     </footer>
 
     <script src="js/app.js"></script>
+
+    <!-- Micro-interaction Script for Side Nav -->
+    <script>
+        // Smooth scroll for side nav
+        document.querySelectorAll('aside nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+
+                    // Update active state
+                    document.querySelectorAll('aside nav a').forEach(a => {
+                        a.classList.remove('bg-secondary-container', 'text-on-secondary-container');
+                        a.classList.add('text-on-surface-variant');
+                    });
+                    this.classList.add('bg-secondary-container', 'text-on-secondary-container');
+                    this.classList.remove('text-on-surface-variant');
+                }
+            });
+        });
+
+        // Simple visibility observer for active nav highlighting
+        const observerOptions = {
+            root: null,
+            rootMargin: '-20% 0px -70% 0px',
+            threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    const navLink = document.querySelector(`aside nav a[href="#${id}"]`);
+                    if (navLink) {
+                        document.querySelectorAll('aside nav a').forEach(a => {
+                            a.classList.remove('bg-secondary-container', 'text-on-secondary-container');
+                            a.classList.add('text-on-surface-variant');
+                        });
+                        navLink.classList.add('bg-secondary-container', 'text-on-secondary-container');
+                        navLink.classList.remove('text-on-surface-variant');
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section[id]').forEach(section => observer.observe(section));
+    </script>
+
 </body>
 </html>
