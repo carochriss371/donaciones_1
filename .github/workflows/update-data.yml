@@ -14,59 +14,54 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Procesar y Guardar Datos
+      - name: Verificar Secret
         env:
-          PAYLOAD_DATA: ${{ toJson(github.event.client_payload.data) }}
           SECRET: ${{ github.event.client_payload.secret }}
           EXPECTED_SECRET: ${{ secrets.WEBHOOK_SECRET }}
         run: |
-          # 1. Validar Secret
           if [ -n "$EXPECTED_SECRET" ] && [ "$EXPECTED_SECRET" != "$SECRET" ]; then
             echo "❌ Secret inválido"
             exit 1
           fi
           echo "✅ Secret verificado correctamente"
 
-          # 2. Guardar payload directo a archivo
-          echo "$PAYLOAD_DATA" > /tmp/raw_payload.json
+      - name: Procesar y Guardar JSON
+        env:
+          PAYLOAD_DATA: ${{ toJson(github.event.client_payload.data) }}
+        shell: python
+        run: |
+          import json
+          import os
 
-          # 3. Procesar JSON de forma limpia con Python
-          python3 -c '
-import json, os
+          raw_data = os.environ.get("PAYLOAD_DATA", "")
 
-raw_data = os.environ.get("PAYLOAD_DATA", "")
+          try:
+              data = json.loads(raw_data)
+              # Si viene como string escapado, lo decodificamos por segunda vez
+              if isinstance(data, str):
+                  data = json.loads(data)
+          except Exception as e:
+              print(f"❌ Error al decodificar JSON: {e}")
+              raise SystemExit(1)
 
-# Intentar parsear el JSON (maneja si viene como String o como Objeto)
-try:
-    data = json.loads(raw_data)
-    if isinstance(data, str):
-        data = json.loads(data)
-except Exception as e:
-    print(f"❌ Error al decodificar JSON: {e}")
-    exit(1)
+          os.makedirs("public/data", exist_ok=True)
 
-os.makedirs("public/data", exist_ok=True)
+          files = {
+              "public/data/contabilidad.json": data.get("contabilidades", []),
+              "public/data/inventario.json": data.get("inventario", []),
+              "public/data/entradas.json": data.get("entradas", []),
+              "public/data/donado.json": data.get("donado", []),
+              "public/data/metadata.json": {
+                  "summary": data.get("summary", {}),
+                  "timestamp": data.get("timestamp", "")
+              }
+          }
 
-# Guardar sub-archivos
-files = {
-    "public/data/contabilidad.json": data.get("contabilidades", []),
-    "public/data/inventario.json": data.get("inventario", []),
-    "public/data/entradas.json": data.get("entradas", []),
-    "public/data/donado.json": data.get("donado", []),
-    "public/data/metadata.json": {
-        "summary": data.get("summary", {}),
-        "timestamp": data.get("timestamp", "")
-    }
-}
+          for path, content in files.items():
+              with open(path, "w", encoding="utf-8") as f:
+                  json.dump(content, f, ensure_ascii=False, indent=2)
 
-for path, content in files.items():
-    with open(path, "w", encoding="utf-8") as f:
-        json.dump(content, f, ensure_ascii=False, indent=2)
-
-print("✅ Todos los archivos JSON fueron procesados y guardados correctamente.")
-'
-
-          ls -la public/data/
+          print("✅ Todos los archivos JSON fueron procesados y guardados correctamente.")
 
       - name: Commit and push changes
         run: |
