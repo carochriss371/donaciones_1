@@ -1,176 +1,168 @@
 import { useEffect, useState } from "react";
 
-/**
- * Simple dashboard with 3 tabs:
- * - Contabilidad: muestra totales por cuenta y últimos asientos
- * - Inventario: muestra stock actual (COD, producto, stock)
- * - Donaciones: lista paginada de donado
- *
- * Números se muestran con coma decimal (ej. 16981,68)
- */
-
-function formatNumber(value) {
-  if (value === null || value === undefined || isNaN(value)) return "";
-  // Mostrar con 2 decimales y coma decimal
-  return Number(value).toFixed(2).replace(".", ",");
-}
-
 export default function Dashboard() {
-  const [tab, setTab] = useState("contabilidad");
+  const [summary, setSummary] = useState(null);
   const [contabilidades, setContabilidades] = useState([]);
   const [inventario, setInventario] = useState([]);
+  const [entradas, setEntradas] = useState([]);
   const [donado, setDonado] = useState([]);
 
-  // Donaciones pagination
-  const [page, setPage] = useState(1);
-  const pageSize = 10;
-  const totalPages = Math.max(1, Math.ceil(donado.length / pageSize));
-
   useEffect(() => {
-    fetch("/api/contabilidad").then(r => r.json()).then(d => setContabilidades(d.contabilidades || []));
-    fetch("/api/inventario").then(r => r.json()).then(d => setInventario(d.inventario || []));
-    fetch("/api/donado").then(r => r.json()).then(d => setDonado(d.donado || []));
+    fetch("/api/contabilidad").then(r => r.json()).then(d => {
+      setContabilidades(d.contabilidades || []);
+      if (d.summary) setSummary(d.summary);
+    }).catch(()=>{});
+    fetch("/api/inventario").then(r => r.json()).then(d => { setInventario(d.inventario || []); setEntradas(d.entradas || []); }).catch(()=>{});
+    fetch("/api/donado").then(r => r.json()).then(d => setDonado(d.donado || [])).catch(()=>{});
   }, []);
 
-  function computeTotals(account) {
-    const rows = account.rows || [];
-    let totalDebe = 0, totalHaber = 0, lastSaldo = null;
-    rows.forEach(r => {
-      if (r.debe) totalDebe += Number(r.debe);
-      if (r.haber) totalHaber += Number(r.haber);
-      if (r.saldo !== null && r.saldo !== undefined) lastSaldo = r.saldo;
-    });
-    return { totalDebe, totalHaber, lastSaldo };
-  }
-
-  const pagedDonado = donado.slice((page - 1) * pageSize, page * pageSize);
-
   return (
-    <div style={{ fontFamily: "Arial, sans-serif", padding: 20 }}>
-      <h1 style={{ marginBottom: 10 }}>Dashboard — Donaciones</h1>
-      <div style={{ marginBottom: 20 }}>
-        <button onClick={() => setTab("contabilidad")} style={tab === "contabilidad" ? activeBtn : btn}>Contabilidad</button>
-        <button onClick={() => setTab("inventario")} style={tab === "inventario" ? activeBtn : btn}>Inventario</button>
-        <button onClick={() => setTab("donaciones")} style={tab === "donaciones" ? activeBtn : btn}>Donaciones</button>
-      </div>
+    <div className="min-h-screen bg-surface text-on-surface">
+      {/* Puedes pegar aquí literalmente tu header HTML (convertir class -> className) */}
+      <header className="fixed top-0 left-0 w-full z-50 bg-surface ...">
+        <div className="flex items-center gap-md">
+          <h1 className="text-headline-md font-bold text-primary">LOS BUENOS SOMOS MÁS</h1>
+        </div>
+        <div className="flex items-center gap-md">
+          <div className="flex flex-col items-end">
+            <span className="text-headline-sm font-bold text-primary">
+              {summary ? `$${Number(summary.totalRecaudado).toLocaleString()}` : "$—"}
+            </span>
+            <span className="text-body-sm text-on-surface-variant">
+              {summary ? `Última actualización: ${summary.lastUpdate}` : ""}
+            </span>
+          </div>
+        </div>
+      </header>
 
-      {tab === "contabilidad" && (
-        <div>
-          <h2>Contabilidad</h2>
-          {contabilidades.length === 0 && <p>No hay datos disponibles.</p>}
-          {contabilidades.map((acc, idx) => {
-            const totals = computeTotals(acc);
-            return (
-              <div key={idx} style={{ border: "1px solid #ddd", padding: 12, marginBottom: 12 }}>
-                <h3 style={{ margin: 0 }}>{acc.accountName}</h3>
-                <div style={{ marginTop: 8, display: "flex", gap: 16 }}>
-                  <div>Total recibido (Debe): <strong>{formatNumber(totals.totalDebe)}</strong></div>
-                  <div>Total gastado (Haber): <strong>{formatNumber(totals.totalHaber)}</strong></div>
-                  <div>Saldo actual: <strong>{formatNumber(totals.lastSaldo)}</strong></div>
-                </div>
-                <table style={{ width: "100%", marginTop: 10, borderCollapse: "collapse" }}>
-                  <thead>
-                    <tr>
-                      <th style={th}>Fecha</th>
-                      <th style={th}>Asiento</th>
-                      <th style={th}>Debe</th>
-                      <th style={th}>Haber</th>
-                      <th style={th}>Saldo</th>
-                    </tr>
+      <main className="pt-16 lg:pl-64">
+        <div className="max-w-container-max mx-auto p-gutter">
+          {/* Hero cards */}
+          <section className="grid grid-cols-1 md:grid-cols-3 gap-md">
+            <div className="bg-white border rounded-xl p-lg shadow-sm">
+              <div className="text-label-bold">TOTAL RECAUDADO</div>
+              <div className="text-display-lg text-primary">
+                {summary ? `$${Number(summary.totalRecaudado).toLocaleString()}` : "—"}
+              </div>
+            </div>
+            <div className="bg-white border rounded-xl p-lg shadow-sm">
+              <div className="text-label-bold">TOTAL EJECUTADO</div>
+              <div className="text-display-lg">
+                {summary ? `$${Number(summary.totalEjecutado).toLocaleString()}` : "—"}
+              </div>
+            </div>
+            <div className="bg-white border rounded-xl p-lg shadow-sm">
+              <div className="text-label-bold">SALDO NETO</div>
+              <div className="text-display-lg text-secondary">
+                {summary ? `$${Number(summary.saldoNeto).toLocaleString()}` : "—"}
+              </div>
+            </div>
+          </section>
+
+          {/* Contabilidad */}
+          <section id="contabilidad" className="mt-8 bg-white border rounded-xl">
+            <div className="p-md border-b">
+              <h3 className="text-headline-sm">Registro Contable</h3>
+            </div>
+            <div className="overflow-x-auto">
+              {contabilidades.length === 0 ? (
+                <div className="p-md">No hay datos disponibles.</div>
+              ) : (
+                contabilidades.map((acc, idx) => (
+                  <div key={idx} className="p-md border-b">
+                    <h4 className="font-bold">{acc.accountName}</h4>
+                    <table className="w-full mt-3">
+                      <thead>
+                        <tr className="bg-surface-container-low">
+                          <th className="px-md py-sm">Fecha</th>
+                          <th className="px-md py-sm">Asiento</th>
+                          <th className="px-md py-sm">Debe</th>
+                          <th className="px-md py-sm">Haber</th>
+                          <th className="px-md py-sm">Saldo</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {(acc.rows || []).map((r,i) => (
+                          <tr key={i} className="hover:bg-surface-container-lowest">
+                            <td className="px-md py-sm">{r.fecha}</td>
+                            <td className="px-md py-sm">{r.asiento || r.descripcion}</td>
+                            <td className="px-md py-sm">{r.debe ?? ""}</td>
+                            <td className="px-md py-sm">{r.haber ?? ""}</td>
+                            <td className="px-md py-sm">{r.saldo ?? ""}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                ))
+              )}
+            </div>
+          </section>
+
+          {/* Inventario */}
+          <section id="inventario" className="mt-8">
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-lg">
+              <div className="bg-white border rounded-xl p-md">
+                <h4 className="text-headline-sm">Stock Actual</h4>
+                <table className="w-full mt-3">
+                  <thead className="bg-surface-container-low">
+                    <tr><th className="px-md">Producto ID</th><th>Entradas</th><th>Salidas</th><th>Stock</th></tr>
                   </thead>
                   <tbody>
-                    {(acc.rows || []).map((r,i) => (
-                      <tr key={i} style={{ borderTop: "1px solid #eee" }}>
-                        <td style={td}>{r.fecha}</td>
-                        <td style={td}>{r.asiento}</td>
-                        <td style={td}>{r.debe !== null && r.debe !== undefined ? formatNumber(r.debe) : ""}</td>
-                        <td style={td}>{r.haber !== null && r.haber !== undefined ? formatNumber(r.haber) : ""}</td>
-                        <td style={td}>{r.saldo !== null && r.saldo !== undefined ? formatNumber(r.saldo) : ""}</td>
+                    {inventario.map((it,i) => (
+                      <tr key={i} className="hover:bg-surface-container-lowest">
+                        <td className="px-md py-md">{it.cod} {it.producto}</td>
+                        <td className="px-md py-md">{it.entradas ?? ""}</td>
+                        <td className="px-md py-md">{it.salidas ?? ""}</td>
+                        <td className="px-md py-md">{it.stock ?? ""}</td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
-            );
-          })}
-        </div>
-      )}
 
-      {tab === "inventario" && (
-        <div>
-          <h2>Inventario</h2>
-          <table style={{ width: "100%", borderCollapse: "collapse" }}>
-            <thead>
-              <tr>
-                <th style={th}>COD</th>
-                <th style={th}>Producto</th>
-                <th style={th}>Entradas</th>
-                <th style={th}>Salidas</th>
-                <th style={th}>Stock</th>
-              </tr>
-            </thead>
-            <tbody>
-              {inventario.map((it, i) => (
-                <tr key={i} style={{ borderTop: "1px solid #eee" }}>
-                  <td style={td}>{it.cod}</td>
-                  <td style={td}>{it.producto}</td>
-                  <td style={td}>{it.entradas !== null && it.entradas !== undefined ? formatNumber(it.entradas) : ""}</td>
-                  <td style={td}>{it.salidas !== null && it.salidas !== undefined ? formatNumber(it.salidas) : ""}</td>
-                  <td style={td}>{it.stock !== null && it.stock !== undefined ? formatNumber(it.stock) : ""}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
+              <div className="bg-white border rounded-xl p-md">
+                <h4 className="text-headline-sm">Registro de Entradas</h4>
+                <table className="w-full mt-3">
+                  <thead className="bg-surface-container-low">
+                    <tr><th>Fecha</th><th>Producto ID</th><th>Cantidad</th></tr>
+                  </thead>
+                  <tbody>
+                    {entradas.map((e,i) => (
+                      <tr key={i} className="hover:bg-surface-container-lowest">
+                        <td className="px-md py-md">{e.fecha}</td>
+                        <td className="px-md py-md">{e.cod} {e.producto}</td>
+                        <td className="px-md py-md">{e.cantidad}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
 
-      {tab === "donaciones" && (
-        <div>
-          <h2>Donaciones</h2>
-          <table style={{ width: "100%", borderCollapse: "collapse" }}>
-            <thead>
-              <tr>
-                <th style={th}>COD</th>
-                <th style={th}>Producto</th>
-                <th style={th}>Fecha</th>
-                <th style={th}>Cantidad</th>
-                <th style={th}>Centro</th>
-                <th style={th}>Combo</th>
-              </tr>
-            </thead>
-            <tbody>
-              {pagedDonado.map((d, i) => (
-                <tr key={i} style={{ borderTop: "1px solid #eee" }}>
-                  <td style={td}>{d.cod}</td>
-                  <td style={td}>{d.producto}</td>
-                  <td style={td}>{d.fecha}</td>
-                  <td style={td}>{d.cantidad}</td>
-                  <td style={td}>{d.centro}</td>
-                  <td style={td}>{d.combo}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-
-          <div style={{ marginTop: 12, display: "flex", gap: 8, alignItems: "center" }}>
-            <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1} style={btn}>Anterior</button>
-            <span>Página {page} / {totalPages}</span>
-            <button onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages} style={btn}>Siguiente</button>
-          </div>
+          {/* Donaciones */}
+          <section id="donaciones" className="mt-8 bg-white border rounded-xl p-md">
+            <h4 className="text-headline-sm">Donaciones y Salidas</h4>
+            <table className="w-full mt-3">
+              <thead className="bg-surface-container-low">
+                <tr><th>Fecha</th><th>Producto</th><th>Cantidad</th><th>Centro</th><th>Combo</th></tr>
+              </thead>
+              <tbody>
+                {donado.map((d,i) => (
+                  <tr key={i} className="hover:bg-surface-container-lowest">
+                    <td className="px-md py-md">{d.fecha}</td>
+                    <td className="px-md py-md">{d.cod} {d.producto}</td>
+                    <td className="px-md py-md">{d.cantidad}</td>
+                    <td className="px-md py-md">{d.centro || ""}</td>
+                    <td className="px-md py-md">{d.combo || ""}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </section>
         </div>
-      )}
+      </main>
     </div>
   );
 }
-
-/* Styles */
-const btn = {
-  padding: "8px 12px",
-  border: "1px solid #ccc",
-  background: "#fff",
-  cursor: "pointer",
-  borderRadius: 4
-};
-const activeBtn = { ...btn, background: "#0070f3", color: "#fff", borderColor: "#0070f3" };
-const th = { textAlign: "left", padding: "8px 6px", background: "#f8f8f8", borderBottom: "1px solid #ddd" };
-const td = { padding: "8px 6px" };
