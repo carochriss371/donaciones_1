@@ -97,6 +97,12 @@
             font-size: 12px;
             font-weight: 700;
         }
+        .text-error {
+            color: #ba1a1a;
+        }
+        .text-secondary {
+            color: #006e25;
+        }
     </style>
 
     <script id="tailwind-config">
@@ -1213,8 +1219,8 @@
         </div>
         <div class="flex items-center gap-md">
             <div class="flex flex-col items-end">
-                <span id="headerTotalRecaudado" class="text-headline-sm font-headline-sm text-primary font-bold">Cargando...</span>
-                <span id="headerLastUpdate" class="text-body-sm font-body-sm text-on-surface-variant">Última actualización: ...</span>
+                <span id="totalRecaudadoHeader" class="text-headline-sm font-headline-sm text-primary font-bold">Cargando...</span>
+                <span id="lastUpdateHeader" class="text-body-sm font-body-sm text-on-surface-variant">Cargando...</span>
             </div>
         </div>
     </header>
@@ -1228,7 +1234,7 @@
                 </div>
                 <h2 class="text-headline-sm font-headline-sm text-primary">Operaciones</h2>
             </div>
-            <p id="sidebarStatus" class="text-body-sm font-body-sm text-on-surface-variant">Cargando...</p>
+            <p id="sidebarStatus" class="text-body-sm font-body-sm text-on-surface-variant">Cargando datos...</p>
         </div>
         <nav class="flex flex-col gap-xs flex-grow">
             <a class="rounded-lg px-4 py-3 flex items-center gap-md transition-all duration-200 bg-secondary-container text-on-secondary-container" href="#dashboard">
@@ -1257,11 +1263,11 @@
         </div>
     </aside>
 
-    <!-- Main Content Canvas -->
-    <main class="lg:pl-64 pt-16 min-h-[884px]" data-stitch-vh="min-h-[884px]===min-h-screen">
+    <!-- Main Content -->
+    <main class="lg:pl-64 pt-16 min-h-[884px]">
         <div class="max-w-container-max mx-auto p-gutter space-y-lg">
 
-            <!-- Hero / Summary Cards -->
+            <!-- Dashboard Summary Cards -->
             <section id="dashboard" class="grid grid-cols-1 md:grid-cols-3 gap-md">
                 <div class="bg-white border border-outline-variant rounded-xl p-lg shadow-sm hover:shadow-md transition-shadow">
                     <div class="flex justify-between items-start mb-sm">
@@ -1295,7 +1301,7 @@
                 </div>
             </section>
 
-            <!-- Accounting Section -->
+            <!-- Contabilidad -->
             <section class="bg-white border border-outline-variant rounded-xl shadow-sm overflow-hidden" id="contabilidad">
                 <div class="p-md border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest">
                     <h3 class="text-headline-sm font-headline-sm text-primary flex items-center gap-sm">
@@ -1322,7 +1328,7 @@
                 <div id="contabilidadPagination" class="pagination"></div>
             </section>
 
-            <!-- Inventory Section -->
+            <!-- Inventario -->
             <section class="space-y-lg" id="inventario">
                 <div class="flex items-center gap-md">
                     <h3 class="text-headline-md font-headline-md text-on-background">Control de Inventario</h3>
@@ -1348,7 +1354,7 @@
                 </div>
             </section>
 
-            <!-- Entradas Section -->
+            <!-- Entradas -->
             <section class="bg-white border border-outline-variant rounded-xl shadow-sm overflow-hidden" id="entradas">
                 <div class="p-md border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest">
                     <h3 class="text-headline-sm font-headline-sm text-primary flex items-center gap-sm">
@@ -1372,7 +1378,7 @@
                 <div id="entradasPagination" class="pagination"></div>
             </section>
 
-            <!-- Donaciones Section -->
+            <!-- Donaciones -->
             <section class="bg-white border border-outline-variant rounded-xl shadow-sm overflow-hidden" id="donaciones">
                 <div class="p-md border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest">
                     <h3 class="text-headline-sm font-headline-sm text-primary flex items-center gap-sm">
@@ -1398,7 +1404,7 @@
                 <div id="donadoPagination" class="pagination"></div>
             </section>
 
-            <!-- Impacto Section -->
+            <!-- Impacto -->
             <section class="grid grid-cols-1 md:grid-cols-2 gap-md">
                 <div class="bg-white border border-outline-variant rounded-xl p-lg shadow-sm hover:shadow-md transition-shadow text-center">
                     <div class="w-12 h-12 bg-secondary-container rounded-full flex items-center justify-center mx-auto mb-sm">
@@ -1428,29 +1434,24 @@
             </p>
         </div>
         <div class="flex gap-md flex-wrap justify-center">
-            <span class="text-body-sm font-body-sm text-on-surface-variant" id="footerLastUpdate">Cargando...</span>
+            <span id="footerLastUpdate" class="text-body-sm font-body-sm text-on-surface-variant">Cargando...</span>
         </div>
     </footer>
 
-    <!-- Scripts -->
     <script src="app.js"></script>
 
-    <!-- Micro-interaction Script -->
+    <!-- Navigation Script -->
     <script>
-        // Smooth scroll for side nav
         document.querySelectorAll('aside nav a').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href').substring(1);
                 const targetElement = document.getElementById(targetId);
-
                 if (targetElement) {
                     window.scrollTo({
                         top: targetElement.offsetTop - 80,
                         behavior: 'smooth'
                     });
-
-                    // Update active state
                     document.querySelectorAll('aside nav a').forEach(a => {
                         a.classList.remove('bg-secondary-container', 'text-on-secondary-container');
                         a.classList.add('text-on-surface-variant');
@@ -1461,13 +1462,7 @@
             });
         });
 
-        // Simple visibility observer for active nav highlighting
-        const observerOptions = {
-            root: null,
-            rootMargin: '-20% 0px -70% 0px',
-            threshold: 0
-        };
-
+        const observerOptions = { root: null, rootMargin: '-20% 0px -70% 0px', threshold: 0 };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1484,7 +1479,6 @@
                 }
             });
         }, observerOptions);
-
         document.querySelectorAll('section[id]').forEach(section => observer.observe(section));
     </script>
 
