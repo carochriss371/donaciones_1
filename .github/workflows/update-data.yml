@@ -18,19 +18,18 @@ jobs:
         run: |
           echo "Event name: ${{ github.event_name }}"
           echo "Event type: ${{ github.event.action }}"
-          echo "Client payload: ${{ toJson(github.event.client_payload) }}"
+          echo "Client payload: ${{ toJSON(github.event.client_payload) }}"
       
       - name: Extract and save data
+        env:
+          DATA: ${{ toJSON(github.event.client_payload.data) }}
+          SECRET: ${{ github.event.client_payload.secret }}
+          TIMESTAMP: ${{ github.event.client_payload.timestamp }}
         run: |
-          # 🔥 IMPORTANTE: Acceder a los datos correctamente
-          DATA='${{ toJson(github.event.client_payload.data) }}'
-          SECRET='${{ github.event.client_payload.secret }}'
-          TIMESTAMP='${{ github.event.client_payload.timestamp }}'
-          
-          # Si DATA está vacío o es null, fallar
-          if [ -z "$DATA" ] || [ "$DATA" = "null" ]; then
+          # Verificar si DATA está vacío
+          if [ -z "$DATA" ] || [ "$DATA" = "null" ] || [ "$DATA" = '""' ]; then
             echo "❌ No se recibieron datos"
-            echo "Payload recibido: ${{ toJson(github.event.client_payload) }}"
+            echo "DATA: $DATA"
             exit 1
           fi
           
@@ -42,18 +41,23 @@ jobs:
           fi
           echo "✅ Secret verificado"
           
-          # Guardar datos (eliminar las comillas que agrega toJson)
-          echo "$DATA" | sed 's/^"//' | sed 's/"$//' | jq '.' > /tmp/data.json
-          
+          # Decodificar y guardar datos
           mkdir -p public/data
-          jq '.contabilidades' /tmp/data.json > public/data/contabilidad.json
-          jq '.inventario' /tmp/data.json > public/data/inventario.json
-          jq '.entradas' /tmp/data.json > public/data/entradas.json
-          jq '.donado' /tmp/data.json > public/data/donado.json
-          jq '{summary: .summary, timestamp: .timestamp}' /tmp/data.json > public/data/metadata.json
+          
+          # Usar echo y sed para quitar comillas extras
+          echo "$DATA" | sed 's/^"//' | sed 's/"$//' | jq '.contabilidades' > public/data/contabilidad.json
+          echo "$DATA" | sed 's/^"//' | sed 's/"$//' | jq '.inventario' > public/data/inventario.json
+          echo "$DATA" | sed 's/^"//' | sed 's/"$//' | jq '.entradas' > public/data/entradas.json
+          echo "$DATA" | sed 's/^"//' | sed 's/"$//' | jq '.donado' > public/data/donado.json
+          echo "$DATA" | sed 's/^"//' | sed 's/"$//' | jq '{summary: .summary, timestamp: .timestamp}' > public/data/metadata.json
           
           echo "✅ Datos guardados correctamente"
           ls -la public/data/
+          
+          # Mostrar primeras líneas de cada archivo
+          echo "📄 contabilidad.json:"
+          head -c 200 public/data/contabilidad.json
+          echo ""
       
       - name: Commit and push changes
         run: |
