@@ -1,7 +1,7 @@
 // app.js - Con paginación
 
 const DATA_URL = 'data/';
-const ROWS_PER_PAGE = 15;
+const ROWS_PER_PAGE = 5; // Cambiado de 15 a 5
 
 let state = {
     contabilidad: [],
@@ -71,6 +71,32 @@ async function fetchJSON(filename) {
         console.warn(`⚠️ ${filename}:`, error.message);
         return null;
     }
+}
+
+// ============================================
+// FUNCIÓN PARA FORMATEAR FECHA (DD/MM/AAAA)
+// ============================================
+
+function formatDate(fecha) {
+    if (!fecha) return '-';
+    
+    let d;
+    if (typeof fecha === 'string') {
+        d = new Date(fecha);
+    } else if (fecha instanceof Date) {
+        d = fecha;
+    } else {
+        return fecha;
+    }
+    
+    // Verificar si es una fecha válida
+    if (isNaN(d.getTime())) return fecha;
+    
+    const dia = String(d.getDate()).padStart(2, '0');
+    const mes = String(d.getMonth() + 1).padStart(2, '0');
+    const anio = d.getFullYear();
+    
+    return `${dia}/${mes}/${anio}`;
 }
 
 // ============================================
@@ -151,7 +177,7 @@ function renderContabilidad() {
         return `
             <tr class="hover:bg-surface-container-lowest transition-colors fade-in">
                 <td class="px-md py-md text-body-sm font-body-sm font-medium text-on-surface">${row.accountName}</td>
-                <td class="px-md py-md text-body-sm font-body-sm text-on-surface">${row.fecha || '-'}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-on-surface">${formatDate(row.fecha)}</td>
                 <td class="px-md py-md text-body-sm font-body-sm text-on-surface max-w-xs truncate">${row.asiento || '-'}</td>
                 <td class="px-md py-md text-body-sm font-body-sm text-right ${colorDebe}">${debe}</td>
                 <td class="px-md py-md text-body-sm font-body-sm text-right ${colorHaber}">${haber}</td>
@@ -239,7 +265,7 @@ function renderEntradas() {
 
     tbody.innerHTML = pageRows.map(row => `
         <tr class="hover:bg-surface-container-lowest transition-colors fade-in">
-            <td class="px-md py-md text-body-sm font-body-sm text-on-surface">${row.fecha || '-'}</td>
+            <td class="px-md py-md text-body-sm font-body-sm text-on-surface">${formatDate(row.fecha)}</td>
             <td class="px-md py-md text-body-sm font-body-sm font-medium text-on-surface">${row.producto || 'Sin nombre'}</td>
             <td class="px-md py-md text-body-sm font-body-sm text-right text-secondary font-medium">+${formatNumber(row.cantidad || 0)}</td>
         </tr>
@@ -278,7 +304,7 @@ function renderDonado() {
 
     tbody.innerHTML = pageRows.map(row => `
         <tr class="hover:bg-surface-container-lowest transition-colors fade-in">
-            <td class="px-md py-md text-body-sm font-body-sm text-on-surface">${row.fecha || '-'}</td>
+            <td class="px-md py-md text-body-sm font-body-sm text-on-surface">${formatDate(row.fecha)}</td>
             <td class="px-md py-md text-body-sm font-body-sm font-medium text-on-surface">${row.producto || 'Sin nombre'}</td>
             <td class="px-md py-md text-body-sm font-body-sm text-right text-on-surface">${formatNumber(row.cantidad || 0)}</td>
             <td class="px-md py-md text-body-sm font-body-sm text-on-surface max-w-xs truncate">${row.centro || '-'}</td>
@@ -318,7 +344,7 @@ function updateLastUpdate() {
     
     if (state.lastUpdate) {
         const date = new Date(state.lastUpdate);
-        el.textContent = `Última actualización: ${date.toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' })}`;
+        el.textContent = `Última actualización: ${formatDate(date)}`;
     } else {
         el.textContent = 'Actualizando...';
     }
