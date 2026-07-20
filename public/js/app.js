@@ -123,6 +123,7 @@ function renderSummary() {
     document.getElementById('totalBs').textContent = `Bs. ${formatNumber(bs.totalRecaudado || 0)}`;
     document.getElementById('totalUsd').textContent = `$ ${formatNumber(usd.totalRecaudado || 0)}`;
     document.getElementById('saldoNetoBs').textContent = `Bs. ${formatNumber(bs.saldoNeto || 0)}`;
+    document.getElementById('saldoNetoUsd').textContent = `$ ${formatNumber(usd.saldoNeto || 0)}`;
     document.getElementById('totalRecaudado').textContent = `Bs. ${formatNumber(bs.totalRecaudado || 0)} | $ ${formatNumber(usd.totalRecaudado || 0)}`;
 }
 
