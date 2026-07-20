@@ -1,1 +1,681 @@
-[]
+[
+  {
+    "cod": "1",
+    "producto": "Alcohol 500ml ",
+    "entradas": 2,
+    "salidas": 2,
+    "stock": 0
+  },
+  {
+    "cod": "2",
+    "producto": "Acetaminofen Tab ",
+    "entradas": 84,
+    "salidas": 33,
+    "stock": 51
+  },
+  {
+    "cod": "3",
+    "producto": "Adhesivo",
+    "entradas": 2,
+    "salidas": 2,
+    "stock": 0
+  },
+  {
+    "cod": "4",
+    "producto": "Adrenalina Ampolla",
+    "entradas": 0,
+    "salidas": 10,
+    "stock": -10
+  },
+  {
+    "cod": "5",
+    "producto": "Caja de gasas 50 Ud",
+    "entradas": 3,
+    "salidas": 3,
+    "stock": 0
+  },
+  {
+    "cod": "6",
+    "producto": "Caja de guantes Nitrillo 100 Ud",
+    "entradas": 1,
+    "salidas": 0,
+    "stock": 1
+  },
+  {
+    "cod": "7",
+    "producto": "Cateter intravenoso de 18",
+    "entradas": 2,
+    "salidas": 2,
+    "stock": 0
+  },
+  {
+    "cod": "8",
+    "producto": "Cateter intravenoso de 20",
+    "entradas": 2,
+    "salidas": 2,
+    "stock": 0
+  },
+  {
+    "cod": "9",
+    "producto": "Cateter intravenoso de 22",
+    "entradas": 45,
+    "salidas": 22,
+    "stock": 23
+  },
+  {
+    "cod": "10",
+    "producto": "Cateter intravenoso de 24",
+    "entradas": 9,
+    "salidas": 7,
+    "stock": 2
+  },
+  {
+    "cod": "11",
+    "producto": "Dexametasona Ampolla",
+    "entradas": 25,
+    "salidas": 8,
+    "stock": 17
+  },
+  {
+    "cod": "12",
+    "producto": "Diclofenac Potasico Tab",
+    "entradas": 30,
+    "salidas": 13,
+    "stock": 17
+  },
+  {
+    "cod": "13",
+    "producto": "Dipirona Ampolla",
+    "entradas": 13,
+    "salidas": 3,
+    "stock": 10
+  },
+  {
+    "cod": "14",
+    "producto": "Gasas individuales",
+    "entradas": 80,
+    "salidas": 12,
+    "stock": 68
+  },
+  {
+    "cod": "15",
+    "producto": "Gerdex",
+    "entradas": 1,
+    "salidas": 1,
+    "stock": 0
+  },
+  {
+    "cod": "16",
+    "producto": "Guantes de latex individuales",
+    "entradas": 56,
+    "salidas": 36,
+    "stock": 20
+  },
+  {
+    "cod": "17",
+    "producto": "Ibuprofeno Tab",
+    "entradas": 10,
+    "salidas": 40,
+    "stock": -30
+  },
+  {
+    "cod": "18",
+    "producto": "Jeringa 10cc",
+    "entradas": 50,
+    "salidas": 20,
+    "stock": 30
+  },
+  {
+    "cod": "19",
+    "producto": "Jeringa 20cc",
+    "entradas": 34,
+    "salidas": 13,
+    "stock": 21
+  },
+  {
+    "cod": "20",
+    "producto": "Jeringa 3cc (Donado)",
+    "entradas": 1,
+    "salidas": 0,
+    "stock": 1
+  },
+  {
+    "cod": "21",
+    "producto": "Jeringa 5cc",
+    "entradas": 65,
+    "salidas": 33,
+    "stock": 32
+  },
+  {
+    "cod": "22",
+    "producto": "Macrogotero",
+    "entradas": 12,
+    "salidas": 4,
+    "stock": 8
+  },
+  {
+    "cod": "23",
+    "producto": "Mascarilla para nebulizar",
+    "entradas": 1,
+    "salidas": 1,
+    "stock": 0
+  },
+  {
+    "cod": "24",
+    "producto": "Metamizol Ampolla",
+    "entradas": 36,
+    "salidas": 9,
+    "stock": 27
+  },
+  {
+    "cod": "25",
+    "producto": "Metoclopramida Ampolla (Donada)",
+    "entradas": 1,
+    "salidas": 1,
+    "stock": 0
+  },
+  {
+    "cod": "26",
+    "producto": "Scalp 21G",
+    "entradas": 42,
+    "salidas": 17,
+    "stock": 25
+  },
+  {
+    "cod": "27",
+    "producto": "Scalp 23G",
+    "entradas": 9,
+    "salidas": 9,
+    "stock": 0
+  },
+  {
+    "cod": "28",
+    "producto": "Scalp 25G",
+    "entradas": 35,
+    "salidas": 15,
+    "stock": 20
+  },
+  {
+    "cod": "29",
+    "producto": "Solución 0,9%",
+    "entradas": 6,
+    "salidas": 2,
+    "stock": 4
+  },
+  {
+    "cod": "30",
+    "producto": "Termometro (Donado)",
+    "entradas": 1,
+    "salidas": 0,
+    "stock": 1
+  },
+  {
+    "cod": "31",
+    "producto": "Toallitas humedas",
+    "entradas": 13,
+    "salidas": 12,
+    "stock": 1
+  },
+  {
+    "cod": "32",
+    "producto": "Bisturí",
+    "entradas": 40,
+    "salidas": 0,
+    "stock": 40
+  },
+  {
+    "cod": "33",
+    "producto": "Esparflin Pediatrico",
+    "entradas": 6,
+    "salidas": 0,
+    "stock": 6
+  },
+  {
+    "cod": "34",
+    "producto": "Desloratadina Pediatrica",
+    "entradas": 3,
+    "salidas": 0,
+    "stock": 3
+  },
+  {
+    "cod": "35",
+    "producto": "Flamex tab",
+    "entradas": 8,
+    "salidas": 0,
+    "stock": 8
+  },
+  {
+    "cod": "36",
+    "producto": "Azitromicina tab",
+    "entradas": 6,
+    "salidas": 3,
+    "stock": 3
+  },
+  {
+    "cod": "37",
+    "producto": "Acetaminofen Pediatrico (Jarabe)",
+    "entradas": 4,
+    "salidas": 0,
+    "stock": 4
+  },
+  {
+    "cod": "38",
+    "producto": "Kit de nebulizaciòn Pediatrica",
+    "entradas": 4,
+    "salidas": 1,
+    "stock": 3
+  },
+  {
+    "cod": "39",
+    "producto": "Nylon",
+    "entradas": 7,
+    "salidas": 0,
+    "stock": 7
+  },
+  {
+    "cod": "40",
+    "producto": "Losartan Potasico (Donado)",
+    "entradas": 9,
+    "salidas": 7,
+    "stock": 2
+  },
+  {
+    "cod": "41",
+    "producto": "Omeprazol (Donado)",
+    "entradas": 1,
+    "salidas": 2,
+    "stock": -1
+  },
+  {
+    "cod": "42",
+    "producto": "Galletas de Soda Paquete (Donado)",
+    "entradas": 1,
+    "salidas": 0,
+    "stock": 1
+  },
+  {
+    "cod": "43",
+    "producto": "Colchón Inflable con sabana (Donado)",
+    "entradas": 1,
+    "salidas": 0,
+    "stock": 1
+  },
+  {
+    "cod": "44",
+    "producto": "Toallitas humedas (Donado)",
+    "entradas": 2,
+    "salidas": 0,
+    "stock": 2
+  },
+  {
+    "cod": "45",
+    "producto": "Llave de 3 vías",
+    "entradas": 10,
+    "salidas": 5,
+    "stock": 5
+  },
+  {
+    "cod": "46",
+    "producto": "Compresa de Gel Frío/Caliente",
+    "entradas": 1,
+    "salidas": 1,
+    "stock": 0
+  },
+  {
+    "cod": "47",
+    "producto": "Venda elastica 5cmx4,5",
+    "entradas": 4,
+    "salidas": 4,
+    "stock": 0
+  },
+  {
+    "cod": "48",
+    "producto": "Venda elastica 5cmx3,7",
+    "entradas": 6,
+    "salidas": 6,
+    "stock": 0
+  },
+  {
+    "cod": "49",
+    "producto": "Venda elastica 15cmx4,5",
+    "entradas": 2,
+    "salidas": 2,
+    "stock": 0
+  },
+  {
+    "cod": "50",
+    "producto": "Venda elastica 20cm",
+    "entradas": 6,
+    "salidas": 0,
+    "stock": 6
+  },
+  {
+    "cod": "51",
+    "producto": "Electrodos",
+    "entradas": 31,
+    "salidas": 31,
+    "stock": 0
+  },
+  {
+    "cod": "52",
+    "producto": "Caja de algodòn",
+    "entradas": 18,
+    "salidas": 5,
+    "stock": 13
+  },
+  {
+    "cod": "53",
+    "producto": "Alcohol 950ml ",
+    "entradas": 1,
+    "salidas": 1,
+    "stock": 0
+  },
+  {
+    "cod": "54",
+    "producto": "Alcohol 120ml",
+    "entradas": 18,
+    "salidas": 10,
+    "stock": 8
+  },
+  {
+    "cod": "55",
+    "producto": "Esponja de Gasa individuales",
+    "entradas": 10,
+    "salidas": 10,
+    "stock": 0
+  },
+  {
+    "cod": "56",
+    "producto": "Atamel Forte tab",
+    "entradas": 16,
+    "salidas": 3,
+    "stock": 13
+  },
+  {
+    "cod": "57",
+    "producto": "Gel antibacterial 50cm3",
+    "entradas": 3,
+    "salidas": 3,
+    "stock": 0
+  },
+  {
+    "cod": "58",
+    "producto": "Bolsas negras",
+    "entradas": 15,
+    "salidas": 15,
+    "stock": 0
+  },
+  {
+    "cod": "59",
+    "producto": "Guantes de latex Donados",
+    "entradas": 92,
+    "salidas": 92,
+    "stock": 0
+  },
+  {
+    "cod": "60",
+    "producto": "Agua 5L",
+    "entradas": 2,
+    "salidas": 2,
+    "stock": 0
+  },
+  {
+    "cod": "61",
+    "producto": "Vasos paquete",
+    "entradas": 1,
+    "salidas": 1,
+    "stock": 0
+  },
+  {
+    "cod": "62",
+    "producto": "Tapabocas",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "63",
+    "producto": "Comida para animales",
+    "entradas": 3,
+    "salidas": 3,
+    "stock": 0
+  },
+  {
+    "cod": "64",
+    "producto": "",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "65",
+    "producto": "",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "66",
+    "producto": "",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "67",
+    "producto": "",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "68",
+    "producto": "",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "69",
+    "producto": "",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "70",
+    "producto": "",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "71",
+    "producto": "",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "72",
+    "producto": "",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "73",
+    "producto": "",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "74",
+    "producto": "",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "75",
+    "producto": "",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "76",
+    "producto": "",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "77",
+    "producto": "",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "78",
+    "producto": "",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "79",
+    "producto": "",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "80",
+    "producto": "",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "81",
+    "producto": "",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "82",
+    "producto": "",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "83",
+    "producto": "",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "84",
+    "producto": "",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "85",
+    "producto": "",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "86",
+    "producto": "",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "87",
+    "producto": "",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "88",
+    "producto": "",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "89",
+    "producto": "",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "90",
+    "producto": "",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "91",
+    "producto": "",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "92",
+    "producto": "",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "93",
+    "producto": "",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "94",
+    "producto": "",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "95",
+    "producto": "",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "96",
+    "producto": "",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "97",
+    "producto": "",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  }
+]

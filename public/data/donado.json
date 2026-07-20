@@ -1,1 +1,1178 @@
-[]
+[
+  {
+    "cod": "15",
+    "producto": "Gerdex",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Dr. Miguel Pérez Carreño",
+    "combo": "1"
+  },
+  {
+    "cod": "18",
+    "producto": "Jeringa 10cc",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 3,
+    "centro": "Hospital Dr. Miguel Pérez Carreño",
+    "combo": "1"
+  },
+  {
+    "cod": "21",
+    "producto": "Jeringa 5cc",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 3,
+    "centro": "Hospital Dr. Miguel Pérez Carreño",
+    "combo": "1"
+  },
+  {
+    "cod": "11",
+    "producto": "Dexametasona Ampolla",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Dr. Miguel Pérez Carreño",
+    "combo": "1"
+  },
+  {
+    "cod": "13",
+    "producto": "Dipirona Ampolla",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Dr. Miguel Pérez Carreño",
+    "combo": "1"
+  },
+  {
+    "cod": "14",
+    "producto": "Gasas individuales",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 4,
+    "centro": "Hospital Dr. Miguel Pérez Carreño",
+    "combo": "2"
+  },
+  {
+    "cod": "4",
+    "producto": "Adrenalina Ampolla",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Dr. Miguel Pérez Carreño",
+    "combo": "2"
+  },
+  {
+    "cod": "14",
+    "producto": "Gasas individuales",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Dr. Miguel Pérez Carreño",
+    "combo": "2"
+  },
+  {
+    "cod": "31",
+    "producto": "Toallitas humedas",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Dr. Miguel Pérez Carreño",
+    "combo": "2"
+  },
+  {
+    "cod": "2",
+    "producto": "Acetaminofen Tab ",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Dr. Miguel Pérez Carreño",
+    "combo": "2"
+  },
+  {
+    "cod": "17",
+    "producto": "Ibuprofeno Tab",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Dr. Miguel Pérez Carreño",
+    "combo": "2"
+  },
+  {
+    "cod": "12",
+    "producto": "Diclofenac Potasico Tab",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Dr. Miguel Pérez Carreño",
+    "combo": "2"
+  },
+  {
+    "cod": "26",
+    "producto": "Scalp 21G",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 3,
+    "centro": "Hospital Dr. Miguel Pérez Carreño",
+    "combo": "2"
+  },
+  {
+    "cod": "27",
+    "producto": "Scalp 23G",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 3,
+    "centro": "Hospital Dr. Miguel Pérez Carreño",
+    "combo": "2"
+  },
+  {
+    "cod": "17",
+    "producto": "Ibuprofeno Tab",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 3,
+    "centro": "CDI de Montalbán",
+    "combo": "3"
+  },
+  {
+    "cod": "12",
+    "producto": "Diclofenac Potasico Tab",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 3,
+    "centro": "CDI de Montalbán",
+    "combo": "3"
+  },
+  {
+    "cod": "2",
+    "producto": "Acetaminofen Tab ",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 3,
+    "centro": "CDI de Montalbán",
+    "combo": "3"
+  },
+  {
+    "cod": "26",
+    "producto": "Scalp 21G",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 2,
+    "centro": "CDI de Montalbán",
+    "combo": "3"
+  },
+  {
+    "cod": "28",
+    "producto": "Scalp 25G",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 3,
+    "centro": "CDI de Montalbán",
+    "combo": "3"
+  },
+  {
+    "cod": "3",
+    "producto": "Adhesivo",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "CDI de Montalbán",
+    "combo": "3"
+  },
+  {
+    "cod": "4",
+    "producto": "Adrenalina Ampolla",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "CDI de Montalbán",
+    "combo": "3"
+  },
+  {
+    "cod": "11",
+    "producto": "Dexametasona Ampolla",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "CDI de Montalbán",
+    "combo": "3"
+  },
+  {
+    "cod": "21",
+    "producto": "Jeringa 5cc",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 3,
+    "centro": "CDI de Montalbán",
+    "combo": "4"
+  },
+  {
+    "cod": "19",
+    "producto": "Jeringa 20cc",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 3,
+    "centro": "CDI de Montalbán",
+    "combo": "4"
+  },
+  {
+    "cod": "10",
+    "producto": "Cateter intravenoso de 24",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 3,
+    "centro": "CDI de Montalbán",
+    "combo": "4"
+  },
+  {
+    "cod": "11",
+    "producto": "Dexametasona Ampolla",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "CDI de Montalbán",
+    "combo": "4"
+  },
+  {
+    "cod": "3",
+    "producto": "Adhesivo",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "CDI de Montalbán",
+    "combo": "4"
+  },
+  {
+    "cod": "16",
+    "producto": "Guantes de latex individuales",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 3,
+    "centro": "Hospital Pediatrico Elías Toro",
+    "combo": "5"
+  },
+  {
+    "cod": "14",
+    "producto": "Gasas individuales",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 3,
+    "centro": "Hospital Pediatrico Elías Toro",
+    "combo": "5"
+  },
+  {
+    "cod": "10",
+    "producto": "Cateter intravenoso de 24",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 2,
+    "centro": "Hospital Pediatrico Elías Toro",
+    "combo": "5"
+  },
+  {
+    "cod": "9",
+    "producto": "Cateter intravenoso de 22",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 2,
+    "centro": "Hospital Pediatrico Elías Toro",
+    "combo": "5"
+  },
+  {
+    "cod": "27",
+    "producto": "Scalp 23G",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 3,
+    "centro": "Hospital Pediatrico Elías Toro",
+    "combo": "5"
+  },
+  {
+    "cod": "21",
+    "producto": "Jeringa 5cc",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 3,
+    "centro": "Hospital Pediatrico Elías Toro",
+    "combo": "5"
+  },
+  {
+    "cod": "18",
+    "producto": "Jeringa 10cc",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 3,
+    "centro": "Hospital Pediatrico Elías Toro",
+    "combo": "5"
+  },
+  {
+    "cod": "2",
+    "producto": "Acetaminofen Tab ",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Pediatrico Elías Toro",
+    "combo": "5"
+  },
+  {
+    "cod": "29",
+    "producto": "Solución 0,9%",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Hugo Chávez Frías",
+    "combo": "6"
+  },
+  {
+    "cod": "22",
+    "producto": "Macrogotero",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Hugo Chávez Frías",
+    "combo": "6"
+  },
+  {
+    "cod": "14",
+    "producto": "Gasas individuales",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 2,
+    "centro": "Hospital Hugo Chávez Frías",
+    "combo": "6"
+  },
+  {
+    "cod": "31",
+    "producto": "Toallitas humedas",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Hugo Chávez Frías",
+    "combo": "6"
+  },
+  {
+    "cod": "16",
+    "producto": "Guantes de latex individuales",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 2,
+    "centro": "Hospital Hugo Chávez Frías",
+    "combo": "7"
+  },
+  {
+    "cod": "4",
+    "producto": "Adrenalina Ampolla",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Hugo Chávez Frías",
+    "combo": "7"
+  },
+  {
+    "cod": "18",
+    "producto": "Jeringa 10cc",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 2,
+    "centro": "Hospital Hugo Chávez Frías",
+    "combo": "7"
+  },
+  {
+    "cod": "21",
+    "producto": "Jeringa 5cc",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 2,
+    "centro": "Hospital Hugo Chávez Frías",
+    "combo": "7"
+  },
+  {
+    "cod": "13",
+    "producto": "Dipirona Ampolla",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Hugo Chávez Frías",
+    "combo": "7"
+  },
+  {
+    "cod": "26",
+    "producto": "Scalp 21G",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 2,
+    "centro": "Hospital Hugo Chávez Frías",
+    "combo": "7"
+  },
+  {
+    "cod": "27",
+    "producto": "Scalp 23G",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 2,
+    "centro": "Hospital Hugo Chávez Frías",
+    "combo": "7"
+  },
+  {
+    "cod": "28",
+    "producto": "Scalp 25G",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 2,
+    "centro": "Hospital Hugo Chávez Frías",
+    "combo": "7"
+  },
+  {
+    "cod": "17",
+    "producto": "Ibuprofeno Tab",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Hugo Chávez Frías",
+    "combo": "7"
+  },
+  {
+    "cod": "12",
+    "producto": "Diclofenac Potasico Tab",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Hugo Chávez Frías",
+    "combo": "7"
+  },
+  {
+    "cod": "1",
+    "producto": "Alcohol 500ml ",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Dr. Miguel Pérez Carreño",
+    "combo": "8"
+  },
+  {
+    "cod": "14",
+    "producto": "Gasas individuales",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 2,
+    "centro": "Hospital Dr. Miguel Pérez Carreño",
+    "combo": "8"
+  },
+  {
+    "cod": "19",
+    "producto": "Jeringa 20cc",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 2,
+    "centro": "Hospital Dr. Miguel Pérez Carreño",
+    "combo": "8"
+  },
+  {
+    "cod": "12",
+    "producto": "Diclofenac Potasico Tab",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Dr. Miguel Pérez Carreño",
+    "combo": "8"
+  },
+  {
+    "cod": "2",
+    "producto": "Acetaminofen Tab ",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Dr. Miguel Pérez Carreño",
+    "combo": "8"
+  },
+  {
+    "cod": "17",
+    "producto": "Ibuprofeno Tab",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Dr. Miguel Pérez Carreño",
+    "combo": "8"
+  },
+  {
+    "cod": "1",
+    "producto": "Alcohol 500ml ",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Dr. Miguel Pérez Carreño",
+    "combo": "9"
+  },
+  {
+    "cod": "31",
+    "producto": "Toallitas humedas",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Dr. Miguel Pérez Carreño",
+    "combo": "9"
+  },
+  {
+    "cod": "18",
+    "producto": "Jeringa 10cc",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 2,
+    "centro": "Hospital Dr. Miguel Pérez Carreño",
+    "combo": "9"
+  },
+  {
+    "cod": "19",
+    "producto": "Jeringa 20cc",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Dr. Miguel Pérez Carreño",
+    "combo": "9"
+  },
+  {
+    "cod": "12",
+    "producto": "Diclofenac Potasico Tab",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Dr. Miguel Pérez Carreño",
+    "combo": "9"
+  },
+  {
+    "cod": "11",
+    "producto": "Dexametasona Ampolla",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Dr. Miguel Pérez Carreño",
+    "combo": "9"
+  },
+  {
+    "cod": "38",
+    "producto": "Kit de nebulizaciòn Pediatrica",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Dr. Miguel Pérez Carreño",
+    "combo": "9"
+  },
+  {
+    "cod": "31",
+    "producto": "Toallitas humedas",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Universitario de Caracas",
+    "combo": "10"
+  },
+  {
+    "cod": "2",
+    "producto": "Acetaminofen Tab ",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 2,
+    "centro": "Hospital Universitario de Caracas",
+    "combo": "10"
+  },
+  {
+    "cod": "7",
+    "producto": "Cateter intravenoso de 18",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 2,
+    "centro": "Hospital Universitario de Caracas",
+    "combo": "10"
+  },
+  {
+    "cod": "8",
+    "producto": "Cateter intravenoso de 20",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 2,
+    "centro": "Hospital Universitario de Caracas",
+    "combo": "10"
+  },
+  {
+    "cod": "10",
+    "producto": "Cateter intravenoso de 24",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 2,
+    "centro": "Hospital Universitario de Caracas",
+    "combo": "10"
+  },
+  {
+    "cod": "23",
+    "producto": "Mascarilla para nebulizar",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Universitario de Caracas",
+    "combo": "10"
+  },
+  {
+    "cod": "27",
+    "producto": "Scalp 23G",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Universitario de Caracas",
+    "combo": "10"
+  },
+  {
+    "cod": "4",
+    "producto": "Adrenalina Ampolla",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Universitario de Caracas",
+    "combo": "10"
+  },
+  {
+    "cod": "11",
+    "producto": "Dexametasona Ampolla",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Universitario de Caracas",
+    "combo": "10"
+  },
+  {
+    "cod": "40",
+    "producto": "Losartan Potasico (Donado)",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Universitario de Caracas",
+    "combo": "10"
+  },
+  {
+    "cod": "9",
+    "producto": "Cateter intravenoso de 22",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 5,
+    "centro": "Hospital Universitario de Caracas",
+    "combo": "11"
+  },
+  {
+    "cod": "40",
+    "producto": "Losartan Potasico (Donado)",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 2,
+    "centro": "Hospital Universitario de Caracas",
+    "combo": "11"
+  },
+  {
+    "cod": "2",
+    "producto": "Acetaminofen Tab ",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 2,
+    "centro": "Hospital Universitario de Caracas",
+    "combo": "11"
+  },
+  {
+    "cod": "24",
+    "producto": "Metamizol Ampolla",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 3,
+    "centro": "Hospital Universitario de Caracas",
+    "combo": "11"
+  },
+  {
+    "cod": "12",
+    "producto": "Diclofenac Potasico Tab",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 2,
+    "centro": "Hospital Universitario de Caracas",
+    "combo": "11"
+  },
+  {
+    "cod": "19",
+    "producto": "Jeringa 20cc",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Universitario de Caracas",
+    "combo": "11"
+  },
+  {
+    "cod": "5",
+    "producto": "Caja de gasas 50 Ud",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Universitario de Caracas",
+    "combo": "11"
+  },
+  {
+    "cod": "16",
+    "producto": "Guantes de latex individuales",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 3,
+    "centro": "Hospital Universitario de Caracas",
+    "combo": "11"
+  },
+  {
+    "cod": "17",
+    "producto": "Ibuprofeno Tab",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 2,
+    "centro": "Hospital Dr. José María Vargas",
+    "combo": "12"
+  },
+  {
+    "cod": "12",
+    "producto": "Diclofenac Potasico Tab",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 2,
+    "centro": "Hospital Dr. José María Vargas",
+    "combo": "12"
+  },
+  {
+    "cod": "41",
+    "producto": "Omeprazol (Donado)",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Dr. José María Vargas",
+    "combo": "12"
+  },
+  {
+    "cod": "19",
+    "producto": "Jeringa 20cc",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 2,
+    "centro": "Hospital Dr. José María Vargas",
+    "combo": "12"
+  },
+  {
+    "cod": "22",
+    "producto": "Macrogotero",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Dr. José María Vargas",
+    "combo": "12"
+  },
+  {
+    "cod": "13",
+    "producto": "Dipirona Ampolla",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Dr. José María Vargas",
+    "combo": "12"
+  },
+  {
+    "cod": "31",
+    "producto": "Toallitas humedas",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 2,
+    "centro": "Hospital Dr. José María Vargas",
+    "combo": "13"
+  },
+  {
+    "cod": "40",
+    "producto": "Losartan Potasico (Donado)",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Dr. José María Vargas",
+    "combo": "13"
+  },
+  {
+    "cod": "41",
+    "producto": "Omeprazol (Donado)",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Dr. José María Vargas",
+    "combo": "13"
+  },
+  {
+    "cod": "17",
+    "producto": "Ibuprofeno Tab",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 2,
+    "centro": "Hospital Dr. José María Vargas",
+    "combo": "13"
+  },
+  {
+    "cod": "12",
+    "producto": "Diclofenac Potasico Tab",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Dr. José María Vargas",
+    "combo": "13"
+  },
+  {
+    "cod": "21",
+    "producto": "Jeringa 5cc",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 2,
+    "centro": "Hospital Dr. José María Vargas",
+    "combo": "13"
+  },
+  {
+    "cod": "19",
+    "producto": "Jeringa 20cc",
+    "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Dr. José María Vargas",
+    "combo": "13"
+  },
+  {
+    "cod": "58",
+    "producto": "Bolsas negras",
+    "fecha": "Tue Jun 30 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 15,
+    "centro": "Miembros Voluntarios La Guaira",
+    "combo": "14"
+  },
+  {
+    "cod": "16",
+    "producto": "Guantes de latex individuales",
+    "fecha": "Tue Jun 30 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 6,
+    "centro": "Miembros Voluntarios La Guaira",
+    "combo": "14"
+  },
+  {
+    "cod": "55",
+    "producto": "Esponja de Gasa individuales",
+    "fecha": "Tue Jun 30 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 5,
+    "centro": "Miembros Voluntarios La Guaira",
+    "combo": "14"
+  },
+  {
+    "cod": "59",
+    "producto": "Guantes de latex Donados",
+    "fecha": "Tue Jun 30 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 92,
+    "centro": "Miembros Voluntarios La Guaira",
+    "combo": "14"
+  },
+  {
+    "cod": "60",
+    "producto": "Agua 5L",
+    "fecha": "Tue Jun 30 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Miembros Voluntarios La Guaira",
+    "combo": "14"
+  },
+  {
+    "cod": "2",
+    "producto": "Acetaminofen Tab ",
+    "fecha": "Tue Jun 30 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 3,
+    "centro": "Miembros Voluntarios La Guaira",
+    "combo": "15"
+  },
+  {
+    "cod": "56",
+    "producto": "Atamel Forte tab",
+    "fecha": "Tue Jun 30 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 3,
+    "centro": "Miembros Voluntarios La Guaira",
+    "combo": "15"
+  },
+  {
+    "cod": "52",
+    "producto": "Caja de algodòn",
+    "fecha": "Tue Jun 30 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Miembros Voluntarios La Guaira",
+    "combo": "15"
+  },
+  {
+    "cod": "31",
+    "producto": "Toallitas humedas",
+    "fecha": "Tue Jun 30 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 2,
+    "centro": "Miembros Voluntarios La Guaira",
+    "combo": "15"
+  },
+  {
+    "cod": "53",
+    "producto": "Alcohol 950ml ",
+    "fecha": "Tue Jun 30 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Miembros Voluntarios La Guaira",
+    "combo": "15"
+  },
+  {
+    "cod": "57",
+    "producto": "Gel antibacterial 50cm3",
+    "fecha": "Tue Jun 30 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 3,
+    "centro": "Miembros Voluntarios La Guaira",
+    "combo": "15"
+  },
+  {
+    "cod": "55",
+    "producto": "Esponja de Gasa individuales",
+    "fecha": "Tue Jun 30 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 5,
+    "centro": "Miembros Voluntarios La Guaira",
+    "combo": "15"
+  },
+  {
+    "cod": "61",
+    "producto": "Vasos paquete",
+    "fecha": "Tue Jun 30 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Miembros Voluntarios La Guaira",
+    "combo": "15"
+  },
+  {
+    "cod": "60",
+    "producto": "Agua 5L",
+    "fecha": "Tue Jun 30 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Miembros Voluntarios La Guaira",
+    "combo": "15"
+  },
+  {
+    "cod": "54",
+    "producto": "Alcohol 120ml",
+    "fecha": "Wed Jul 01 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 4,
+    "centro": "Hospital Domingo Luciani",
+    "combo": "16"
+  },
+  {
+    "cod": "19",
+    "producto": "Jeringa 20cc",
+    "fecha": "Wed Jul 01 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 3,
+    "centro": "Hospital Domingo Luciani",
+    "combo": "16"
+  },
+  {
+    "cod": "18",
+    "producto": "Jeringa 10cc",
+    "fecha": "Wed Jul 01 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 10,
+    "centro": "Hospital Domingo Luciani",
+    "combo": "16"
+  },
+  {
+    "cod": "21",
+    "producto": "Jeringa 5cc",
+    "fecha": "Wed Jul 01 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 10,
+    "centro": "Hospital Domingo Luciani",
+    "combo": "16"
+  },
+  {
+    "cod": "9",
+    "producto": "Cateter intravenoso de 22",
+    "fecha": "Wed Jul 01 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 5,
+    "centro": "Hospital Domingo Luciani",
+    "combo": "16"
+  },
+  {
+    "cod": "22",
+    "producto": "Macrogotero",
+    "fecha": "Wed Jul 01 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 2,
+    "centro": "Hospital Domingo Luciani",
+    "combo": "16"
+  },
+  {
+    "cod": "52",
+    "producto": "Caja de algodòn",
+    "fecha": "Wed Jul 01 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Domingo Luciani",
+    "combo": "16"
+  },
+  {
+    "cod": "16",
+    "producto": "Guantes de latex individuales",
+    "fecha": "Wed Jul 01 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 10,
+    "centro": "Hospital Domingo Luciani",
+    "combo": "16"
+  },
+  {
+    "cod": "31",
+    "producto": "Toallitas humedas",
+    "fecha": "Wed Jul 01 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Domingo Luciani",
+    "combo": "16"
+  },
+  {
+    "cod": "45",
+    "producto": "Llave de 3 vías",
+    "fecha": "Wed Jul 01 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 5,
+    "centro": "Hospital Domingo Luciani",
+    "combo": "16"
+  },
+  {
+    "cod": "26",
+    "producto": "Scalp 21G",
+    "fecha": "Wed Jul 01 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 10,
+    "centro": "Hospital Domingo Luciani",
+    "combo": "16"
+  },
+  {
+    "cod": "28",
+    "producto": "Scalp 25G",
+    "fecha": "Wed Jul 01 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 10,
+    "centro": "Hospital Domingo Luciani",
+    "combo": "16"
+  },
+  {
+    "cod": "29",
+    "producto": "Solución 0,9%",
+    "fecha": "Wed Jul 01 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Domingo Luciani",
+    "combo": "16"
+  },
+  {
+    "cod": "2",
+    "producto": "Acetaminofen Tab ",
+    "fecha": "Wed Jul 01 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 20,
+    "centro": "Hospital Domingo Luciani",
+    "combo": "16"
+  },
+  {
+    "cod": "12",
+    "producto": "Diclofenac Potasico Tab",
+    "fecha": "Wed Jul 01 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Domingo Luciani",
+    "combo": "16"
+  },
+  {
+    "cod": "17",
+    "producto": "Ibuprofeno Tab",
+    "fecha": "Wed Jul 01 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 30,
+    "centro": "Hospital Domingo Luciani",
+    "combo": "16"
+  },
+  {
+    "cod": "40",
+    "producto": "Losartan Potasico (Donado)",
+    "fecha": "Wed Jul 01 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 3,
+    "centro": "Hospital Domingo Luciani",
+    "combo": "16"
+  },
+  {
+    "cod": "36",
+    "producto": "Azitromicina tab",
+    "fecha": "Wed Jul 01 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 3,
+    "centro": "Hospital Domingo Luciani",
+    "combo": "16"
+  },
+  {
+    "cod": "5",
+    "producto": "Caja de gasas 50 Ud",
+    "fecha": "Wed Jul 01 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Domingo Luciani",
+    "combo": "16"
+  },
+  {
+    "cod": "24",
+    "producto": "Metamizol Ampolla",
+    "fecha": "Wed Jul 01 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 3,
+    "centro": "Hospital Domingo Luciani",
+    "combo": "16"
+  },
+  {
+    "cod": "11",
+    "producto": "Dexametasona Ampolla",
+    "fecha": "Wed Jul 01 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 3,
+    "centro": "Hospital Domingo Luciani",
+    "combo": "16"
+  },
+  {
+    "cod": "4",
+    "producto": "Adrenalina Ampolla",
+    "fecha": "Wed Jul 01 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 3,
+    "centro": "Hospital Domingo Luciani",
+    "combo": "16"
+  },
+  {
+    "cod": "5",
+    "producto": "Caja de gasas 50 Ud",
+    "fecha": "Sun Jul 05 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Dr. Miguel Pérez Carreño",
+    "combo": "17"
+  },
+  {
+    "cod": "24",
+    "producto": "Metamizol Ampolla",
+    "fecha": "Sun Jul 05 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 3,
+    "centro": "Hospital Dr. Miguel Pérez Carreño",
+    "combo": "17"
+  },
+  {
+    "cod": "54",
+    "producto": "Alcohol 120ml",
+    "fecha": "Sun Jul 05 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 3,
+    "centro": "Hospital Dr. Miguel Pérez Carreño",
+    "combo": "17"
+  },
+  {
+    "cod": "52",
+    "producto": "Caja de algodòn",
+    "fecha": "Sun Jul 05 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Dr. Miguel Pérez Carreño",
+    "combo": "17"
+  },
+  {
+    "cod": "25",
+    "producto": "Metoclopramida Ampolla (Donada)",
+    "fecha": "Sun Jul 05 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Hospital Dr. Miguel Pérez Carreño",
+    "combo": "17"
+  },
+  {
+    "cod": "4",
+    "producto": "Adrenalina Ampolla",
+    "fecha": "Sun Jul 05 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 3,
+    "centro": "Hospital Dr. Miguel Pérez Carreño",
+    "combo": "17"
+  },
+  {
+    "cod": "9",
+    "producto": "Cateter intravenoso de 22",
+    "fecha": "Sun Jul 05 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 10,
+    "centro": "Hospital Dr. Miguel Pérez Carreño",
+    "combo": "17"
+  },
+  {
+    "cod": "21",
+    "producto": "Jeringa 5cc",
+    "fecha": "Sun Jul 05 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 10,
+    "centro": "Hospital Dr. Miguel Pérez Carreño",
+    "combo": "17"
+  },
+  {
+    "cod": "52",
+    "producto": "Caja de algodòn",
+    "fecha": "Tue Jul 07 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 2,
+    "centro": "Miembros Voluntarios Caracas",
+    "combo": "18"
+  },
+  {
+    "cod": "46",
+    "producto": "Compresa de Gel Frío/Caliente",
+    "fecha": "Tue Jul 07 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Miembros Voluntarios Caracas",
+    "combo": "18"
+  },
+  {
+    "cod": "54",
+    "producto": "Alcohol 120ml",
+    "fecha": "Tue Jul 07 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 3,
+    "centro": "Miembros Voluntarios Caracas",
+    "combo": "18"
+  },
+  {
+    "cod": "16",
+    "producto": "Guantes de latex individuales",
+    "fecha": "Tue Jul 07 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 12,
+    "centro": "Miembros Voluntarios Caracas",
+    "combo": "18"
+  },
+  {
+    "cod": "47",
+    "producto": "Venda elastica 5cmx4,5",
+    "fecha": "Tue Jul 07 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 4,
+    "centro": "Miembros Voluntarios Caracas",
+    "combo": "18"
+  },
+  {
+    "cod": "48",
+    "producto": "Venda elastica 5cmx3,7",
+    "fecha": "Tue Jul 07 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 6,
+    "centro": "Miembros Voluntarios Caracas",
+    "combo": "18"
+  },
+  {
+    "cod": "49",
+    "producto": "Venda elastica 15cmx4,5",
+    "fecha": "Tue Jul 07 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 2,
+    "centro": "Miembros Voluntarios Caracas",
+    "combo": "18"
+  },
+  {
+    "cod": "31",
+    "producto": "Toallitas humedas",
+    "fecha": "Tue Jul 07 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 3,
+    "centro": "Miembros Voluntarios Caracas",
+    "combo": "18"
+  },
+  {
+    "cod": "51",
+    "producto": "Electrodos",
+    "fecha": "Tue Jul 07 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 31,
+    "centro": "Miembros Voluntarios Caracas",
+    "combo": "18"
+  },
+  {
+    "cod": "63",
+    "producto": "Comida para animales",
+    "fecha": "Tue Jul 07 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 3,
+    "centro": "Miembros Voluntarios Caracas",
+    "combo": "19"
+  }
+]
