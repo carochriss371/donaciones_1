@@ -20,6 +20,83 @@
             background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(8px);
         }
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .stock-low {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .stock-normal {
+            background: #dcfce7;
+            color: #166534;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            padding: 16px;
+            border-top: 1px solid #e2e8f0;
+            flex-wrap: wrap;
+        }
+        .pagination-btn {
+            min-width: 36px;
+            height: 36px;
+            padding: 0 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            transition: all .15s;
+        }
+        .pagination-btn:hover:not(:disabled) {
+            background: #eff6ff;
+            border-color: #93c5fd;
+        }
+        .pagination-btn.active {
+            background: #2563eb;
+            color: white;
+            border-color: #2563eb;
+            font-weight: 700;
+        }
+        .pagination-btn:disabled {
+            opacity: .5;
+            cursor: not-allowed;
+        }
+        .pagination-info {
+            font-size: 14px;
+            color: #64748b;
+            margin-right: 8px;
+        }
+        .badge-bs {
+            background: #dbeafe;
+            color: #1d4ed8;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .badge-usd {
+            background: #dcfce7;
+            color: #166534;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+        }
     </style>
 
     <script id="tailwind-config">
@@ -1128,18 +1205,17 @@
         <div class="flex items-center gap-md">
             <h1 class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed">LOS BUENOS SOMOS MÁS</h1>
             <nav class="hidden md:flex gap-md items-center h-full">
-                <a class="text-primary dark:text-primary-fixed border-b-2 border-primary dark:border-primary-fixed pb-1 font-label-bold text-label-bold" href="#">Panel</a>
-                <a class="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors font-label-bold text-label-bold" href="#">Inventario</a>
-                <a class="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors font-label-bold text-label-bold" href="#">Reportes</a>
-                <a class="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors font-label-bold text-label-bold" href="#">Donar</a>
+                <a class="text-primary dark:text-primary-fixed border-b-2 border-primary dark:border-primary-fixed pb-1 font-label-bold text-label-bold" href="#dashboard">Dashboard</a>
+                <a class="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors font-label-bold text-label-bold" href="#contabilidad">Contabilidad</a>
+                <a class="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors font-label-bold text-label-bold" href="#inventario">Inventario</a>
+                <a class="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors font-label-bold text-label-bold" href="#donaciones">Donar</a>
             </nav>
         </div>
         <div class="flex items-center gap-md">
             <div class="flex flex-col items-end">
-                <span class="text-headline-sm font-headline-sm text-primary font-bold">$2,450,120 Recaudados</span>
-                <span class="text-body-sm font-body-sm text-on-surface-variant"><br></span>
+                <span id="headerTotalRecaudado" class="text-headline-sm font-headline-sm text-primary font-bold">Cargando...</span>
+                <span id="headerLastUpdate" class="text-body-sm font-body-sm text-on-surface-variant">Última actualización: ...</span>
             </div>
-            <button class="bg-primary text-on-primary px-md py-sm rounded-lg text-label-bold font-label-bold hover:opacity-90 transition-opacity">Última actualización: 24 de Octubre</button>
         </div>
     </header>
 
@@ -1152,10 +1228,14 @@
                 </div>
                 <h2 class="text-headline-sm font-headline-sm text-primary">Operaciones</h2>
             </div>
-            <p class="text-body-sm font-body-sm text-on-surface-variant">Estado Verificado: Activo</p>
+            <p id="sidebarStatus" class="text-body-sm font-body-sm text-on-surface-variant">Cargando...</p>
         </div>
         <nav class="flex flex-col gap-xs flex-grow">
-            <a class="rounded-lg px-4 py-3 flex items-center gap-md transition-all duration-200 bg-secondary-container text-on-secondary-container" href="#contabilidad">
+            <a class="rounded-lg px-4 py-3 flex items-center gap-md transition-all duration-200 bg-secondary-container text-on-secondary-container" href="#dashboard">
+                <span class="material-symbols-outlined">dashboard</span>
+                <span class="text-label-bold font-label-bold">Dashboard</span>
+            </a>
+            <a class="hover:bg-surface-container px-4 py-3 rounded-lg flex items-center gap-md transition-all duration-200 text-on-surface-variant" href="#contabilidad">
                 <span class="material-symbols-outlined">account_balance_wallet</span>
                 <span class="text-label-bold font-label-bold">Contabilidad</span>
             </a>
@@ -1163,19 +1243,18 @@
                 <span class="material-symbols-outlined">inventory_2</span>
                 <span class="text-label-bold font-label-bold">Inventario</span>
             </a>
+            <a class="hover:bg-surface-container px-4 py-3 rounded-lg flex items-center gap-md transition-all duration-200 text-on-surface-variant" href="#entradas">
+                <span class="material-symbols-outlined">move_to_inbox</span>
+                <span class="text-label-bold font-label-bold">Entradas</span>
+            </a>
             <a class="hover:bg-surface-container px-4 py-3 rounded-lg flex items-center gap-md transition-all duration-200 text-on-surface-variant" href="#donaciones">
                 <span class="material-symbols-outlined">volunteer_activism</span>
                 <span class="text-label-bold font-label-bold">Donaciones</span>
             </a>
-            <a class="text-on-surface-variant hover:bg-surface-container px-4 py-3 rounded-lg flex items-center gap-md transition-all duration-200" href="#contacto">
-                <span class="material-symbols-outlined">contact_support</span>
-                <span class="text-label-bold font-label-bold">Contacto</span>
-            </a>
         </nav>
-        <button class="mt-auto w-full bg-primary-container text-on-primary-container p-md rounded-xl flex items-center justify-center gap-sm hover:bg-opacity-90 transition-all">
-            <span class="material-symbols-outlined">visibility</span>
-            <span class="text-label-bold font-label-bold">Ver Evidencia</span>
-        </button>
+        <div class="mt-auto p-md bg-surface-container rounded-xl">
+            <p id="sidebarLastUpdate" class="text-body-sm font-body-sm text-on-surface-variant text-center">Cargando...</p>
+        </div>
     </aside>
 
     <!-- Main Content Canvas -->
@@ -1183,39 +1262,35 @@
         <div class="max-w-container-max mx-auto p-gutter space-y-lg">
 
             <!-- Hero / Summary Cards -->
-            <section class="grid grid-cols-1 md:grid-cols-3 gap-md">
+            <section id="dashboard" class="grid grid-cols-1 md:grid-cols-3 gap-md">
                 <div class="bg-white border border-outline-variant rounded-xl p-lg shadow-sm hover:shadow-md transition-shadow">
                     <div class="flex justify-between items-start mb-sm">
                         <span class="text-label-bold font-label-bold text-on-surface-variant">TOTAL RECAUDADO</span>
                         <span class="material-symbols-outlined text-primary" data-weight="fill">payments</span>
                     </div>
-                    <div class="text-display-lg font-display-lg text-primary">$2,450,120</div>
+                    <div id="totalRecaudado" class="text-display-lg font-display-lg text-primary">Bs. 0 | $ 0</div>
                     <div class="mt-base flex items-center gap-xs">
-                        <span class="bg-secondary-container text-on-secondary-container px-xs py-[2px] rounded text-[10px] font-bold">+12.5%</span>
-                        <span class="text-body-sm font-body-sm text-on-surface-variant">desde el mes pasado</span>
+                        <span class="text-body-sm font-body-sm text-on-surface-variant">Fondos en Bs. y USD</span>
                     </div>
                 </div>
                 <div class="bg-white border border-outline-variant rounded-xl p-lg shadow-sm hover:shadow-md transition-shadow">
                     <div class="flex justify-between items-start mb-sm">
-                        <span class="text-label-bold font-label-bold text-on-surface-variant">TOTAL EJECUTADO</span>
-                        <span class="material-symbols-outlined text-error" data-weight="fill">receipt_long</span>
+                        <span class="text-label-bold font-label-bold text-on-surface-variant">SALDO NETO Bs.</span>
+                        <span class="material-symbols-outlined text-primary" data-weight="fill">account_balance</span>
                     </div>
-                    <div class="text-display-lg font-display-lg text-on-background">$1,890,450</div>
+                    <div id="saldoNetoBs" class="text-display-lg font-display-lg text-primary">Bs. 0</div>
                     <div class="mt-base flex items-center gap-xs">
-                        <div class="w-full bg-outline-variant h-2 rounded-full overflow-hidden">
-                            <div class="bg-primary h-full" style="width: 77%;"></div>
-                        </div>
-                        <span class="text-label-bold font-label-bold text-on-surface-variant whitespace-nowrap">77% Meta</span>
+                        <span class="text-body-sm font-body-sm text-on-surface-variant">Moneda local</span>
                     </div>
                 </div>
                 <div class="bg-white border border-outline-variant rounded-xl p-lg shadow-sm hover:shadow-md transition-shadow">
                     <div class="flex justify-between items-start mb-sm">
-                        <span class="text-label-bold font-label-bold text-on-surface-variant">SALDO NETO</span>
+                        <span class="text-label-bold font-label-bold text-on-surface-variant">SALDO NETO USD</span>
                         <span class="material-symbols-outlined text-secondary" data-weight="fill">account_balance</span>
                     </div>
-                    <div class="text-display-lg font-display-lg text-secondary">$559,670</div>
+                    <div id="saldoNetoUsd" class="text-display-lg font-display-lg text-secondary">$ 0</div>
                     <div class="mt-base flex items-center gap-xs">
-                        <span class="text-body-sm font-body-sm text-on-surface-variant">Fondos disponibles para ayuda inmediata</span>
+                        <span class="text-body-sm font-body-sm text-on-surface-variant">Moneda extranjera</span>
                     </div>
                 </div>
             </section>
@@ -1227,237 +1302,117 @@
                         <span class="material-symbols-outlined">list_alt</span>
                         Registro Contable
                     </h3>
-                    <div class="flex gap-sm">
-                        <button class="bg-surface-container-high hover:bg-surface-container text-on-surface px-md py-sm rounded-lg text-label-bold font-label-bold flex items-center gap-xs">
-                            <span class="material-symbols-outlined text-sm">download</span> Exportar
-                        </button>
+                    <span id="contabilidadCount" class="text-body-sm font-body-sm text-on-surface-variant">0 registros</span>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="bg-surface-container-low border-b border-outline-variant">
+                                <th class="px-md py-md text-label-bold font-label-bold text-on-surface-variant">Cuenta</th>
+                                <th class="px-md py-md text-label-bold font-label-bold text-on-surface-variant">Fecha</th>
+                                <th class="px-md py-md text-label-bold font-label-bold text-on-surface-variant">Asiento</th>
+                                <th class="px-md py-md text-label-bold font-label-bold text-on-surface-variant text-right">Debe</th>
+                                <th class="px-md py-md text-label-bold font-label-bold text-on-surface-variant text-right">Haber</th>
+                                <th class="px-md py-md text-label-bold font-label-bold text-on-surface-variant text-right">Saldo</th>
+                            </tr>
+                        </thead>
+                        <tbody id="contabilidadBody" class="divide-y divide-outline-variant"></tbody>
+                    </table>
+                </div>
+                <div id="contabilidadPagination" class="pagination"></div>
+            </section>
+
+            <!-- Inventory Section -->
+            <section class="space-y-lg" id="inventario">
+                <div class="flex items-center gap-md">
+                    <h3 class="text-headline-md font-headline-md text-on-background">Control de Inventario</h3>
+                    <span id="inventarioCount" class="text-body-sm font-body-sm text-on-surface-variant">0 productos</span>
+                    <div class="h-[2px] flex-grow bg-outline-variant"></div>
+                </div>
+                <div class="bg-white border border-outline-variant rounded-xl shadow-sm overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead class="bg-surface-container-low">
+                                <tr>
+                                    <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant">Código</th>
+                                    <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant">Producto</th>
+                                    <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant text-right">Entradas</th>
+                                    <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant text-right">Salidas</th>
+                                    <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant text-right">Stock</th>
+                                </tr>
+                            </thead>
+                            <tbody id="inventarioBody" class="divide-y divide-outline-variant"></tbody>
+                        </table>
                     </div>
+                    <div id="inventarioPagination" class="pagination"></div>
+                </div>
+            </section>
+
+            <!-- Entradas Section -->
+            <section class="bg-white border border-outline-variant rounded-xl shadow-sm overflow-hidden" id="entradas">
+                <div class="p-md border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest">
+                    <h3 class="text-headline-sm font-headline-sm text-primary flex items-center gap-sm">
+                        <span class="material-symbols-outlined">move_to_inbox</span>
+                        Registro de Entradas
+                    </h3>
+                    <span id="entradasCount" class="text-body-sm font-body-sm text-on-surface-variant">0 registros</span>
                 </div>
                 <div class="overflow-x-auto">
                     <table class="w-full text-left">
                         <thead>
                             <tr class="bg-surface-container-low border-b border-outline-variant">
                                 <th class="px-md py-md text-label-bold font-label-bold text-on-surface-variant">Fecha</th>
-                                <th class="px-md py-md text-label-bold font-label-bold text-on-surface-variant">Descripción</th>
-                                <th class="px-md py-md text-label-bold font-label-bold text-on-surface-variant">Monto (USD)</th>
-                                <th class="px-md py-md text-label-bold font-label-bold text-on-surface-variant">Monto (BS)</th>
-                                <th class="px-md py-md text-label-bold font-label-bold text-on-surface-variant text-right">Acción</th>
+                                <th class="px-md py-md text-label-bold font-label-bold text-on-surface-variant">Producto</th>
+                                <th class="px-md py-md text-label-bold font-label-bold text-on-surface-variant text-right">Cantidad</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-outline-variant">
-                            <tr class="hover:bg-surface-container-lowest transition-colors">
-                                <td class="px-md py-md text-tabular-nums font-tabular-nums text-on-surface">23/10/2024</td>
-                                <td class="px-md py-md text-body-md font-body-md">Compra de Insumos Médicos - Antibióticos</td>
-                                <td class="px-md py-md text-tabular-nums font-tabular-nums text-error font-semibold">-$4,500.00</td>
-                                <td class="px-md py-md text-tabular-nums font-tabular-nums text-on-surface-variant">180,000.00</td>
-                                <td class="px-md py-md text-right">
-                                    <button class="text-primary hover:underline text-label-bold font-label-bold flex items-center gap-xs justify-end ml-auto">
-                                        <span class="material-symbols-outlined" style="font-size: 16px;">receipt</span> Ver Evidencia
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-surface-container-lowest transition-colors">
-                                <td class="px-md py-md text-tabular-nums font-tabular-nums text-on-surface">22/10/2024</td>
-                                <td class="px-md py-md text-body-md font-body-md">Logística de Transporte - Zona Rural</td>
-                                <td class="px-md py-md text-tabular-nums font-tabular-nums text-error font-semibold">-$1,200.00</td>
-                                <td class="px-md py-md text-tabular-nums font-tabular-nums text-on-surface-variant">48,000.00</td>
-                                <td class="px-md py-md text-right">
-                                    <button class="text-primary hover:underline text-label-bold font-label-bold flex items-center gap-xs justify-end ml-auto">
-                                        <span class="material-symbols-outlined" style="font-size: 16px;">receipt</span> Ver Evidencia
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-surface-container-lowest transition-colors">
-                                <td class="px-md py-md text-tabular-nums font-tabular-nums text-on-surface">21/10/2024</td>
-                                <td class="px-md py-md text-body-md font-body-md">Donación Individual Corporativa</td>
-                                <td class="px-md py-md text-tabular-nums font-tabular-nums text-secondary font-semibold">+$25,000.00</td>
-                                <td class="px-md py-md text-tabular-nums font-tabular-nums text-on-surface-variant">1,000,000.00</td>
-                                <td class="px-md py-md text-right">
-                                    <button class="text-primary hover:underline text-label-bold font-label-bold flex items-center gap-xs justify-end ml-auto">
-                                        <span class="material-symbols-outlined" style="font-size: 16px;">receipt</span> Ver Evidencia
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
+                        <tbody id="entradasBody" class="divide-y divide-outline-variant"></tbody>
                     </table>
                 </div>
+                <div id="entradasPagination" class="pagination"></div>
             </section>
 
-            <!-- Inventory Grid Section -->
-            <section class="space-y-lg" id="inventario">
-                <div class="flex items-center gap-md">
-                    <h3 class="text-headline-md font-headline-md text-on-background">Control de Inventario</h3>
-                    <div class="h-[2px] flex-grow bg-outline-variant"></div>
+            <!-- Donaciones Section -->
+            <section class="bg-white border border-outline-variant rounded-xl shadow-sm overflow-hidden" id="donaciones">
+                <div class="p-md border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest">
+                    <h3 class="text-headline-sm font-headline-sm text-primary flex items-center gap-sm">
+                        <span class="material-symbols-outlined">volunteer_activism</span>
+                        Productos Donados
+                    </h3>
+                    <span id="donadoCount" class="text-body-sm font-body-sm text-on-surface-variant">0 registros</span>
                 </div>
-                <div class="grid grid-cols-1 xl:grid-cols-2 gap-lg">
-                    <!-- Current Stock -->
-                    <div class="bg-white border border-outline-variant rounded-xl shadow-sm overflow-hidden h-full">
-                        <div class="p-md bg-surface-container border-b border-outline-variant">
-                            <h4 class="text-headline-sm font-headline-sm text-primary">Stock Actual</h4>
-                        </div>
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left">
-                                <thead class="bg-surface-container-low">
-                                    <tr>
-                                        <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant">Producto ID</th>
-                                        <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant">Entradas</th>
-                                        <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant">Salidas</th>
-                                        <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant">Stock Disponible</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-outline-variant">
-                                    <tr class="hover:bg-surface-container-lowest">
-                                        <td class="px-md py-md text-body-md font-body-md font-medium">MED-001 (Paracetamol)</td>
-                                        <td class="px-md py-md text-tabular-nums">5,000</td>
-                                        <td class="px-md py-md text-tabular-nums">3,200</td>
-                                        <td class="px-md py-md"><span class="bg-secondary-container text-on-secondary-container px-sm py-xs rounded-full text-label-bold font-label-bold">1,800 Unidades</span></td>
-                                    </tr>
-                                    <tr class="hover:bg-surface-container-lowest">
-                                        <td class="px-md py-md text-body-md font-body-md font-medium">KIT-004 (Primeros Auxilios)</td>
-                                        <td class="px-md py-md text-tabular-nums">1,200</td>
-                                        <td class="px-md py-md text-tabular-nums">1,150</td>
-                                        <td class="px-md py-md"><span class="bg-error-container text-on-error-container px-sm py-xs rounded-full text-label-bold font-label-bold">50 Unidades</span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <!-- Entry Table -->
-                    <div class="bg-white border border-outline-variant rounded-xl shadow-sm overflow-hidden h-full">
-                        <div class="p-md bg-surface-container border-b border-outline-variant">
-                            <h4 class="text-headline-sm font-headline-sm text-primary">Registro de Entradas</h4>
-                        </div>
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left">
-                                <thead class="bg-surface-container-low">
-                                    <tr>
-                                        <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant">Fecha</th>
-                                        <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant">Producto ID</th>
-                                        <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant">Cantidad Recibida</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-outline-variant">
-                                    <tr class="hover:bg-surface-container-lowest">
-                                        <td class="px-md py-md text-tabular-nums">20/10/2024</td>
-                                        <td class="px-md py-md font-medium">WAT-010 (Filtros Agua)</td>
-                                        <td class="px-md py-md text-tabular-nums">+500</td>
-                                    </tr>
-                                    <tr class="hover:bg-surface-container-lowest">
-                                        <td class="px-md py-md text-tabular-nums">19/10/2024</td>
-                                        <td class="px-md py-md font-medium">FOD-022 (Arroz 5kg)</td>
-                                        <td class="px-md py-md text-tabular-nums">+2,000</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="bg-surface-container-low border-b border-outline-variant">
+                                <th class="px-md py-md text-label-bold font-label-bold text-on-surface-variant">Fecha</th>
+                                <th class="px-md py-md text-label-bold font-label-bold text-on-surface-variant">Producto</th>
+                                <th class="px-md py-md text-label-bold font-label-bold text-on-surface-variant text-right">Cantidad</th>
+                                <th class="px-md py-md text-label-bold font-label-bold text-on-surface-variant">Centro</th>
+                                <th class="px-md py-md text-label-bold font-label-bold text-on-surface-variant">Combo</th>
+                            </tr>
+                        </thead>
+                        <tbody id="donadoBody" class="divide-y divide-outline-variant"></tbody>
+                    </table>
                 </div>
-                <!-- Donations/Outputs Table -->
-                <div class="bg-white border border-outline-variant rounded-xl shadow-sm overflow-hidden">
-                    <div class="p-md bg-surface-container border-b border-outline-variant">
-                        <h4 class="text-headline-sm font-headline-sm text-primary">Donaciones y Salidas (Egresos de Inventario)</h4>
-                    </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left">
-                            <thead class="bg-surface-container-low">
-                                <tr>
-                                    <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant">Fecha</th>
-                                    <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant">Producto ID</th>
-                                    <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant">Cantidad</th>
-                                    <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant">Centro de Entrega</th>
-                                    <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant">Número de Combo</th>
-                                    <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant text-right">Acción</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-outline-variant">
-                                <tr class="hover:bg-surface-container-lowest">
-                                    <td class="px-md py-md text-tabular-nums">24/10/2024</td>
-                                    <td class="px-md py-md font-medium">ALM-500 (Kits Alimenticios)</td>
-                                    <td class="px-md py-md text-tabular-nums">150</td>
-                                    <td class="px-md py-md">Comedor Comunitario "Esperanza"</td>
-                                    <td class="px-md py-md text-tabular-nums">#C-8842</td>
-                                    <td class="px-md py-md text-right">
-                                        <button class="text-primary hover:underline text-label-bold font-label-bold flex items-center gap-xs justify-end ml-auto">
-                                            <span class="material-symbols-outlined" style="font-size: 16px;">visibility</span> Ver Evidencia
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr class="hover:bg-surface-container-lowest">
-                                    <td class="px-md py-md text-tabular-nums">24/10/2024</td>
-                                    <td class="px-md py-md font-medium">HIG-202 (Kits Higiene)</td>
-                                    <td class="px-md py-md text-tabular-nums">80</td>
-                                    <td class="px-md py-md">Centro de Salud Local - San Félix</td>
-                                    <td class="px-md py-md text-tabular-nums">#C-8843</td>
-                                    <td class="px-md py-md text-right">
-                                        <button class="text-primary hover:underline text-label-bold font-label-bold flex items-center gap-xs justify-end ml-auto">
-                                            <span class="material-symbols-outlined" style="font-size: 16px;">visibility</span> Ver Evidencia
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                <div id="donadoPagination" class="pagination"></div>
             </section>
 
-            <!-- Donation Section -->
-            <section class="bg-surface-container-low rounded-xl p-lg border border-primary-container" id="donaciones">
-                <div class="flex flex-col md:flex-row gap-lg items-center">
-                    <div class="md:w-1/3 space-y-md text-center md:text-left">
-                        <h3 class="text-headline-md font-headline-md text-primary">Métodos de Donación</h3>
-                        <p class="text-body-md font-body-md text-on-surface-variant">Tu transparencia es nuestra prioridad. Utiliza cualquiera de estos canales oficiales para apoyarnos.</p>
-                        <div class="bg-primary-container text-on-primary-container p-md rounded-lg inline-flex items-center gap-sm">
-                            <span class="material-symbols-outlined">call</span>
-                            <span class="text-headline-sm font-headline-sm">+58 412 366 3847</span>
-                        </div>
+            <!-- Impacto Section -->
+            <section class="grid grid-cols-1 md:grid-cols-2 gap-md">
+                <div class="bg-white border border-outline-variant rounded-xl p-lg shadow-sm hover:shadow-md transition-shadow text-center">
+                    <div class="w-12 h-12 bg-secondary-container rounded-full flex items-center justify-center mx-auto mb-sm">
+                        <span class="material-symbols-outlined text-on-secondary-container">package_2</span>
                     </div>
-                    <div class="md:w-2/3 grid grid-cols-2 sm:grid-cols-3 gap-md w-full">
-                        <!-- Simplified Payment Cards -->
-                        <div class="bg-white p-md rounded-xl border border-outline-variant flex flex-col items-center gap-sm text-center hover:border-primary transition-colors">
-                            <span class="material-symbols-outlined text-primary" style="font-size: 32px;">account_balance</span>
-                            <span class="text-label-bold font-label-bold">Zelle</span>
-                        </div>
-                        <div class="bg-white p-md rounded-xl border border-outline-variant flex flex-col items-center gap-sm text-center hover:border-primary transition-colors">
-                            <span class="material-symbols-outlined text-primary" style="font-size: 32px;">smartphone</span>
-                            <span class="text-label-bold font-label-bold">Pago Móvil</span>
-                        </div>
-                        <div class="bg-white p-md rounded-xl border border-outline-variant flex flex-col items-center gap-sm text-center hover:border-primary transition-colors">
-                            <span class="material-symbols-outlined text-primary" style="font-size: 32px;">currency_bitcoin</span>
-                            <span class="text-label-bold font-label-bold">Binance</span>
-                        </div>
-                        <div class="bg-white p-md rounded-xl border border-outline-variant flex flex-col items-center gap-sm text-center hover:border-primary transition-colors">
-                            <span class="material-symbols-outlined text-primary" style="font-size: 32px;">credit_card</span>
-                            <span class="text-label-bold font-label-bold">Zinli</span>
-                        </div>
-                        <div class="bg-white p-md rounded-xl border border-outline-variant flex flex-col items-center gap-sm text-center hover:border-primary transition-colors">
-                            <span class="material-symbols-outlined text-primary" style="font-size: 32px;">account_balance_wallet</span>
-                            <span class="text-label-bold font-label-bold">Transferencia</span>
-                        </div>
-                        <div class="bg-white p-md rounded-xl border border-outline-variant flex flex-col items-center gap-sm text-center hover:border-primary transition-colors">
-                            <span class="material-symbols-outlined text-primary" style="font-size: 32px;">payments</span>
-                            <span class="text-label-bold font-label-bold">Efectivo</span>
-                        </div>
-                    </div>
+                    <div id="combosEntregados" class="text-display-lg font-display-lg text-secondary">0</div>
+                    <div class="text-label-bold font-label-bold text-on-surface-variant uppercase tracking-wider">Combos Entregados</div>
                 </div>
-            </section>
-
-            <!-- Evidence Showcase -->
-            <section class="space-y-lg">
-                <div class="flex items-center gap-md">
-                    <h3 class="text-headline-md font-headline-md text-on-background">Impacto de tu Ayuda</h3>
-                    <div class="h-[2px] flex-grow bg-outline-variant w-full md:w-64"></div>
-                </div>
-                <div class="flex flex-col md:flex-row justify-center gap-md">
-                    <div class="bg-white border border-outline-variant rounded-xl p-lg shadow-sm hover:shadow-md transition-shadow text-center w-full md:w-64">
-                        <div class="w-12 h-12 bg-secondary-container rounded-full flex items-center justify-center mx-auto mb-sm"><span class="material-symbols-outlined text-on-secondary-container">package_2</span></div>
-                        <div class="text-display-lg font-display-lg text-secondary">850</div>
-                        <div class="text-label-bold font-label-bold text-on-surface-variant uppercase tracking-wider">Combos entregados</div>
+                <div class="bg-white border border-outline-variant rounded-xl p-lg shadow-sm hover:shadow-md transition-shadow text-center">
+                    <div class="w-12 h-12 bg-error-container rounded-full flex items-center justify-center mx-auto mb-sm">
+                        <span class="material-symbols-outlined text-on-error-container">shopping_bag</span>
                     </div>
-                    <div class="bg-white border border-outline-variant rounded-xl p-lg shadow-sm hover:shadow-md transition-shadow text-center w-full md:w-64">
-                        <div class="w-12 h-12 bg-error-container rounded-full flex items-center justify-center mx-auto mb-sm"><span class="material-symbols-outlined text-on-error-container">shopping_bag</span></div>
-                        <div class="text-display-lg font-display-lg text-on-background">3,400</div>
-                        <div class="text-label-bold font-label-bold text-on-surface-variant uppercase tracking-wider">Productos donados</div>
-                    </div>
+                    <div id="productosDonados" class="text-display-lg font-display-lg text-on-background">0</div>
+                    <div class="text-label-bold font-label-bold text-on-surface-variant uppercase tracking-wider">Productos Donados</div>
                 </div>
             </section>
 
@@ -1469,16 +1424,16 @@
         <div class="flex flex-col gap-xs items-center md:items-start">
             <span class="text-label-bold font-label-bold text-primary">LOS BUENOS SOMOS MÁS</span>
             <p class="text-body-sm font-body-sm text-on-surface-variant max-w-sm text-center md:text-left">
-                © 2024 Plataforma de Transparencia. Todos los datos financieros son auditados y verificados.
+                © 2024 Plataforma de Transparencia. Todos los datos son cargados desde archivos JSON.
             </p>
         </div>
         <div class="flex gap-md flex-wrap justify-center">
-            <a class="text-on-surface-variant hover:text-on-surface text-label-bold font-label-bold hover:underline decoration-primary" href="#">Política de Privacidad</a>
-            <a class="text-on-surface-variant hover:text-on-surface text-label-bold font-label-bold hover:underline decoration-primary" href="#">Reportes de Auditoría</a>
-            <a class="text-on-surface-variant hover:text-on-surface text-label-bold font-label-bold hover:underline decoration-primary" href="#">Términos de Servicio</a>
-            <a class="text-on-surface-variant hover:text-on-surface text-label-bold font-label-bold hover:underline decoration-primary" href="#">Soporte</a>
+            <span class="text-body-sm font-body-sm text-on-surface-variant" id="footerLastUpdate">Cargando...</span>
         </div>
     </footer>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
 
     <!-- Micro-interaction Script -->
     <script>
