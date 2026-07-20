@@ -1,15 +1,50 @@
-// ✅ Versión simplificada para diagnosticar
+import { kv } from '@vercel/kv';
+
 export default async function handler(req, res) {
-  console.log("=== WEBHOOK SIMPLE EJECUTADO ===");
-  console.log("Method:", req.method);
-  console.log("Headers:", req.headers);
-  console.log("Body:", req.body);
+  console.log("=== WEBHOOK CON KV ===");
   
-  // Responder siempre con éxito para probar
-  return res.status(200).json({ 
-    ok: true, 
-    message: "Webhook funcionando",
-    method: req.method,
-    timestamp: new Date().toISOString()
-  });
+  const secret = process.env.SECRET_WEBHOOK || "";
+  const incoming = req.headers["x-webhook-secret"] || "";
+
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
+
+  if (!incoming || incoming !== secret) {
+    console.log("❌ Secret inválido");
+    return res.status(401).json({ error: "Invalid webhook secret" });
+  }
+
+  try {
+    const body = req.body;
+    console.log("✅ Body recibido");
+    console.log("Contabilidades:", body.contabilidades?.length || 0);
+    console.log("Inventario:", body.inventario?.length || 0);
+    console.log("Donado:", body.donado?.length || 0);
+    
+    // Guardar en Vercel KV
+    const timestamp = new Date().toISOString();
+    const snapshot = { 
+      receivedAt: timestamp, 
+      payload: body 
+    };
+
+    await kv.set('snapshot', JSON.stringify(snapshot));
+    console.log("✅ Snapshot guardado en KV");
+
+    return res.status(200).json({ 
+      ok: true, 
+      receivedAt: timestamp,
+      contabilidades: body.contabilidades?.length || 0,
+      inventario: body.inventario?.length || 0,
+      donado: body.donado?.length || 0,
+      storage: 'vercel-kv'
+    });
+  } catch (err) {
+    console.error("❌ Error:", err.message);
+    return res.status(500).json({ 
+      error: "Failed to save snapshot", 
+      details: err.message 
+    });
+  }
 }

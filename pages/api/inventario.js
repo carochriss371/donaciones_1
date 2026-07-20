@@ -1,36 +1,23 @@
-// pages/api/inventario.js
-import fs from "fs";
+import { kv } from '@vercel/kv';
 
-function readSnapshot() {
-  const filePath = "/tmp/data/snapshot.json";
-  
-  console.log("🔍 Leyendo desde:", filePath);
-  
-  if (!fs.existsSync(filePath)) {
-    console.log("❌ Archivo no encontrado");
-    return null;
-  }
-  
+export default async function handler(req, res) {
   try {
-    const content = fs.readFileSync(filePath, "utf8");
-    const data = JSON.parse(content);
-    console.log("✅ Datos leídos. Inventario:", data.payload?.inventario?.length || 0);
-    return data;
+    console.log("🔍 Leyendo inventario desde KV");
+    
+    const snapshotData = await kv.get('snapshot');
+    
+    if (!snapshotData) {
+      return res.status(404).json({ error: "No snapshot available" });
+    }
+    
+    const snapshot = JSON.parse(snapshotData);
+    const inventario = snapshot.payload.inventario || [];
+    const entradas = snapshot.payload.entradas || [];
+    
+    console.log("📊 Enviando", inventario.length, "inventario,", entradas.length, "entradas");
+    res.status(200).json({ inventario, entradas });
   } catch (error) {
     console.error("❌ Error:", error);
-    return null;
+    res.status(500).json({ error: "Error reading data" });
   }
-}
-
-export default function handler(req, res) {
-  const snapshot = readSnapshot();
-  
-  if (!snapshot) {
-    return res.status(404).json({ error: "No snapshot available" });
-  }
-  
-  const inventario = snapshot.payload.inventario || [];
-  const entradas = snapshot.payload.entradas || [];
-  
-  res.status(200).json({ inventario, entradas });
 }

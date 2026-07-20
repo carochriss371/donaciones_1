@@ -1,24 +1,34 @@
-import fs from "fs";
+import { kv } from '@vercel/kv';
 
-export default function handler(req, res) {
-  const filePath = "/tmp/data/snapshot.json";
-  
-  if (!fs.existsSync(filePath)) {
-    return res.status(404).json({ error: "No data" });
+export default async function handler(req, res) {
+  try {
+    console.log("🔍 Debug - leyendo desde KV");
+    
+    const snapshotData = await kv.get('snapshot');
+    
+    if (!snapshotData) {
+      return res.status(404).json({ 
+        error: "No data in KV",
+        message: "Ejecuta el webhook primero"
+      });
+    }
+    
+    const snapshot = JSON.parse(snapshotData);
+    
+    res.status(200).json({
+      exists: true,
+      storage: 'vercel-kv',
+      receivedAt: snapshot.receivedAt,
+      contabilidades: snapshot.payload.contabilidades?.length || 0,
+      inventario: snapshot.payload.inventario?.length || 0,
+      donado: snapshot.payload.donado?.length || 0,
+      // Muestra los primeros 2 items como muestra
+      sample_contabilidades: snapshot.payload.contabilidades?.slice(0, 2),
+      sample_inventario: snapshot.payload.inventario?.slice(0, 2),
+      sample_donado: snapshot.payload.donado?.slice(0, 2)
+    });
+  } catch (error) {
+    console.error("❌ Error:", error);
+    res.status(500).json({ error: error.message });
   }
-  
-  const content = fs.readFileSync(filePath, "utf8");
-  const data = JSON.parse(content);
-  
-  res.status(200).json({
-    exists: true,
-    receivedAt: data.receivedAt,
-    contabilidades: data.payload.contabilidades?.length || 0,
-    inventario: data.payload.inventario?.length || 0,
-    donado: data.payload.donado?.length || 0,
-    // Muestra los primeros 2 items de cada uno para verificar
-    sample_contabilidades: data.payload.contabilidades?.slice(0, 2),
-    sample_inventario: data.payload.inventario?.slice(0, 2),
-    sample_donado: data.payload.donado?.slice(0, 2)
-  });
 }
