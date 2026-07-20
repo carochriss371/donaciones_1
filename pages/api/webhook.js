@@ -1,13 +1,13 @@
-// pages/api/webhook.js
 import { createClient } from '@vercel/kv';
 
-// Crear cliente con REDIS_URL
+// Usar REDIS_URL que ya existe en tu proyecto
 const kv = createClient({
   url: process.env.REDIS_URL
 });
 
 export default async function handler(req, res) {
   console.log("=== WEBHOOK CON REDIS ===");
+  console.log("REDIS_URL configurada:", !!process.env.REDIS_URL);
   
   const secret = process.env.SECRET_WEBHOOK || "";
   const incoming = req.headers["x-webhook-secret"] || "";
