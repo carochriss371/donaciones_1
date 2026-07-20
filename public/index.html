@@ -1,469 +1,371 @@
 <!DOCTYPE html>
-
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LOS BUENOS SOMOS MÁS | Panel de Transparencia</title>
 
-```
-<script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: Inter, system-ui, sans-serif;
+            background: #f8fafc;
+            color: #0f172a;
+        }
 
-<style>
-    body {
-        font-family: Inter, system-ui, sans-serif;
-        background: #f8fafc;
-        color: #0f172a;
-    }
-
-    .sidebar {
-        width: 260px;
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100vh;
-        background: white;
-        border-right: 1px solid #e2e8f0;
-        z-index: 40;
-    }
-
-    .content {
-        margin-left: 260px;
-        padding: 32px;
-    }
-
-    .nav-link {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        padding: 12px 16px;
-        border-radius: 12px;
-        color: #475569;
-        transition: all .2s;
-    }
-
-    .nav-link:hover {
-        background: #eff6ff;
-        color: #1d4ed8;
-    }
-
-    .nav-link.active {
-        background: #dbeafe;
-        color: #1d4ed8;
-        font-weight: 600;
-    }
-
-    .card {
-        background: white;
-        border: 1px solid #e2e8f0;
-        border-radius: 16px;
-        padding: 24px;
-        box-shadow: 0 1px 2px rgba(0,0,0,.04);
-    }
-
-    .table-card {
-        background: white;
-        border: 1px solid #e2e8f0;
-        border-radius: 16px;
-        overflow: hidden;
-        box-shadow: 0 1px 2px rgba(0,0,0,.04);
-    }
-
-    .table-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 20px 24px;
-        border-bottom: 1px solid #e2e8f0;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    thead th {
-        position: sticky;
-        top: 0;
-        background: #f8fafc;
-        z-index: 10;
-        font-size: 12px;
-        text-transform: uppercase;
-        letter-spacing: .05em;
-        color: #64748b;
-        font-weight: 700;
-    }
-
-    th, td {
-        padding: 14px 16px;
-        border-bottom: 1px solid #f1f5f9;
-        white-space: nowrap;
-    }
-
-    tbody tr:hover {
-        background: #f8fafc;
-    }
-
-    .amount-positive {
-        color: #15803d;
-        font-weight: 600;
-    }
-
-    .amount-negative {
-        color: #b91c1c;
-        font-weight: 600;
-    }
-
-    .pagination {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 8px;
-        padding: 16px;
-        border-top: 1px solid #e2e8f0;
-        flex-wrap: wrap;
-    }
-
-    .pagination button {
-        min-width: 36px;
-        height: 36px;
-        padding: 0 10px;
-        border: 1px solid #cbd5e1;
-        border-radius: 10px;
-        background: white;
-        cursor: pointer;
-        transition: all .15s;
-    }
-
-    .pagination button:hover:not(:disabled) {
-        background: #eff6ff;
-        border-color: #93c5fd;
-    }
-
-    .pagination button.active {
-        background: #2563eb;
-        color: white;
-        border-color: #2563eb;
-        font-weight: 700;
-    }
-
-    .pagination button:disabled {
-        opacity: .5;
-        cursor: not-allowed;
-    }
-
-    .pagination-info {
-        font-size: 14px;
-        color: #64748b;
-        margin-right: 8px;
-    }
-
-    .badge-bs {
-        background: #dbeafe;
-        color: #1d4ed8;
-        padding: 4px 10px;
-        border-radius: 999px;
-        font-size: 12px;
-        font-weight: 700;
-    }
-
-    .badge-usd {
-        background: #dcfce7;
-        color: #166534;
-        padding: 4px 10px;
-        border-radius: 999px;
-        font-size: 12px;
-        font-weight: 700;
-    }
-
-    .stock-low {
-        background: #fee2e2;
-        color: #991b1b;
-        padding: 4px 10px;
-        border-radius: 999px;
-        font-size: 12px;
-        font-weight: 700;
-    }
-
-    .stock-normal {
-        background: #dcfce7;
-        color: #166534;
-        padding: 4px 10px;
-        border-radius: 999px;
-        font-size: 12px;
-        font-weight: 700;
-    }
-
-    @media (max-width: 1024px) {
         .sidebar {
-            width: 100%;
-            height: auto;
-            position: relative;
+            width: 260px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            background: white;
+            border-right: 1px solid #e2e8f0;
+            z-index: 40;
         }
 
         .content {
-            margin-left: 0;
-            padding: 20px;
+            margin-left: 260px;
+            padding: 32px;
         }
-    }
-</style>
-```
 
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            color: #475569;
+            transition: all .2s;
+        }
+
+        .nav-link:hover {
+            background: #eff6ff;
+            color: #1d4ed8;
+        }
+
+        .nav-link.active {
+            background: #dbeafe;
+            color: #1d4ed8;
+            font-weight: 600;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 1px 2px rgba(0,0,0,.04);
+        }
+
+        .table-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 1px 2px rgba(0,0,0,.04);
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead th {
+            position: sticky;
+            top: 0;
+            background: #f8fafc;
+            z-index: 10;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            color: #64748b;
+            font-weight: 700;
+        }
+
+        th, td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #f1f5f9;
+            white-space: nowrap;
+        }
+
+        tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            padding: 16px;
+            border-top: 1px solid #e2e8f0;
+            flex-wrap: wrap;
+        }
+
+        .pagination-btn {
+            min-width: 36px;
+            height: 36px;
+            padding: 0 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            transition: all .15s;
+        }
+
+        .pagination-btn:hover:not(:disabled) {
+            background: #eff6ff;
+            border-color: #93c5fd;
+        }
+
+        .pagination-btn.active {
+            background: #2563eb;
+            color: white;
+            border-color: #2563eb;
+            font-weight: 700;
+        }
+
+        .pagination-btn:disabled {
+            opacity: .5;
+            cursor: not-allowed;
+        }
+
+        .pagination-info {
+            font-size: 14px;
+            color: #64748b;
+            margin-right: 8px;
+        }
+
+        .stock-low {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .stock-normal {
+            background: #dcfce7;
+            color: #166534;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .content {
+                margin-left: 0;
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
-
 <body>
 
-```
-<!-- Sidebar -->
-<aside class="sidebar p-6">
+    <!-- Sidebar -->
+    <aside class="sidebar p-6">
+        <div class="mb-8">
+            <h1 class="text-xl font-bold text-blue-700">LOS BUENOS SOMOS MÁS</h1>
+            <p class="text-sm text-slate-500 mt-1">Panel de Transparencia</p>
+        </div>
 
-    <div class="mb-8">
-        <h1 class="text-xl font-bold text-blue-700">LOS BUENOS SOMOS MÁS</h1>
-        <p class="text-sm text-slate-500 mt-1">Panel de Transparencia</p>
-    </div>
+        <nav class="space-y-2">
+            <a href="#dashboard" class="nav-link active">
+                <span>📊</span>
+                <span>Dashboard</span>
+            </a>
+            <a href="#contabilidad" class="nav-link">
+                <span>💰</span>
+                <span>Contabilidad</span>
+            </a>
+            <a href="#inventario" class="nav-link">
+                <span>📦</span>
+                <span>Inventario</span>
+            </a>
+            <a href="#entradas" class="nav-link">
+                <span>📥</span>
+                <span>Entradas</span>
+            </a>
+            <a href="#donaciones" class="nav-link">
+                <span>🤝</span>
+                <span>Donaciones</span>
+            </a>
+        </nav>
 
-    <nav class="space-y-2">
+        <div class="mt-8 pt-4 border-t border-slate-200">
+            <p id="lastUpdate" class="text-sm text-slate-500">Cargando...</p>
+        </div>
+    </aside>
 
-        <a href="#dashboard" class="nav-link active">
-            <span>📊</span>
-            <span>Dashboard</span>
-        </a>
+    <!-- Content -->
+    <main class="content space-y-8">
 
-        <a href="#contabilidad" class="nav-link">
-            <span>💰</span>
-            <span>Contabilidad</span>
-        </a>
+        <!-- Dashboard -->
+        <section id="dashboard" class="space-y-8">
 
-        <a href="#inventario" class="nav-link">
-            <span>📦</span>
-            <span>Inventario</span>
-        </a>
-
-        <a href="#entradas" class="nav-link">
-            <span>📥</span>
-            <span>Entradas</span>
-        </a>
-
-        <a href="#donaciones" class="nav-link">
-            <span>🤝</span>
-            <span>Donaciones</span>
-        </a>
-
-    </nav>
-
-</aside>
-
-<!-- Content -->
-<main class="content space-y-8">
-
-    <!-- Dashboard -->
-    <section id="dashboard" class="space-y-8">
-
-        <div>
-            <div class="flex items-center gap-3 mb-4">
-                <div class="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center text-blue-700 text-lg">🇻🇪</div>
-                <div>
-                    <h2 class="text-xl font-semibold">Bolívares (Bs.)</h2>
-                    <p class="text-sm text-slate-500">Fondos y saldo en moneda local</p>
+            <div>
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center text-blue-700 text-lg">🇻🇪</div>
+                    <div>
+                        <h2 class="text-xl font-semibold">Bolívares (Bs.)</h2>
+                        <p class="text-sm text-slate-500">Fondos y saldo en moneda local</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div class="card">
+                        <p class="text-sm font-semibold text-slate-500 uppercase tracking-wide">Total Recaudado</p>
+                        <h3 id="totalBs" class="text-4xl font-bold text-blue-700 mt-2">Bs. 0</h3>
+                    </div>
+                    <div class="card">
+                        <p class="text-sm font-semibold text-slate-500 uppercase tracking-wide">Saldo Neto</p>
+                        <h3 id="saldoNetoBs" class="text-4xl font-bold text-blue-700 mt-2">Bs. 0</h3>
+                    </div>
                 </div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <div class="card">
-                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-wide">Total Recaudado</p>
-                    <h3 id="totalBs" class="text-4xl font-bold text-blue-700 mt-2">Bs. 0</h3>
-                </div>
-                <div class="card">
-                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-wide">Saldo Neto</p>
-                    <h3 id="saldoNetoBs" class="text-4xl font-bold text-blue-700 mt-2">Bs. 0</h3>
-                </div>
-            </div>
-        </div>
 
-        <div>
-            <div class="flex items-center gap-3 mb-4">
-                <div class="w-10 h-10 rounded-xl bg-green-100 flex items-center justify-center text-green-700 text-lg">💵</div>
-                <div>
-                    <h2 class="text-xl font-semibold">Dólares (USD)</h2>
-                    <p class="text-sm text-slate-500">Fondos y saldo en moneda extranjera</p>
+            <div>
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-xl bg-green-100 flex items-center justify-center text-green-700 text-lg">💵</div>
+                    <div>
+                        <h2 class="text-xl font-semibold">Dólares (USD)</h2>
+                        <p class="text-sm text-slate-500">Fondos y saldo en moneda extranjera</p>
+                    </div>
                 </div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <div class="card">
-                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-wide">Total Recaudado</p>
-                    <h3 id="totalUsd" class="text-4xl font-bold text-green-700 mt-2">$ 0</h3>
-                </div>
-                <div class="card">
-                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-wide">Saldo Neto</p>
-                    <h3 id="saldoNetoUsd" class="text-4xl font-bold text-green-700 mt-2">$ 0</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div class="card">
+                        <p class="text-sm font-semibold text-slate-500 uppercase tracking-wide">Total Recaudado</p>
+                        <h3 id="totalUsd" class="text-4xl font-bold text-green-700 mt-2">$ 0</h3>
+                    </div>
+                    <div class="card">
+                        <p class="text-sm font-semibold text-slate-500 uppercase tracking-wide">Saldo Neto</p>
+                        <h3 id="saldoNetoUsd" class="text-4xl font-bold text-green-700 mt-2">$ 0</h3>
+                    </div>
                 </div>
             </div>
-        </div>
 
-    </section>
-
-    <!-- Contabilidad -->
-    <section id="contabilidad" class="table-card">
-
-        <div class="table-header">
-            <h2 class="text-xl font-semibold">Registro Contable</h2>
-            <span id="contabilidadCount" class="text-sm text-slate-500">0 registros</span>
-        </div>
-
-        <div class="overflow-x-auto">
-
-            <table>
-
-                <thead>
-
-                    <tr>
-
-                        <th>Moneda</th>
-                        <th>Cuenta</th>
-                        <th>Fecha</th>
-                        <th>Asiento</th>
-                        <th class="text-right">Debe</th>
-                        <th class="text-right">Haber</th>
-                        <th class="text-right">Saldo</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody id="contabilidadBody"></tbody>
-
-            </table>
-
-        </div>
-
-        <div id="contabilidadPagination" class="pagination"></div>
-
-    </section>
-
-    <!-- Inventario -->
-    <section id="inventario" class="table-card">
-
-        <div class="table-header">
-            <h2 class="text-xl font-semibold">Control de Inventario</h2>
-            <span id="inventarioCount" class="text-sm text-slate-500">0 productos</span>
-        </div>
-
-        <div class="overflow-x-auto">
-
-            <table>
-
-                <thead>
-
-                    <tr>
-
-                        <th>Código</th>
-                        <th>Producto</th>
-                        <th class="text-right">Entradas</th>
-                        <th class="text-right">Salidas</th>
-                        <th class="text-right">Stock</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody id="inventarioBody"></tbody>
-
-            </table>
-
-        </div>
-
-        <div id="inventarioPagination" class="pagination"></div>
-
-    </section>
-
-    <!-- Entradas -->
-    <section id="entradas" class="table-card">
-
-        <div class="table-header">
-            <h2 class="text-xl font-semibold">Registro de Entradas</h2>
-            <span id="entradasCount" class="text-sm text-slate-500">0 registros</span>
-        </div>
-
-        <div class="overflow-x-auto">
-
-            <table>
-
-                <thead>
-
-                    <tr>
-
-                        <th>Fecha</th>
-                        <th>Producto</th>
-                        <th class="text-right">Cantidad</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody id="entradasBody"></tbody>
-
-            </table>
-
-        </div>
-
-        <div id="entradasPagination" class="pagination"></div>
-
-    </section>
-
-    <!-- Donaciones -->
-    <section id="donaciones" class="table-card">
-
-        <div class="table-header">
-            <h2 class="text-xl font-semibold">Productos Donados</h2>
-            <span id="donadoCount" class="text-sm text-slate-500">0 registros</span>
-        </div>
-
-        <div class="overflow-x-auto">
-
-            <table>
-
-                <thead>
-
-                    <tr>
-
-                        <th>Fecha</th>
-                        <th>Producto</th>
-                        <th class="text-right">Cantidad</th>
-                        <th>Centro</th>
-                        <th>Combo</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody id="donadoBody"></tbody>
-
-            </table>
-
-        </div>
-
-        <div id="donadoPagination" class="pagination"></div>
-
-    </section>
-
-    <!-- Resumen final -->
-    <section class="grid grid-cols-1 md:grid-cols-2 gap-5">
-
-        <div class="card text-center">
-            <p class="text-sm text-slate-500 uppercase tracking-wide font-semibold">Productos Donados</p>
-            <h3 id="productosDonados" class="text-3xl font-bold mt-2">0</h3>
-        </div>
-
-        <div class="card text-center">
-            <p class="text-sm text-slate-500 uppercase tracking-wide font-semibold">Combos Entregados</p>
-            <h3 id="combosEntregados" class="text-3xl font-bold mt-2">0</h3>
-        </div>
-
-    </section>
-
-</main>
-
-<script src="app.js"></script>
-```
-
+        </section>
+
+        <!-- Contabilidad -->
+        <section id="contabilidad" class="table-card">
+            <div class="table-header">
+                <h2 class="text-xl font-semibold">Registro Contable</h2>
+                <span id="contabilidadCount" class="text-sm text-slate-500">0 registros</span>
+            </div>
+            <div class="overflow-x-auto">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cuenta</th>
+                            <th>Fecha</th>
+                            <th>Asiento</th>
+                            <th class="text-right">Debe</th>
+                            <th class="text-right">Haber</th>
+                            <th class="text-right">Saldo</th>
+                        </tr>
+                    </thead>
+                    <tbody id="contabilidadBody"></tbody>
+                </table>
+            </div>
+            <div id="contabilidadPagination" class="pagination"></div>
+        </section>
+
+        <!-- Inventario -->
+        <section id="inventario" class="table-card">
+            <div class="table-header">
+                <h2 class="text-xl font-semibold">Control de Inventario</h2>
+                <span id="inventarioCount" class="text-sm text-slate-500">0 productos</span>
+            </div>
+            <div class="overflow-x-auto">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Producto</th>
+                            <th class="text-right">Entradas</th>
+                            <th class="text-right">Salidas</th>
+                            <th class="text-right">Stock</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inventarioBody"></tbody>
+                </table>
+            </div>
+            <div id="inventarioPagination" class="pagination"></div>
+        </section>
+
+        <!-- Entradas -->
+        <section id="entradas" class="table-card">
+            <div class="table-header">
+                <h2 class="text-xl font-semibold">Registro de Entradas</h2>
+                <span id="entradasCount" class="text-sm text-slate-500">0 registros</span>
+            </div>
+            <div class="overflow-x-auto">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Producto</th>
+                            <th class="text-right">Cantidad</th>
+                        </tr>
+                    </thead>
+                    <tbody id="entradasBody"></tbody>
+                </table>
+            </div>
+            <div id="entradasPagination" class="pagination"></div>
+        </section>
+
+        <!-- Donaciones -->
+        <section id="donaciones" class="table-card">
+            <div class="table-header">
+                <h2 class="text-xl font-semibold">Productos Donados</h2>
+                <span id="donadoCount" class="text-sm text-slate-500">0 registros</span>
+            </div>
+            <div class="overflow-x-auto">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Producto</th>
+                            <th class="text-right">Cantidad</th>
+                            <th>Centro</th>
+                            <th>Combo</th>
+                        </tr>
+                    </thead>
+                    <tbody id="donadoBody"></tbody>
+                </table>
+            </div>
+            <div id="donadoPagination" class="pagination"></div>
+        </section>
+
+        <!-- Resumen final -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div class="card text-center">
+                <p class="text-sm text-slate-500 uppercase tracking-wide font-semibold">Productos Donados</p>
+                <h3 id="productosDonados" class="text-3xl font-bold mt-2">0</h3>
+            </div>
+            <div class="card text-center">
+                <p class="text-sm text-slate-500 uppercase tracking-wide font-semibold">Combos Entregados</p>
+                <h3 id="combosEntregados" class="text-3xl font-bold mt-2">0</h3>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="app.js"></script>
 </body>
 </html>
