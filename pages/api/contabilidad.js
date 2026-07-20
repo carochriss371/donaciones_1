@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 
 function readSnapshot() {
-  const filePath = path.join(process.cwd(), "data", "snapshot.json");
+  const filePath = path.join(process.cwd(), "/tmp","data", "snapshot.json");
   if (!fs.existsSync(filePath)) return null;
   const content = fs.readFileSync(filePath, "utf8");
   return JSON.parse(content);
