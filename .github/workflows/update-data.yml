@@ -1,0 +1,58 @@
+name: Actualizar Datos desde Apps Script
+
+on:
+  workflow_dispatch:
+    inputs:
+      data:
+        description: 'Datos JSON completos'
+        required: true
+        type: string
+      secret:
+        description: 'Webhook Secret para verificación'
+        required: true
+        type: string
+      timestamp:
+        description: 'Timestamp de la actualización'
+        required: false
+        type: string
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Verify secret
+        run: |
+          EXPECTED_SECRET="${{ secrets.WEBHOOK_SECRET }}"
+          RECEIVED_SECRET="${{ github.event.inputs.secret }}"
+          
+          if [ "$EXPECTED_SECRET" != "$RECEIVED_SECRET" ]; then
+            echo "❌ Secret inválido"
+            exit 1
+          fi
+          echo "✅ Secret verificado"
+      
+      - name: Save data
+        run: |
+          mkdir -p public/data
+          DATA='${{ github.event.inputs.data }}'
+          
+          echo "$DATA" | jq '.contabilidades' > public/data/contabilidad.json
+          echo "$DATA" | jq '.inventario' > public/data/inventario.json
+          echo "$DATA" | jq '.donado' > public/data/donado.json
+          echo "$DATA" | jq '{summary: .summary, timestamp: .timestamp}' > public/data/metadata.json
+          
+          echo "✅ Datos guardados"
+      
+      - name: Commit and push
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add public/data/
+          git diff --staged --quiet || git commit -m "Actualizar datos desde Apps Script ${{ github.event.inputs.timestamp || 'manual' }}"
+          git push
