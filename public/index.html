@@ -178,23 +178,14 @@
         .btn-whatsapp:hover {
             background: #1da851;
         }
-        .btn-whatsapp-outline {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: white;
-            color: #25D366;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: 600;
-            text-decoration: none;
-            border: 2px solid #25D366;
-            transition: all 0.2s;
-            font-size: 14px;
+        .btn-whatsapp img {
+            width: 24px;
+            height: 24px;
         }
-        .btn-whatsapp-outline:hover {
-            background: #25D366;
-            color: white;
+        .whatsapp-icon {
+            width: 24px;
+            height: 24px;
+            vertical-align: middle;
         }
 
         /* Ajustes responsive */
@@ -250,9 +241,13 @@
                 padding: 10px 18px;
                 font-size: 14px;
             }
-            .btn-whatsapp-outline {
-                padding: 8px 16px;
-                font-size: 13px;
+            .btn-whatsapp img {
+                width: 20px;
+                height: 20px;
+            }
+            .whatsapp-icon {
+                width: 20px;
+                height: 20px;
             }
         }
 
@@ -299,9 +294,13 @@
                 padding: 8px 14px;
                 font-size: 13px;
             }
-            .btn-whatsapp-outline {
-                padding: 6px 12px;
-                font-size: 12px;
+            .btn-whatsapp img {
+                width: 18px;
+                height: 18px;
+            }
+            .whatsapp-icon {
+                width: 18px;
+                height: 18px;
             }
         }
     </style>
@@ -599,7 +598,7 @@
                         </p>
                         <div class="flex flex-col sm:flex-row gap-3 items-center md:items-start">
                             <a href="https://wa.me/584123663847?text=Hola%2C%20quiero%20donar" target="_blank" class="btn-whatsapp">
-                                <span class="material-symbols-outlined" style="font-size: 20px;">whatsapp</span>
+                                <img src="https://i.postimg.cc/VL4CkCzm/whatsapp-logo-whatsapp-icon-whatsapp-transparent-free-png.webp" alt="WhatsApp" class="whatsapp-icon">
                                 +58 412 366 3847
                             </a>
                         </div>
@@ -761,14 +760,14 @@
 
             modalBody.innerHTML = `
                 <div style="text-align: center; padding: 8px 0 16px 0;">
-                    <span class="material-symbols-outlined" style="font-size: 56px; color: #25D366;">whatsapp</span>
+                    <img src="https://i.postimg.cc/VL4CkCzm/whatsapp-logo-whatsapp-icon-whatsapp-transparent-free-png.webp" alt="WhatsApp" style="width: 64px; height: 64px;">
                 </div>
                 <p style="text-align: center; font-size: 15px; margin-bottom: 20px; color: #424752;">
                     Para realizar tu donación por <strong>${nombre}</strong>, contáctanos por WhatsApp y te enviaremos los datos completos.
                 </p>
                 <div style="text-align: center; margin-bottom: 16px;">
                     <a href="https://wa.me/${numeroWhatsApp}?text=Hola%2C%20quiero%20donar%20por%20${nombre.replace(/ /g, '%20')}" target="_blank" class="btn-whatsapp">
-                        <span class="material-symbols-outlined" style="font-size: 20px;">whatsapp</span>
+                        <img src="https://i.postimg.cc/VL4CkCzm/whatsapp-logo-whatsapp-icon-whatsapp-transparent-free-png.webp" alt="WhatsApp" style="width: 24px; height: 24px;">
                         +58 ${numeroWhatsApp}
                     </a>
                 </div>
