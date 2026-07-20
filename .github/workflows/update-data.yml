@@ -1,27 +1,27 @@
 name: Actualizar Datos desde Apps Script
 
 on:
-  # Permitir que sea llamado desde la API
-  repository_dispatch:
-    types: [update-data]
-  
-  # Ejecución manual para pruebas
+  # Permite ejecución manual con inputs
   workflow_dispatch:
     inputs:
       data:
-        description: 'Datos JSON'
+        description: 'Datos JSON completos'
         required: true
         type: string
       secret:
-        description: 'Webhook Secret'
+        description: 'Webhook Secret para verificación'
         required: true
+        type: string
+      timestamp:
+        description: 'Timestamp de la actualización'
+        required: false
         type: string
 
 jobs:
   update-data:
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # Permiso para escribir en el repositorio
+      contents: write
     
     steps:
       - name: Checkout repository
@@ -30,33 +30,25 @@ jobs:
       - name: Verify secret
         run: |
           EXPECTED_SECRET="${{ secrets.WEBHOOK_SECRET }}"
-          # Para repository_dispatch
-          RECEIVED_SECRET="${{ github.event.client_payload.secret }}"
-          # Para workflow_dispatch
-          if [ -z "$RECEIVED_SECRET" ]; then
-            RECEIVED_SECRET="${{ github.event.inputs.secret }}"
-          fi
+          RECEIVED_SECRET="${{ github.event.inputs.secret }}"
           
           if [ "$EXPECTED_SECRET" != "$RECEIVED_SECRET" ]; then
             echo "❌ Secret inválido"
+            echo "Esperado: $EXPECTED_SECRET"
+            echo "Recibido: $RECEIVED_SECRET"
             exit 1
           fi
           echo "✅ Secret verificado"
       
-      - name: Extract and save data
+      - name: Save data to files
         run: |
-          # Obtener datos según el tipo de evento
-          if [ -n "${{ github.event.client_payload.data }}" ]; then
-            DATA='${{ github.event.client_payload.data }}'
-          elif [ -n "${{ github.event.inputs.data }}" ]; then
-            DATA='${{ github.event.inputs.data }}'
-          else
-            echo "❌ No se recibieron datos"
-            exit 1
-          fi
-          
-          # Crear directorio y guardar datos
+          # Crear directorio
           mkdir -p public/data
+          
+          # Guardar los datos recibidos
+          DATA='${{ github.event.inputs.data }}'
+          
+          # Extraer cada sección usando jq
           echo "$DATA" | jq '.contabilidades' > public/data/contabilidad.json
           echo "$DATA" | jq '.inventario' > public/data/inventario.json
           echo "$DATA" | jq '.donado' > public/data/donado.json
@@ -69,5 +61,5 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add public/data/
-          git diff --staged --quiet || git commit -m "Actualizar datos desde Apps Script $(date +'%Y-%m-%d %H:%M:%S')"
+          git diff --staged --quiet || git commit -m "Actualizar datos desde Apps Script ${{ github.event.inputs.timestamp || 'manual' }}"
           git push
