@@ -1,17 +1,8 @@
 name: Actualizar Datos desde Apps Script
 
 on:
-  # 🔥 ESTE ES EL IMPORTANTE - Recibe datos automáticamente
   repository_dispatch:
     types: [update-data]
-  
-  # Esto es solo para pruebas manuales (opcional)
-  workflow_dispatch:
-    inputs:
-      data:
-        description: 'Datos JSON para prueba manual'
-        required: false
-        type: string
 
 jobs:
   update-data:
@@ -23,40 +14,46 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       
-      - name: Get data from dispatch or manual
+      - name: Debug - Verificar payload
         run: |
-          # Si viene de repository_dispatch (automático)
-          if [ -n "${{ github.event.client_payload.data }}" ]; then
-            DATA='${{ github.event.client_payload.data }}'
-            SECRET='${{ github.event.client_payload.secret }}'
-            TIMESTAMP='${{ github.event.client_payload.timestamp }}'
-          # Si viene de workflow_dispatch (manual)
-          elif [ -n "${{ github.event.inputs.data }}" ]; then
-            DATA='${{ github.event.inputs.data }}'
-          else
+          echo "Event name: ${{ github.event_name }}"
+          echo "Event type: ${{ github.event.action }}"
+          echo "Client payload: ${{ toJson(github.event.client_payload) }}"
+      
+      - name: Extract and save data
+        run: |
+          # 🔥 IMPORTANTE: Acceder a los datos correctamente
+          DATA='${{ toJson(github.event.client_payload.data) }}'
+          SECRET='${{ github.event.client_payload.secret }}'
+          TIMESTAMP='${{ github.event.client_payload.timestamp }}'
+          
+          # Si DATA está vacío o es null, fallar
+          if [ -z "$DATA" ] || [ "$DATA" = "null" ]; then
             echo "❌ No se recibieron datos"
+            echo "Payload recibido: ${{ toJson(github.event.client_payload) }}"
             exit 1
           fi
           
-          # Verificar secret (solo en modo automático)
-          if [ -n "$SECRET" ]; then
-            EXPECTED_SECRET="${{ secrets.WEBHOOK_SECRET }}"
-            if [ "$EXPECTED_SECRET" != "$SECRET" ]; then
-              echo "❌ Secret inválido"
-              exit 1
-            fi
-            echo "✅ Secret verificado"
+          # Verificar secret
+          EXPECTED_SECRET="${{ secrets.WEBHOOK_SECRET }}"
+          if [ -n "$SECRET" ] && [ "$EXPECTED_SECRET" != "$SECRET" ]; then
+            echo "❌ Secret inválido"
+            exit 1
           fi
+          echo "✅ Secret verificado"
           
-          # Guardar datos
+          # Guardar datos (eliminar las comillas que agrega toJson)
+          echo "$DATA" | sed 's/^"//' | sed 's/"$//' | jq '.' > /tmp/data.json
+          
           mkdir -p public/data
-          echo "$DATA" | jq '.contabilidades' > public/data/contabilidad.json
-          echo "$DATA" | jq '.inventario' > public/data/inventario.json
-          echo "$DATA" | jq '.entradas' > public/data/entradas.json
-          echo "$DATA" | jq '.donado' > public/data/donado.json
-          echo "$DATA" | jq '{summary: .summary, timestamp: .timestamp}' > public/data/metadata.json
+          jq '.contabilidades' /tmp/data.json > public/data/contabilidad.json
+          jq '.inventario' /tmp/data.json > public/data/inventario.json
+          jq '.entradas' /tmp/data.json > public/data/entradas.json
+          jq '.donado' /tmp/data.json > public/data/donado.json
+          jq '{summary: .summary, timestamp: .timestamp}' /tmp/data.json > public/data/metadata.json
           
           echo "✅ Datos guardados correctamente"
+          ls -la public/data/
       
       - name: Commit and push changes
         run: |
