@@ -1,6 +1,7 @@
-// app.js - Carga y renderiza los datos
+// app.js - Con paginación
 
 const DATA_URL = 'data/';
+const ROWS_PER_PAGE = 15;
 
 let state = {
     contabilidad: [],
@@ -11,6 +12,13 @@ let state = {
     lastUpdate: null
 };
 
+let pagination = {
+    contabilidad: { currentPage: 1, totalPages: 1 },
+    inventario: { currentPage: 1, totalPages: 1 },
+    entradas: { currentPage: 1, totalPages: 1 },
+    donado: { currentPage: 1, totalPages: 1 }
+};
+
 // ============================================
 // CARGA DE DATOS
 // ============================================
@@ -19,10 +27,6 @@ async function loadAllData() {
     console.log('🔄 Cargando datos...');
     
     try {
-        // Mostrar estado de carga
-        setLoadingState(true);
-
-        // Cargar archivos en paralelo
         const [contabilidad, inventario, entradas, donado, metadata] = await Promise.all([
             fetchJSON('contabilidad.json'),
             fetchJSON('inventario.json'),
@@ -31,7 +35,6 @@ async function loadAllData() {
             fetchJSON('metadata.json')
         ]);
 
-        // Asignar datos (con valores por defecto)
         state.contabilidad = Array.isArray(contabilidad) ? contabilidad : [];
         state.inventario = Array.isArray(inventario) ? inventario : [];
         state.entradas = Array.isArray(entradas) ? entradas : [];
@@ -45,13 +48,16 @@ async function loadAllData() {
         console.log(`📥 Entradas: ${state.entradas.length}`);
         console.log(`🤝 Donado: ${state.donado.length}`);
 
-        // Renderizar
+        // Resetear paginación
+        Object.keys(pagination).forEach(key => {
+            pagination[key].currentPage = 1;
+        });
+
         renderAll();
-        setLoadingState(false);
+        updateLastUpdate();
 
     } catch (error) {
         console.error('❌ Error cargando datos:', error);
-        setLoadingState(false);
         showError();
     }
 }
@@ -59,21 +65,16 @@ async function loadAllData() {
 async function fetchJSON(filename) {
     try {
         const response = await fetch(DATA_URL + filename);
-        if (!response.ok) {
-            console.warn(`⚠️ ${filename} no encontrado (${response.status})`);
-            return null;
-        }
-        const data = await response.json();
-        console.log(`✅ ${filename} cargado: ${Array.isArray(data) ? data.length : 'objeto'}`);
-        return data;
+        if (!response.ok) return null;
+        return await response.json();
     } catch (error) {
-        console.warn(`⚠️ Error cargando ${filename}:`, error.message);
+        console.warn(`⚠️ ${filename}:`, error.message);
         return null;
     }
 }
 
 // ============================================
-// RENDERIZADO (con el diseño original)
+// RENDERIZADO
 // ============================================
 
 function renderAll() {
@@ -84,37 +85,32 @@ function renderAll() {
     renderDonado();
     renderImpacto();
     updateCounts();
-    updateLastUpdate();
 }
 
 function renderSummary() {
     const s = state.summary;
-    if (!s) {
-        document.getElementById('totalRecaudado').textContent = 'Cargando...';
-        return;
-    }
+    if (!s) return;
 
     const bs = s.bs || {};
     const usd = s.usd || {};
 
-    // Actualizar las tarjetas
+    document.getElementById('totalBs').textContent = `Bs. ${formatNumber(bs.totalRecaudado || 0)}`;
+    document.getElementById('totalUsd').textContent = `$ ${formatNumber(usd.totalRecaudado || 0)}`;
+    document.getElementById('saldoNetoBs').textContent = `Bs. ${formatNumber(bs.saldoNeto || 0)}`;
     document.getElementById('totalRecaudado').textContent = `Bs. ${formatNumber(bs.totalRecaudado || 0)} | $ ${formatNumber(usd.totalRecaudado || 0)}`;
-    document.getElementById('totalRecaudadoCard').textContent = `Bs. ${formatNumber(bs.totalRecaudado || 0)}`;
-    document.getElementById('totalEjecutadoCard').textContent = `Bs. ${formatNumber(bs.totalEjecutado || 0)}`;
-    document.getElementById('saldoNetoCard').textContent = `Bs. ${formatNumber(bs.saldoNeto || 0)}`;
-    
-    // Barra de progreso
-    const progress = bs.totalRecaudado > 0 ? Math.min((bs.totalEjecutado / bs.totalRecaudado) * 100, 100) : 0;
-    document.getElementById('progressBar').style.width = `${progress}%`;
-    document.getElementById('progressText').textContent = `${Math.round(progress)}% Meta`;
 }
+
+// ============================================
+// CONTABILIDAD CON PAGINACIÓN
+// ============================================
 
 function renderContabilidad() {
     const tbody = document.getElementById('contabilidadBody');
     const rows = state.contabilidad;
 
     if (!rows || rows.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="4" class="px-md py-md text-center text-on-surface-variant">No hay datos disponibles</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="6" class="px-md py-md text-center text-on-surface-variant">No hay datos disponibles</td></tr>`;
+        document.getElementById('contabilidadPagination').innerHTML = '';
         return;
     }
 
@@ -123,61 +119,99 @@ function renderContabilidad() {
     rows.forEach(account => {
         (account.rows || []).forEach(row => {
             allRows.push({
-                ...row,
                 accountName: account.accountName || 'General',
-                currency: account.currency || 'Bs.'
+                currency: account.currency || 'Bs.',
+                ...row
             });
         });
     });
 
-    // Mostrar últimos 10 registros
-    const displayRows = allRows.slice(-10).reverse();
+    // Ordenar por fecha (más reciente primero)
+    allRows.sort((a, b) => {
+        if (!a.fecha) return 1;
+        if (!b.fecha) return -1;
+        return new Date(b.fecha) - new Date(a.fecha);
+    });
 
-    tbody.innerHTML = displayRows.map(row => {
-        const monto = row.debe ? `+$${formatNumber(row.debe)}` : row.haber ? `-$${formatNumber(row.haber)}` : '$0';
-        const isIncome = row.debe && !row.haber;
-        const colorClass = isIncome ? 'text-secondary' : 'text-error';
-        const currency = row.currency === '$' ? '$' : 'Bs.';
+    const totalPages = Math.ceil(allRows.length / ROWS_PER_PAGE);
+    pagination.contabilidad.totalPages = totalPages;
+    const currentPage = pagination.contabilidad.currentPage;
+    const start = (currentPage - 1) * ROWS_PER_PAGE;
+    const end = start + ROWS_PER_PAGE;
+    const pageRows = allRows.slice(start, end);
+
+    tbody.innerHTML = pageRows.map(row => {
+        const moneda = row.currency === '$' ? '$' : 'Bs.';
+        const debe = row.debe ? `${moneda} ${formatNumber(row.debe)}` : '-';
+        const haber = row.haber ? `${moneda} ${formatNumber(row.haber)}` : '-';
+        const saldo = row.saldo ? `${moneda} ${formatNumber(row.saldo)}` : '-';
+        const colorDebe = row.debe ? 'text-primary font-medium' : 'text-on-surface-variant';
+        const colorHaber = row.haber ? 'text-error font-medium' : 'text-on-surface-variant';
         
         return `
             <tr class="hover:bg-surface-container-lowest transition-colors fade-in">
-                <td class="px-md py-md text-tabular-nums font-tabular-nums text-on-surface">${row.fecha || '-'}</td>
-                <td class="px-md py-md text-body-md font-body-md">${row.asiento || row.accountName || '-'}</td>
-                <td class="px-md py-md text-tabular-nums font-tabular-nums ${colorClass} font-semibold">${currency} ${monto}</td>
-                <td class="px-md py-md text-right">
-                    <span class="text-on-surface-variant text-label-bold font-label-bold">${currency} ${formatNumber(row.saldo || 0)}</span>
-                </td>
+                <td class="px-md py-md text-body-sm font-body-sm font-medium text-on-surface">${row.accountName}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-on-surface">${row.fecha || '-'}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-on-surface max-w-xs truncate">${row.asiento || '-'}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-right ${colorDebe}">${debe}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-right ${colorHaber}">${haber}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-right font-medium text-on-surface">${saldo}</td>
             </tr>
         `;
     }).join('');
+
+    renderPagination('contabilidad', totalPages);
 }
+
+// ============================================
+// INVENTARIO CON PAGINACIÓN
+// ============================================
 
 function renderInventario() {
     const tbody = document.getElementById('inventarioBody');
     const rows = state.inventario;
 
     if (!rows || rows.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="4" class="px-md py-md text-center text-on-surface-variant">No hay datos disponibles</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="5" class="px-md py-md text-center text-on-surface-variant">No hay datos disponibles</td></tr>`;
+        document.getElementById('inventarioPagination').innerHTML = '';
         return;
     }
 
-    tbody.innerHTML = rows.slice(0, 20).map(item => {
-        const stock = (item.entradas || 0) - (item.salidas || 0);
+    // Ordenar por stock (menor primero)
+    const sorted = [...rows].sort((a, b) => (a.stock || 0) - (b.stock || 0));
+
+    const totalPages = Math.ceil(sorted.length / ROWS_PER_PAGE);
+    pagination.inventario.totalPages = totalPages;
+    const currentPage = pagination.inventario.currentPage;
+    const start = (currentPage - 1) * ROWS_PER_PAGE;
+    const end = start + ROWS_PER_PAGE;
+    const pageRows = sorted.slice(start, end);
+
+    tbody.innerHTML = pageRows.map(row => {
+        const stock = row.stock || 0;
         const isLow = stock < 5;
-        const badgeClass = isLow ? 'bg-error-container text-on-error-container' : 'bg-secondary-container text-on-secondary-container';
+        const badgeClass = isLow ? 'stock-low' : 'stock-normal';
+        const badgeText = isLow ? '⚠️ Stock bajo' : '✓ Disponible';
         
         return `
-            <tr class="hover:bg-surface-container-lowest fade-in">
-                <td class="px-md py-md text-body-md font-body-md font-medium">${item.cod || 'N/A'} (${item.producto || 'Sin nombre'})</td>
-                <td class="px-md py-md text-tabular-nums">${item.entradas || 0}</td>
-                <td class="px-md py-md text-tabular-nums">${item.salidas || 0}</td>
-                <td class="px-md py-md">
-                    <span class="${badgeClass} px-sm py-xs rounded-full text-label-bold font-label-bold">${stock} Unidades</span>
+            <tr class="hover:bg-surface-container-lowest transition-colors fade-in">
+                <td class="px-md py-md text-body-sm font-body-sm font-mono text-on-surface">${row.cod || '-'}</td>
+                <td class="px-md py-md text-body-sm font-body-sm font-medium text-on-surface">${row.producto || 'Sin nombre'}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-right text-on-surface">${formatNumber(row.entradas || 0)}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-right text-on-surface">${formatNumber(row.salidas || 0)}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-right">
+                    <span class="${badgeClass}">${formatNumber(stock)} ${badgeText}</span>
                 </td>
             </tr>
         `;
     }).join('');
+
+    renderPagination('inventario', totalPages);
 }
+
+// ============================================
+// ENTRADAS CON PAGINACIÓN
+// ============================================
 
 function renderEntradas() {
     const tbody = document.getElementById('entradasBody');
@@ -185,19 +219,38 @@ function renderEntradas() {
 
     if (!rows || rows.length === 0) {
         tbody.innerHTML = `<tr><td colspan="3" class="px-md py-md text-center text-on-surface-variant">No hay datos disponibles</td></tr>`;
+        document.getElementById('entradasPagination').innerHTML = '';
         return;
     }
 
-    const displayRows = rows.slice(-10).reverse();
+    // Ordenar por fecha (más reciente primero)
+    const sorted = [...rows].sort((a, b) => {
+        if (!a.fecha) return 1;
+        if (!b.fecha) return -1;
+        return new Date(b.fecha) - new Date(a.fecha);
+    });
 
-    tbody.innerHTML = displayRows.map(e => `
-        <tr class="hover:bg-surface-container-lowest fade-in">
-            <td class="px-md py-md text-tabular-nums">${e.fecha || '-'}</td>
-            <td class="px-md py-md font-medium">${e.cod || 'N/A'} (${e.producto || 'Sin nombre'})</td>
-            <td class="px-md py-md text-tabular-nums text-secondary font-semibold">+${e.cantidad || 0}</td>
+    const totalPages = Math.ceil(sorted.length / ROWS_PER_PAGE);
+    pagination.entradas.totalPages = totalPages;
+    const currentPage = pagination.entradas.currentPage;
+    const start = (currentPage - 1) * ROWS_PER_PAGE;
+    const end = start + ROWS_PER_PAGE;
+    const pageRows = sorted.slice(start, end);
+
+    tbody.innerHTML = pageRows.map(row => `
+        <tr class="hover:bg-surface-container-lowest transition-colors fade-in">
+            <td class="px-md py-md text-body-sm font-body-sm text-on-surface">${row.fecha || '-'}</td>
+            <td class="px-md py-md text-body-sm font-body-sm font-medium text-on-surface">${row.producto || 'Sin nombre'}</td>
+            <td class="px-md py-md text-body-sm font-body-sm text-right text-secondary font-medium">+${formatNumber(row.cantidad || 0)}</td>
         </tr>
     `).join('');
+
+    renderPagination('entradas', totalPages);
 }
+
+// ============================================
+// DONADO CON PAGINACIÓN
+// ============================================
 
 function renderDonado() {
     const tbody = document.getElementById('donadoBody');
@@ -205,45 +258,58 @@ function renderDonado() {
 
     if (!rows || rows.length === 0) {
         tbody.innerHTML = `<tr><td colspan="5" class="px-md py-md text-center text-on-surface-variant">No hay datos disponibles</td></tr>`;
+        document.getElementById('donadoPagination').innerHTML = '';
         return;
     }
 
-    const displayRows = rows.slice(-10).reverse();
+    // Ordenar por fecha (más reciente primero)
+    const sorted = [...rows].sort((a, b) => {
+        if (!a.fecha) return 1;
+        if (!b.fecha) return -1;
+        return new Date(b.fecha) - new Date(a.fecha);
+    });
 
-    tbody.innerHTML = displayRows.map(item => `
-        <tr class="hover:bg-surface-container-lowest fade-in">
-            <td class="px-md py-md text-tabular-nums">${item.fecha || '-'}</td>
-            <td class="px-md py-md font-medium">${item.cod || 'N/A'} (${item.producto || 'Sin nombre'})</td>
-            <td class="px-md py-md text-tabular-nums">${item.cantidad || 0}</td>
-            <td class="px-md py-md">${item.centro || '-'}</td>
-            <td class="px-md py-md text-tabular-nums">${item.combo || '-'}</td>
+    const totalPages = Math.ceil(sorted.length / ROWS_PER_PAGE);
+    pagination.donado.totalPages = totalPages;
+    const currentPage = pagination.donado.currentPage;
+    const start = (currentPage - 1) * ROWS_PER_PAGE;
+    const end = start + ROWS_PER_PAGE;
+    const pageRows = sorted.slice(start, end);
+
+    tbody.innerHTML = pageRows.map(row => `
+        <tr class="hover:bg-surface-container-lowest transition-colors fade-in">
+            <td class="px-md py-md text-body-sm font-body-sm text-on-surface">${row.fecha || '-'}</td>
+            <td class="px-md py-md text-body-sm font-body-sm font-medium text-on-surface">${row.producto || 'Sin nombre'}</td>
+            <td class="px-md py-md text-body-sm font-body-sm text-right text-on-surface">${formatNumber(row.cantidad || 0)}</td>
+            <td class="px-md py-md text-body-sm font-body-sm text-on-surface max-w-xs truncate">${row.centro || '-'}</td>
+            <td class="px-md py-md text-body-sm font-body-sm text-on-surface">${row.combo || '-'}</td>
         </tr>
     `).join('');
+
+    renderPagination('donado', totalPages);
 }
 
+// ============================================
+// IMPACTO
+// ============================================
+
 function renderImpacto() {
-    // Calcular combos entregados (de donado)
     const combos = state.donado.filter(d => d.combo).length;
     document.getElementById('combosEntregados').textContent = combos;
     
-    // Calcular productos donados
     const totalDonado = state.donado.reduce((sum, d) => sum + (parseInt(d.cantidad) || 0), 0);
     document.getElementById('productosDonados').textContent = totalDonado;
 }
 
+// ============================================
+// CONTADORES
+// ============================================
+
 function updateCounts() {
-    // Actualizar contadores si existen
-    const contabilidadEl = document.getElementById('contabilidadCount');
-    if (contabilidadEl) contabilidadEl.textContent = `${state.contabilidad.length} cuentas`;
-    
-    const inventarioEl = document.getElementById('inventarioCount');
-    if (inventarioEl) inventarioEl.textContent = `${state.inventario.length} productos`;
-    
-    const entradasEl = document.getElementById('entradasCount');
-    if (entradasEl) entradasEl.textContent = `${state.entradas.length} registros`;
-    
-    const donadoEl = document.getElementById('donadoCount');
-    if (donadoEl) donadoEl.textContent = `${state.donado.length} registros`;
+    document.getElementById('contabilidadCount').textContent = `${state.contabilidad.length} cuentas`;
+    document.getElementById('inventarioCount').textContent = `${state.inventario.length} productos`;
+    document.getElementById('entradasCount').textContent = `${state.entradas.length} registros`;
+    document.getElementById('donadoCount').textContent = `${state.donado.length} registros`;
 }
 
 function updateLastUpdate() {
@@ -252,16 +318,72 @@ function updateLastUpdate() {
     
     if (state.lastUpdate) {
         const date = new Date(state.lastUpdate);
-        const dateStr = date.toLocaleDateString('es-ES', {
-            day: '2-digit',
-            month: 'long',
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit'
-        });
-        el.textContent = `Última actualización: ${dateStr}`;
+        el.textContent = `Última actualización: ${date.toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' })}`;
     } else {
         el.textContent = 'Actualizando...';
+    }
+}
+
+// ============================================
+// PAGINACIÓN
+// ============================================
+
+function renderPagination(section, totalPages) {
+    const container = document.getElementById(`${section}Pagination`);
+    if (!container) return;
+
+    const currentPage = pagination[section].currentPage;
+
+    if (totalPages <= 1) {
+        container.innerHTML = '';
+        return;
+    }
+
+    let html = `<span class="pagination-info">Página ${currentPage} de ${totalPages}</span>`;
+    
+    // Botón Anterior
+    html += `<button class="pagination-btn" onclick="goToPage('${section}', ${currentPage - 1})" ${currentPage <= 1 ? 'disabled' : ''}>‹</button>`;
+
+    // Números de página
+    const maxVisible = 5;
+    let startPage = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+    let endPage = Math.min(totalPages, startPage + maxVisible - 1);
+    
+    if (endPage - startPage < maxVisible - 1) {
+        startPage = Math.max(1, endPage - maxVisible + 1);
+    }
+
+    if (startPage > 1) {
+        html += `<button class="pagination-btn" onclick="goToPage('${section}', 1)">1</button>`;
+        if (startPage > 2) html += `<span class="pagination-info">…</span>`;
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+        html += `<button class="pagination-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage('${section}', ${i})">${i}</button>`;
+    }
+
+    if (endPage < totalPages) {
+        if (endPage < totalPages - 1) html += `<span class="pagination-info">…</span>`;
+        html += `<button class="pagination-btn" onclick="goToPage('${section}', ${totalPages})">${totalPages}</button>`;
+    }
+
+    // Botón Siguiente
+    html += `<button class="pagination-btn" onclick="goToPage('${section}', ${currentPage + 1})" ${currentPage >= totalPages ? 'disabled' : ''}>›</button>`;
+
+    container.innerHTML = html;
+}
+
+function goToPage(section, page) {
+    const totalPages = pagination[section].totalPages;
+    if (page < 1 || page > totalPages) return;
+    pagination[section].currentPage = page;
+    
+    // Renderizar solo la sección correspondiente
+    switch(section) {
+        case 'contabilidad': renderContabilidad(); break;
+        case 'inventario': renderInventario(); break;
+        case 'entradas': renderEntradas(); break;
+        case 'donado': renderDonado(); break;
     }
 }
 
@@ -275,10 +397,6 @@ function formatNumber(num) {
         minimumFractionDigits: 0,
         maximumFractionDigits: 2
     });
-}
-
-function setLoadingState(loading) {
-    // No es necesario mostrar skeletons
 }
 
 function showError() {
@@ -295,6 +413,7 @@ function showError() {
 // ============================================
 
 document.addEventListener('DOMContentLoaded', loadAllData);
-
-// Recargar cada 5 minutos
 setInterval(loadAllData, 300000);
+
+// Exportar funciones para el HTML
+window.goToPage = goToPage;
