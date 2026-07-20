@@ -162,34 +162,39 @@
             margin-top: 12px;
             font-size: 14px;
         }
-        .modal-body .highlight-whatsapp {
+        .btn-whatsapp {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             background: #25D366;
             color: white;
-            padding: 16px;
-            border-radius: 12px;
-            margin-top: 16px;
-            text-align: center;
-        }
-        .modal-body .highlight-whatsapp a {
-            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
             text-decoration: none;
+            transition: background 0.2s;
+            font-size: 16px;
+        }
+        .btn-whatsapp:hover {
+            background: #1da851;
+        }
+        .btn-whatsapp-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            color: #25D366;
+            padding: 10px 20px;
+            border-radius: 8px;
             font-weight: 600;
+            text-decoration: none;
+            border: 2px solid #25D366;
+            transition: all 0.2s;
+            font-size: 14px;
         }
-        .modal-body .highlight-whatsapp a:hover {
-            text-decoration: underline;
-        }
-        .copy-btn {
-            background: #003f87;
+        .btn-whatsapp-outline:hover {
+            background: #25D366;
             color: white;
-            border: none;
-            padding: 4px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: 600;
-        }
-        .copy-btn:hover {
-            opacity: 0.9;
         }
 
         /* Ajustes responsive */
@@ -220,14 +225,12 @@
             .pagination-info {
                 font-size: 0.7rem;
             }
-            /* Ajustes para tablas en mobile */
             table {
                 font-size: 12px;
             }
             table th, table td {
                 padding: 8px 6px !important;
             }
-            /* Ajustes para tarjetas de donación */
             .metodo-donacion {
                 padding: 12px !important;
             }
@@ -237,12 +240,19 @@
             .metodo-donacion span:last-child {
                 font-size: 11px !important;
             }
-            /* Header responsive */
             header h1 {
                 font-size: 14px !important;
             }
             header .text-headline-sm {
                 font-size: 14px !important;
+            }
+            .btn-whatsapp {
+                padding: 10px 18px;
+                font-size: 14px;
+            }
+            .btn-whatsapp-outline {
+                padding: 8px 16px;
+                font-size: 13px;
             }
         }
 
@@ -284,6 +294,14 @@
             }
             .modal-content {
                 padding: 16px;
+            }
+            .btn-whatsapp {
+                padding: 8px 14px;
+                font-size: 13px;
+            }
+            .btn-whatsapp-outline {
+                padding: 6px 12px;
+                font-size: 12px;
             }
         }
     </style>
@@ -577,11 +595,13 @@
                     <div class="md:w-1/3 space-y-md text-center md:text-left">
                         <h3 class="text-headline-md font-headline-md text-primary text-xl sm:text-2xl">Métodos de Donación</h3>
                         <p class="text-body-md font-body-md text-on-surface-variant text-sm sm:text-base">
-                            Para realizar tu donación, escríbenos al siguiente <strong>WhatsApp</strong> y te indicaremos los datos según el método de pago que prefieras.
+                            Para realizar tu donación, escríbenos al siguiente número y te indicaremos los datos según el método de pago que prefieras.
                         </p>
-                        <div class="bg-green-500 text-white p-md rounded-lg inline-flex items-center gap-sm hover:bg-green-600 transition-colors">
-                            <span class="material-symbols-outlined">whatsapp</span>
-                            <span class="text-headline-sm font-headline-sm text-sm sm:text-base">+58 412 366 3847</span>
+                        <div class="flex flex-col sm:flex-row gap-3 items-center md:items-start">
+                            <a href="https://wa.me/584123663847?text=Hola%2C%20quiero%20donar" target="_blank" class="btn-whatsapp">
+                                <span class="material-symbols-outlined" style="font-size: 20px;">whatsapp</span>
+                                +58 412 366 3847
+                            </a>
                         </div>
                         <p class="text-body-sm font-body-sm text-on-surface-variant text-xs sm:text-sm">
                             💬 Contáctanos y te ayudaremos con el proceso de donación.
@@ -717,7 +737,7 @@
         document.querySelectorAll('section[id]').forEach(section => observer.observe(section));
 
         // ======================
-        // MODAL DE DONACIÓN - Mensaje genérico de WhatsApp
+        // MODAL DE DONACIÓN
         // ======================
         const modal = document.getElementById('donationModal');
         const modalClose = document.getElementById('modalClose');
@@ -740,24 +760,23 @@
             const numeroWhatsApp = '584123663847';
 
             modalBody.innerHTML = `
-                <div style="text-align: center; padding: 8px 0;">
-                    <span class="material-symbols-outlined" style="font-size: 64px; color: #25D366;">whatsapp</span>
+                <div style="text-align: center; padding: 8px 0 16px 0;">
+                    <span class="material-symbols-outlined" style="font-size: 56px; color: #25D366;">whatsapp</span>
                 </div>
-                <p style="text-align: center; font-size: 16px; margin-bottom: 16px; color: #424752;">
+                <p style="text-align: center; font-size: 15px; margin-bottom: 20px; color: #424752;">
                     Para realizar tu donación por <strong>${nombre}</strong>, contáctanos por WhatsApp y te enviaremos los datos completos.
                 </p>
-                <div class="highlight-whatsapp">
-                    <a href="https://wa.me/${numeroWhatsApp}?text=Hola%2C%20quiero%20donar%20por%20${nombre.replace(/ /g, '%20')}" target="_blank" style="display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 18px;">
-                        <span class="material-symbols-outlined" style="font-size: 24px;">whatsapp</span>
-                        Escríbenos al WhatsApp
+                <div style="text-align: center; margin-bottom: 16px;">
+                    <a href="https://wa.me/${numeroWhatsApp}?text=Hola%2C%20quiero%20donar%20por%20${nombre.replace(/ /g, '%20')}" target="_blank" class="btn-whatsapp">
+                        <span class="material-symbols-outlined" style="font-size: 20px;">whatsapp</span>
+                        +58 ${numeroWhatsApp}
                     </a>
                 </div>
                 <div style="margin-top: 12px; text-align: center; font-size: 13px; color: #727784;">
-                    <p>📋 Número: <strong>+58 ${numeroWhatsApp}</strong></p>
-                    <p style="margin-top: 4px;">💬 Recuerda indicar que deseas donar por <strong>${nombre}</strong></p>
+                    <p>💬 Recuerda indicar que deseas donar por <strong>${nombre}</strong></p>
                 </div>
                 <div style="margin-top: 16px; padding: 12px; background: #fffbdd; border-radius: 8px; font-size: 13px; color: #7d6b00; text-align: center;">
-                    ⚠️ Importante: Verifica que estás contactando al número oficial de la fundación.
+                    ⚠️ Verifica que estás contactando al número oficial de la fundación.
                 </div>
             `;
 
@@ -789,12 +808,10 @@
 
         // Función para mostrar el total en mobile también
         document.addEventListener('DOMContentLoaded', function() {
-            // Duplicar el total en el elemento mobile
             const totalRecaudado = document.getElementById('totalRecaudado');
             const totalRecaudadoMobile = document.getElementById('totalRecaudadoMobile');
             
             if (totalRecaudado && totalRecaudadoMobile) {
-                // Observar cambios en el totalRecaudado para actualizar el mobile
                 const observer = new MutationObserver(() => {
                     totalRecaudadoMobile.textContent = totalRecaudado.textContent;
                 });
