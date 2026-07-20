@@ -1,8 +1,12 @@
-import { kv } from '@vercel/kv';
+import { createClient } from '@vercel/kv';
+
+const kv = createClient({
+  url: process.env.REDIS_URL
+});
 
 export default async function handler(req, res) {
   try {
-    console.log("🔍 Leyendo inventario desde KV");
+    console.log("🔍 Leyendo inventario desde Redis");
     
     const snapshotData = await kv.get('snapshot');
     

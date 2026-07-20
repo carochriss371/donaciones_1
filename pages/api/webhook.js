@@ -1,7 +1,13 @@
-import { kv } from '@vercel/kv';
+// pages/api/webhook.js
+import { createClient } from '@vercel/kv';
+
+// Crear cliente con REDIS_URL
+const kv = createClient({
+  url: process.env.REDIS_URL
+});
 
 export default async function handler(req, res) {
-  console.log("=== WEBHOOK CON KV ===");
+  console.log("=== WEBHOOK CON REDIS ===");
   
   const secret = process.env.SECRET_WEBHOOK || "";
   const incoming = req.headers["x-webhook-secret"] || "";
@@ -22,15 +28,15 @@ export default async function handler(req, res) {
     console.log("Inventario:", body.inventario?.length || 0);
     console.log("Donado:", body.donado?.length || 0);
     
-    // Guardar en Vercel KV
     const timestamp = new Date().toISOString();
     const snapshot = { 
       receivedAt: timestamp, 
       payload: body 
     };
 
+    // Guardar en Redis
     await kv.set('snapshot', JSON.stringify(snapshot));
-    console.log("✅ Snapshot guardado en KV");
+    console.log("✅ Snapshot guardado en Redis");
 
     return res.status(200).json({ 
       ok: true, 
@@ -38,10 +44,11 @@ export default async function handler(req, res) {
       contabilidades: body.contabilidades?.length || 0,
       inventario: body.inventario?.length || 0,
       donado: body.donado?.length || 0,
-      storage: 'vercel-kv'
+      storage: 'redis'
     });
   } catch (err) {
     console.error("❌ Error:", err.message);
+    console.error("Stack:", err.stack);
     return res.status(500).json({ 
       error: "Failed to save snapshot", 
       details: err.message 
