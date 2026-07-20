@@ -1,331 +1,469 @@
 <!DOCTYPE html>
-<html class="light" lang="es">
-<head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>LOS BUENOS SOMOS MÁS | Panel de Transparencia</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-    
-    <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        body { font-family: 'Inter', sans-serif; }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(8px);
-        }
-        .stock-low {
-            background-color: #ffdad6;
-            color: #93000a;
-            padding: 2px 10px;
-            border-radius: 9999px;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
-        .stock-normal {
-            background-color: #80f98b;
-            color: #007327;
-            padding: 2px 10px;
-            border-radius: 9999px;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
-        .fade-in {
-            animation: fadeIn 0.3s ease-in;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        /* Estilos para paginación */
-        .pagination-btn {
-            padding: 6px 12px;
-            border: 1px solid #c2c6d4;
-            border-radius: 4px;
-            background: white;
-            color: #141d23;
-            cursor: pointer;
-            font-size: 0.8rem;
-            transition: all 0.2s;
-        }
-        .pagination-btn:hover {
-            background: #ecf5fe;
-        }
-        .pagination-btn.active {
-            background: #003f87;
-            color: white;
-            border-color: #003f87;
-        }
-        .pagination-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        .pagination-container {
-            display: flex;
-            gap: 6px;
-            align-items: center;
-            flex-wrap: wrap;
-            padding: 12px 16px;
-            border-top: 1px solid #c2c6d4;
-            background: #f6faff;
-        }
-        .pagination-info {
-            font-size: 0.8rem;
-            color: #424752;
-            margin-right: 12px;
-        }
-    </style>
 
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "error": "#ba1a1a",
-                        "on-error": "#ffffff",
-                        "primary-container": "#0056b3",
-                        "on-background": "#141d23",
-                        "surface-container-low": "#ecf5fe",
-                        "on-surface": "#141d23",
-                        "surface-container-high": "#e0e9f2",
-                        "surface-container-lowest": "#ffffff",
-                        "surface-container": "#e6eff8",
-                        "error-container": "#ffdad6",
-                        "primary": "#003f87",
-                        "on-primary": "#ffffff",
-                        "outline-variant": "#c2c6d4",
-                        "on-surface-variant": "#424752",
-                        "secondary-container": "#80f98b",
-                        "secondary": "#006e25",
-                        "on-secondary-container": "#007327",
-                        "on-error-container": "#93000a",
-                        "outline": "#727784",
-                        "surface": "#f6faff"
-                    },
-                    borderRadius: {
-                        "xl": "0.5rem",
-                        "full": "0.75rem"
-                    },
-                    spacing: {
-                        "sm": "8px",
-                        "lg": "24px",
-                        "md": "16px",
-                        "gutter": "24px",
-                        "xs": "4px",
-                        "container-max": "1280px"
-                    },
-                    fontFamily: {
-                        "headline-md": ["Inter"],
-                        "label-bold": ["Inter"],
-                        "display-lg": ["Inter"],
-                        "body-sm": ["Inter"],
-                        "headline-sm": ["Inter"],
-                        "body-md": ["Inter"],
-                        "tabular-nums": ["Inter"]
-                    },
-                    fontSize: {
-                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
-                        "label-bold": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
-                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
-                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
-                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
-                        "tabular-nums": ["14px", {"lineHeight": "20px", "fontWeight": "500"}]
-                    }
-                },
-            },
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOS BUENOS SOMOS MÁS | Panel de Transparencia</title>
+
+```
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+    body {
+        font-family: Inter, system-ui, sans-serif;
+        background: #f8fafc;
+        color: #0f172a;
+    }
+
+    .sidebar {
+        width: 260px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        background: white;
+        border-right: 1px solid #e2e8f0;
+        z-index: 40;
+    }
+
+    .content {
+        margin-left: 260px;
+        padding: 32px;
+    }
+
+    .nav-link {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 16px;
+        border-radius: 12px;
+        color: #475569;
+        transition: all .2s;
+    }
+
+    .nav-link:hover {
+        background: #eff6ff;
+        color: #1d4ed8;
+    }
+
+    .nav-link.active {
+        background: #dbeafe;
+        color: #1d4ed8;
+        font-weight: 600;
+    }
+
+    .card {
+        background: white;
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 1px 2px rgba(0,0,0,.04);
+    }
+
+    .table-card {
+        background: white;
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 1px 2px rgba(0,0,0,.04);
+    }
+
+    .table-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 24px;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    thead th {
+        position: sticky;
+        top: 0;
+        background: #f8fafc;
+        z-index: 10;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: .05em;
+        color: #64748b;
+        font-weight: 700;
+    }
+
+    th, td {
+        padding: 14px 16px;
+        border-bottom: 1px solid #f1f5f9;
+        white-space: nowrap;
+    }
+
+    tbody tr:hover {
+        background: #f8fafc;
+    }
+
+    .amount-positive {
+        color: #15803d;
+        font-weight: 600;
+    }
+
+    .amount-negative {
+        color: #b91c1c;
+        font-weight: 600;
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        padding: 16px;
+        border-top: 1px solid #e2e8f0;
+        flex-wrap: wrap;
+    }
+
+    .pagination button {
+        min-width: 36px;
+        height: 36px;
+        padding: 0 10px;
+        border: 1px solid #cbd5e1;
+        border-radius: 10px;
+        background: white;
+        cursor: pointer;
+        transition: all .15s;
+    }
+
+    .pagination button:hover:not(:disabled) {
+        background: #eff6ff;
+        border-color: #93c5fd;
+    }
+
+    .pagination button.active {
+        background: #2563eb;
+        color: white;
+        border-color: #2563eb;
+        font-weight: 700;
+    }
+
+    .pagination button:disabled {
+        opacity: .5;
+        cursor: not-allowed;
+    }
+
+    .pagination-info {
+        font-size: 14px;
+        color: #64748b;
+        margin-right: 8px;
+    }
+
+    .badge-bs {
+        background: #dbeafe;
+        color: #1d4ed8;
+        padding: 4px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    .badge-usd {
+        background: #dcfce7;
+        color: #166534;
+        padding: 4px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    .stock-low {
+        background: #fee2e2;
+        color: #991b1b;
+        padding: 4px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    .stock-normal {
+        background: #dcfce7;
+        color: #166534;
+        padding: 4px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    @media (max-width: 1024px) {
+        .sidebar {
+            width: 100%;
+            height: auto;
+            position: relative;
         }
-    </script>
+
+        .content {
+            margin-left: 0;
+            padding: 20px;
+        }
+    }
+</style>
+```
+
 </head>
-<body class="bg-surface text-on-surface min-h-screen">
-    <!-- Header - solo el título y totales -->
-    <header class="fixed top-0 left-0 w-full z-50 bg-surface border-b border-outline-variant flex justify-between items-center px-gutter h-16 max-w-container-max mx-auto">
-        <h1 class="text-headline-md font-headline-md font-bold text-primary">LOS BUENOS SOMOS MÁS</h1>
-        <div class="flex items-center gap-md">
-            <div class="flex flex-col items-end">
-                <span class="text-headline-sm font-headline-sm text-primary font-bold" id="totalRecaudado">Cargando...</span>
-                <span class="text-body-sm font-body-sm text-on-surface-variant" id="lastUpdate"></span>
+
+<body>
+
+```
+<!-- Sidebar -->
+<aside class="sidebar p-6">
+
+    <div class="mb-8">
+        <h1 class="text-xl font-bold text-blue-700">LOS BUENOS SOMOS MÁS</h1>
+        <p class="text-sm text-slate-500 mt-1">Panel de Transparencia</p>
+    </div>
+
+    <nav class="space-y-2">
+
+        <a href="#dashboard" class="nav-link active">
+            <span>📊</span>
+            <span>Dashboard</span>
+        </a>
+
+        <a href="#contabilidad" class="nav-link">
+            <span>💰</span>
+            <span>Contabilidad</span>
+        </a>
+
+        <a href="#inventario" class="nav-link">
+            <span>📦</span>
+            <span>Inventario</span>
+        </a>
+
+        <a href="#entradas" class="nav-link">
+            <span>📥</span>
+            <span>Entradas</span>
+        </a>
+
+        <a href="#donaciones" class="nav-link">
+            <span>🤝</span>
+            <span>Donaciones</span>
+        </a>
+
+    </nav>
+
+</aside>
+
+<!-- Content -->
+<main class="content space-y-8">
+
+    <!-- Dashboard -->
+    <section id="dashboard" class="space-y-8">
+
+        <div>
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center text-blue-700 text-lg">🇻🇪</div>
+                <div>
+                    <h2 class="text-xl font-semibold">Bolívares (Bs.)</h2>
+                    <p class="text-sm text-slate-500">Fondos y saldo en moneda local</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div class="card">
+                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-wide">Total Recaudado</p>
+                    <h3 id="totalBs" class="text-4xl font-bold text-blue-700 mt-2">Bs. 0</h3>
+                </div>
+                <div class="card">
+                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-wide">Saldo Neto</p>
+                    <h3 id="saldoNetoBs" class="text-4xl font-bold text-blue-700 mt-2">Bs. 0</h3>
+                </div>
             </div>
         </div>
-    </header>
 
-    <!-- Main Content -->
-    <main class="pt-16 min-h-screen">
-        <div class="max-w-container-max mx-auto p-gutter space-y-lg">
-            
-            <!-- Tarjetas de resumen -->
-            <section class="grid grid-cols-1 md:grid-cols-3 gap-md" id="summaryCards">
-                <div class="bg-white border border-outline-variant rounded-xl p-lg shadow-sm hover:shadow-md transition-shadow fade-in">
-                    <div class="flex justify-between items-start mb-sm">
-                        <span class="text-label-bold font-label-bold text-on-surface-variant">TOTAL RECAUDADO (Bs.)</span>
-                        <span class="material-symbols-outlined text-primary">payments</span>
-                    </div>
-                    <div class="text-display-lg font-display-lg text-primary" id="totalBs">Bs. 0</div>
+        <div>
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-xl bg-green-100 flex items-center justify-center text-green-700 text-lg">💵</div>
+                <div>
+                    <h2 class="text-xl font-semibold">Dólares (USD)</h2>
+                    <p class="text-sm text-slate-500">Fondos y saldo en moneda extranjera</p>
                 </div>
-                <div class="bg-white border border-outline-variant rounded-xl p-lg shadow-sm hover:shadow-md transition-shadow fade-in">
-                    <div class="flex justify-between items-start mb-sm">
-                        <span class="text-label-bold font-label-bold text-on-surface-variant">TOTAL RECAUDADO (USD)</span>
-                        <span class="material-symbols-outlined text-secondary">attach_money</span>
-                    </div>
-                    <div class="text-display-lg font-display-lg text-secondary" id="totalUsd">$ 0</div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div class="card">
+                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-wide">Total Recaudado</p>
+                    <h3 id="totalUsd" class="text-4xl font-bold text-green-700 mt-2">$ 0</h3>
                 </div>
-                <div class="bg-white border border-outline-variant rounded-xl p-lg shadow-sm hover:shadow-md transition-shadow fade-in">
-                    <div class="flex justify-between items-start mb-sm">
-                        <span class="text-label-bold font-label-bold text-on-surface-variant">SALDO NETO (Bs.)</span>
-                        <span class="material-symbols-outlined text-secondary">account_balance</span>
-                    </div>
-                    <div class="text-display-lg font-display-lg text-secondary" id="saldoNetoBs">Bs. 0</div>
+                <div class="card">
+                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-wide">Saldo Neto</p>
+                    <h3 id="saldoNetoUsd" class="text-4xl font-bold text-green-700 mt-2">$ 0</h3>
                 </div>
-            </section>
-
-            <!-- Contabilidad -->
-            <section class="bg-white border border-outline-variant rounded-xl shadow-sm overflow-hidden" id="contabilidad">
-                <div class="p-md border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest">
-                    <h3 class="text-headline-sm font-headline-sm text-primary flex items-center gap-sm">
-                        <span class="material-symbols-outlined">list_alt</span>
-                        Registro Contable
-                    </h3>
-                    <span class="text-body-sm text-on-surface-variant" id="contabilidadCount">0 registros</span>
-                </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left">
-                        <thead>
-                            <tr class="bg-surface-container-low border-b border-outline-variant">
-                                <th class="px-md py-md text-label-bold font-label-bold text-on-surface-variant">Cuenta</th>
-                                <th class="px-md py-md text-label-bold font-label-bold text-on-surface-variant">Fecha</th>
-                                <th class="px-md py-md text-label-bold font-label-bold text-on-surface-variant">Asiento</th>
-                                <th class="px-md py-md text-label-bold font-label-bold text-on-surface-variant text-right">Debe</th>
-                                <th class="px-md py-md text-label-bold font-label-bold text-on-surface-variant text-right">Haber</th>
-                                <th class="px-md py-md text-label-bold font-label-bold text-on-surface-variant text-right">Saldo</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-outline-variant" id="contabilidadBody">
-                            <tr><td colspan="6" class="px-md py-md text-center text-on-surface-variant">Cargando datos...</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="pagination-container" id="contabilidadPagination"></div>
-            </section>
-
-            <!-- Inventario -->
-            <section id="inventario">
-                <div class="flex items-center gap-md mb-lg">
-                    <h3 class="text-headline-md font-headline-md text-on-background">Control de Inventario</h3>
-                    <div class="h-[2px] flex-grow bg-outline-variant"></div>
-                </div>
-                <div class="bg-white border border-outline-variant rounded-xl shadow-sm overflow-hidden">
-                    <div class="p-md bg-surface-container border-b border-outline-variant flex justify-between items-center">
-                        <h4 class="text-headline-sm font-headline-sm text-primary">Stock Actual</h4>
-                        <span class="text-body-sm text-on-surface-variant" id="inventarioCount">0 productos</span>
-                    </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left">
-                            <thead class="bg-surface-container-low">
-                                <tr>
-                                    <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant">Código</th>
-                                    <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant">Producto</th>
-                                    <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant text-right">Entradas</th>
-                                    <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant text-right">Salidas</th>
-                                    <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant text-right">Stock</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-outline-variant" id="inventarioBody">
-                                <tr><td colspan="5" class="px-md py-md text-center text-on-surface-variant">Cargando datos...</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="pagination-container" id="inventarioPagination"></div>
-                </div>
-            </section>
-
-            <!-- Entradas -->
-            <section>
-                <div class="bg-white border border-outline-variant rounded-xl shadow-sm overflow-hidden">
-                    <div class="p-md bg-surface-container border-b border-outline-variant flex justify-between items-center">
-                        <h4 class="text-headline-sm font-headline-sm text-primary">Registro de Entradas</h4>
-                        <span class="text-body-sm text-on-surface-variant" id="entradasCount">0 registros</span>
-                    </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left">
-                            <thead class="bg-surface-container-low">
-                                <tr>
-                                    <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant">Fecha</th>
-                                    <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant">Producto</th>
-                                    <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant text-right">Cantidad</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-outline-variant" id="entradasBody">
-                                <tr><td colspan="3" class="px-md py-md text-center text-on-surface-variant">Cargando datos...</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="pagination-container" id="entradasPagination"></div>
-                </div>
-            </section>
-
-            <!-- Donaciones -->
-            <section id="donaciones">
-                <div class="bg-white border border-outline-variant rounded-xl shadow-sm overflow-hidden">
-                    <div class="p-md bg-surface-container border-b border-outline-variant flex justify-between items-center">
-                        <h4 class="text-headline-sm font-headline-sm text-primary">Donaciones y Salidas</h4>
-                        <span class="text-body-sm text-on-surface-variant" id="donadoCount">0 registros</span>
-                    </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left">
-                            <thead class="bg-surface-container-low">
-                                <tr>
-                                    <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant">Fecha</th>
-                                    <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant">Producto</th>
-                                    <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant text-right">Cantidad</th>
-                                    <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant">Centro</th>
-                                    <th class="px-md py-sm text-label-bold font-label-bold text-on-surface-variant">Combo</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-outline-variant" id="donadoBody">
-                                <tr><td colspan="5" class="px-md py-md text-center text-on-surface-variant">Cargando datos...</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="pagination-container" id="donadoPagination"></div>
-                </div>
-            </section>
-
-            <!-- Impacto -->
-            <section class="space-y-lg">
-                <div class="flex items-center gap-md">
-                    <h3 class="text-headline-md font-headline-md text-on-background">Impacto de tu Ayuda</h3>
-                    <div class="h-[2px] flex-grow bg-outline-variant"></div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
-                    <div class="bg-white border border-outline-variant rounded-xl p-lg shadow-sm hover:shadow-md transition-shadow text-center">
-                        <div class="w-12 h-12 bg-secondary-container rounded-full flex items-center justify-center mx-auto mb-sm">
-                            <span class="material-symbols-outlined text-on-secondary-container">package_2</span>
-                        </div>
-                        <div class="text-display-lg font-display-lg text-secondary" id="combosEntregados">0</div>
-                        <div class="text-label-bold font-label-bold text-on-surface-variant uppercase tracking-wider">Combos entregados</div>
-                    </div>
-                    <div class="bg-white border border-outline-variant rounded-xl p-lg shadow-sm hover:shadow-md transition-shadow text-center">
-                        <div class="w-12 h-12 bg-error-container rounded-full flex items-center justify-center mx-auto mb-sm">
-                            <span class="material-symbols-outlined text-on-error-container">shopping_bag</span>
-                        </div>
-                        <div class="text-display-lg font-display-lg text-on-background" id="productosDonados">0</div>
-                        <div class="text-label-bold font-label-bold text-on-surface-variant uppercase tracking-wider">Productos donados</div>
-                    </div>
-                </div>
-            </section>
+            </div>
         </div>
-    </main>
 
-    <!-- Footer -->
-    <footer class="w-full py-lg px-gutter flex flex-col md:flex-row justify-between items-center gap-md bg-surface-container-highest border-t border-outline-variant mt-8">
-        <span class="text-label-bold font-label-bold text-primary">LOS BUENOS SOMOS MÁS</span>
-        <p class="text-body-sm font-body-sm text-on-surface-variant">© 2026 Plataforma de Transparencia. Datos actualizados automáticamente.</p>
-    </footer>
+    </section>
 
-    <script src="js/app.js"></script>
+    <!-- Contabilidad -->
+    <section id="contabilidad" class="table-card">
+
+        <div class="table-header">
+            <h2 class="text-xl font-semibold">Registro Contable</h2>
+            <span id="contabilidadCount" class="text-sm text-slate-500">0 registros</span>
+        </div>
+
+        <div class="overflow-x-auto">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Moneda</th>
+                        <th>Cuenta</th>
+                        <th>Fecha</th>
+                        <th>Asiento</th>
+                        <th class="text-right">Debe</th>
+                        <th class="text-right">Haber</th>
+                        <th class="text-right">Saldo</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="contabilidadBody"></tbody>
+
+            </table>
+
+        </div>
+
+        <div id="contabilidadPagination" class="pagination"></div>
+
+    </section>
+
+    <!-- Inventario -->
+    <section id="inventario" class="table-card">
+
+        <div class="table-header">
+            <h2 class="text-xl font-semibold">Control de Inventario</h2>
+            <span id="inventarioCount" class="text-sm text-slate-500">0 productos</span>
+        </div>
+
+        <div class="overflow-x-auto">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Código</th>
+                        <th>Producto</th>
+                        <th class="text-right">Entradas</th>
+                        <th class="text-right">Salidas</th>
+                        <th class="text-right">Stock</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="inventarioBody"></tbody>
+
+            </table>
+
+        </div>
+
+        <div id="inventarioPagination" class="pagination"></div>
+
+    </section>
+
+    <!-- Entradas -->
+    <section id="entradas" class="table-card">
+
+        <div class="table-header">
+            <h2 class="text-xl font-semibold">Registro de Entradas</h2>
+            <span id="entradasCount" class="text-sm text-slate-500">0 registros</span>
+        </div>
+
+        <div class="overflow-x-auto">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Fecha</th>
+                        <th>Producto</th>
+                        <th class="text-right">Cantidad</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="entradasBody"></tbody>
+
+            </table>
+
+        </div>
+
+        <div id="entradasPagination" class="pagination"></div>
+
+    </section>
+
+    <!-- Donaciones -->
+    <section id="donaciones" class="table-card">
+
+        <div class="table-header">
+            <h2 class="text-xl font-semibold">Productos Donados</h2>
+            <span id="donadoCount" class="text-sm text-slate-500">0 registros</span>
+        </div>
+
+        <div class="overflow-x-auto">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Fecha</th>
+                        <th>Producto</th>
+                        <th class="text-right">Cantidad</th>
+                        <th>Centro</th>
+                        <th>Combo</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="donadoBody"></tbody>
+
+            </table>
+
+        </div>
+
+        <div id="donadoPagination" class="pagination"></div>
+
+    </section>
+
+    <!-- Resumen final -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+        <div class="card text-center">
+            <p class="text-sm text-slate-500 uppercase tracking-wide font-semibold">Productos Donados</p>
+            <h3 id="productosDonados" class="text-3xl font-bold mt-2">0</h3>
+        </div>
+
+        <div class="card text-center">
+            <p class="text-sm text-slate-500 uppercase tracking-wide font-semibold">Combos Entregados</p>
+            <h3 id="combosEntregados" class="text-3xl font-bold mt-2">0</h3>
+        </div>
+
+    </section>
+
+</main>
+
+<script src="app.js"></script>
+```
+
 </body>
 </html>
