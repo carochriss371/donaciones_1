@@ -1,16 +1,36 @@
+// pages/api/inventario.js
 import fs from "fs";
-import path from "path";
 
 function readSnapshot() {
-  const filePath = path.join(process.cwd(), "/tmp","data", "snapshot.json");
-  if (!fs.existsSync(filePath)) return null;
-  const content = fs.readFileSync(filePath, "utf8");
-  return JSON.parse(content);
+  const filePath = "/tmp/data/snapshot.json";
+  
+  console.log("🔍 Leyendo desde:", filePath);
+  
+  if (!fs.existsSync(filePath)) {
+    console.log("❌ Archivo no encontrado");
+    return null;
+  }
+  
+  try {
+    const content = fs.readFileSync(filePath, "utf8");
+    const data = JSON.parse(content);
+    console.log("✅ Datos leídos. Inventario:", data.payload?.inventario?.length || 0);
+    return data;
+  } catch (error) {
+    console.error("❌ Error:", error);
+    return null;
+  }
 }
 
 export default function handler(req, res) {
   const snapshot = readSnapshot();
-  if (!snapshot) return res.status(404).json({ error: "No snapshot available" });
+  
+  if (!snapshot) {
+    return res.status(404).json({ error: "No snapshot available" });
+  }
+  
   const inventario = snapshot.payload.inventario || [];
-  res.status(200).json({ inventario });
+  const entradas = snapshot.payload.entradas || [];
+  
+  res.status(200).json({ inventario, entradas });
 }
