@@ -80,6 +80,100 @@
             color: #424752;
             margin-right: 12px;
         }
+        /* Estilos para el modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal-content {
+            background: white;
+            border-radius: 0.75rem;
+            max-width: 500px;
+            width: 90%;
+            padding: 32px;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: modalFadeIn 0.3s ease;
+            position: relative;
+        }
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #424752;
+            font-size: 24px;
+        }
+        .modal-close:hover {
+            color: #141d23;
+        }
+        .modal-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #003f87;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .modal-body {
+            color: #141d23;
+            line-height: 1.6;
+        }
+        .modal-body .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e6eff8;
+        }
+        .modal-body .info-row:last-child {
+            border-bottom: none;
+        }
+        .modal-body .label {
+            font-weight: 600;
+            color: #424752;
+        }
+        .modal-body .value {
+            font-weight: 500;
+            color: #141d23;
+        }
+        .modal-body .highlight {
+            background: #ecf5fe;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 12px;
+            font-size: 14px;
+        }
+        .copy-btn {
+            background: #003f87;
+            color: white;
+            border: none;
+            padding: 4px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .copy-btn:hover {
+            opacity: 0.9;
+        }
     </style>
 
     <script id="tailwind-config">
@@ -193,10 +287,7 @@
             </nav>
         </div>
         <div class="flex items-center gap-md">
-            <div class="flex flex-col items-end">
-                <span class="text-headline-sm font-headline-sm text-primary font-bold" id="totalRecaudado">Cargando...</span>
-                <span class="text-body-sm font-body-sm text-on-surface-variant" id="lastUpdate"></span>
-            </div>
+            <span class="text-headline-sm font-headline-sm text-primary font-bold" id="totalRecaudado">Cargando...</span>
         </div>
     </header>
 
@@ -209,7 +300,6 @@
                 </div>
                 <h2 class="text-headline-sm font-headline-sm text-primary">Operaciones</h2>
             </div>
-            <p class="text-body-sm font-body-sm text-on-surface-variant">Estado Verificado: Activo</p>
         </div>
         <nav class="flex flex-col gap-xs flex-grow">
             <a class="rounded-lg px-4 py-3 flex items-center gap-md transition-all duration-200 bg-secondary-container text-on-secondary-container" href="#contabilidad">
@@ -225,10 +315,6 @@
                 <span class="text-label-bold font-label-bold">Donaciones</span>
             </a>
         </nav>
-        <button class="mt-auto w-full bg-primary-container text-on-primary-container p-md rounded-xl flex items-center justify-center gap-sm hover:bg-opacity-90 transition-all">
-            <span class="material-symbols-outlined">visibility</span>
-            <span class="text-label-bold font-label-bold">Ver Evidencia</span>
-        </button>
     </aside>
 
     <!-- Main Content -->
@@ -384,27 +470,27 @@
                         </div>
                     </div>
                     <div class="md:w-2/3 grid grid-cols-2 sm:grid-cols-3 gap-md w-full">
-                        <div class="bg-white p-md rounded-xl border border-outline-variant flex flex-col items-center gap-sm text-center hover:border-primary transition-colors">
+                        <div class="bg-white p-md rounded-xl border border-outline-variant flex flex-col items-center gap-sm text-center hover:border-primary transition-colors cursor-pointer metodo-donacion" data-metodo="zelle">
                             <span class="material-symbols-outlined text-primary" style="font-size: 32px;">account_balance</span>
                             <span class="text-label-bold font-label-bold">Zelle</span>
                         </div>
-                        <div class="bg-white p-md rounded-xl border border-outline-variant flex flex-col items-center gap-sm text-center hover:border-primary transition-colors">
+                        <div class="bg-white p-md rounded-xl border border-outline-variant flex flex-col items-center gap-sm text-center hover:border-primary transition-colors cursor-pointer metodo-donacion" data-metodo="pago-movil">
                             <span class="material-symbols-outlined text-primary" style="font-size: 32px;">smartphone</span>
                             <span class="text-label-bold font-label-bold">Pago Móvil</span>
                         </div>
-                        <div class="bg-white p-md rounded-xl border border-outline-variant flex flex-col items-center gap-sm text-center hover:border-primary transition-colors">
+                        <div class="bg-white p-md rounded-xl border border-outline-variant flex flex-col items-center gap-sm text-center hover:border-primary transition-colors cursor-pointer metodo-donacion" data-metodo="binance">
                             <span class="material-symbols-outlined text-primary" style="font-size: 32px;">currency_bitcoin</span>
                             <span class="text-label-bold font-label-bold">Binance</span>
                         </div>
-                        <div class="bg-white p-md rounded-xl border border-outline-variant flex flex-col items-center gap-sm text-center hover:border-primary transition-colors">
+                        <div class="bg-white p-md rounded-xl border border-outline-variant flex flex-col items-center gap-sm text-center hover:border-primary transition-colors cursor-pointer metodo-donacion" data-metodo="zinli">
                             <span class="material-symbols-outlined text-primary" style="font-size: 32px;">credit_card</span>
                             <span class="text-label-bold font-label-bold">Zinli</span>
                         </div>
-                        <div class="bg-white p-md rounded-xl border border-outline-variant flex flex-col items-center gap-sm text-center hover:border-primary transition-colors">
+                        <div class="bg-white p-md rounded-xl border border-outline-variant flex flex-col items-center gap-sm text-center hover:border-primary transition-colors cursor-pointer metodo-donacion" data-metodo="transferencia">
                             <span class="material-symbols-outlined text-primary" style="font-size: 32px;">account_balance_wallet</span>
                             <span class="text-label-bold font-label-bold">Transferencia</span>
                         </div>
-                        <div class="bg-white p-md rounded-xl border border-outline-variant flex flex-col items-center gap-sm text-center hover:border-primary transition-colors">
+                        <div class="bg-white p-md rounded-xl border border-outline-variant flex flex-col items-center gap-sm text-center hover:border-primary transition-colors cursor-pointer metodo-donacion" data-metodo="efectivo">
                             <span class="material-symbols-outlined text-primary" style="font-size: 32px;">payments</span>
                             <span class="text-label-bold font-label-bold">Efectivo</span>
                         </div>
@@ -441,23 +527,27 @@
 
     <!-- Footer -->
     <footer class="w-full py-lg px-gutter flex flex-col md:flex-row justify-between items-center gap-md bg-surface-container-highest border-t border-outline-variant mt-8">
-        <div class="flex flex-col gap-xs items-center md:items-start">
-            <span class="text-label-bold font-label-bold text-primary">LOS BUENOS SOMOS MÁS</span>
-            <p class="text-body-sm font-body-sm text-on-surface-variant max-w-sm text-center md:text-left">
-                © 2026 Plataforma de Transparencia. Datos actualizados automáticamente.
-            </p>
-        </div>
-        <div class="flex gap-md flex-wrap justify-center">
-            <a class="text-on-surface-variant hover:text-on-surface text-label-bold font-label-bold hover:underline" href="#">Política de Privacidad</a>
-            <a class="text-on-surface-variant hover:text-on-surface text-label-bold font-label-bold hover:underline" href="#">Reportes de Auditoría</a>
-            <a class="text-on-surface-variant hover:text-on-surface text-label-bold font-label-bold hover:underline" href="#">Términos de Servicio</a>
-            <a class="text-on-surface-variant hover:text-on-surface text-label-bold font-label-bold hover:underline" href="#">Soporte</a>
-        </div>
+        <span class="text-label-bold font-label-bold text-primary">LOS BUENOS SOMOS MÁS</span>
+        <p class="text-body-sm font-body-sm text-on-surface-variant">© 2026 Plataforma de Transparencia. Datos actualizados automáticamente.</p>
     </footer>
+
+    <!-- Modal de Donación -->
+    <div class="modal-overlay" id="donationModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">✕</button>
+            <div class="modal-title">
+                <span class="material-symbols-outlined">volunteer_activism</span>
+                <span id="modalMetodoNombre">Donar</span>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Contenido dinámico -->
+            </div>
+        </div>
+    </div>
 
     <script src="js/app.js"></script>
 
-    <!-- Micro-interaction Script for Side Nav -->
+    <!-- Micro-interaction Scripts -->
     <script>
         // Smooth scroll for side nav
         document.querySelectorAll('aside nav a').forEach(anchor => {
@@ -472,7 +562,6 @@
                         behavior: 'smooth'
                     });
 
-                    // Update active state
                     document.querySelectorAll('aside nav a').forEach(a => {
                         a.classList.remove('bg-secondary-container', 'text-on-secondary-container');
                         a.classList.add('text-on-surface-variant');
@@ -483,7 +572,7 @@
             });
         });
 
-        // Simple visibility observer for active nav highlighting
+        // Visibility observer for active nav
         const observerOptions = {
             root: null,
             rootMargin: '-20% 0px -70% 0px',
@@ -508,6 +597,175 @@
         }, observerOptions);
 
         document.querySelectorAll('section[id]').forEach(section => observer.observe(section));
+
+        // ======================
+        // CONFIGURACIÓN DE DONACIONES
+        // ======================
+        const datosDonacion = {
+            zelle: {
+                nombre: 'Zelle',
+                icono: 'account_balance',
+                datos: [
+                    { label: 'Correo Zelle', value: 'donaciones@losbuenos.org' },
+                    { label: 'Nombre/Titular', value: 'Fundación Los Buenos Somos Más' },
+                    { label: 'Banco', value: 'Bank of America' },
+                    { label: 'Tipo de cuenta', value: 'Corriente' },
+                    { label: 'Monto mínimo', value: '$10 USD' },
+                    { label: 'Referencia', value: 'Colocar "Donación" en el concepto' }
+                ],
+                instrucciones: 'Realiza tu transferencia Zelle al correo indicado. Envía el comprobante a nuestro WhatsApp para confirmar tu donación.'
+            },
+            'pago-movil': {
+                nombre: 'Pago Móvil',
+                icono: 'smartphone',
+                datos: [
+                    { label: 'Número de teléfono', value: '+58 412 366 3847' },
+                    { label: 'Banco', value: 'Banesco' },
+                    { label: 'Cédula/Titular', value: 'V-12345678 - Fundación LBSM' },
+                    { label: 'Monto mínimo', value: 'Bs. 50' },
+                    { label: 'Referencia', value: 'Colocar "Donación" en el concepto' }
+                ],
+                instrucciones: 'Realiza tu pago móvil desde la aplicación de tu banco. Envía el comprobante a nuestro WhatsApp para confirmar tu donación.'
+            },
+            binance: {
+                nombre: 'Binance',
+                icono: 'currency_bitcoin',
+                datos: [
+                    { label: 'USDT (BEP20)', value: '0x1234567890abcdef1234567890abcdef12345678' },
+                    { label: 'USDT (ERC20)', value: '0xabcdef1234567890abcdef1234567890abcdef12' },
+                    { label: 'BTC', value: '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa' },
+                    { label: 'ETH', value: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e' },
+                    { label: 'Monto mínimo', value: '$10 USD' }
+                ],
+                instrucciones: 'Envía criptomonedas a cualquiera de las direcciones indicadas. Envía el hash de la transacción a nuestro WhatsApp para confirmar.'
+            },
+            zinli: {
+                nombre: 'Zinli',
+                icono: 'credit_card',
+                datos: [
+                    { label: 'Usuario Zinli', value: '@FundacionLBSM' },
+                    { label: 'Correo Zinli', value: 'donaciones@losbuenos.org' },
+                    { label: 'Monto mínimo', value: '$5 USD' },
+                    { label: 'Referencia', value: 'Colocar "Donación" en el concepto' }
+                ],
+                instrucciones: 'Realiza tu transferencia Zinli al usuario indicado. Envía el comprobante a nuestro WhatsApp para confirmar tu donación.'
+            },
+            transferencia: {
+                nombre: 'Transferencia Bancaria',
+                icono: 'account_balance_wallet',
+                datos: [
+                    { label: 'Banco', value: 'Banesco' },
+                    { label: 'Número de cuenta', value: '0134-1234-56-1234567890' },
+                    { label: 'Tipo de cuenta', value: 'Corriente' },
+                    { label: 'Titular', value: 'Fundación Los Buenos Somos Más' },
+                    { label: 'Cédula RIF', value: 'J-12345678-0' },
+                    { label: 'Monto mínimo', value: 'Bs. 100' }
+                ],
+                instrucciones: 'Realiza tu transferencia bancaria a los datos indicados. Envía el comprobante a nuestro WhatsApp para confirmar tu donación.'
+            },
+            efectivo: {
+                nombre: 'Efectivo',
+                icono: 'payments',
+                datos: [
+                    { label: 'Dirección', value: 'Av. Principal, Centro Comercial Los Buenos, Oficina 304' },
+                    { label: 'Horario de atención', value: 'Lunes a Viernes 9:00am - 5:00pm' },
+                    { label: 'Persona de contacto', value: 'María Rodríguez' },
+                    { label: 'Teléfono', value: '+58 412 366 3847' }
+                ],
+                instrucciones: 'Puedes acercarte a nuestras oficinas en horario de atención. Solicita un recibo oficial por tu donación.'
+            }
+        };
+
+        // Modal functionality
+        const modal = document.getElementById('donationModal');
+        const modalClose = document.getElementById('modalClose');
+        const modalMetodoNombre = document.getElementById('modalMetodoNombre');
+        const modalBody = document.getElementById('modalBody');
+
+        function abrirModal(metodoKey) {
+            const metodo = datosDonacion[metodoKey];
+            if (!metodo) return;
+
+            modalMetodoNombre.textContent = `Donar por ${metodo.nombre}`;
+
+            let html = '';
+            // Datos
+            metodo.datos.forEach(item => {
+                html += `
+                    <div class="info-row">
+                        <span class="label">${item.label}</span>
+                        <span class="value">${item.value} <button class="copy-btn" onclick="copiarTexto('${item.value}')">Copiar</button></span>
+                    </div>
+                `;
+            });
+
+            // Instrucciones
+            html += `
+                <div class="highlight">
+                    <strong>📋 Instrucciones:</strong><br>
+                    ${metodo.instrucciones}
+                </div>
+                <div class="highlight" style="margin-top: 8px; background: #ffdad6; color: #93000a;">
+                    <strong>⚠️ Importante:</strong><br>
+                    Siempre verifica los datos antes de realizar tu donación. Ante cualquier duda, contáctanos.
+                </div>
+            `;
+
+            modalBody.innerHTML = html;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function cerrarModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Event listeners para los métodos de donación
+        document.querySelectorAll('.metodo-donacion').forEach(el => {
+            el.addEventListener('click', function() {
+                const metodo = this.dataset.metodo;
+                abrirModal(metodo);
+            });
+        });
+
+        // Cerrar modal
+        modalClose.addEventListener('click', cerrarModal);
+        modal.addEventListener('click', function(e) {
+            if (e.target === this) cerrarModal();
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') cerrarModal();
+        });
+
+        // Función para copiar texto
+        function copiarTexto(texto) {
+            navigator.clipboard.writeText(texto).then(() => {
+                // Feedback visual simple
+                const btns = document.querySelectorAll('.copy-btn');
+                btns.forEach(btn => {
+                    if (btn.textContent === 'Copiar') {
+                        btn.textContent = '✓ Copiado';
+                        setTimeout(() => {
+                            btn.textContent = 'Copiar';
+                        }, 2000);
+                    }
+                });
+            }).catch(err => {
+                // Fallback para navegadores sin clipboard
+                const input = document.createElement('input');
+                input.value = texto;
+                document.body.appendChild(input);
+                input.select();
+                document.execCommand('copy');
+                document.body.removeChild(input);
+            });
+        }
+
+        // Exponer funciones globalmente
+        window.abrirModal = abrirModal;
+        window.cerrarModal = cerrarModal;
+        window.copiarTexto = copiarTexto;
     </script>
 
 </body>
