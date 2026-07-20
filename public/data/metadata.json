@@ -1,8 +1,9 @@
 {
-  "lastUpdate": "2026-07-20T18:03:05.397Z",
-  "source": "Google Apps Script",
-  "webhookUrl": "https://script.google.com/macros/s/AKfycbwN9rk_9g64kyYMd9sVO2lajxHuxSoiZgOxi3ntLiPgD7N8kjdeEh8PTZPfyXfqFc8f/exec",
-  "totalContabilidad": 0,
-  "totalInventario": 0,
-  "totalDonado": 0
+  "summary": {
+    "totalRecaudado": 0,
+    "totalEjecutado": 0,
+    "saldoNeto": 0,
+    "lastUpdate": "20 de julio de 2026 a las 14:10"
+  },
+  "timestamp": "2026-07-20T18:10:29.259Z"
 }
