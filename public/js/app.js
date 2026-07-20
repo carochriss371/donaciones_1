@@ -1,7 +1,8 @@
-// app.js - Con paginación
+// app.js - Con paginación - VERSION CORREGIDA
+console.log('🔄 VERSIÓN FINAL - Cuentas BS unificadas | USD separada | Combos únicos');
 
 const DATA_URL = 'data/';
-const ROWS_PER_PAGE = 5; // Cambiado de 15 a 5
+const ROWS_PER_PAGE = 5;
 
 let state = {
     contabilidad: [],
@@ -89,7 +90,6 @@ function formatDate(fecha) {
         return fecha;
     }
     
-    // Verificar si es una fecha válida
     if (isNaN(d.getTime())) return fecha;
     
     const dia = String(d.getDate()).padStart(2, '0');
@@ -143,9 +143,22 @@ function renderContabilidad() {
     // Aplanar todas las cuentas
     let allRows = [];
     rows.forEach(account => {
+        // UNIFICAR: Cuentas BS (DAYANA y PERSONAL) se unifican como "Cuenta BS"
+        let accountName = account.accountName || 'General';
+        const isBsAccount = accountName.includes('DAYANA') || accountName.includes('PERSONAL');
+        
+        if (isBsAccount) {
+            accountName = 'Cuenta BS';
+        }
+        
+        // Si es USD, mantener el nombre con (USD)
+        if (account.currency === '$') {
+            accountName = 'Cuenta USD';
+        }
+        
         (account.rows || []).forEach(row => {
             allRows.push({
-                accountName: account.accountName || 'General',
+                accountName: accountName,
                 currency: account.currency || 'Bs.',
                 ...row
             });
@@ -168,19 +181,28 @@ function renderContabilidad() {
 
     tbody.innerHTML = pageRows.map(row => {
         const moneda = row.currency === '$' ? '$' : 'Bs.';
-        const debe = row.debe ? `${moneda} ${formatNumber(row.debe)}` : '-';
-        const haber = row.haber ? `${moneda} ${formatNumber(row.haber)}` : '-';
+        
+        // INGRESO (antes Debe) y EGRESO (antes Haber)
+        const ingreso = row.debe ? `${moneda} ${formatNumber(row.debe)}` : '-';
+        const egreso = row.haber ? `${moneda} ${formatNumber(row.haber)}` : '-';
         const saldo = row.saldo ? `${moneda} ${formatNumber(row.saldo)}` : '-';
-        const colorDebe = row.debe ? 'text-primary font-medium' : 'text-on-surface-variant';
-        const colorHaber = row.haber ? 'text-error font-medium' : 'text-on-surface-variant';
+        
+        const colorIngreso = row.debe ? 'text-primary font-medium' : 'text-on-surface-variant';
+        const colorEgreso = row.haber ? 'text-error font-medium' : 'text-on-surface-variant';
+        
+        // Mostrar el nombre de la cuenta con su moneda si es USD
+        let displayAccountName = row.accountName;
+        if (row.currency === '$') {
+            displayAccountName = 'Cuenta USD';
+        }
         
         return `
             <tr class="hover:bg-surface-container-lowest transition-colors fade-in">
-                <td class="px-md py-md text-body-sm font-body-sm font-medium text-on-surface">${row.accountName}</td>
+                <td class="px-md py-md text-body-sm font-body-sm font-medium text-on-surface">${displayAccountName}</td>
                 <td class="px-md py-md text-body-sm font-body-sm text-on-surface">${formatDate(row.fecha)}</td>
                 <td class="px-md py-md text-body-sm font-body-sm text-on-surface max-w-xs truncate">${row.asiento || '-'}</td>
-                <td class="px-md py-md text-body-sm font-body-sm text-right ${colorDebe}">${debe}</td>
-                <td class="px-md py-md text-body-sm font-body-sm text-right ${colorHaber}">${haber}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-right ${colorIngreso}">${ingreso}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-right ${colorEgreso}">${egreso}</td>
                 <td class="px-md py-md text-body-sm font-body-sm text-right font-medium text-on-surface">${saldo}</td>
             </tr>
         `;
@@ -203,7 +225,6 @@ function renderInventario() {
         return;
     }
 
-    // Ordenar por stock (menor primero)
     const sorted = [...rows].sort((a, b) => (a.stock || 0) - (b.stock || 0));
 
     const totalPages = Math.ceil(sorted.length / ROWS_PER_PAGE);
@@ -249,7 +270,6 @@ function renderEntradas() {
         return;
     }
 
-    // Ordenar por fecha (más reciente primero)
     const sorted = [...rows].sort((a, b) => {
         if (!a.fecha) return 1;
         if (!b.fecha) return -1;
@@ -288,7 +308,6 @@ function renderDonado() {
         return;
     }
 
-    // Ordenar por fecha (más reciente primero)
     const sorted = [...rows].sort((a, b) => {
         if (!a.fecha) return 1;
         if (!b.fecha) return -1;
@@ -316,15 +335,25 @@ function renderDonado() {
 }
 
 // ============================================
-// IMPACTO
+// IMPACTO - CORREGIDO: Combos ÚNICOS
 // ============================================
 
 function renderImpacto() {
-    const combos = state.donado.filter(d => d.combo).length;
-    document.getElementById('combosEntregados').textContent = combos;
+    // CORRECCIÓN: Contar combos ÚNICOS por su número
+    const combosUnicos = new Set();
+    state.donado.forEach(d => {
+        if (d.combo && d.combo.trim() !== '') {
+            combosUnicos.add(d.combo);
+        }
+    });
+    document.getElementById('combosEntregados').textContent = combosUnicos.size;
     
+    // Total de productos donados (suma de cantidades)
     const totalDonado = state.donado.reduce((sum, d) => sum + (parseInt(d.cantidad) || 0), 0);
     document.getElementById('productosDonados').textContent = totalDonado;
+    
+    console.log(`📦 Combos únicos: ${combosUnicos.size}`);
+    console.log(`📦 Combos encontrados: ${Array.from(combosUnicos).join(', ')}`);
 }
 
 // ============================================
@@ -367,10 +396,8 @@ function renderPagination(section, totalPages) {
 
     let html = `<span class="pagination-info">Página ${currentPage} de ${totalPages}</span>`;
     
-    // Botón Anterior
     html += `<button class="pagination-btn" onclick="goToPage('${section}', ${currentPage - 1})" ${currentPage <= 1 ? 'disabled' : ''}>‹</button>`;
 
-    // Números de página
     const maxVisible = 5;
     let startPage = Math.max(1, currentPage - Math.floor(maxVisible / 2));
     let endPage = Math.min(totalPages, startPage + maxVisible - 1);
@@ -393,7 +420,6 @@ function renderPagination(section, totalPages) {
         html += `<button class="pagination-btn" onclick="goToPage('${section}', ${totalPages})">${totalPages}</button>`;
     }
 
-    // Botón Siguiente
     html += `<button class="pagination-btn" onclick="goToPage('${section}', ${currentPage + 1})" ${currentPage >= totalPages ? 'disabled' : ''}>›</button>`;
 
     container.innerHTML = html;
@@ -404,7 +430,6 @@ function goToPage(section, page) {
     if (page < 1 || page > totalPages) return;
     pagination[section].currentPage = page;
     
-    // Renderizar solo la sección correspondiente
     switch(section) {
         case 'contabilidad': renderContabilidad(); break;
         case 'inventario': renderInventario(); break;
@@ -441,5 +466,4 @@ function showError() {
 document.addEventListener('DOMContentLoaded', loadAllData);
 setInterval(loadAllData, 300000);
 
-// Exportar funciones para el HTML
 window.goToPage = goToPage;
