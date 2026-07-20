@@ -1,5 +1,5 @@
 import fs from "fs";
-import path from "path";  // ← ESTA LÍNEA FALTA
+import path from "path"; 
 
 export default async function handler(req, res) {
   const secret = process.env.SECRET_WEBHOOK || "";
