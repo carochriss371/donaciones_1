@@ -1,0 +1,43 @@
+name: Actualizar Datos desde Google Apps Script
+
+on:
+  schedule:
+    # Ejecutar cada hora
+    - cron: '0 * * * *'
+    # También cada 30 minutos en horario laboral (opcional)
+    # - cron: '*/30 8-20 * * 1-5'
+  # Ejecutar manualmente desde Actions
+  workflow_dispatch:
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      - name: Install dependencies
+        run: npm install axios
+      
+      - name: Fetch data from Google Apps Script
+        run: node scripts/fetch-data.js
+        env:
+          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+          WEBHOOK_SECRET: ${{ secrets.WEBHOOK_SECRET }}
+      
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add public/data/
+          # Solo commit si hay cambios
+          git diff --staged --quiet || git commit -m "Actualizar datos desde Apps Script $(date +'%Y-%m-%d %H:%M:%S')"
+          git push

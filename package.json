@@ -1,18 +1,25 @@
 {
-  "name": "donaciones",
+  "name": "donaciones-gh-pages",
   "version": "1.0.0",
-  "private": true,
+  "description": "Panel de transparencia - Los Buenos Somos Más",
+  "main": "scripts/fetch-data.js",
   "scripts": {
-    "dev": "next dev -p 3000",
-    "build": "next build",
-    "start": "next start -p 3000",
-    "lint": "next lint"
+    "fetch": "node scripts/fetch-data.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@vercel/kv": "^1.0.0",
-    "next": "13.5.2",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "redis": "^6.1.0"
-  }
+    "axios": "^1.6.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tu-usuario/donaciones-gh-pages.git"
+  },
+  "keywords": [
+    "donaciones",
+    "transparencia",
+    "github-pages"
+  ],
+  "author": "",
+  "license": "MIT"
 }

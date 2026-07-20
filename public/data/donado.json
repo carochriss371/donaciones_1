@@ -1,0 +1,18 @@
+[
+  {
+    "cod": "15",
+    "producto": "Gerdex",
+    "fecha": "27/6/2026",
+    "cantidad": 1,
+    "centro": "Hospital Dr. Miguel Pérez Carreño",
+    "combo": "1"
+  },
+  {
+    "cod": "18",
+    "producto": "Jeringa 10cc",
+    "fecha": "27/6/2026",
+    "cantidad": 3,
+    "centro": "Hospital Dr. Miguel Pérez Carreño",
+    "combo": "1"
+  }
+]
