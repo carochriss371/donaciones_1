@@ -1,21 +1,16 @@
-import { createClient } from '@vercel/kv';
-
-const kv = createClient({
-  url: process.env.REDIS_URL
-});
+import { kv } from '@vercel/kv';
 
 export default async function handler(req, res) {
   try {
-    console.log("🔍 Debug - leyendo desde Redis");
-    console.log("REDIS_URL existe:", !!process.env.REDIS_URL);
+    console.log("🔍 Debug - leyendo desde KV");
     
     const snapshotData = await kv.get('snapshot');
     
     if (!snapshotData) {
       return res.status(404).json({ 
-        error: "No data in Redis",
+        error: "No data in KV",
         message: "Ejecuta el webhook primero",
-        redis_url_exists: !!process.env.REDIS_URL
+        note: "Asegúrate que la base KV esté conectada al proyecto"
       });
     }
     
@@ -23,8 +18,7 @@ export default async function handler(req, res) {
     
     res.status(200).json({
       exists: true,
-      storage: 'redis',
-      redis_url_exists: !!process.env.REDIS_URL,
+      storage: '@vercel/kv',
       receivedAt: snapshot.receivedAt,
       contabilidades: snapshot.payload.contabilidades?.length || 0,
       inventario: snapshot.payload.inventario?.length || 0,
@@ -37,7 +31,7 @@ export default async function handler(req, res) {
     console.error("❌ Error en debug:", error);
     res.status(500).json({ 
       error: error.message,
-      redis_url_exists: !!process.env.REDIS_URL
+      note: "Verifica que la base KV esté conectada al proyecto"
     });
   }
 }

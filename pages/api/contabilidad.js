@@ -1,17 +1,13 @@
-import { createClient } from '@vercel/kv';
-
-const kv = createClient({
-  url: process.env.REDIS_URL
-});
+import { kv } from '@vercel/kv';
 
 export default async function handler(req, res) {
   try {
-    console.log("🔍 Leyendo contabilidad desde Redis");
+    console.log("🔍 Leyendo contabilidad desde KV");
     
     const snapshotData = await kv.get('snapshot');
     
     if (!snapshotData) {
-      console.log("❌ No hay datos en Redis");
+      console.log("❌ No hay datos en KV");
       return res.status(404).json({ 
         error: "No snapshot available",
         message: "Ejecuta el webhook primero para cargar datos"
@@ -25,6 +21,6 @@ export default async function handler(req, res) {
     res.status(200).json({ contabilidades });
   } catch (error) {
     console.error("❌ Error:", error);
-    res.status(500).json({ error: "Error reading data" });
+    res.status(500).json({ error: "Error reading data", details: error.message });
   }
 }

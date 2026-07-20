@@ -1,13 +1,7 @@
-import { createClient } from '@vercel/kv';
-
-// Usar REDIS_URL que ya existe en tu proyecto
-const kv = createClient({
-  url: process.env.REDIS_URL
-});
+import { kv } from '@vercel/kv';
 
 export default async function handler(req, res) {
-  console.log("=== WEBHOOK CON REDIS ===");
-  console.log("REDIS_URL configurada:", !!process.env.REDIS_URL);
+  console.log("=== WEBHOOK CON @VERCEL/KV ===");
   
   const secret = process.env.SECRET_WEBHOOK || "";
   const incoming = req.headers["x-webhook-secret"] || "";
@@ -34,9 +28,9 @@ export default async function handler(req, res) {
       payload: body 
     };
 
-    // Guardar en Redis
+    // Usar kv directamente (ya configurado por Vercel)
     await kv.set('snapshot', JSON.stringify(snapshot));
-    console.log("✅ Snapshot guardado en Redis");
+    console.log("✅ Snapshot guardado en KV");
 
     return res.status(200).json({ 
       ok: true, 
@@ -44,7 +38,7 @@ export default async function handler(req, res) {
       contabilidades: body.contabilidades?.length || 0,
       inventario: body.inventario?.length || 0,
       donado: body.donado?.length || 0,
-      storage: 'redis'
+      storage: '@vercel/kv'
     });
   } catch (err) {
     console.error("❌ Error:", err.message);
