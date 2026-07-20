@@ -1,18 +1,15 @@
 name: Actualizar Datos desde Apps Script
 
 on:
+  # 🔥 ESTE ES EL IMPORTANTE - Recibe datos automáticamente
+  repository_dispatch:
+    types: [update-data]
+  
+  # Esto es solo para pruebas manuales (opcional)
   workflow_dispatch:
     inputs:
       data:
-        description: 'Datos JSON completos'
-        required: true
-        type: string
-      secret:
-        description: 'Webhook Secret para verificación'
-        required: true
-        type: string
-      timestamp:
-        description: 'Timestamp de la actualización'
+        description: 'Datos JSON para prueba manual'
         required: false
         type: string
 
@@ -26,33 +23,45 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       
-      - name: Verify secret
+      - name: Get data from dispatch or manual
         run: |
-          EXPECTED_SECRET="${{ secrets.WEBHOOK_SECRET }}"
-          RECEIVED_SECRET="${{ github.event.inputs.secret }}"
-          
-          if [ "$EXPECTED_SECRET" != "$RECEIVED_SECRET" ]; then
-            echo "❌ Secret inválido"
+          # Si viene de repository_dispatch (automático)
+          if [ -n "${{ github.event.client_payload.data }}" ]; then
+            DATA='${{ github.event.client_payload.data }}'
+            SECRET='${{ github.event.client_payload.secret }}'
+            TIMESTAMP='${{ github.event.client_payload.timestamp }}'
+          # Si viene de workflow_dispatch (manual)
+          elif [ -n "${{ github.event.inputs.data }}" ]; then
+            DATA='${{ github.event.inputs.data }}'
+          else
+            echo "❌ No se recibieron datos"
             exit 1
           fi
-          echo "✅ Secret verificado"
-      
-      - name: Save data
-        run: |
-          mkdir -p public/data
-          DATA='${{ github.event.inputs.data }}'
           
+          # Verificar secret (solo en modo automático)
+          if [ -n "$SECRET" ]; then
+            EXPECTED_SECRET="${{ secrets.WEBHOOK_SECRET }}"
+            if [ "$EXPECTED_SECRET" != "$SECRET" ]; then
+              echo "❌ Secret inválido"
+              exit 1
+            fi
+            echo "✅ Secret verificado"
+          fi
+          
+          # Guardar datos
+          mkdir -p public/data
           echo "$DATA" | jq '.contabilidades' > public/data/contabilidad.json
           echo "$DATA" | jq '.inventario' > public/data/inventario.json
+          echo "$DATA" | jq '.entradas' > public/data/entradas.json
           echo "$DATA" | jq '.donado' > public/data/donado.json
           echo "$DATA" | jq '{summary: .summary, timestamp: .timestamp}' > public/data/metadata.json
           
-          echo "✅ Datos guardados"
+          echo "✅ Datos guardados correctamente"
       
-      - name: Commit and push
+      - name: Commit and push changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add public/data/
-          git diff --staged --quiet || git commit -m "Actualizar datos desde Apps Script ${{ github.event.inputs.timestamp || 'manual' }}"
+          git diff --staged --quiet || git commit -m "Actualizar datos desde Apps Script $(date +'%Y-%m-%d %H:%M:%S')"
           git push
