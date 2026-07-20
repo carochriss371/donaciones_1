@@ -16,39 +16,56 @@ jobs:
 
       - name: Procesar y Guardar Datos
         env:
-          PAYLOAD_DATA: ${{ github.event.client_payload.data }}
+          PAYLOAD_DATA: ${{ toJson(github.event.client_payload.data) }}
           SECRET: ${{ github.event.client_payload.secret }}
+          EXPECTED_SECRET: ${{ secrets.WEBHOOK_SECRET }}
         run: |
           # 1. Validar Secret
-          EXPECTED_SECRET="${{ secrets.WEBHOOK_SECRET }}"
           if [ -n "$EXPECTED_SECRET" ] && [ "$EXPECTED_SECRET" != "$SECRET" ]; then
-            echo "❌ Secret inválido o no coincide"
+            echo "❌ Secret inválido"
             exit 1
           fi
           echo "✅ Secret verificado correctamente"
 
-          # 2. Crear directorio de destino
-          mkdir -p public/data
+          # 2. Guardar payload directo a archivo
+          echo "$PAYLOAD_DATA" > /tmp/raw_payload.json
 
-          # 3. Guardar el payload en un archivo temporal de forma segura (Heredoc)
-          cat << 'EOF' > /tmp/payload.json
-          $PAYLOAD_DATA
-          EOF
+          # 3. Procesar JSON de forma limpia con Python
+          python3 -c '
+import json, os
 
-          # 4. Verificar si el archivo tiene datos
-          if [ ! -s /tmp/payload.json ] || [ "$PAYLOAD_DATA" = "null" ]; then
-            echo "❌ No se recibieron datos o el payload está vacío"
-            exit 1
-          fi
+raw_data = os.environ.get("PAYLOAD_DATA", "")
 
-          # 5. Extraer los JSON individuales usando jq
-          jq -r '.contabilidades // []' /tmp/payload.json > public/data/contabilidad.json
-          jq -r '.inventario // []' /tmp/payload.json > public/data/inventario.json
-          jq -r '.entradas // []' /tmp/payload.json > public/data/entradas.json
-          jq -r '.donado // []' /tmp/payload.json > public/data/donado.json
-          jq -r '{summary: .summary, timestamp: .timestamp}' /tmp/payload.json > public/data/metadata.json
+# Intentar parsear el JSON (maneja si viene como String o como Objeto)
+try:
+    data = json.loads(raw_data)
+    if isinstance(data, str):
+        data = json.loads(data)
+except Exception as e:
+    print(f"❌ Error al decodificar JSON: {e}")
+    exit(1)
 
-          echo "✅ Archivos JSON generados con éxito en public/data/"
+os.makedirs("public/data", exist_ok=True)
+
+# Guardar sub-archivos
+files = {
+    "public/data/contabilidad.json": data.get("contabilidades", []),
+    "public/data/inventario.json": data.get("inventario", []),
+    "public/data/entradas.json": data.get("entradas", []),
+    "public/data/donado.json": data.get("donado", []),
+    "public/data/metadata.json": {
+        "summary": data.get("summary", {}),
+        "timestamp": data.get("timestamp", "")
+    }
+}
+
+for path, content in files.items():
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(content, f, ensure_ascii=False, indent=2)
+
+print("✅ Todos los archivos JSON fueron procesados y guardados correctamente.")
+'
+
           ls -la public/data/
 
       - name: Commit and push changes
