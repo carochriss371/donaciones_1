@@ -279,78 +279,78 @@
         "fecha": "Sat Jul 04 2026 03:00:00 GMT-0400 (Venezuela Time)",
         "asiento": "Compra insumos medicos",
         "debe": null,
-        "haber": 31397.33,
-        "saldo": 8744.479999999989
+        "haber": 31019.33,
+        "saldo": 9122.479999999989
       },
       {
         "fecha": "Mon Jul 06 2026 03:00:00 GMT-0400 (Venezuela Time)",
         "asiento": "Cambio de Binance a BS",
         "debe": 19900,
         "haber": null,
-        "saldo": 28644.47999999999
+        "saldo": 29022.47999999999
       },
       {
         "fecha": "Mon Jul 06 2026 03:00:00 GMT-0400 (Venezuela Time)",
         "asiento": "Compra de comida animal",
         "debe": null,
         "haber": 19842.94,
-        "saldo": 8801.53999999999
+        "saldo": 9179.53999999999
       },
       {
         "fecha": "Tue Jul 07 2026 03:00:00 GMT-0400 (Venezuela Time)",
         "asiento": "Transporte",
         "debe": null,
         "haber": 857.16,
-        "saldo": 7944.37999999999
+        "saldo": 8322.37999999999
       },
       {
         "fecha": "Tue Jul 07 2026 03:00:00 GMT-0400 (Venezuela Time)",
         "asiento": "Transporte",
         "debe": null,
         "haber": 1316.11,
-        "saldo": 6628.26999999999
+        "saldo": 7006.26999999999
       },
       {
         "fecha": "Tue Jul 07 2026 03:00:00 GMT-0400 (Venezuela Time)",
         "asiento": "Transporte",
         "debe": null,
         "haber": 1903.3,
-        "saldo": 4724.96999999999
+        "saldo": 5102.96999999999
       },
       {
         "fecha": "Tue Jul 07 2026 03:00:00 GMT-0400 (Venezuela Time)",
         "asiento": "Cambio de Binance a BS",
         "debe": 24310.73,
         "haber": null,
-        "saldo": 29035.69999999999
+        "saldo": 29413.69999999999
       },
       {
         "fecha": "Tue Jul 07 2026 03:00:00 GMT-0400 (Venezuela Time)",
         "asiento": "Compra insumos medicos",
         "debe": null,
         "haber": 24310.73,
-        "saldo": 4724.96999999999
+        "saldo": 5102.96999999999
       },
       {
         "fecha": "Tue Jul 07 2026 03:00:00 GMT-0400 (Venezuela Time)",
         "asiento": "Transporte",
         "debe": null,
         "haber": 2132.78,
-        "saldo": 2592.18999999999
+        "saldo": 2970.18999999999
       },
       {
         "fecha": "Wed Jul 08 2026 03:00:00 GMT-0400 (Venezuela Time)",
         "asiento": "Donativo en BS",
         "debe": 15000,
         "haber": null,
-        "saldo": 17592.18999999999
+        "saldo": 17970.18999999999
       },
       {
         "fecha": "Wed Jul 08 2026 03:00:00 GMT-0400 (Venezuela Time)",
         "asiento": "Cambio de BS a Binance",
         "debe": null,
         "haber": 15000,
-        "saldo": 2592.1899999999914
+        "saldo": 2970.1899999999914
       }
     ]
   },
