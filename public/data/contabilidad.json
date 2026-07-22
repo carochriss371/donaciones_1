@@ -340,7 +340,7 @@
       },
       {
         "fecha": "Wed Jul 08 2026 03:00:00 GMT-0400 (Venezuela Time)",
-        "asiento": "Donativo en BS",
+        "asiento": "Donativo en BS (Franco)",
         "debe": 15000,
         "haber": null,
         "saldo": 17970.18999999999
@@ -375,7 +375,7 @@
       },
       {
         "fecha": "Tue Jul 21 2026 03:00:00 GMT-0400 (Venezuela Time)",
-        "asiento": "Donativo en BS",
+        "asiento": "Donativo en BS (Rocío España)",
         "debe": 176141.87,
         "haber": null,
         "saldo": 178641.65999999997
