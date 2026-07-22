@@ -23,9 +23,9 @@
   {
     "cod": "4",
     "producto": "Adrenalina Ampolla",
-    "entradas": 0,
+    "entradas": 15,
     "salidas": 10,
-    "stock": -10
+    "stock": 5
   },
   {
     "cod": "5",
@@ -198,9 +198,9 @@
   {
     "cod": "29",
     "producto": "Solución 0,9%",
-    "entradas": 6,
+    "entradas": 7,
     "salidas": 2,
-    "stock": 4
+    "stock": 5
   },
   {
     "cod": "30",
@@ -429,15 +429,22 @@
   {
     "cod": "62",
     "producto": "Tapabocas",
-    "entradas": 0,
+    "entradas": 5,
     "salidas": 0,
-    "stock": 0
+    "stock": 5
   },
   {
     "cod": "63",
     "producto": "Comida para animales",
     "entradas": 3,
     "salidas": 3,
+    "stock": 0
+  },
+  {
+    "cod": "64",
+    "producto": "Ibuprofeno caja",
+    "entradas": 0,
+    "salidas": 0,
     "stock": 0
   }
 ]
