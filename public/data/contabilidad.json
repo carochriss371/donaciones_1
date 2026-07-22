@@ -358,6 +358,34 @@
         "debe": null,
         "haber": 1831.17,
         "saldo": 1139.0199999999913
+      },
+      {
+        "fecha": "Sat Jul 18 2026 03:00:00 GMT-0400 (Venezuela Time)",
+        "asiento": "Cambio de Binance a BS",
+        "debe": 120000,
+        "haber": null,
+        "saldo": 121139.01999999999
+      },
+      {
+        "fecha": "Sat Jul 18 2026 03:00:00 GMT-0400 (Venezuela Time)",
+        "asiento": "Compras del Día del Niño",
+        "debe": null,
+        "haber": 118639.23,
+        "saldo": 2499.7899999999936
+      },
+      {
+        "fecha": "Tue Jul 21 2026 03:00:00 GMT-0400 (Venezuela Time)",
+        "asiento": "Donativo en BS",
+        "debe": 176141.87,
+        "haber": null,
+        "saldo": 178641.65999999997
+      },
+      {
+        "fecha": "Tue Jul 21 2026 03:00:00 GMT-0400 (Venezuela Time)",
+        "asiento": "Cambio de BS a Binance",
+        "debe": null,
+        "haber": 176141.87,
+        "saldo": 2499.789999999979
       }
     ]
   },
@@ -478,32 +506,25 @@
         "saldo": 55.569999999999936
       },
       {
-        "fecha": "",
-        "asiento": "",
-        "debe": null,
-        "haber": null,
-        "saldo": 55.569999999999936
-      },
-      {
         "fecha": "Sat Jul 18 2026 03:00:00 GMT-0400 (Venezuela Time)",
         "asiento": "Donativo Binance 0672 (Yeritza)",
-        "debe": 94.89,
+        "debe": 84.89,
         "haber": null,
-        "saldo": null
+        "saldo": 140.45999999999992
       },
       {
         "fecha": "Sat Jul 18 2026 03:00:00 GMT-0400 (Venezuela Time)",
         "asiento": "Cambio de Binance a BS",
         "debe": null,
         "haber": 140.46,
-        "saldo": null
+        "saldo": -8.526512829121202e-14
       },
       {
         "fecha": "Tue Jul 21 2026 03:00:00 GMT-0400 (Venezuela Time)",
         "asiento": "Cambio de BS a Binance",
-        "debe": null,
+        "debe": 201.24,
         "haber": null,
-        "saldo": null
+        "saldo": 201.23999999999992
       }
     ]
   }
