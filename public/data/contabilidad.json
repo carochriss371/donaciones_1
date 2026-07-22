@@ -351,6 +351,13 @@
         "debe": null,
         "haber": 15000,
         "saldo": 2970.1899999999914
+      },
+      {
+        "fecha": "Fri Jul 17 2026 03:00:00 GMT-0400 (Venezuela Time)",
+        "asiento": "Compra de marcador",
+        "debe": null,
+        "haber": 1831.17,
+        "saldo": 1139.0199999999913
       }
     ]
   },
@@ -462,6 +469,41 @@
         "debe": 18.75,
         "haber": null,
         "saldo": 45.569999999999936
+      },
+      {
+        "fecha": "Sat Jul 18 2026 03:00:00 GMT-0400 (Venezuela Time)",
+        "asiento": "Donativo Binance 7552 (David y Oberly)",
+        "debe": 10,
+        "haber": null,
+        "saldo": 55.569999999999936
+      },
+      {
+        "fecha": "",
+        "asiento": "",
+        "debe": null,
+        "haber": null,
+        "saldo": 55.569999999999936
+      },
+      {
+        "fecha": "Sat Jul 18 2026 03:00:00 GMT-0400 (Venezuela Time)",
+        "asiento": "Donativo Binance 0672 (Yeritza)",
+        "debe": 94.89,
+        "haber": null,
+        "saldo": null
+      },
+      {
+        "fecha": "Sat Jul 18 2026 03:00:00 GMT-0400 (Venezuela Time)",
+        "asiento": "Cambio de Binance a BS",
+        "debe": null,
+        "haber": 140.46,
+        "saldo": null
+      },
+      {
+        "fecha": "Tue Jul 21 2026 03:00:00 GMT-0400 (Venezuela Time)",
+        "asiento": "Cambio de BS a Binance",
+        "debe": null,
+        "haber": null,
+        "saldo": null
       }
     ]
   }
