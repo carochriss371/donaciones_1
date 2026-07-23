@@ -477,7 +477,22 @@ const evidenciaImagenes = {
 };
 
 const facturaImagenes = {
-    '1': 'https://carochriss371.github.io/donaciones_1/public/img/facturas/Factura_1.webp',
+    '1': '/img/facturas/Factura_1.webp',
+    '2': '/img/facturas/Factura_2.webp',
+    '3': '/img/facturas/Factura_3.webp',
+    '4': '/img/facturas/Factura_4.webp',
+    '5': '/img/facturas/Factura_5.webp',
+    '6': '/img/facturas/Factura_6.webp',
+    '7': '/img/facturas/Factura_7.webp',
+    '8': '/img/facturas/Factura_8.webp',
+    '9': '/img/facturas/Factura_9.webp',
+    '10': '/img/facturas/Factura_10.webp',
+    '11': '/img/facturas/Factura_11.webp',
+    '12': '/img/facturas/Factura_12.webp',
+    '13': '/img/facturas/Factura_13.webp',
+    '14': '/img/facturas/Factura_14.webp',
+    '15': '/img/facturas/Factura_15.webp',
+    '16': '/img/facturas/Factura_16.webp'
 };
 
 function verEvidencia(combo) {
