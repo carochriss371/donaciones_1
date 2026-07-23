@@ -602,6 +602,53 @@ function renderPagination(section, totalPages) {
     container.innerHTML = html;
 }
 
+function renderPagination(section, totalPages) {
+    const container = document.getElementById(`${section}Pagination`);
+    console.log(`🔍 Buscando contenedor: ${section}Pagination`, container);
+    
+    if (!container) {
+        console.warn(`⚠️ Contenedor no encontrado: ${section}Pagination`);
+        return;
+    }
+
+    const currentPage = pagination[section].currentPage;
+
+    if (totalPages <= 1) {
+        container.innerHTML = '';
+        return;
+    }
+
+    let html = `<span class="pagination-info">Página ${currentPage} de ${totalPages}</span>`;
+    
+    html += `<button class="pagination-btn" onclick="goToPage('${section}', ${currentPage - 1})" ${currentPage <= 1 ? 'disabled' : ''}>‹</button>`;
+
+    const maxVisible = 5;
+    let startPage = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+    let endPage = Math.min(totalPages, startPage + maxVisible - 1);
+    
+    if (endPage - startPage < maxVisible - 1) {
+        startPage = Math.max(1, endPage - maxVisible + 1);
+    }
+
+    if (startPage > 1) {
+        html += `<button class="pagination-btn" onclick="goToPage('${section}', 1)">1</button>`;
+        if (startPage > 2) html += `<span class="pagination-info">…</span>`;
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+        html += `<button class="pagination-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage('${section}', ${i})">${i}</button>`;
+    }
+
+    if (endPage < totalPages) {
+        if (endPage < totalPages - 1) html += `<span class="pagination-info">…</span>`;
+        html += `<button class="pagination-btn" onclick="goToPage('${section}', ${totalPages})">${totalPages}</button>`;
+    }
+
+    html += `<button class="pagination-btn" onclick="goToPage('${section}', ${currentPage + 1})" ${currentPage >= totalPages ? 'disabled' : ''}>›</button>`;
+
+    container.innerHTML = html;
+}
+
 function goToPage(section, page) {
     const totalPages = pagination[section].totalPages;
     if (page < 1 || page > totalPages) return;
@@ -669,3 +716,23 @@ window.verEvidencia = verEvidencia;
 window.verFactura = verFactura;
 window.cerrarFacturaModal = cerrarFacturaModal;
 window.cerrarEvidenciaModal = cerrarEvidenciaModal;
+
+// ============================================
+// DIAGNÓSTICO - Verificar contenedores
+// ============================================
+
+// Al cargar la página, verificar que todos los contenedores existen
+document.addEventListener('DOMContentLoaded', function() {
+    // Esperar un momento para que los datos se carguen
+    setTimeout(() => {
+        console.log('🔍 Verificando contenedores de paginación:');
+        console.log('contabilidadPaginationBS:', document.getElementById('contabilidadPaginationBS'));
+        console.log('contabilidadPaginationUSD:', document.getElementById('contabilidadPaginationUSD'));
+        console.log('inventarioPagination:', document.getElementById('inventarioPagination'));
+        console.log('entradasPagination:', document.getElementById('entradasPagination'));
+        console.log('donadoPagination:', document.getElementById('donadoPagination'));
+        
+        // Verificar que renderPagination fue llamada
+        console.log('📊 Estado de paginación:', pagination);
+    }, 2000);
+});
