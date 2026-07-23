@@ -1,5 +1,5 @@
-// app.js - Con paginación - VERSION CON EVIDENCIA Y FACTURAS
-console.log('🔄 VERSIÓN FINAL - Cuentas BS unificadas | USD separada | Combos únicos | Evidencia');
+// app.js - Con paginación - VERSION CON TABLAS SEPARADAS
+console.log('🔄 VERSIÓN FINAL - Tablas separadas BS y USD');
 
 const DATA_URL = 'data/';
 const ROWS_PER_PAGE = 5;
@@ -14,7 +14,8 @@ let state = {
 };
 
 let pagination = {
-    contabilidad: { currentPage: 1, totalPages: 1 },
+    contabilidadBS: { currentPage: 1, totalPages: 1 },
+    contabilidadUSD: { currentPage: 1, totalPages: 1 },
     inventario: { currentPage: 1, totalPages: 1 },
     entradas: { currentPage: 1, totalPages: 1 },
     donado: { currentPage: 1, totalPages: 1 }
@@ -104,7 +105,8 @@ function formatDate(fecha) {
 
 function renderAll() {
     renderSummary();
-    renderContabilidad();
+    renderContabilidadBS();
+    renderContabilidadUSD();
     renderInventario();
     renderEntradas();
     renderDonado();
@@ -119,39 +121,58 @@ function renderSummary() {
     const bs = s.bs || {};
     const usd = s.usd || {};
 
+    // Mostrar saldo neto REAL (con todos los movimientos)
     document.getElementById('totalBs').textContent = `Bs. ${formatNumber(bs.totalRecaudado || 0)}`;
     document.getElementById('totalUsd').textContent = `$ ${formatNumber(usd.totalRecaudado || 0)}`;
-    document.getElementById('saldoNetoBs').textContent = `Bs. ${formatNumber(bs.saldoNeto || 0)}`;
-    document.getElementById('saldoNetoUsd').textContent = `$ ${formatNumber(usd.saldoNeto || 0)}`;
+    
+    // Saldo neto real (calculado directamente de los datos)
+    const saldoRealBs = calcularSaldoReal('Bs.');
+    const saldoRealUsd = calcularSaldoReal('$');
+    
+    document.getElementById('saldoNetoBs').textContent = `Bs. ${formatNumber(saldoRealBs)}`;
+    document.getElementById('saldoNetoUsd').textContent = `$ ${formatNumber(saldoRealUsd)}`;
     document.getElementById('totalRecaudado').textContent = `Bs. ${formatNumber(bs.totalRecaudado || 0)} | $ ${formatNumber(usd.totalRecaudado || 0)}`;
 }
 
 // ============================================
-// CONTABILIDAD CON PAGINACIÓN
+// CALCULAR SALDO REAL DE CADA CUENTA
 // ============================================
 
-function renderContabilidad() {
-    const tbody = document.getElementById('contabilidadBody');
-    const rows = state.contabilidad;
+function calcularSaldoReal(moneda) {
+    let saldo = 0;
+    
+    state.contabilidad.forEach(account => {
+        if (account.currency === moneda) {
+            (account.rows || []).forEach(row => {
+                if (row.debe) saldo += row.debe;
+                if (row.haber) saldo -= row.haber;
+            });
+        }
+    });
+    
+    return saldo;
+}
 
-    if (!rows || rows.length === 0) {
+// ============================================
+// CONTABILIDAD - CUENTA BS
+// ============================================
+
+function renderContabilidadBS() {
+    const tbody = document.getElementById('contabilidadBodyBS');
+    const rows = state.contabilidad;
+    
+    // Filtrar solo cuentas en Bs.
+    const cuentasBS = rows.filter(account => account.currency === 'Bs.');
+    
+    if (!cuentasBS || cuentasBS.length === 0) {
         tbody.innerHTML = `<tr><td colspan="7" class="px-md py-md text-center text-on-surface-variant">No hay datos disponibles</td></tr>`;
-        document.getElementById('contabilidadPagination').innerHTML = '';
+        document.getElementById('contabilidadPaginationBS').innerHTML = '';
         return;
     }
 
     let allRows = [];
-    rows.forEach(account => {
-        let accountName = account.accountName || 'General';
-        const isBsAccount = accountName.includes('DAYANA') || accountName.includes('PERSONAL');
-        
-        if (isBsAccount) {
-            accountName = 'Cuenta BS';
-        }
-        
-        if (account.currency === '$') {
-            accountName = 'Cuenta USD';
-        }
+    cuentasBS.forEach(account => {
+        let accountName = 'Cuenta BS';
         
         (account.rows || []).forEach(row => {
             allRows.push({
@@ -163,26 +184,22 @@ function renderContabilidad() {
         });
     });
 
-    // Filtrar para excluir "Cambio de Binance a BS" en cuentas BS y "Cambio de BS a Binance" en USD
-    // Solo para el cálculo de totales, pero mostramos todos los registros
-    const rowsForDisplay = allRows;
-
     // Ordenar por fecha (más reciente primero)
-    rowsForDisplay.sort((a, b) => {
+    allRows.sort((a, b) => {
         if (!a.fecha) return 1;
         if (!b.fecha) return -1;
         return new Date(b.fecha) - new Date(a.fecha);
     });
 
-    const totalPages = Math.ceil(rowsForDisplay.length / ROWS_PER_PAGE);
-    pagination.contabilidad.totalPages = totalPages;
-    const currentPage = pagination.contabilidad.currentPage;
+    const totalPages = Math.ceil(allRows.length / ROWS_PER_PAGE);
+    pagination.contabilidadBS.totalPages = totalPages;
+    const currentPage = pagination.contabilidadBS.currentPage;
     const start = (currentPage - 1) * ROWS_PER_PAGE;
     const end = start + ROWS_PER_PAGE;
-    const pageRows = rowsForDisplay.slice(start, end);
+    const pageRows = allRows.slice(start, end);
 
     tbody.innerHTML = pageRows.map(row => {
-        const moneda = row.currency === '$' ? '$' : 'Bs.';
+        const moneda = 'Bs.';
         
         const ingreso = row.debe ? `${moneda} ${formatNumber(row.debe)}` : '-';
         const egreso = row.haber ? `${moneda} ${formatNumber(row.haber)}` : '-';
@@ -190,11 +207,6 @@ function renderContabilidad() {
         
         const colorIngreso = row.debe ? 'text-primary font-medium' : 'text-on-surface-variant';
         const colorEgreso = row.haber ? 'text-error font-medium' : 'text-on-surface-variant';
-        
-        let displayAccountName = row.accountName;
-        if (row.currency === '$') {
-            displayAccountName = 'Cuenta USD';
-        }
         
         // Botón de factura si existe número de factura
         let facturaBtn = '';
@@ -206,7 +218,7 @@ function renderContabilidad() {
         
         return `
             <tr class="hover:bg-surface-container-lowest transition-colors fade-in">
-                <td class="px-md py-md text-body-sm font-body-sm font-medium text-on-surface">${displayAccountName}</td>
+                <td class="px-md py-md text-body-sm font-body-sm font-medium text-on-surface">${row.accountName}</td>
                 <td class="px-md py-md text-body-sm font-body-sm text-on-surface">${formatDate(row.fecha)}</td>
                 <td class="px-md py-md text-body-sm font-body-sm text-on-surface max-w-xs truncate">${row.asiento || '-'}</td>
                 <td class="px-md py-md text-body-sm font-body-sm text-right ${colorIngreso}">${ingreso}</td>
@@ -217,7 +229,86 @@ function renderContabilidad() {
         `;
     }).join('');
 
-    renderPagination('contabilidad', totalPages);
+    renderPagination('contabilidadBS', totalPages);
+}
+
+// ============================================
+// CONTABILIDAD - CUENTA USD
+// ============================================
+
+function renderContabilidadUSD() {
+    const tbody = document.getElementById('contabilidadBodyUSD');
+    const rows = state.contabilidad;
+    
+    // Filtrar solo cuentas en USD
+    const cuentasUSD = rows.filter(account => account.currency === '$');
+    
+    if (!cuentasUSD || cuentasUSD.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" class="px-md py-md text-center text-on-surface-variant">No hay datos disponibles</td></tr>`;
+        document.getElementById('contabilidadPaginationUSD').innerHTML = '';
+        return;
+    }
+
+    let allRows = [];
+    cuentasUSD.forEach(account => {
+        let accountName = 'Cuenta USD';
+        
+        (account.rows || []).forEach(row => {
+            allRows.push({
+                accountName: accountName,
+                currency: account.currency || '$',
+                numeroFactura: row.numeroFactura || null,
+                ...row
+            });
+        });
+    });
+
+    // Ordenar por fecha (más reciente primero)
+    allRows.sort((a, b) => {
+        if (!a.fecha) return 1;
+        if (!b.fecha) return -1;
+        return new Date(b.fecha) - new Date(a.fecha);
+    });
+
+    const totalPages = Math.ceil(allRows.length / ROWS_PER_PAGE);
+    pagination.contabilidadUSD.totalPages = totalPages;
+    const currentPage = pagination.contabilidadUSD.currentPage;
+    const start = (currentPage - 1) * ROWS_PER_PAGE;
+    const end = start + ROWS_PER_PAGE;
+    const pageRows = allRows.slice(start, end);
+
+    tbody.innerHTML = pageRows.map(row => {
+        const moneda = '$';
+        
+        const ingreso = row.debe ? `${moneda} ${formatNumber(row.debe)}` : '-';
+        const egreso = row.haber ? `${moneda} ${formatNumber(row.haber)}` : '-';
+        const saldo = row.saldo ? `${moneda} ${formatNumber(row.saldo)}` : '-';
+        
+        const colorIngreso = row.debe ? 'text-primary font-medium' : 'text-on-surface-variant';
+        const colorEgreso = row.haber ? 'text-error font-medium' : 'text-on-surface-variant';
+        
+        // Botón de factura si existe número de factura (generalmente no habrá en USD)
+        let facturaBtn = '';
+        if (row.numeroFactura) {
+            facturaBtn = `<button class="btn-factura" onclick="verFactura('${row.numeroFactura}')">
+                <span class="material-symbols-outlined" style="font-size: 14px;">receipt</span> Factura
+            </button>`;
+        }
+        
+        return `
+            <tr class="hover:bg-surface-container-lowest transition-colors fade-in">
+                <td class="px-md py-md text-body-sm font-body-sm font-medium text-on-surface">${row.accountName}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-on-surface">${formatDate(row.fecha)}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-on-surface max-w-xs truncate">${row.asiento || '-'}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-right ${colorIngreso}">${ingreso}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-right ${colorEgreso}">${egreso}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-right font-medium text-on-surface">${saldo}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-center">${facturaBtn}</td>
+            </tr>
+        `;
+    }).join('');
+
+    renderPagination('contabilidadUSD', totalPages);
 }
 
 // ============================================
@@ -331,7 +422,6 @@ function renderDonado() {
     const pageRows = sorted.slice(start, end);
 
     tbody.innerHTML = pageRows.map(row => {
-        // Botón de evidencia si tiene combo
         let evidenciaBtn = '';
         if (row.combo) {
             evidenciaBtn = `<button class="btn-evidencia" onclick="verEvidencia('${row.combo}')">
@@ -355,7 +445,7 @@ function renderDonado() {
 }
 
 // ============================================
-// IMPACTO - CORREGIDO: Combos ÚNICOS
+// IMPACTO - Combos ÚNICOS
 // ============================================
 
 function renderImpacto() {
@@ -371,7 +461,6 @@ function renderImpacto() {
     document.getElementById('productosDonados').textContent = totalDonado;
     
     console.log(`📦 Combos únicos: ${combosUnicos.size}`);
-    console.log(`📦 Combos encontrados: ${Array.from(combosUnicos).join(', ')}`);
 }
 
 // ============================================
@@ -379,7 +468,12 @@ function renderImpacto() {
 // ============================================
 
 function updateCounts() {
-    document.getElementById('contabilidadCount').textContent = `${state.contabilidad.length} cuentas`;
+    // Contar cuentas BS y USD por separado
+    const cuentasBS = state.contabilidad.filter(a => a.currency === 'Bs.');
+    const cuentasUSD = state.contabilidad.filter(a => a.currency === '$');
+    
+    document.getElementById('contabilidadCountBS').textContent = `${cuentasBS.length} cuentas`;
+    document.getElementById('contabilidadCountUSD').textContent = `${cuentasUSD.length} cuentas`;
     document.getElementById('inventarioCount').textContent = `${state.inventario.length} productos`;
     document.getElementById('entradasCount').textContent = `${state.entradas.length} registros`;
     document.getElementById('donadoCount').textContent = `${state.donado.length} registros`;
@@ -401,19 +495,13 @@ function updateLastUpdate() {
 // FUNCIONES PARA EVIDENCIA Y FACTURAS
 // ============================================
 
-// Mapeo de números de combo a imágenes
-// CONFIGURA AQUÍ LAS IMÁGENES DE EVIDENCIA
+// CONFIGURA AQUÍ LAS IMÁGENES
 const evidenciaImagenes = {
-    // Ejemplo: '1': ['img/combo1_1.jpg', 'img/combo1_2.jpg'],
-    // '2': ['img/combo2.jpg'],
-    // Agrega aquí las imágenes para cada combo
+    // '1': ['img/combos/combo1/foto1.jpg', 'img/combos/combo1/foto2.jpg'],
 };
 
-// Mapeo de números de factura a imágenes
-// CONFIGURA AQUÍ LAS IMÁGENES DE FACTURAS
 const facturaImagenes = {
-    // Ejemplo: 'FAC-001': 'img/factura1.jpg',
-    // 'FAC-002': 'img/factura2.jpg',
+    // 'FAC-001': 'img/facturas/FAC-001.jpg',
 };
 
 function verEvidencia(combo) {
@@ -423,7 +511,6 @@ function verEvidencia(combo) {
     
     titulo.textContent = `Evidencia - Combo ${combo}`;
     
-    // Buscar imágenes para este combo
     const imagenes = evidenciaImagenes[combo] || [];
     
     if (imagenes.length === 0) {
@@ -458,9 +545,11 @@ function verFactura(numeroFactura) {
         imagen.src = imgSrc;
         imagen.style.display = 'block';
         imagen.alt = `Factura ${numeroFactura}`;
+        // Remover mensaje de no disponible si existe
+        const msg = document.querySelector('#facturaModalBody .no-disponible');
+        if (msg) msg.remove();
     } else {
         imagen.style.display = 'none';
-        // Mostrar mensaje de no disponible
         const existingMsg = document.querySelector('#facturaModalBody .no-disponible');
         if (!existingMsg) {
             const msg = document.createElement('div');
@@ -481,7 +570,6 @@ function verFactura(numeroFactura) {
 function cerrarFacturaModal() {
     document.getElementById('facturaModal').classList.remove('active');
     document.body.style.overflow = '';
-    // Limpiar mensaje de no disponible
     const msg = document.querySelector('#facturaModalBody .no-disponible');
     if (msg) msg.remove();
     const img = document.getElementById('facturaImagen');
@@ -545,7 +633,8 @@ function goToPage(section, page) {
     pagination[section].currentPage = page;
     
     switch(section) {
-        case 'contabilidad': renderContabilidad(); break;
+        case 'contabilidadBS': renderContabilidadBS(); break;
+        case 'contabilidadUSD': renderContabilidadUSD(); break;
         case 'inventario': renderInventario(); break;
         case 'entradas': renderEntradas(); break;
         case 'donado': renderDonado(); break;
@@ -559,7 +648,7 @@ function goToPage(section, page) {
 function formatNumber(num) {
     if (num === null || num === undefined) return '0';
     return Number(num).toLocaleString('es-VE', {
-        minimumFractionDigits: 0,
+        minimumFractionDigits: 2,
         maximumFractionDigits: 2
     });
 }
@@ -584,7 +673,6 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('facturaModalClose').addEventListener('click', cerrarFacturaModal);
     document.getElementById('evidenciaModalClose').addEventListener('click', cerrarEvidenciaModal);
     
-    // Cerrar modales al hacer clic fuera
     document.getElementById('facturaModal').addEventListener('click', function(e) {
         if (e.target === this) cerrarFacturaModal();
     });
@@ -592,7 +680,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.target === this) cerrarEvidenciaModal();
     });
     
-    // Escape para cerrar modales
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             cerrarFacturaModal();

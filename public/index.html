@@ -490,33 +490,69 @@
                 </div>
             </section>
 
-            <!-- Contabilidad -->
-            <section class="bg-white border border-outline-variant rounded-xl shadow-sm overflow-hidden" id="contabilidad">
-                <div class="p-md border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest flex-wrap gap-2">
-                    <h3 class="text-headline-sm font-headline-sm text-primary flex items-center gap-sm">
-                        <span class="material-symbols-outlined">list_alt</span>
-                        Registro Contable
-                    </h3>
-                    <span class="text-body-sm text-on-surface-variant" id="contabilidadCount">0 registros</span>
+            <!-- Contabilidad - Dos tablas separadas (BS y USD) -->
+            <section id="contabilidad" class="space-y-lg">
+                
+                <!-- Tabla de Cuenta BS -->
+                <div class="bg-white border border-outline-variant rounded-xl shadow-sm overflow-hidden">
+                    <div class="p-md border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest flex-wrap gap-2">
+                        <h3 class="text-headline-sm font-headline-sm text-primary flex items-center gap-sm">
+                            <span class="material-symbols-outlined">account_balance</span>
+                            Cuenta BS
+                        </h3>
+                        <span class="text-body-sm text-on-surface-variant" id="contabilidadCountBS">0 registros</span>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs sm:text-sm">
+                            <thead>
+                                <tr class="bg-surface-container-low border-b border-outline-variant">
+                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant">Cuenta</th>
+                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant">Fecha</th>
+                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant">Concepto</th>
+                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant text-right">Ingreso</th>
+                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant text-right">Egreso</th>
+                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant text-right">Saldo</th>
+                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant text-center">Factura</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-outline-variant" id="contabilidadBodyBS">
+                                <tr><td colspan="7" class="px-2 sm:px-md py-2 sm:py-md text-center text-on-surface-variant">Cargando datos...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pagination-container" id="contabilidadPaginationBS"></div>
                 </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left text-xs sm:text-sm">
-                        <thead>
-                            <tr class="bg-surface-container-low border-b border-outline-variant">
-                                <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant">Cuenta</th>
-                                <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant">Fecha</th>
-                                <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant">Concepto</th>
-                                <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant text-right">Ingreso</th>
-                                <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant text-right">Egreso</th>
-                                <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant text-right">Saldo</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-outline-variant" id="contabilidadBody">
-                            <tr><td colspan="6" class="px-2 sm:px-md py-2 sm:py-md text-center text-on-surface-variant">Cargando datos...</td></tr>
-                        </tbody>
-                    </table>
+
+                <!-- Tabla de Cuenta USD -->
+                <div class="bg-white border border-outline-variant rounded-xl shadow-sm overflow-hidden">
+                    <div class="p-md border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest flex-wrap gap-2">
+                        <h3 class="text-headline-sm font-headline-sm text-primary flex items-center gap-sm">
+                            <span class="material-symbols-outlined">attach_money</span>
+                            Cuenta USD
+                        </h3>
+                        <span class="text-body-sm text-on-surface-variant" id="contabilidadCountUSD">0 registros</span>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs sm:text-sm">
+                            <thead>
+                                <tr class="bg-surface-container-low border-b border-outline-variant">
+                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant">Cuenta</th>
+                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant">Fecha</th>
+                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant">Concepto</th>
+                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant text-right">Ingreso</th>
+                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant text-right">Egreso</th>
+                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant text-right">Saldo</th>
+                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant text-center">Factura</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-outline-variant" id="contabilidadBodyUSD">
+                                <tr><td colspan="7" class="px-2 sm:px-md py-2 sm:py-md text-center text-on-surface-variant">Cargando datos...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pagination-container" id="contabilidadPaginationUSD"></div>
                 </div>
-                <div class="pagination-container" id="contabilidadPagination"></div>
+                
             </section>
 
             <!-- Inventario -->
