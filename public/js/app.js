@@ -1,5 +1,5 @@
-// app.js - Con paginación - VERSION CON TABLAS SEPARADAS
-console.log('🔄 VERSIÓN FINAL - Tablas separadas BS y USD');
+// app.js - Con paginación - VERSION CON TABLAS SEPARADAS Y PAGINACIÓN CORREGIDA
+console.log('🔄 VERSIÓN FINAL - Tablas separadas BS y USD - Paginación corregida');
 
 const DATA_URL = 'data/';
 const ROWS_PER_PAGE = 5;
@@ -121,11 +121,9 @@ function renderSummary() {
     const bs = s.bs || {};
     const usd = s.usd || {};
 
-    // Mostrar saldo neto REAL (con todos los movimientos)
     document.getElementById('totalBs').textContent = `Bs. ${formatNumber(bs.totalRecaudado || 0)}`;
     document.getElementById('totalUsd').textContent = `$ ${formatNumber(usd.totalRecaudado || 0)}`;
     
-    // Saldo neto real (calculado directamente de los datos)
     const saldoRealBs = calcularSaldoReal('Bs.');
     const saldoRealUsd = calcularSaldoReal('$');
     
@@ -133,10 +131,6 @@ function renderSummary() {
     document.getElementById('saldoNetoUsd').textContent = `$ ${formatNumber(saldoRealUsd)}`;
     document.getElementById('totalRecaudado').textContent = `Bs. ${formatNumber(bs.totalRecaudado || 0)} | $ ${formatNumber(usd.totalRecaudado || 0)}`;
 }
-
-// ============================================
-// CALCULAR SALDO REAL DE CADA CUENTA
-// ============================================
 
 function calcularSaldoReal(moneda) {
     let saldo = 0;
@@ -161,7 +155,6 @@ function renderContabilidadBS() {
     const tbody = document.getElementById('contabilidadBodyBS');
     const rows = state.contabilidad;
     
-    // Filtrar solo cuentas en Bs.
     const cuentasBS = rows.filter(account => account.currency === 'Bs.');
     
     if (!cuentasBS || cuentasBS.length === 0) {
@@ -172,19 +165,16 @@ function renderContabilidadBS() {
 
     let allRows = [];
     cuentasBS.forEach(account => {
-        let accountName = 'Cuenta BS';
-        
         (account.rows || []).forEach(row => {
             allRows.push({
-                accountName: accountName,
-                currency: account.currency || 'Bs.',
+                accountName: 'Cuenta BS',
+                currency: 'Bs.',
                 numeroFactura: row.numeroFactura || null,
                 ...row
             });
         });
     });
 
-    // Ordenar por fecha (más reciente primero)
     allRows.sort((a, b) => {
         if (!a.fecha) return 1;
         if (!b.fecha) return -1;
@@ -200,15 +190,12 @@ function renderContabilidadBS() {
 
     tbody.innerHTML = pageRows.map(row => {
         const moneda = 'Bs.';
-        
         const ingreso = row.debe ? `${moneda} ${formatNumber(row.debe)}` : '-';
         const egreso = row.haber ? `${moneda} ${formatNumber(row.haber)}` : '-';
         const saldo = row.saldo ? `${moneda} ${formatNumber(row.saldo)}` : '-';
-        
         const colorIngreso = row.debe ? 'text-primary font-medium' : 'text-on-surface-variant';
         const colorEgreso = row.haber ? 'text-error font-medium' : 'text-on-surface-variant';
         
-        // Botón de factura si existe número de factura
         let facturaBtn = '';
         if (row.numeroFactura) {
             facturaBtn = `<button class="btn-factura" onclick="verFactura('${row.numeroFactura}')">
@@ -240,7 +227,6 @@ function renderContabilidadUSD() {
     const tbody = document.getElementById('contabilidadBodyUSD');
     const rows = state.contabilidad;
     
-    // Filtrar solo cuentas en USD
     const cuentasUSD = rows.filter(account => account.currency === '$');
     
     if (!cuentasUSD || cuentasUSD.length === 0) {
@@ -251,19 +237,16 @@ function renderContabilidadUSD() {
 
     let allRows = [];
     cuentasUSD.forEach(account => {
-        let accountName = 'Cuenta USD';
-        
         (account.rows || []).forEach(row => {
             allRows.push({
-                accountName: accountName,
-                currency: account.currency || '$',
+                accountName: 'Cuenta USD',
+                currency: '$',
                 numeroFactura: row.numeroFactura || null,
                 ...row
             });
         });
     });
 
-    // Ordenar por fecha (más reciente primero)
     allRows.sort((a, b) => {
         if (!a.fecha) return 1;
         if (!b.fecha) return -1;
@@ -279,15 +262,12 @@ function renderContabilidadUSD() {
 
     tbody.innerHTML = pageRows.map(row => {
         const moneda = '$';
-        
         const ingreso = row.debe ? `${moneda} ${formatNumber(row.debe)}` : '-';
         const egreso = row.haber ? `${moneda} ${formatNumber(row.haber)}` : '-';
         const saldo = row.saldo ? `${moneda} ${formatNumber(row.saldo)}` : '-';
-        
         const colorIngreso = row.debe ? 'text-primary font-medium' : 'text-on-surface-variant';
         const colorEgreso = row.haber ? 'text-error font-medium' : 'text-on-surface-variant';
         
-        // Botón de factura si existe número de factura (generalmente no habrá en USD)
         let facturaBtn = '';
         if (row.numeroFactura) {
             facturaBtn = `<button class="btn-factura" onclick="verFactura('${row.numeroFactura}')">
@@ -312,7 +292,7 @@ function renderContabilidadUSD() {
 }
 
 // ============================================
-// INVENTARIO CON PAGINACIÓN
+// INVENTARIO
 // ============================================
 
 function renderInventario() {
@@ -357,7 +337,7 @@ function renderInventario() {
 }
 
 // ============================================
-// ENTRADAS CON PAGINACIÓN
+// ENTRADAS
 // ============================================
 
 function renderEntradas() {
@@ -395,7 +375,7 @@ function renderEntradas() {
 }
 
 // ============================================
-// DONADO CON PAGINACIÓN - CON BOTÓN DE EVIDENCIA
+// DONADO
 // ============================================
 
 function renderDonado() {
@@ -445,7 +425,7 @@ function renderDonado() {
 }
 
 // ============================================
-// IMPACTO - Combos ÚNICOS
+// IMPACTO
 // ============================================
 
 function renderImpacto() {
@@ -459,8 +439,6 @@ function renderImpacto() {
     
     const totalDonado = state.donado.reduce((sum, d) => sum + (parseInt(d.cantidad) || 0), 0);
     document.getElementById('productosDonados').textContent = totalDonado;
-    
-    console.log(`📦 Combos únicos: ${combosUnicos.size}`);
 }
 
 // ============================================
@@ -468,7 +446,6 @@ function renderImpacto() {
 // ============================================
 
 function updateCounts() {
-    // Contar cuentas BS y USD por separado
     const cuentasBS = state.contabilidad.filter(a => a.currency === 'Bs.');
     const cuentasUSD = state.contabilidad.filter(a => a.currency === '$');
     
@@ -492,10 +469,9 @@ function updateLastUpdate() {
 }
 
 // ============================================
-// FUNCIONES PARA EVIDENCIA Y FACTURAS
+// EVIDENCIA Y FACTURAS
 // ============================================
 
-// CONFIGURA AQUÍ LAS IMÁGENES
 const evidenciaImagenes = {
     // '1': ['img/combos/combo1/foto1.jpg', 'img/combos/combo1/foto2.jpg'],
 };
@@ -545,7 +521,6 @@ function verFactura(numeroFactura) {
         imagen.src = imgSrc;
         imagen.style.display = 'block';
         imagen.alt = `Factura ${numeroFactura}`;
-        // Remover mensaje de no disponible si existe
         const msg = document.querySelector('#facturaModalBody .no-disponible');
         if (msg) msg.remove();
     } else {
@@ -669,7 +644,6 @@ function showError() {
 document.addEventListener('DOMContentLoaded', function() {
     loadAllData();
     
-    // Event listeners para modales de evidencia
     document.getElementById('facturaModalClose').addEventListener('click', cerrarFacturaModal);
     document.getElementById('evidenciaModalClose').addEventListener('click', cerrarEvidenciaModal);
     
