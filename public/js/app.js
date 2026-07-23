@@ -477,7 +477,7 @@ const evidenciaImagenes = {
 };
 
 const facturaImagenes = {
-    '1': 'img/facturas/Factura_1.jpg',
+    '1': 'https://carochriss371.github.io/donaciones_1/public/img/facturas/Factura_1.jpg',
 };
 
 function verEvidencia(combo) {
@@ -509,35 +509,67 @@ function verEvidencia(combo) {
 }
 
 function verFactura(numeroFactura) {
+    console.log('📄 Abriendo factura:', numeroFactura);
+    
     const modal = document.getElementById('facturaModal');
     const titulo = document.getElementById('facturaModalTitulo');
     const imagen = document.getElementById('facturaImagen');
+    const modalBody = document.getElementById('facturaModalBody');
     
-    titulo.textContent = `Factura - ${numeroFactura}`;
+    // Limpiar mensajes anteriores
+    const oldMsg = modalBody.querySelector('.no-disponible');
+    if (oldMsg) oldMsg.remove();
     
+    // Buscar la imagen en el mapeo
     const imgSrc = facturaImagenes[numeroFactura] || null;
+    console.log('🖼️ Ruta de imagen:', imgSrc);
     
     if (imgSrc) {
-        imagen.src = imgSrc;
+        // Configurar y mostrar la imagen
         imagen.style.display = 'block';
+        imagen.src = imgSrc;
         imagen.alt = `Factura ${numeroFactura}`;
-        const msg = document.querySelector('#facturaModalBody .no-disponible');
-        if (msg) msg.remove();
-    } else {
-        imagen.style.display = 'none';
-        const existingMsg = document.querySelector('#facturaModalBody .no-disponible');
-        if (!existingMsg) {
+        imagen.style.maxWidth = '100%';
+        imagen.style.maxHeight = '70vh';
+        imagen.style.borderRadius = '8px';
+        imagen.style.margin = '0 auto';
+        
+        // Detectar error de carga
+        imagen.onerror = function() {
+            console.error('❌ Error al cargar la imagen:', imgSrc);
+            imagen.style.display = 'none';
             const msg = document.createElement('div');
             msg.className = 'no-disponible';
             msg.style.cssText = 'text-align: center; padding: 40px; color: #727784;';
             msg.innerHTML = `
-                <span class="material-symbols-outlined" style="font-size: 48px;">receipt_long</span>
-                <p style="margin-top: 12px;">No hay factura disponible para ${numeroFactura}</p>
+                <span class="material-symbols-outlined" style="font-size: 48px;">error</span>
+                <p style="margin-top: 12px;">No se pudo cargar la imagen de la factura</p>
+                <p style="font-size: 12px; color: #999; word-break: break-all;">${imgSrc}</p>
             `;
-            document.getElementById('facturaModalBody').appendChild(msg);
-        }
+            modalBody.appendChild(msg);
+        };
+        
+        imagen.onload = function() {
+            console.log('✅ Imagen cargada correctamente');
+        };
+        
+        titulo.textContent = `Factura - ${numeroFactura}`;
+        
+    } else {
+        console.warn('⚠️ No hay imagen para:', numeroFactura);
+        imagen.style.display = 'none';
+        const msg = document.createElement('div');
+        msg.className = 'no-disponible';
+        msg.style.cssText = 'text-align: center; padding: 40px; color: #727784;';
+        msg.innerHTML = `
+            <span class="material-symbols-outlined" style="font-size: 48px;">receipt_long</span>
+            <p style="margin-top: 12px;">No hay factura disponible para ${numeroFactura}</p>
+        `;
+        modalBody.appendChild(msg);
+        titulo.textContent = `Factura - ${numeroFactura} (no disponible)`;
     }
     
+    // Abrir el modal
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
 }
