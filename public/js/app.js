@@ -477,7 +477,7 @@ const evidenciaImagenes = {
 };
 
 const facturaImagenes = {
-    // 'FAC-001': 'img/facturas/FAC-001.jpg',
+    '1': 'img/facturas/Factura_1.jpg',
 };
 
 function verEvidencia(combo) {
