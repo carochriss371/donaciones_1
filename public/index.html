@@ -178,7 +178,41 @@
         .btn-whatsapp:hover {
             background: #1da851;
         }
-
+        /*Nuevos botones*/
+        .btn-evidencia {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: #ecf5fe;
+            color: #003f87;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-evidencia:hover {
+            background: #d7e2ff;
+        }
+        .btn-factura {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: #ffdad6;
+            color: #93000a;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-factura:hover {
+            background: #ffc9c4;
+        }
         /* Ajustes responsive */
         @media (max-width: 768px) {
             .text-display-lg {
@@ -568,7 +602,7 @@
                 </div>
             </section>
 
-            <!-- Métodos de Donación -->
+            <!-- Métodos de Donación - Agregar Western Union -->
             <section class="bg-surface-container-low rounded-xl p-lg border border-primary-container">
                 <div class="flex flex-col md:flex-row gap-lg items-center">
                     <div class="md:w-1/3 space-y-md text-center md:text-left">
@@ -578,7 +612,7 @@
                         </p>
                         <div class="flex flex-col sm:flex-row gap-3 items-center md:items-start">
                             <a href="https://wa.me/584123663847?text=Hola%2C%20quiero%20donar" target="_blank" class="btn-whatsapp">
-                                <span class="material-symbols-outlined" style="font-size: 20px;"></span>
+                                <span class="material-symbols-outlined" style="font-size: 20px;">whatsapp</span>
                                 +58 412 366 3847
                             </a>
                         </div>
@@ -610,6 +644,11 @@
                         <div class="bg-white p-md rounded-xl border border-outline-variant flex flex-col items-center gap-sm text-center hover:border-primary transition-colors cursor-pointer metodo-donacion" data-metodo="efectivo">
                             <span class="material-symbols-outlined text-primary" style="font-size: 32px;">payments</span>
                             <span class="text-label-bold font-label-bold text-xs sm:text-sm">Efectivo</span>
+                        </div>
+                        <!-- Western Union -->
+                        <div class="bg-white p-md rounded-xl border border-outline-variant flex flex-col items-center gap-sm text-center hover:border-primary transition-colors cursor-pointer metodo-donacion" data-metodo="western-union">
+                            <span class="material-symbols-outlined text-primary" style="font-size: 32px;">swap_horiz</span>
+                            <span class="text-label-bold font-label-bold text-xs sm:text-sm">Western Union</span>
                         </div>
                     </div>
                 </div>
@@ -796,6 +835,37 @@
         window.abrirModal = abrirModal;
         window.cerrarModal = cerrarModal;
     </script>
+
+ <div class="modal-overlay" id="facturaModal">
+        <div class="modal-content" style="max-width: 800px;">
+            <button class="modal-close" id="facturaModalClose">✕</button>
+            <div class="modal-title">
+                <span class="material-symbols-outlined">receipt</span>
+                <span id="facturaModalTitulo">Factura</span>
+            </div>
+            <div class="modal-body" id="facturaModalBody">
+                <div style="text-align: center; padding: 20px;">
+                    <img id="facturaImagen" src="" alt="Factura" style="max-width: 100%; max-height: 70vh; border-radius: 8px;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Evidencia/Combos -->
+    <div class="modal-overlay" id="evidenciaModal">
+        <div class="modal-content" style="max-width: 900px;">
+            <button class="modal-close" id="evidenciaModalClose">✕</button>
+            <div class="modal-title">
+                <span class="material-symbols-outlined">image</span>
+                <span id="evidenciaModalTitulo">Evidencia</span>
+            </div>
+            <div class="modal-body" id="evidenciaModalBody">
+                <div id="evidenciaGaleria" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; padding: 10px;">
+                    <!-- Imágenes dinámicas -->
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>

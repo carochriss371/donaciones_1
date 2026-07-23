@@ -1,5 +1,5 @@
-// app.js - Con paginación - VERSION CORREGIDA
-console.log('🔄 VERSIÓN FINAL - Cuentas BS unificadas | USD separada | Combos únicos');
+// app.js - Con paginación - VERSION CON EVIDENCIA Y FACTURAS
+console.log('🔄 VERSIÓN FINAL - Cuentas BS unificadas | USD separada | Combos únicos | Evidencia');
 
 const DATA_URL = 'data/';
 const ROWS_PER_PAGE = 5;
@@ -49,7 +49,6 @@ async function loadAllData() {
         console.log(`📥 Entradas: ${state.entradas.length}`);
         console.log(`🤝 Donado: ${state.donado.length}`);
 
-        // Resetear paginación
         Object.keys(pagination).forEach(key => {
             pagination[key].currentPage = 1;
         });
@@ -136,15 +135,13 @@ function renderContabilidad() {
     const rows = state.contabilidad;
 
     if (!rows || rows.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" class="px-md py-md text-center text-on-surface-variant">No hay datos disponibles</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="7" class="px-md py-md text-center text-on-surface-variant">No hay datos disponibles</td></tr>`;
         document.getElementById('contabilidadPagination').innerHTML = '';
         return;
     }
 
-    // Aplanar todas las cuentas
     let allRows = [];
     rows.forEach(account => {
-        // UNIFICAR: Cuentas BS (DAYANA y PERSONAL) se unifican como "Cuenta BS"
         let accountName = account.accountName || 'General';
         const isBsAccount = accountName.includes('DAYANA') || accountName.includes('PERSONAL');
         
@@ -152,7 +149,6 @@ function renderContabilidad() {
             accountName = 'Cuenta BS';
         }
         
-        // Si es USD, mantener el nombre con (USD)
         if (account.currency === '$') {
             accountName = 'Cuenta USD';
         }
@@ -161,29 +157,33 @@ function renderContabilidad() {
             allRows.push({
                 accountName: accountName,
                 currency: account.currency || 'Bs.',
+                numeroFactura: row.numeroFactura || null,
                 ...row
             });
         });
     });
 
+    // Filtrar para excluir "Cambio de Binance a BS" en cuentas BS y "Cambio de BS a Binance" en USD
+    // Solo para el cálculo de totales, pero mostramos todos los registros
+    const rowsForDisplay = allRows;
+
     // Ordenar por fecha (más reciente primero)
-    allRows.sort((a, b) => {
+    rowsForDisplay.sort((a, b) => {
         if (!a.fecha) return 1;
         if (!b.fecha) return -1;
         return new Date(b.fecha) - new Date(a.fecha);
     });
 
-    const totalPages = Math.ceil(allRows.length / ROWS_PER_PAGE);
+    const totalPages = Math.ceil(rowsForDisplay.length / ROWS_PER_PAGE);
     pagination.contabilidad.totalPages = totalPages;
     const currentPage = pagination.contabilidad.currentPage;
     const start = (currentPage - 1) * ROWS_PER_PAGE;
     const end = start + ROWS_PER_PAGE;
-    const pageRows = allRows.slice(start, end);
+    const pageRows = rowsForDisplay.slice(start, end);
 
     tbody.innerHTML = pageRows.map(row => {
         const moneda = row.currency === '$' ? '$' : 'Bs.';
         
-        // INGRESO (antes Debe) y EGRESO (antes Haber)
         const ingreso = row.debe ? `${moneda} ${formatNumber(row.debe)}` : '-';
         const egreso = row.haber ? `${moneda} ${formatNumber(row.haber)}` : '-';
         const saldo = row.saldo ? `${moneda} ${formatNumber(row.saldo)}` : '-';
@@ -191,10 +191,17 @@ function renderContabilidad() {
         const colorIngreso = row.debe ? 'text-primary font-medium' : 'text-on-surface-variant';
         const colorEgreso = row.haber ? 'text-error font-medium' : 'text-on-surface-variant';
         
-        // Mostrar el nombre de la cuenta con su moneda si es USD
         let displayAccountName = row.accountName;
         if (row.currency === '$') {
             displayAccountName = 'Cuenta USD';
+        }
+        
+        // Botón de factura si existe número de factura
+        let facturaBtn = '';
+        if (row.numeroFactura) {
+            facturaBtn = `<button class="btn-factura" onclick="verFactura('${row.numeroFactura}')">
+                <span class="material-symbols-outlined" style="font-size: 14px;">receipt</span> Factura
+            </button>`;
         }
         
         return `
@@ -205,6 +212,7 @@ function renderContabilidad() {
                 <td class="px-md py-md text-body-sm font-body-sm text-right ${colorIngreso}">${ingreso}</td>
                 <td class="px-md py-md text-body-sm font-body-sm text-right ${colorEgreso}">${egreso}</td>
                 <td class="px-md py-md text-body-sm font-body-sm text-right font-medium text-on-surface">${saldo}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-center">${facturaBtn}</td>
             </tr>
         `;
     }).join('');
@@ -296,7 +304,7 @@ function renderEntradas() {
 }
 
 // ============================================
-// DONADO CON PAGINACIÓN
+// DONADO CON PAGINACIÓN - CON BOTÓN DE EVIDENCIA
 // ============================================
 
 function renderDonado() {
@@ -304,7 +312,7 @@ function renderDonado() {
     const rows = state.donado;
 
     if (!rows || rows.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" class="px-md py-md text-center text-on-surface-variant">No hay datos disponibles</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="6" class="px-md py-md text-center text-on-surface-variant">No hay datos disponibles</td></tr>`;
         document.getElementById('donadoPagination').innerHTML = '';
         return;
     }
@@ -322,15 +330,26 @@ function renderDonado() {
     const end = start + ROWS_PER_PAGE;
     const pageRows = sorted.slice(start, end);
 
-    tbody.innerHTML = pageRows.map(row => `
-        <tr class="hover:bg-surface-container-lowest transition-colors fade-in">
-            <td class="px-md py-md text-body-sm font-body-sm text-on-surface">${formatDate(row.fecha)}</td>
-            <td class="px-md py-md text-body-sm font-body-sm font-medium text-on-surface">${row.producto || 'Sin nombre'}</td>
-            <td class="px-md py-md text-body-sm font-body-sm text-right text-on-surface">${formatNumber(row.cantidad || 0)}</td>
-            <td class="px-md py-md text-body-sm font-body-sm text-on-surface max-w-xs truncate">${row.centro || '-'}</td>
-            <td class="px-md py-md text-body-sm font-body-sm text-on-surface">${row.combo || '-'}</td>
-        </tr>
-    `).join('');
+    tbody.innerHTML = pageRows.map(row => {
+        // Botón de evidencia si tiene combo
+        let evidenciaBtn = '';
+        if (row.combo) {
+            evidenciaBtn = `<button class="btn-evidencia" onclick="verEvidencia('${row.combo}')">
+                <span class="material-symbols-outlined" style="font-size: 14px;">visibility</span> Evidencia
+            </button>`;
+        }
+        
+        return `
+            <tr class="hover:bg-surface-container-lowest transition-colors fade-in">
+                <td class="px-md py-md text-body-sm font-body-sm text-on-surface">${formatDate(row.fecha)}</td>
+                <td class="px-md py-md text-body-sm font-body-sm font-medium text-on-surface">${row.producto || 'Sin nombre'}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-right text-on-surface">${formatNumber(row.cantidad || 0)}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-on-surface max-w-xs truncate">${row.centro || '-'}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-on-surface">${row.combo || '-'}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-center">${evidenciaBtn}</td>
+            </tr>
+        `;
+    }).join('');
 
     renderPagination('donado', totalPages);
 }
@@ -340,7 +359,6 @@ function renderDonado() {
 // ============================================
 
 function renderImpacto() {
-    // CORRECCIÓN: Contar combos ÚNICOS por su número
     const combosUnicos = new Set();
     state.donado.forEach(d => {
         if (d.combo && d.combo.trim() !== '') {
@@ -349,7 +367,6 @@ function renderImpacto() {
     });
     document.getElementById('combosEntregados').textContent = combosUnicos.size;
     
-    // Total de productos donados (suma de cantidades)
     const totalDonado = state.donado.reduce((sum, d) => sum + (parseInt(d.cantidad) || 0), 0);
     document.getElementById('productosDonados').textContent = totalDonado;
     
@@ -378,6 +395,102 @@ function updateLastUpdate() {
     } else {
         el.textContent = 'Actualizando...';
     }
+}
+
+// ============================================
+// FUNCIONES PARA EVIDENCIA Y FACTURAS
+// ============================================
+
+// Mapeo de números de combo a imágenes
+// CONFIGURA AQUÍ LAS IMÁGENES DE EVIDENCIA
+const evidenciaImagenes = {
+    // Ejemplo: '1': ['img/combo1_1.jpg', 'img/combo1_2.jpg'],
+    // '2': ['img/combo2.jpg'],
+    // Agrega aquí las imágenes para cada combo
+};
+
+// Mapeo de números de factura a imágenes
+// CONFIGURA AQUÍ LAS IMÁGENES DE FACTURAS
+const facturaImagenes = {
+    // Ejemplo: 'FAC-001': 'img/factura1.jpg',
+    // 'FAC-002': 'img/factura2.jpg',
+};
+
+function verEvidencia(combo) {
+    const modal = document.getElementById('evidenciaModal');
+    const titulo = document.getElementById('evidenciaModalTitulo');
+    const galeria = document.getElementById('evidenciaGaleria');
+    
+    titulo.textContent = `Evidencia - Combo ${combo}`;
+    
+    // Buscar imágenes para este combo
+    const imagenes = evidenciaImagenes[combo] || [];
+    
+    if (imagenes.length === 0) {
+        galeria.innerHTML = `
+            <div style="text-align: center; padding: 40px; color: #727784; grid-column: 1 / -1;">
+                <span class="material-symbols-outlined" style="font-size: 48px;">image_not_supported</span>
+                <p style="margin-top: 12px;">No hay imágenes disponibles para el combo ${combo}</p>
+            </div>
+        `;
+    } else {
+        galeria.innerHTML = imagenes.map(img => `
+            <div style="border-radius: 8px; overflow: hidden; border: 1px solid #e6eff8;">
+                <img src="${img}" alt="Evidencia Combo ${combo}" style="width: 100%; height: 200px; object-fit: cover; cursor: pointer;" onclick="window.open('${img}', '_blank')">
+            </div>
+        `).join('');
+    }
+    
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function verFactura(numeroFactura) {
+    const modal = document.getElementById('facturaModal');
+    const titulo = document.getElementById('facturaModalTitulo');
+    const imagen = document.getElementById('facturaImagen');
+    
+    titulo.textContent = `Factura - ${numeroFactura}`;
+    
+    const imgSrc = facturaImagenes[numeroFactura] || null;
+    
+    if (imgSrc) {
+        imagen.src = imgSrc;
+        imagen.style.display = 'block';
+        imagen.alt = `Factura ${numeroFactura}`;
+    } else {
+        imagen.style.display = 'none';
+        // Mostrar mensaje de no disponible
+        const existingMsg = document.querySelector('#facturaModalBody .no-disponible');
+        if (!existingMsg) {
+            const msg = document.createElement('div');
+            msg.className = 'no-disponible';
+            msg.style.cssText = 'text-align: center; padding: 40px; color: #727784;';
+            msg.innerHTML = `
+                <span class="material-symbols-outlined" style="font-size: 48px;">receipt_long</span>
+                <p style="margin-top: 12px;">No hay factura disponible para ${numeroFactura}</p>
+            `;
+            document.getElementById('facturaModalBody').appendChild(msg);
+        }
+    }
+    
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function cerrarFacturaModal() {
+    document.getElementById('facturaModal').classList.remove('active');
+    document.body.style.overflow = '';
+    // Limpiar mensaje de no disponible
+    const msg = document.querySelector('#facturaModalBody .no-disponible');
+    if (msg) msg.remove();
+    const img = document.getElementById('facturaImagen');
+    img.style.display = 'block';
+}
+
+function cerrarEvidenciaModal() {
+    document.getElementById('evidenciaModal').classList.remove('active');
+    document.body.style.overflow = '';
 }
 
 // ============================================
@@ -464,7 +577,34 @@ function showError() {
 // INICIALIZACIÓN
 // ============================================
 
-document.addEventListener('DOMContentLoaded', loadAllData);
+document.addEventListener('DOMContentLoaded', function() {
+    loadAllData();
+    
+    // Event listeners para modales de evidencia
+    document.getElementById('facturaModalClose').addEventListener('click', cerrarFacturaModal);
+    document.getElementById('evidenciaModalClose').addEventListener('click', cerrarEvidenciaModal);
+    
+    // Cerrar modales al hacer clic fuera
+    document.getElementById('facturaModal').addEventListener('click', function(e) {
+        if (e.target === this) cerrarFacturaModal();
+    });
+    document.getElementById('evidenciaModal').addEventListener('click', function(e) {
+        if (e.target === this) cerrarEvidenciaModal();
+    });
+    
+    // Escape para cerrar modales
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            cerrarFacturaModal();
+            cerrarEvidenciaModal();
+        }
+    });
+});
+
 setInterval(loadAllData, 300000);
 
 window.goToPage = goToPage;
+window.verEvidencia = verEvidencia;
+window.verFactura = verFactura;
+window.cerrarFacturaModal = cerrarFacturaModal;
+window.cerrarEvidenciaModal = cerrarEvidenciaModal;
