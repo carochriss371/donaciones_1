@@ -1,7 +1,7 @@
 [
   {
     "cod": "1",
-    "producto": "Alcohol 500ml ",
+    "producto": "Acetaminofen Pediatrico (Jarabe)",
     "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 2
   },
@@ -25,205 +25,205 @@
   },
   {
     "cod": "5",
-    "producto": "Caja de gasas 50 Ud",
+    "producto": "Agua 5L",
     "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 2
   },
   {
     "cod": "6",
-    "producto": "Caja de guantes Nitrillo 100 Ud",
+    "producto": "Alcohol 120ml",
     "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 1
   },
   {
     "cod": "7",
-    "producto": "Cateter intravenoso de 18",
+    "producto": "Alcohol 500ml ",
     "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 2
   },
   {
     "cod": "8",
-    "producto": "Cateter intravenoso de 20",
+    "producto": "Alcohol 950ml ",
     "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 2
   },
   {
     "cod": "9",
-    "producto": "Cateter intravenoso de 22",
+    "producto": "Atamel Forte tab",
     "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 5
   },
   {
     "cod": "10",
-    "producto": "Cateter intravenoso de 24",
+    "producto": "Azitromicina tab",
     "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 7
   },
   {
     "cod": "11",
-    "producto": "Dexametasona Ampolla",
+    "producto": "Bisturí",
     "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 10
   },
   {
     "cod": "12",
-    "producto": "Diclofenac Potasico Tab",
+    "producto": "Bolsas negras",
     "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 10
   },
   {
     "cod": "13",
-    "producto": "Dipirona Ampolla",
+    "producto": "Caja de algodòn",
     "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 5
   },
   {
     "cod": "14",
-    "producto": "Gasas individuales",
+    "producto": "Caja de gasas 50 Ud",
     "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 10
   },
   {
     "cod": "15",
-    "producto": "Gerdex",
+    "producto": "Caja de guantes Nitrillo 100 Ud",
     "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 1
   },
   {
     "cod": "16",
-    "producto": "Guantes de latex individuales",
+    "producto": "Cateter intravenoso de 18",
     "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 6
   },
   {
     "cod": "17",
-    "producto": "Ibuprofeno Tab",
+    "producto": "Cateter intravenoso de 20",
     "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 10
   },
   {
     "cod": "18",
-    "producto": "Jeringa 10cc",
+    "producto": "Cateter intravenoso de 22",
     "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 10
   },
   {
     "cod": "19",
-    "producto": "Jeringa 20cc",
+    "producto": "Cateter intravenoso de 24",
     "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 10
   },
   {
     "cod": "20",
-    "producto": "Jeringa 3cc (Donado)",
+    "producto": "Colchón Inflable con sabana (Donado)",
     "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 1
   },
   {
     "cod": "21",
-    "producto": "Jeringa 5cc",
+    "producto": "Colores ",
     "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 15
   },
   {
     "cod": "22",
-    "producto": "Macrogotero",
+    "producto": "Comida no perecedera",
     "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 2
   },
   {
     "cod": "23",
-    "producto": "Mascarilla para nebulizar",
+    "producto": "Comida para animales",
     "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 1
   },
   {
     "cod": "24",
-    "producto": "Metamizol Ampolla",
+    "producto": "Compresa de Gel Frío/Caliente",
     "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 6
   },
   {
     "cod": "25",
-    "producto": "Metoclopramida Ampolla (Donada)",
+    "producto": "Desloratadina Pediatrica",
     "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 1
   },
   {
     "cod": "26",
-    "producto": "Scalp 21G",
+    "producto": "Dexametasona Ampolla",
     "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 7
   },
   {
     "cod": "27",
-    "producto": "Scalp 23G",
+    "producto": "Diclofenac Potasico Tab",
     "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 9
   },
   {
     "cod": "28",
-    "producto": "Scalp 25G",
+    "producto": "Dipirona Ampolla",
     "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 5
   },
   {
     "cod": "29",
-    "producto": "Solución 0,9%",
+    "producto": "Electrodos",
     "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 2
   },
   {
     "cod": "30",
-    "producto": "Termometro (Donado)",
+    "producto": "Envase de comida",
     "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 1
   },
   {
     "cod": "31",
-    "producto": "Toallitas humedas",
+    "producto": "Esparflin Pediatrico",
     "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 3
   },
   {
     "cod": "16",
-    "producto": "Guantes de latex individuales",
+    "producto": "Cateter intravenoso de 18",
     "fecha": "Sun Jun 28 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 20
   },
   {
     "cod": "32",
-    "producto": "Bisturí",
+    "producto": "Esponja de Gasa individuales",
     "fecha": "Sun Jun 28 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 40
   },
   {
     "cod": "33",
-    "producto": "Esparflin Pediatrico",
+    "producto": "Flamex tab",
     "fecha": "Sun Jun 28 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 6
   },
   {
     "cod": "24",
-    "producto": "Metamizol Ampolla",
+    "producto": "Compresa de Gel Frío/Caliente",
     "fecha": "Sun Jun 28 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 12
   },
   {
     "cod": "34",
-    "producto": "Desloratadina Pediatrica",
+    "producto": "Galletas de Soda Paquete (Donado)",
     "fecha": "Sun Jun 28 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 3
   },
   {
     "cod": "35",
-    "producto": "Flamex tab",
+    "producto": "Gasas individuales",
     "fecha": "Sun Jun 28 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 8
   },
   {
     "cod": "36",
-    "producto": "Azitromicina tab",
+    "producto": "Gel antibacterial 50cm3",
     "fecha": "Sun Jun 28 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 6
   },
@@ -235,7 +235,7 @@
   },
   {
     "cod": "29",
-    "producto": "Solución 0,9%",
+    "producto": "Electrodos",
     "fecha": "Sun Jun 28 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 1
   },
@@ -247,253 +247,253 @@
   },
   {
     "cod": "37",
-    "producto": "Acetaminofen Pediatrico (Jarabe)",
+    "producto": "Gerdex",
     "fecha": "Sun Jun 28 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 4
   },
   {
     "cod": "26",
-    "producto": "Scalp 21G",
+    "producto": "Dexametasona Ampolla",
     "fecha": "Sun Jun 28 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 15
   },
   {
     "cod": "28",
-    "producto": "Scalp 25G",
+    "producto": "Dipirona Ampolla",
     "fecha": "Sun Jun 28 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 10
   },
   {
     "cod": "21",
-    "producto": "Jeringa 5cc",
+    "producto": "Colores ",
     "fecha": "Sun Jun 28 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 20
   },
   {
     "cod": "18",
-    "producto": "Jeringa 10cc",
+    "producto": "Cateter intravenoso de 22",
     "fecha": "Sun Jun 28 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 10
   },
   {
     "cod": "19",
-    "producto": "Jeringa 20cc",
+    "producto": "Cateter intravenoso de 24",
     "fecha": "Sun Jun 28 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 10
   },
   {
     "cod": "11",
-    "producto": "Dexametasona Ampolla",
+    "producto": "Bisturí",
     "fecha": "Sun Jun 28 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 10
   },
   {
     "cod": "9",
-    "producto": "Cateter intravenoso de 22",
+    "producto": "Atamel Forte tab",
     "fecha": "Sun Jun 28 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 20
   },
   {
     "cod": "10",
-    "producto": "Cateter intravenoso de 24",
+    "producto": "Azitromicina tab",
     "fecha": "Sun Jun 28 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 2
   },
   {
     "cod": "22",
-    "producto": "Macrogotero",
+    "producto": "Comida no perecedera",
     "fecha": "Sun Jun 28 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 6
   },
   {
     "cod": "38",
-    "producto": "Kit de nebulizaciòn Pediatrica",
+    "producto": "Golosinas ",
     "fecha": "Sun Jun 28 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 4
   },
   {
     "cod": "31",
-    "producto": "Toallitas humedas",
+    "producto": "Esparflin Pediatrico",
     "fecha": "Sun Jun 28 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 10
   },
   {
     "cod": "39",
-    "producto": "Nylon",
+    "producto": "Guantes de latex Donados",
     "fecha": "Sun Jun 28 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 4
   },
   {
     "cod": "14",
-    "producto": "Gasas individuales",
+    "producto": "Caja de gasas 50 Ud",
     "fecha": "Sun Jun 28 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 50
   },
   {
     "cod": "40",
-    "producto": "Losartan Potasico (Donado)",
+    "producto": "Guantes de latex individuales",
     "fecha": "Sun Jun 28 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 9
   },
   {
     "cod": "41",
-    "producto": "Omeprazol (Donado)",
+    "producto": "Ibuprofeno caja",
     "fecha": "Sun Jun 28 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 2
   },
   {
     "cod": "42",
-    "producto": "Galletas de Soda Paquete (Donado)",
+    "producto": "Ibuprofeno Tab",
     "fecha": "Sun Jun 28 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 1
   },
   {
     "cod": "43",
-    "producto": "Colchón Inflable con sabana (Donado)",
+    "producto": "Jeringa 10cc",
     "fecha": "Sun Jun 28 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 1
   },
   {
     "cod": "44",
-    "producto": "Toallitas humedas (Donado)",
+    "producto": "Jeringa 20cc",
     "fecha": "Sun Jun 28 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 2
   },
   {
     "cod": "28",
-    "producto": "Scalp 25G",
+    "producto": "Dipirona Ampolla",
     "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 20
   },
   {
     "cod": "26",
-    "producto": "Scalp 21G",
+    "producto": "Dexametasona Ampolla",
     "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 20
   },
   {
     "cod": "45",
-    "producto": "Llave de 3 vías",
+    "producto": "Jeringa 3cc (Donado)",
     "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 10
   },
   {
     "cod": "46",
-    "producto": "Compresa de Gel Frío/Caliente",
+    "producto": "Jeringa 5cc",
     "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 1
   },
   {
     "cod": "47",
-    "producto": "Venda elastica 5cmx4,5",
+    "producto": "Kit de nebulizaciòn Pediatrica",
     "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 4
   },
   {
     "cod": "48",
-    "producto": "Venda elastica 5cmx3,7",
+    "producto": "Libros para colorear",
     "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 6
   },
   {
     "cod": "49",
-    "producto": "Venda elastica 15cmx4,5",
+    "producto": "Llave de 3 vías",
     "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 2
   },
   {
     "cod": "16",
-    "producto": "Guantes de latex individuales",
+    "producto": "Cateter intravenoso de 18",
     "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 30
   },
   {
     "cod": "29",
-    "producto": "Solución 0,9%",
+    "producto": "Electrodos",
     "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 4
   },
   {
     "cod": "51",
-    "producto": "Electrodos",
+    "producto": "Macrogotero",
     "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 31
   },
   {
     "cod": "22",
-    "producto": "Macrogotero",
+    "producto": "Comida no perecedera",
     "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 4
   },
   {
     "cod": "39",
-    "producto": "Nylon",
+    "producto": "Guantes de latex Donados",
     "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 3
   },
   {
     "cod": "9",
-    "producto": "Cateter intravenoso de 22",
+    "producto": "Atamel Forte tab",
     "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 20
   },
   {
     "cod": "24",
-    "producto": "Metamizol Ampolla",
+    "producto": "Compresa de Gel Frío/Caliente",
     "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 18
   },
   {
     "cod": "21",
-    "producto": "Jeringa 5cc",
+    "producto": "Colores ",
     "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 30
   },
   {
     "cod": "18",
-    "producto": "Jeringa 10cc",
+    "producto": "Cateter intravenoso de 22",
     "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 30
   },
   {
     "cod": "19",
-    "producto": "Jeringa 20cc",
+    "producto": "Cateter intravenoso de 24",
     "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 14
   },
   {
     "cod": "12",
-    "producto": "Diclofenac Potasico Tab",
+    "producto": "Bolsas negras",
     "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 20
   },
   {
     "cod": "5",
-    "producto": "Caja de gasas 50 Ud",
+    "producto": "Agua 5L",
     "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 1
   },
   {
     "cod": "52",
-    "producto": "Caja de algodòn",
+    "producto": "Mascarilla para nebulizar",
     "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 6
   },
   {
     "cod": "53",
-    "producto": "Alcohol 950ml ",
+    "producto": "Metamizol Ampolla",
     "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 1
   },
   {
     "cod": "54",
-    "producto": "Alcohol 120ml",
+    "producto": "Metoclopramida Ampolla (Donada)",
     "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 18
   },
   {
     "cod": "55",
-    "producto": "Esponja de Gasa individuales",
+    "producto": "Nylon",
     "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 10
   },
@@ -505,55 +505,55 @@
   },
   {
     "cod": "56",
-    "producto": "Atamel Forte tab",
+    "producto": "Omeprazol ",
     "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 10
   },
   {
     "cod": "57",
-    "producto": "Gel antibacterial 50cm3",
+    "producto": "Omeprazol (Donado)",
     "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 3
   },
   {
     "cod": "58",
-    "producto": "Bolsas negras",
+    "producto": "Paquetes de agua pequeña",
     "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 15
   },
   {
     "cod": "59",
-    "producto": "Guantes de latex Donados",
+    "producto": "Paquetes de jugos",
     "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 92
   },
   {
     "cod": "60",
-    "producto": "Agua 5L",
+    "producto": "Scalp 21G",
     "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 2
   },
   {
     "cod": "61",
-    "producto": "Vasos paquete",
+    "producto": "Scalp 23G",
     "fecha": "Mon Jun 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 1
   },
   {
     "cod": "56",
-    "producto": "Atamel Forte tab",
+    "producto": "Omeprazol ",
     "fecha": "Sat Jul 04 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 6
   },
   {
     "cod": "52",
-    "producto": "Caja de algodòn",
+    "producto": "Mascarilla para nebulizar",
     "fecha": "Sat Jul 04 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 12
   },
   {
     "cod": "50",
-    "producto": "Venda elastica 20cm",
+    "producto": "Losartan Potasico (Donado)",
     "fecha": "Sat Jul 04 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 6
   },
@@ -565,32 +565,122 @@
   },
   {
     "cod": "11",
-    "producto": "Dexametasona Ampolla",
+    "producto": "Bisturí",
     "fecha": "Sat Jul 04 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 5
   },
   {
     "cod": "13",
-    "producto": "Dipirona Ampolla",
+    "producto": "Caja de algodòn",
     "fecha": "Sat Jul 04 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 8
   },
   {
     "cod": "14",
-    "producto": "Gasas individuales",
+    "producto": "Caja de gasas 50 Ud",
     "fecha": "Sat Jul 04 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 20
   },
   {
     "cod": "63",
-    "producto": "Comida para animales",
+    "producto": "Solución 0,9%",
     "fecha": "Mon Jul 06 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 3
   },
   {
     "cod": "62",
-    "producto": "Tapabocas",
+    "producto": "Scalp 25G",
     "fecha": "Tue Jul 07 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 5
+  },
+  {
+    "cod": "",
+    "producto": "NO EXISTE",
+    "fecha": "",
+    "cantidad": 0
+  },
+  {
+    "cod": "",
+    "producto": "NO EXISTE",
+    "fecha": "",
+    "cantidad": 0
+  },
+  {
+    "cod": "",
+    "producto": "NO EXISTE",
+    "fecha": "",
+    "cantidad": 0
+  },
+  {
+    "cod": "",
+    "producto": "NO EXISTE",
+    "fecha": "",
+    "cantidad": 0
+  },
+  {
+    "cod": "",
+    "producto": "NO EXISTE",
+    "fecha": "",
+    "cantidad": 0
+  },
+  {
+    "cod": "",
+    "producto": "NO EXISTE",
+    "fecha": "",
+    "cantidad": 0
+  },
+  {
+    "cod": "",
+    "producto": "NO EXISTE",
+    "fecha": "",
+    "cantidad": 0
+  },
+  {
+    "cod": "",
+    "producto": "NO EXISTE",
+    "fecha": "",
+    "cantidad": 0
+  },
+  {
+    "cod": "",
+    "producto": "NO EXISTE",
+    "fecha": "",
+    "cantidad": 0
+  },
+  {
+    "cod": "",
+    "producto": "NO EXISTE",
+    "fecha": "",
+    "cantidad": 0
+  },
+  {
+    "cod": "",
+    "producto": "NO EXISTE",
+    "fecha": "",
+    "cantidad": 0
+  },
+  {
+    "cod": "",
+    "producto": "NO EXISTE",
+    "fecha": "",
+    "cantidad": 0
+  },
+  {
+    "cod": "",
+    "producto": "NO EXISTE",
+    "fecha": "",
+    "cantidad": 0
+  },
+  {
+    "cod": "",
+    "producto": "NO EXISTE",
+    "fecha": "",
+    "cantidad": 0
+  },
+  {
+    "cod": "",
+    "producto": "NO EXISTE",
+    "fecha": "",
+    "cantidad": 0
   }
 ]
