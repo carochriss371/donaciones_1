@@ -477,7 +477,7 @@ const evidenciaImagenes = {
 };
 
 const facturaImagenes = {
-    '1': 'https://carochriss371.github.io/donaciones_1/public/img/facturas/Factura_1.jpg',
+    '1': 'https://carochriss371.github.io/donaciones_1/public/img/facturas/Factura_1.webp',
 };
 
 function verEvidencia(combo) {
