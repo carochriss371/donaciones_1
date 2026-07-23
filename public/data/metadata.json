@@ -1,18 +1,18 @@
 {
   "summary": {
     "bs": {
-      "totalRecaudado": 791526.4,
-      "totalEjecutado": 788191.9099999999,
-      "saldoNeto": 3334.490000000107,
+      "totalRecaudado": 304184.17,
+      "totalEjecutado": 767620.4199999999,
+      "saldoNeto": -463436.24999999994,
       "currency": "Bs."
     },
     "usd": {
-      "totalRecaudado": 859.31,
+      "totalRecaudado": 639.3199999999999,
       "totalEjecutado": 658.07,
-      "saldoNeto": 201.2399999999999,
+      "saldoNeto": -18.750000000000114,
       "currency": "$"
     },
-    "lastUpdate": "23 de julio de 2026 a las 14:41"
+    "lastUpdate": "23 de julio de 2026 a las 15:03"
   },
-  "timestamp": "2026-07-23T18:41:13.301Z"
+  "timestamp": "2026-07-23T19:03:00.563Z"
 }
