@@ -23,9 +23,9 @@
   {
     "cod": "4",
     "producto": "Adrenalina Ampolla",
-    "entradas": 0,
+    "entradas": 15,
     "salidas": 10,
-    "stock": -10
+    "stock": 5
   },
   {
     "cod": "5",
@@ -198,9 +198,9 @@
   {
     "cod": "29",
     "producto": "Solución 0,9%",
-    "entradas": 6,
+    "entradas": 7,
     "salidas": 2,
-    "stock": 4
+    "stock": 5
   },
   {
     "cod": "30",
@@ -429,9 +429,9 @@
   {
     "cod": "62",
     "producto": "Tapabocas",
-    "entradas": 0,
+    "entradas": 5,
     "salidas": 0,
-    "stock": 0
+    "stock": 5
   },
   {
     "cod": "63",
@@ -442,238 +442,14 @@
   },
   {
     "cod": "64",
-    "producto": "",
+    "producto": "Ibuprofeno caja",
     "entradas": 0,
     "salidas": 0,
     "stock": 0
   },
   {
     "cod": "65",
-    "producto": "",
-    "entradas": 0,
-    "salidas": 0,
-    "stock": 0
-  },
-  {
-    "cod": "66",
-    "producto": "",
-    "entradas": 0,
-    "salidas": 0,
-    "stock": 0
-  },
-  {
-    "cod": "67",
-    "producto": "",
-    "entradas": 0,
-    "salidas": 0,
-    "stock": 0
-  },
-  {
-    "cod": "68",
-    "producto": "",
-    "entradas": 0,
-    "salidas": 0,
-    "stock": 0
-  },
-  {
-    "cod": "69",
-    "producto": "",
-    "entradas": 0,
-    "salidas": 0,
-    "stock": 0
-  },
-  {
-    "cod": "70",
-    "producto": "",
-    "entradas": 0,
-    "salidas": 0,
-    "stock": 0
-  },
-  {
-    "cod": "71",
-    "producto": "",
-    "entradas": 0,
-    "salidas": 0,
-    "stock": 0
-  },
-  {
-    "cod": "72",
-    "producto": "",
-    "entradas": 0,
-    "salidas": 0,
-    "stock": 0
-  },
-  {
-    "cod": "73",
-    "producto": "",
-    "entradas": 0,
-    "salidas": 0,
-    "stock": 0
-  },
-  {
-    "cod": "74",
-    "producto": "",
-    "entradas": 0,
-    "salidas": 0,
-    "stock": 0
-  },
-  {
-    "cod": "75",
-    "producto": "",
-    "entradas": 0,
-    "salidas": 0,
-    "stock": 0
-  },
-  {
-    "cod": "76",
-    "producto": "",
-    "entradas": 0,
-    "salidas": 0,
-    "stock": 0
-  },
-  {
-    "cod": "77",
-    "producto": "",
-    "entradas": 0,
-    "salidas": 0,
-    "stock": 0
-  },
-  {
-    "cod": "78",
-    "producto": "",
-    "entradas": 0,
-    "salidas": 0,
-    "stock": 0
-  },
-  {
-    "cod": "79",
-    "producto": "",
-    "entradas": 0,
-    "salidas": 0,
-    "stock": 0
-  },
-  {
-    "cod": "80",
-    "producto": "",
-    "entradas": 0,
-    "salidas": 0,
-    "stock": 0
-  },
-  {
-    "cod": "81",
-    "producto": "",
-    "entradas": 0,
-    "salidas": 0,
-    "stock": 0
-  },
-  {
-    "cod": "82",
-    "producto": "",
-    "entradas": 0,
-    "salidas": 0,
-    "stock": 0
-  },
-  {
-    "cod": "83",
-    "producto": "",
-    "entradas": 0,
-    "salidas": 0,
-    "stock": 0
-  },
-  {
-    "cod": "84",
-    "producto": "",
-    "entradas": 0,
-    "salidas": 0,
-    "stock": 0
-  },
-  {
-    "cod": "85",
-    "producto": "",
-    "entradas": 0,
-    "salidas": 0,
-    "stock": 0
-  },
-  {
-    "cod": "86",
-    "producto": "",
-    "entradas": 0,
-    "salidas": 0,
-    "stock": 0
-  },
-  {
-    "cod": "87",
-    "producto": "",
-    "entradas": 0,
-    "salidas": 0,
-    "stock": 0
-  },
-  {
-    "cod": "88",
-    "producto": "",
-    "entradas": 0,
-    "salidas": 0,
-    "stock": 0
-  },
-  {
-    "cod": "89",
-    "producto": "",
-    "entradas": 0,
-    "salidas": 0,
-    "stock": 0
-  },
-  {
-    "cod": "90",
-    "producto": "",
-    "entradas": 0,
-    "salidas": 0,
-    "stock": 0
-  },
-  {
-    "cod": "91",
-    "producto": "",
-    "entradas": 0,
-    "salidas": 0,
-    "stock": 0
-  },
-  {
-    "cod": "92",
-    "producto": "",
-    "entradas": 0,
-    "salidas": 0,
-    "stock": 0
-  },
-  {
-    "cod": "93",
-    "producto": "",
-    "entradas": 0,
-    "salidas": 0,
-    "stock": 0
-  },
-  {
-    "cod": "94",
-    "producto": "",
-    "entradas": 0,
-    "salidas": 0,
-    "stock": 0
-  },
-  {
-    "cod": "95",
-    "producto": "",
-    "entradas": 0,
-    "salidas": 0,
-    "stock": 0
-  },
-  {
-    "cod": "96",
-    "producto": "",
-    "entradas": 0,
-    "salidas": 0,
-    "stock": 0
-  },
-  {
-    "cod": "97",
-    "producto": "",
+    "producto": "Omeprazol ",
     "entradas": 0,
     "salidas": 0,
     "stock": 0
