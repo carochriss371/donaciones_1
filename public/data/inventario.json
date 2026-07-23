@@ -282,9 +282,9 @@
   {
     "cod": "41",
     "producto": "Omeprazol (Donado)",
-    "entradas": 1,
+    "entradas": 2,
     "salidas": 2,
-    "stock": -1
+    "stock": 0
   },
   {
     "cod": "42",
