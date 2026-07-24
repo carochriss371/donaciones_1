@@ -1,7 +1,7 @@
 [
   {
     "cod": "1",
-    "producto": "Acetaminofen Pediatrico (Jarabe)",
+    "producto": "Alcohol 500ml ",
     "entradas": 2,
     "salidas": 2,
     "stock": 0
@@ -29,476 +29,427 @@
   },
   {
     "cod": "5",
-    "producto": "Agua 5L",
+    "producto": "Caja de gasas 50 Ud",
     "entradas": 3,
     "salidas": 3,
     "stock": 0
   },
   {
     "cod": "6",
-    "producto": "Alcohol 120ml",
+    "producto": "Caja de guantes Nitrillo 100 Ud",
     "entradas": 1,
     "salidas": 0,
     "stock": 1
   },
   {
     "cod": "7",
-    "producto": "Alcohol 500ml ",
+    "producto": "Cateter intravenoso de 18",
     "entradas": 2,
     "salidas": 2,
     "stock": 0
   },
   {
     "cod": "8",
-    "producto": "Alcohol 950ml ",
+    "producto": "Cateter intravenoso de 20",
     "entradas": 2,
     "salidas": 2,
     "stock": 0
   },
   {
     "cod": "9",
-    "producto": "Atamel Forte tab",
+    "producto": "Cateter intravenoso de 22",
     "entradas": 45,
     "salidas": 22,
     "stock": 23
   },
   {
     "cod": "10",
-    "producto": "Azitromicina tab",
+    "producto": "Cateter intravenoso de 24",
     "entradas": 9,
-    "salidas": 5,
-    "stock": 4
+    "salidas": 7,
+    "stock": 2
   },
   {
     "cod": "11",
-    "producto": "Bisturí",
+    "producto": "Dexametasona Ampolla",
     "entradas": 25,
     "salidas": 8,
     "stock": 17
   },
   {
     "cod": "12",
-    "producto": "Bolsas negras",
+    "producto": "Diclofenac Potasico Tab",
     "entradas": 30,
     "salidas": 13,
     "stock": 17
   },
   {
     "cod": "13",
-    "producto": "Caja de algodòn",
+    "producto": "Dipirona Ampolla",
     "entradas": 13,
     "salidas": 3,
     "stock": 10
   },
   {
     "cod": "14",
-    "producto": "Caja de gasas 50 Ud",
+    "producto": "Gasas individuales",
     "entradas": 80,
     "salidas": 12,
     "stock": 68
   },
   {
     "cod": "15",
-    "producto": "Caja de guantes Nitrillo 100 Ud",
+    "producto": "Gerdex",
     "entradas": 1,
     "salidas": 1,
     "stock": 0
   },
   {
     "cod": "16",
-    "producto": "Cateter intravenoso de 18",
+    "producto": "Guantes de latex individuales",
     "entradas": 56,
     "salidas": 36,
     "stock": 20
   },
   {
     "cod": "17",
-    "producto": "Cateter intravenoso de 20",
+    "producto": "Ibuprofeno Tab",
     "entradas": 10,
     "salidas": 40,
     "stock": -30
   },
   {
     "cod": "18",
-    "producto": "Cateter intravenoso de 22",
+    "producto": "Jeringa 10cc",
     "entradas": 50,
     "salidas": 20,
     "stock": 30
   },
   {
     "cod": "19",
-    "producto": "Cateter intravenoso de 24",
+    "producto": "Jeringa 20cc",
     "entradas": 34,
-    "salidas": 15,
-    "stock": 19
+    "salidas": 13,
+    "stock": 21
   },
   {
     "cod": "20",
-    "producto": "Colchón Inflable con sabana (Donado)",
+    "producto": "Jeringa 3cc (Donado)",
     "entradas": 1,
     "salidas": 0,
     "stock": 1
   },
   {
     "cod": "21",
-    "producto": "Colores ",
+    "producto": "Jeringa 5cc",
     "entradas": 65,
     "salidas": 33,
     "stock": 32
   },
   {
     "cod": "22",
-    "producto": "Comida no perecedera",
+    "producto": "Macrogotero",
     "entradas": 12,
     "salidas": 4,
     "stock": 8
   },
   {
     "cod": "23",
-    "producto": "Comida para animales",
+    "producto": "Mascarilla para nebulizar",
     "entradas": 1,
     "salidas": 1,
     "stock": 0
   },
   {
     "cod": "24",
-    "producto": "Compresa de Gel Frío/Caliente",
+    "producto": "Metamizol Ampolla",
     "entradas": 36,
     "salidas": 9,
     "stock": 27
   },
   {
     "cod": "25",
-    "producto": "Desloratadina Pediatrica",
+    "producto": "Metoclopramida Ampolla (Donada)",
     "entradas": 1,
     "salidas": 1,
     "stock": 0
   },
   {
     "cod": "26",
-    "producto": "Dexametasona Ampolla",
+    "producto": "Scalp 21G",
     "entradas": 42,
     "salidas": 17,
     "stock": 25
   },
   {
     "cod": "27",
-    "producto": "Diclofenac Potasico Tab",
+    "producto": "Scalp 23G",
     "entradas": 9,
     "salidas": 9,
     "stock": 0
   },
   {
     "cod": "28",
-    "producto": "Dipirona Ampolla",
+    "producto": "Scalp 25G",
     "entradas": 35,
     "salidas": 15,
     "stock": 20
   },
   {
     "cod": "29",
-    "producto": "Electrodos",
+    "producto": "Solución 0,9%",
     "entradas": 7,
     "salidas": 2,
     "stock": 5
   },
   {
     "cod": "30",
-    "producto": "Envase de comida",
+    "producto": "Termometro (Donado)",
     "entradas": 1,
     "salidas": 0,
     "stock": 1
   },
   {
     "cod": "31",
-    "producto": "Esparflin Pediatrico",
+    "producto": "Toallitas humedas",
     "entradas": 13,
     "salidas": 12,
     "stock": 1
   },
   {
     "cod": "32",
-    "producto": "Esponja de Gasa individuales",
+    "producto": "Bisturí",
     "entradas": 40,
     "salidas": 0,
     "stock": 40
   },
   {
     "cod": "33",
-    "producto": "Flamex tab",
+    "producto": "Esparflin Pediatrico",
     "entradas": 6,
     "salidas": 0,
     "stock": 6
   },
   {
     "cod": "34",
-    "producto": "Galletas de Soda Paquete (Donado)",
+    "producto": "Desloratadina Pediatrica",
     "entradas": 3,
     "salidas": 0,
     "stock": 3
   },
   {
     "cod": "35",
-    "producto": "Gasas individuales",
+    "producto": "Flamex tab",
     "entradas": 8,
     "salidas": 0,
     "stock": 8
   },
   {
     "cod": "36",
-    "producto": "Gel antibacterial 50cm3",
+    "producto": "Azitromicina tab",
     "entradas": 6,
     "salidas": 3,
     "stock": 3
   },
   {
     "cod": "37",
-    "producto": "Gerdex",
+    "producto": "Acetaminofen Pediatrico (Jarabe)",
     "entradas": 4,
     "salidas": 0,
     "stock": 4
   },
   {
     "cod": "38",
-    "producto": "Golosinas ",
+    "producto": "Kit de nebulizaciòn Pediatrica",
     "entradas": 4,
     "salidas": 1,
     "stock": 3
   },
   {
     "cod": "39",
-    "producto": "Guantes de latex Donados",
+    "producto": "Nylon",
     "entradas": 7,
     "salidas": 0,
     "stock": 7
   },
   {
     "cod": "40",
-    "producto": "Guantes de latex individuales",
+    "producto": "Losartan Potasico (Donado)",
     "entradas": 9,
     "salidas": 7,
     "stock": 2
   },
   {
     "cod": "41",
-    "producto": "Ibuprofeno caja",
+    "producto": "Omeprazol (Donado)",
     "entradas": 2,
     "salidas": 2,
     "stock": 0
   },
   {
     "cod": "42",
-    "producto": "Ibuprofeno Tab",
+    "producto": "Galletas de Soda Paquete (Donado)",
     "entradas": 1,
     "salidas": 0,
     "stock": 1
   },
   {
     "cod": "43",
-    "producto": "Jeringa 10cc",
+    "producto": "Colchón Inflable con sabana (Donado)",
     "entradas": 1,
     "salidas": 0,
     "stock": 1
   },
   {
     "cod": "44",
-    "producto": "Jeringa 20cc",
+    "producto": "Toallitas humedas (Donado)",
     "entradas": 2,
     "salidas": 0,
     "stock": 2
   },
   {
     "cod": "45",
-    "producto": "Jeringa 3cc (Donado)",
+    "producto": "Llave de 3 vías",
     "entradas": 10,
     "salidas": 5,
     "stock": 5
   },
   {
     "cod": "46",
-    "producto": "Jeringa 5cc",
+    "producto": "Compresa de Gel Frío/Caliente",
     "entradas": 1,
     "salidas": 1,
     "stock": 0
   },
   {
     "cod": "47",
-    "producto": "Kit de nebulizaciòn Pediatrica",
+    "producto": "Venda elastica 5cmx4,5",
     "entradas": 4,
     "salidas": 4,
     "stock": 0
   },
   {
     "cod": "48",
-    "producto": "Libros para colorear",
+    "producto": "Venda elastica 5cmx3,7",
     "entradas": 6,
     "salidas": 6,
     "stock": 0
   },
   {
     "cod": "49",
-    "producto": "Llave de 3 vías",
+    "producto": "Venda elastica 15cmx4,5",
     "entradas": 2,
     "salidas": 2,
     "stock": 0
   },
   {
     "cod": "50",
-    "producto": "Losartan Potasico (Donado)",
+    "producto": "Venda elastica 20cm",
     "entradas": 6,
     "salidas": 0,
     "stock": 6
   },
   {
     "cod": "51",
-    "producto": "Macrogotero",
+    "producto": "Electrodos",
     "entradas": 31,
     "salidas": 31,
     "stock": 0
   },
   {
     "cod": "52",
-    "producto": "Mascarilla para nebulizar",
+    "producto": "Caja de algodòn",
     "entradas": 18,
     "salidas": 5,
     "stock": 13
   },
   {
     "cod": "53",
-    "producto": "Metamizol Ampolla",
+    "producto": "Alcohol 950ml ",
     "entradas": 1,
     "salidas": 1,
     "stock": 0
   },
   {
     "cod": "54",
-    "producto": "Metoclopramida Ampolla (Donada)",
+    "producto": "Alcohol 120ml",
     "entradas": 18,
     "salidas": 10,
     "stock": 8
   },
   {
     "cod": "55",
-    "producto": "Nylon",
+    "producto": "Esponja de Gasa individuales",
     "entradas": 10,
     "salidas": 10,
     "stock": 0
   },
   {
     "cod": "56",
-    "producto": "Omeprazol ",
+    "producto": "Atamel Forte tab",
     "entradas": 16,
     "salidas": 3,
     "stock": 13
   },
   {
     "cod": "57",
-    "producto": "Omeprazol (Donado)",
+    "producto": "Gel antibacterial 50cm3",
     "entradas": 3,
     "salidas": 3,
     "stock": 0
   },
   {
     "cod": "58",
-    "producto": "Paquetes de agua pequeña",
+    "producto": "Bolsas negras",
     "entradas": 15,
     "salidas": 15,
     "stock": 0
   },
   {
     "cod": "59",
-    "producto": "Paquetes de jugos",
+    "producto": "Guantes de latex Donados",
     "entradas": 92,
     "salidas": 92,
     "stock": 0
   },
   {
     "cod": "60",
-    "producto": "Scalp 21G",
+    "producto": "Agua 5L",
     "entradas": 2,
     "salidas": 2,
     "stock": 0
   },
   {
     "cod": "61",
-    "producto": "Scalp 23G",
+    "producto": "Vasos paquete",
     "entradas": 1,
     "salidas": 1,
     "stock": 0
   },
   {
     "cod": "62",
-    "producto": "Scalp 25G",
+    "producto": "Tapabocas",
     "entradas": 5,
     "salidas": 0,
     "stock": 5
   },
   {
     "cod": "63",
-    "producto": "Solución 0,9%",
+    "producto": "Comida para animales",
     "entradas": 3,
     "salidas": 3,
     "stock": 0
   },
   {
     "cod": "64",
-    "producto": "Tapabocas",
+    "producto": "Ibuprofeno caja",
     "entradas": 0,
     "salidas": 0,
     "stock": 0
   },
   {
     "cod": "65",
-    "producto": "Termometro (Donado)",
-    "entradas": 0,
-    "salidas": 0,
-    "stock": 0
-  },
-  {
-    "cod": "66",
-    "producto": "Toallitas humedas",
-    "entradas": 0,
-    "salidas": 0,
-    "stock": 0
-  },
-  {
-    "cod": "67",
-    "producto": "Toallitas humedas (Donado)",
-    "entradas": 0,
-    "salidas": 0,
-    "stock": 0
-  },
-  {
-    "cod": "68",
-    "producto": "Vasos paquete",
-    "entradas": 0,
-    "salidas": 0,
-    "stock": 0
-  },
-  {
-    "cod": "69",
-    "producto": "Venda elastica 15cmx4,5",
-    "entradas": 0,
-    "salidas": 0,
-    "stock": 0
-  },
-  {
-    "cod": "70",
-    "producto": "Venda elastica 20cm",
-    "entradas": 0,
-    "salidas": 0,
-    "stock": 0
-  },
-  {
-    "cod": "71",
-    "producto": "Venda elastica 5cmx3,7",
-    "entradas": 0,
-    "salidas": 0,
-    "stock": 0
-  },
-  {
-    "cod": "72",
-    "producto": "Venda elastica 5cmx4,5",
+    "producto": "Omeprazol ",
     "entradas": 0,
     "salidas": 0,
     "stock": 0
