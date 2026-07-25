@@ -592,5 +592,131 @@
     "producto": "Tapabocas",
     "fecha": "Tue Jul 07 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 5
+  },
+  {
+    "cod": "67",
+    "producto": "Ropa donada (Bolsas)",
+    "fecha": "Fri Jun 26 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 20
+  },
+  {
+    "cod": "72",
+    "producto": "Paquete de agua ",
+    "fecha": "Fri Jun 26 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 8
+  },
+  {
+    "cod": "73",
+    "producto": "Paquete de jugos",
+    "fecha": "Fri Jun 26 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1
+  },
+  {
+    "cod": "66",
+    "producto": "Envases de comida",
+    "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 110
+  },
+  {
+    "cod": "",
+    "producto": "NO EXISTE",
+    "fecha": "",
+    "cantidad": 0
+  },
+  {
+    "cod": "",
+    "producto": "NO EXISTE",
+    "fecha": "",
+    "cantidad": 0
+  },
+  {
+    "cod": "",
+    "producto": "NO EXISTE",
+    "fecha": "",
+    "cantidad": 0
+  },
+  {
+    "cod": "",
+    "producto": "NO EXISTE",
+    "fecha": "",
+    "cantidad": 0
+  },
+  {
+    "cod": "",
+    "producto": "NO EXISTE",
+    "fecha": "",
+    "cantidad": 0
+  },
+  {
+    "cod": "",
+    "producto": "NO EXISTE",
+    "fecha": "",
+    "cantidad": 0
+  },
+  {
+    "cod": "",
+    "producto": "NO EXISTE",
+    "fecha": "",
+    "cantidad": 0
+  },
+  {
+    "cod": "",
+    "producto": "NO EXISTE",
+    "fecha": "",
+    "cantidad": 0
+  },
+  {
+    "cod": "",
+    "producto": "NO EXISTE",
+    "fecha": "",
+    "cantidad": 0
+  },
+  {
+    "cod": "",
+    "producto": "NO EXISTE",
+    "fecha": "",
+    "cantidad": 0
+  },
+  {
+    "cod": "",
+    "producto": "NO EXISTE",
+    "fecha": "",
+    "cantidad": 0
+  },
+  {
+    "cod": "",
+    "producto": "NO EXISTE",
+    "fecha": "",
+    "cantidad": 0
+  },
+  {
+    "cod": "",
+    "producto": "NO EXISTE",
+    "fecha": "",
+    "cantidad": 0
+  },
+  {
+    "cod": "",
+    "producto": "NO EXISTE",
+    "fecha": "",
+    "cantidad": 0
+  },
+  {
+    "cod": "",
+    "producto": "NO EXISTE",
+    "fecha": "",
+    "cantidad": 0
+  },
+  {
+    "cod": "",
+    "producto": "NO EXISTE",
+    "fecha": "",
+    "cantidad": 0
+  },
+  {
+    "cod": "",
+    "producto": "NO EXISTE",
+    "fecha": "",
+    "cantidad": 0
   }
 ]

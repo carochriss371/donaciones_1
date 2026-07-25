@@ -457,16 +457,16 @@
   {
     "cod": "66",
     "producto": "Envases de comida",
-    "entradas": 0,
+    "entradas": 110,
     "salidas": 0,
-    "stock": 0
+    "stock": 110
   },
   {
     "cod": "67",
-    "producto": "Ropa donada",
-    "entradas": 0,
+    "producto": "Ropa donada (Bolsas)",
+    "entradas": 20,
     "salidas": 0,
-    "stock": 0
+    "stock": 20
   },
   {
     "cod": "68",
@@ -476,8 +476,43 @@
     "stock": 0
   },
   {
-    "cod": "68",
+    "cod": "69",
     "producto": "Colores para los niños",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "70",
+    "producto": "Comida no perecedera",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "71",
+    "producto": "Libros para colorear",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "72",
+    "producto": "Paquete de agua ",
+    "entradas": 8,
+    "salidas": 0,
+    "stock": 8
+  },
+  {
+    "cod": "73",
+    "producto": "Paquete de jugos",
+    "entradas": 1,
+    "salidas": 0,
+    "stock": 1
+  },
+  {
+    "cod": "74",
+    "producto": "Paquete de vasos",
     "entradas": 0,
     "salidas": 0,
     "stock": 0
