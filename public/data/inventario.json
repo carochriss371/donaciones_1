@@ -460,5 +460,26 @@
     "entradas": 0,
     "salidas": 0,
     "stock": 0
+  },
+  {
+    "cod": "67",
+    "producto": "Ropa donada",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "68",
+    "producto": "Golosinas para los niños",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "68",
+    "producto": "Colores para los niños",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
   }
 ]
