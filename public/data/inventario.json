@@ -453,5 +453,12 @@
     "entradas": 0,
     "salidas": 0,
     "stock": 0
+  },
+  {
+    "cod": "66",
+    "producto": "Envases de comida",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
   }
 ]
