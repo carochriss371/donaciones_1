@@ -759,7 +759,7 @@ function abrirTodasEvidencias() {
                 html += `
                     <div style="border: 1px solid #e6eff8; border-radius: 8px; padding: 12px; background: white; display: flex; align-items: center; justify-content: space-between; gap: 8px;">
                         <span style="font-weight: 600; color: #141d23; font-size: 14px;">
-                            Combo #${combo} <small style="color: #727784;">(${imagenes.length} img)</small>
+                            Combo #${combo} </small>
                         </span>
                         <button onclick="verEvidencia('${combo}')" class="btn-evidencia" style="padding: 6px 12px; font-size: 0.75rem; cursor: pointer;">
                             <span class="material-symbols-outlined" style="font-size: 16px; vertical-align: middle;">visibility</span>
