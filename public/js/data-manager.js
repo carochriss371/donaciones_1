@@ -1,16 +1,33 @@
 (function () {
-  async function loadData() {
-    const [contabilidad, inventario, donado] = await Promise.all([
-      fetch('./data/contabilidad.json').then((response) => response.json()),
-      fetch('./data/inventario.json').then((response) => response.json()),
-      fetch('./data/donado.json').then((response) => response.json())
-    ]);
+  const DATA_PATH = './data/'; // O './public/data/' dependiendo de tu estructura
 
-    return {
-      contabilidad,
-      inventario,
-      donado
-    };
+  async function loadData() {
+    try {
+      const [contabilidad, inventario, entradas, donado, metadata] = await Promise.all([
+        fetch(DATA_PATH + 'contabilidad.json').then(r => r.json()).catch(() => []),
+        fetch(DATA_PATH + 'inventario.json').then(r => r.json()).catch(() => []),
+        fetch(DATA_PATH + 'entradas.json').then(r => r.json()).catch(() => []),
+        fetch(DATA_PATH + 'donado.json').then(r => r.json()).catch(() => []),
+        fetch(DATA_PATH + 'metadata.json').then(r => r.json()).catch(() => ({}))
+      ]);
+
+      return {
+        contabilidad,
+        inventario,
+        entradas,
+        donado,
+        metadata
+      };
+    } catch (error) {
+      console.error('❌ Error al cargar datos:', error);
+      return {
+        contabilidad: [],
+        inventario: [],
+        entradas: [],
+        donado: [],
+        metadata: {}
+      };
+    }
   }
 
   function formatCurrency(value) {

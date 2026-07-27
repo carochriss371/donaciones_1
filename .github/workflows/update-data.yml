@@ -32,21 +32,45 @@ jobs:
         run: |
           import json
           import os
+          import base64
+          import zlib
 
           raw_data = os.environ.get("PAYLOAD_DATA", "")
 
+          # Verificar si los datos están comprimidos
+          is_compressed = os.environ.get("COMPRESSED", "false").lower() == "true"
+          
           try:
-              data = json.loads(raw_data)
-              # Si viene como string escapado, lo decodificamos por segunda vez
-              if isinstance(data, str):
-                  data = json.loads(data)
+              if is_compressed:
+                  # Decodificar base64
+                  decoded = base64.b64decode(raw_data)
+                  # Descomprimir gzip
+                  decompressed = zlib.decompress(decoded, 16 + zlib.MAX_WBITS)
+                  # Parsear JSON
+                  data = json.loads(decompressed.decode('utf-8'))
+                  print("✅ Datos descomprimidos correctamente")
+              else:
+                  # Datos sin comprimir (backward compatibility)
+                  data = json.loads(raw_data)
+                  if isinstance(data, str):
+                      data = json.loads(data)
           except Exception as e:
               print(f"❌ Error al decodificar JSON: {e}")
               raise SystemExit(1)
 
+          # Crear ambas carpetas para compatibilidad
+          os.makedirs("data", exist_ok=True)
           os.makedirs("public/data", exist_ok=True)
 
           files = {
+              "data/contabilidad.json": data.get("contabilidades", []),
+              "data/inventario.json": data.get("inventario", []),
+              "data/entradas.json": data.get("entradas", []),
+              "data/donado.json": data.get("donado", []),
+              "data/metadata.json": {
+                  "summary": data.get("summary", {}),
+                  "timestamp": data.get("timestamp", "")
+              },
               "public/data/contabilidad.json": data.get("contabilidades", []),
               "public/data/inventario.json": data.get("inventario", []),
               "public/data/entradas.json": data.get("entradas", []),
@@ -62,11 +86,13 @@ jobs:
                   json.dump(content, f, ensure_ascii=False, indent=2)
 
           print("✅ Todos los archivos JSON fueron procesados y guardados correctamente.")
+          print(f"📊 Donado: {len(data.get('donado', []))} registros")
+          print(f"📊 Contabilidad: {len(data.get('contabilidades', []))} cuentas")
 
       - name: Commit and push changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add public/data/
+          git add data/ public/data/
           git diff --staged --quiet || git commit -m "Actualizar datos desde Apps Script $(date +'%Y-%m-%d %H:%M:%S')"
           git push
