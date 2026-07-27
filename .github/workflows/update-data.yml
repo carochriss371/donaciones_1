@@ -38,7 +38,7 @@ jobs:
           raw_data = os.environ.get("PAYLOAD_DATA", "")
 
           # Verificar si los datos están comprimidos
-          is_compressed = os.environ.get("COMPRESSED", "false").lower() == "true"
+          is_compressed = os.environ.get("compressed", "false").lower() == "true"
           
           try:
               if is_compressed:
