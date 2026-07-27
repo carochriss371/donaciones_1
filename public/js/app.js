@@ -383,8 +383,8 @@ function renderDonado() {
         }
 
         // 2. Segundo criterio (Desempate): Orden descendente por Combo (22, 21, 20...)
-        const comboA = Number(a.combo) || 0;
-        const comboB = Number(b.combo) || 0;
+        const comboA = Number(String(a.combo || '0').replace(/[^0-9]/g, ''));
+        const comboB = Number(String(b.combo || '0').replace(/[^0-9]/g, ''));
         return comboB - comboA;
     });
 
