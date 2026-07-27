@@ -473,7 +473,28 @@ function updateLastUpdate() {
 // ============================================
 
 const evidenciaImagenes = {
-    // '1': ['img/combos/combo1/foto1.jpg', 'img/combos/combo1/foto2.jpg'],
+    '1': ['img/combos/Combo_1.webp'],
+    '2': ['img/combos/Combo_2.webp'],
+    '3': ['img/combos/Combo_3.webp','img/combos/Combo_3(1).webp'],
+    '4': ['img/combos/Combo_4.webp','img/combos/Combo_4(1).webp'],
+    '5': ['img/combos/Combo_5.webp', 'img/combos/Combo_5(1).webp'],
+    '6': ['img/combos/Combo_6.webp'],
+    '7': ['img/combos/Combo_7.webp'],
+    '8': ['img/combos/Combo_8.webp'],
+    '9': ['img/combos/Combo_9.webp'],
+    '10': ['img/combos/Combo_10.webp'],
+    '11': ['img/combos/Combo_11.webp'],
+    '12': ['img/combos/Combo_12.webp'],
+    '13': ['img/combos/Combo_13.webp'],
+    '14': ['img/combos/Combo_14.webp'],
+    '15': ['img/combos/Combo_15.webp'],
+    '16': ['img/combos/Combo_16.webp', 'img/combos/Combo_16(1).webp','img/combos/Combo_16(2).webp','img/combos/Combo_16(3).webp'],
+    '17': ['img/combos/Combo_17.webp','img/combos/Combo_17(1).webp'],
+    '18': ['img/combos/Combo_18.webp', 'img/combos/Combo_18(1).webp','img/combos/Combo_18(2).webp'],
+    '19': ['img/combos/Combo_19.webp','img/combos/Combo_19(1).webp'],
+    '20': ['img/combos/Combo_20.webp','img/combos/Combo_20(1).webp'],
+    '21': ['img/combos/Combo_21.webp','img/combos/Combo_21(1).webp'],
+    '22': ['img/combos/Combo_22.webp','img/combos/Combo_22(1).webp']
 };
 
 const facturaImagenes = {
