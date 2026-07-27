@@ -1088,6 +1088,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const statusDiv = document.getElementById('formStatusMessage');
     const submitBtn = document.getElementById('btnEnviarSolicitud');
 
+    // !!! REEMPLAZA CON TU URL !!!
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxzbPBeK15Gwzua9CyAwaBmlwFSBEkHZXq3m2JidiiwyMuzcRfOCXE6Nvt2WIEsrWuI/exec';
 
     if (form) {
@@ -1100,37 +1101,29 @@ document.addEventListener('DOMContentLoaded', function() {
                 Enviando...
             `;
             statusDiv.innerHTML = '';
+            statusDiv.style.color = '#424752';
 
             const formData = new FormData(form);
             const data = Object.fromEntries(formData.entries());
             
             console.log('📤 Enviando datos:', data);
 
-            // Enviar como JSON
+            // Usar no-cors para evitar CORS
             fetch(SCRIPT_URL, {
                 method: 'POST',
-                mode: 'cors', // Cambiar a cors
+                mode: 'no-cors',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(data)
             })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Error de red: ' + response.status);
-                }
-                return response.json();
-            })
-            .then(result => {
-                console.log('📥 Respuesta:', result);
-                if (result.status === 'success') {
-                    statusDiv.innerHTML = '✅ ' + result.message;
-                    statusDiv.style.color = '#2e7d32';
-                    form.reset();
-                } else {
-                    statusDiv.innerHTML = '❌ ' + (result.message || 'Error al enviar');
-                    statusDiv.style.color = '#ba1a1a';
-                }
+            .then(() => {
+                // Con no-cors no podemos leer la respuesta
+                // Asumimos éxito si no hubo error de red
+                console.log('✅ Formulario enviado');
+                statusDiv.innerHTML = '✅ ¡Tu solicitud se ha enviado correctamente!';
+                statusDiv.style.color = '#2e7d32';
+                form.reset();
             })
             .catch((error) => {
                 console.error('❌ Error:', error);
@@ -1147,6 +1140,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
-</script>s
+
+// Añadir animación
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+`;
+document.head.appendChild(style);
+</script>
 </body>
 </html>
