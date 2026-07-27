@@ -1,8 +1,8 @@
-// app.js - Con paginación - VERSION CON TABLAS SEPARADAS Y PAGINACIÓN CORREGIDA
-console.log('🔄 VERSIÓN FINAL - Tablas separadas BS y USD - Paginación corregida');
+// app.js - Con scroll en lugar de paginación y evidencias mejoradas
+console.log('🔄 VERSIÓN FINAL - Scroll en tablas | Evidencias mejoradas');
 
 const DATA_URL = 'data/';
-const ROWS_PER_PAGE = 5;
+const ROWS_PER_PAGE = 5; // Ya no se usa, pero lo dejamos por compatibilidad
 
 let state = {
     contabilidad: [],
@@ -11,14 +11,6 @@ let state = {
     donado: [],
     summary: null,
     lastUpdate: null
-};
-
-let pagination = {
-    contabilidadBS: { currentPage: 1, totalPages: 1 },
-    contabilidadUSD: { currentPage: 1, totalPages: 1 },
-    inventario: { currentPage: 1, totalPages: 1 },
-    entradas: { currentPage: 1, totalPages: 1 },
-    donado: { currentPage: 1, totalPages: 1 }
 };
 
 // ============================================
@@ -49,10 +41,6 @@ async function loadAllData() {
         console.log(`📦 Inventario: ${state.inventario.length}`);
         console.log(`📥 Entradas: ${state.entradas.length}`);
         console.log(`🤝 Donado: ${state.donado.length}`);
-
-        Object.keys(pagination).forEach(key => {
-            pagination[key].currentPage = 1;
-        });
 
         renderAll();
         updateLastUpdate();
@@ -148,7 +136,7 @@ function calcularSaldoReal(moneda) {
 }
 
 // ============================================
-// CONTABILIDAD - CUENTA BS
+// CONTABILIDAD - CUENTA BS (CON SCROLL)
 // ============================================
 
 function renderContabilidadBS() {
@@ -159,7 +147,6 @@ function renderContabilidadBS() {
     
     if (!cuentasBS || cuentasBS.length === 0) {
         tbody.innerHTML = `<tr><td colspan="7" class="px-md py-md text-center text-on-surface-variant">No hay datos disponibles</td></tr>`;
-        document.getElementById('contabilidadPaginationBS').innerHTML = '';
         return;
     }
 
@@ -181,14 +168,8 @@ function renderContabilidadBS() {
         return new Date(b.fecha) - new Date(a.fecha);
     });
 
-    const totalPages = Math.ceil(allRows.length / ROWS_PER_PAGE);
-    pagination.contabilidadBS.totalPages = totalPages;
-    const currentPage = pagination.contabilidadBS.currentPage;
-    const start = (currentPage - 1) * ROWS_PER_PAGE;
-    const end = start + ROWS_PER_PAGE;
-    const pageRows = allRows.slice(start, end);
-
-    tbody.innerHTML = pageRows.map(row => {
+    // MOSTRAR TODOS LOS REGISTROS (SIN PAGINACIÓN)
+    tbody.innerHTML = allRows.map(row => {
         const moneda = 'Bs.';
         const ingreso = row.debe ? `${moneda} ${formatNumber(row.debe)}` : '-';
         const egreso = row.haber ? `${moneda} ${formatNumber(row.haber)}` : '-';
@@ -216,11 +197,13 @@ function renderContabilidadBS() {
         `;
     }).join('');
 
-    renderPagination('contabilidadBS', totalPages);
+    // Ocultar paginación
+    const pagContainer = document.getElementById('contabilidadBSPagination');
+    if (pagContainer) pagContainer.style.display = 'none';
 }
 
 // ============================================
-// CONTABILIDAD - CUENTA USD
+// CONTABILIDAD - CUENTA USD (CON SCROLL)
 // ============================================
 
 function renderContabilidadUSD() {
@@ -231,7 +214,6 @@ function renderContabilidadUSD() {
     
     if (!cuentasUSD || cuentasUSD.length === 0) {
         tbody.innerHTML = `<tr><td colspan="7" class="px-md py-md text-center text-on-surface-variant">No hay datos disponibles</td></tr>`;
-        document.getElementById('contabilidadPaginationUSD').innerHTML = '';
         return;
     }
 
@@ -253,14 +235,8 @@ function renderContabilidadUSD() {
         return new Date(b.fecha) - new Date(a.fecha);
     });
 
-    const totalPages = Math.ceil(allRows.length / ROWS_PER_PAGE);
-    pagination.contabilidadUSD.totalPages = totalPages;
-    const currentPage = pagination.contabilidadUSD.currentPage;
-    const start = (currentPage - 1) * ROWS_PER_PAGE;
-    const end = start + ROWS_PER_PAGE;
-    const pageRows = allRows.slice(start, end);
-
-    tbody.innerHTML = pageRows.map(row => {
+    // MOSTRAR TODOS LOS REGISTROS (SIN PAGINACIÓN)
+    tbody.innerHTML = allRows.map(row => {
         const moneda = '$';
         const ingreso = row.debe ? `${moneda} ${formatNumber(row.debe)}` : '-';
         const egreso = row.haber ? `${moneda} ${formatNumber(row.haber)}` : '-';
@@ -288,11 +264,13 @@ function renderContabilidadUSD() {
         `;
     }).join('');
 
-    renderPagination('contabilidadUSD', totalPages);
+    // Ocultar paginación
+    const pagContainer = document.getElementById('contabilidadUSDPagination');
+    if (pagContainer) pagContainer.style.display = 'none';
 }
 
 // ============================================
-// INVENTARIO
+// INVENTARIO (CON SCROLL)
 // ============================================
 
 function renderInventario() {
@@ -301,20 +279,13 @@ function renderInventario() {
 
     if (!rows || rows.length === 0) {
         tbody.innerHTML = `<tr><td colspan="5" class="px-md py-md text-center text-on-surface-variant">No hay datos disponibles</td></tr>`;
-        document.getElementById('inventarioPagination').innerHTML = '';
         return;
     }
 
     const sorted = [...rows].sort((a, b) => (a.stock || 0) - (b.stock || 0));
 
-    const totalPages = Math.ceil(sorted.length / ROWS_PER_PAGE);
-    pagination.inventario.totalPages = totalPages;
-    const currentPage = pagination.inventario.currentPage;
-    const start = (currentPage - 1) * ROWS_PER_PAGE;
-    const end = start + ROWS_PER_PAGE;
-    const pageRows = sorted.slice(start, end);
-
-    tbody.innerHTML = pageRows.map(row => {
+    // MOSTRAR TODOS LOS REGISTROS (SIN PAGINACIÓN)
+    tbody.innerHTML = sorted.map(row => {
         const stock = row.stock || 0;
         const isLow = stock < 5;
         const badgeClass = isLow ? 'stock-low' : 'stock-normal';
@@ -333,11 +304,13 @@ function renderInventario() {
         `;
     }).join('');
 
-    renderPagination('inventario', totalPages);
+    // Ocultar paginación
+    const pagContainer = document.getElementById('inventarioPagination');
+    if (pagContainer) pagContainer.style.display = 'none';
 }
 
 // ============================================
-// ENTRADAS
+// ENTRADAS (CON SCROLL)
 // ============================================
 
 function renderEntradas() {
@@ -346,7 +319,6 @@ function renderEntradas() {
 
     if (!rows || rows.length === 0) {
         tbody.innerHTML = `<tr><td colspan="3" class="px-md py-md text-center text-on-surface-variant">No hay datos disponibles</td></tr>`;
-        document.getElementById('entradasPagination').innerHTML = '';
         return;
     }
 
@@ -356,14 +328,8 @@ function renderEntradas() {
         return new Date(b.fecha) - new Date(a.fecha);
     });
 
-    const totalPages = Math.ceil(sorted.length / ROWS_PER_PAGE);
-    pagination.entradas.totalPages = totalPages;
-    const currentPage = pagination.entradas.currentPage;
-    const start = (currentPage - 1) * ROWS_PER_PAGE;
-    const end = start + ROWS_PER_PAGE;
-    const pageRows = sorted.slice(start, end);
-
-    tbody.innerHTML = pageRows.map(row => `
+    // MOSTRAR TODOS LOS REGISTROS (SIN PAGINACIÓN)
+    tbody.innerHTML = sorted.map(row => `
         <tr class="hover:bg-surface-container-lowest transition-colors fade-in">
             <td class="px-md py-md text-body-sm font-body-sm text-on-surface">${formatDate(row.fecha)}</td>
             <td class="px-md py-md text-body-sm font-body-sm font-medium text-on-surface">${row.producto || 'Sin nombre'}</td>
@@ -371,11 +337,13 @@ function renderEntradas() {
         </tr>
     `).join('');
 
-    renderPagination('entradas', totalPages);
+    // Ocultar paginación
+    const pagContainer = document.getElementById('entradasPagination');
+    if (pagContainer) pagContainer.style.display = 'none';
 }
 
 // ============================================
-// DONADO
+// DONADO (CON SCROLL)
 // ============================================
 
 function renderDonado() {
@@ -384,7 +352,6 @@ function renderDonado() {
 
     if (!rows || rows.length === 0) {
         tbody.innerHTML = `<tr><td colspan="6" class="px-md py-md text-center text-on-surface-variant">No hay datos disponibles</td></tr>`;
-        document.getElementById('donadoPagination').innerHTML = '';
         return;
     }
 
@@ -394,14 +361,8 @@ function renderDonado() {
         return new Date(b.fecha) - new Date(a.fecha);
     });
 
-    const totalPages = Math.ceil(sorted.length / ROWS_PER_PAGE);
-    pagination.donado.totalPages = totalPages;
-    const currentPage = pagination.donado.currentPage;
-    const start = (currentPage - 1) * ROWS_PER_PAGE;
-    const end = start + ROWS_PER_PAGE;
-    const pageRows = sorted.slice(start, end);
-
-    tbody.innerHTML = pageRows.map(row => {
+    // MOSTRAR TODOS LOS REGISTROS (SIN PAGINACIÓN)
+    tbody.innerHTML = sorted.map(row => {
         let evidenciaBtn = '';
         if (row.combo) {
             evidenciaBtn = `<button class="btn-evidencia" onclick="verEvidencia('${row.combo}')">
@@ -421,7 +382,9 @@ function renderDonado() {
         `;
     }).join('');
 
-    renderPagination('donado', totalPages);
+    // Ocultar paginación
+    const pagContainer = document.getElementById('donadoPagination');
+    if (pagContainer) pagContainer.style.display = 'none';
 }
 
 // ============================================
@@ -469,7 +432,7 @@ function updateLastUpdate() {
 }
 
 // ============================================
-// EVIDENCIA Y FACTURAS
+// EVIDENCIA Y FACTURAS - CONFIGURACIÓN
 // ============================================
 
 const evidenciaImagenes = {
@@ -516,6 +479,10 @@ const facturaImagenes = {
     '16': '/img/facturas/Factura_16.webp'
 };
 
+// ============================================
+// VER EVIDENCIA - Mejorado con object-fit: contain
+// ============================================
+
 function verEvidencia(combo) {
     const modal = document.getElementById('evidenciaModal');
     const titulo = document.getElementById('evidenciaModalTitulo');
@@ -534,8 +501,8 @@ function verEvidencia(combo) {
         `;
     } else {
         galeria.innerHTML = imagenes.map(img => `
-            <div style="border-radius: 8px; overflow: hidden; border: 1px solid #e6eff8;">
-                <img src="${img}" alt="Evidencia Combo ${combo}" style="width: 100%; height: 200px; object-fit: cover; cursor: pointer;" onclick="window.open('${img}', '_blank')">
+            <div class="img-container">
+                <img src="${img}" alt="Evidencia Combo ${combo}" onclick="window.open('${img}', '_blank')">
             </div>
         `).join('');
     }
@@ -543,6 +510,10 @@ function verEvidencia(combo) {
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
 }
+
+// ============================================
+// VER FACTURA - Con zoom
+// ============================================
 
 function verFactura(numeroFactura) {
     console.log('📄 Abriendo factura:', numeroFactura);
@@ -569,6 +540,11 @@ function verFactura(numeroFactura) {
         imagen.style.maxHeight = '70vh';
         imagen.style.borderRadius = '8px';
         imagen.style.margin = '0 auto';
+        imagen.style.cursor = 'zoom-in';
+        
+        // Eliminar clase de zoom previa
+        imagen.classList.remove('zoom-active');
+        imagen.style.transform = 'scale(1)';
         
         // Detectar error de carga
         imagen.onerror = function() {
@@ -610,6 +586,41 @@ function verFactura(numeroFactura) {
     document.body.style.overflow = 'hidden';
 }
 
+// ============================================
+// ZOOM EN FACTURA (Click para zoom)
+// ============================================
+
+document.addEventListener('DOMContentLoaded', function() {
+    const img = document.getElementById('facturaImagen');
+    
+    if (img) {
+        img.addEventListener('click', function(e) {
+            this.classList.toggle('zoom-active');
+            if (this.classList.contains('zoom-active')) {
+                this.style.cursor = 'zoom-out';
+                this.style.transform = 'scale(1.8)';
+                this.style.transformOrigin = 'center center';
+                this.style.maxHeight = '90vh';
+            } else {
+                this.style.cursor = 'zoom-in';
+                this.style.transform = 'scale(1)';
+                this.style.maxHeight = '70vh';
+            }
+        });
+        
+        img.addEventListener('dblclick', function(e) {
+            this.classList.remove('zoom-active');
+            this.style.cursor = 'zoom-in';
+            this.style.transform = 'scale(1)';
+            this.style.maxHeight = '70vh';
+        });
+    }
+});
+
+// ============================================
+// CERRAR MODALES
+// ============================================
+
 function cerrarFacturaModal() {
     document.getElementById('facturaModal').classList.remove('active');
     document.body.style.overflow = '';
@@ -617,6 +628,10 @@ function cerrarFacturaModal() {
     if (msg) msg.remove();
     const img = document.getElementById('facturaImagen');
     img.style.display = 'block';
+    img.classList.remove('zoom-active');
+    img.style.transform = 'scale(1)';
+    img.style.maxHeight = '70vh';
+    img.style.cursor = 'zoom-in';
 }
 
 function cerrarEvidenciaModal() {
@@ -625,63 +640,44 @@ function cerrarEvidenciaModal() {
 }
 
 // ============================================
-// PAGINACIÓN
+// VER TODAS LAS EVIDENCIAS (Botón flotante)
 // ============================================
 
-function renderPagination(section, totalPages) {
-    const container = document.getElementById(`${section}Pagination`);
-    if (!container) return;
-
-    const currentPage = pagination[section].currentPage;
-
-    if (totalPages <= 1) {
-        container.innerHTML = '';
-        return;
-    }
-
-    let html = `<span class="pagination-info">Página ${currentPage} de ${totalPages}</span>`;
+function abrirTodasEvidencias() {
+    const modal = document.getElementById('evidenciaModal');
+    const titulo = document.getElementById('evidenciaModalTitulo');
+    const galeria = document.getElementById('evidenciaGaleria');
     
-    html += `<button class="pagination-btn" onclick="goToPage('${section}', ${currentPage - 1})" ${currentPage <= 1 ? 'disabled' : ''}>‹</button>`;
-
-    const maxVisible = 5;
-    let startPage = Math.max(1, currentPage - Math.floor(maxVisible / 2));
-    let endPage = Math.min(totalPages, startPage + maxVisible - 1);
+    titulo.textContent = '📸 Todas las Evidencias';
     
-    if (endPage - startPage < maxVisible - 1) {
-        startPage = Math.max(1, endPage - maxVisible + 1);
-    }
-
-    if (startPage > 1) {
-        html += `<button class="pagination-btn" onclick="goToPage('${section}', 1)">1</button>`;
-        if (startPage > 2) html += `<span class="pagination-info">…</span>`;
-    }
-
-    for (let i = startPage; i <= endPage; i++) {
-        html += `<button class="pagination-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage('${section}', ${i})">${i}</button>`;
-    }
-
-    if (endPage < totalPages) {
-        if (endPage < totalPages - 1) html += `<span class="pagination-info">…</span>`;
-        html += `<button class="pagination-btn" onclick="goToPage('${section}', ${totalPages})">${totalPages}</button>`;
-    }
-
-    html += `<button class="pagination-btn" onclick="goToPage('${section}', ${currentPage + 1})" ${currentPage >= totalPages ? 'disabled' : ''}>›</button>`;
-
-    container.innerHTML = html;
-}
-
-function goToPage(section, page) {
-    const totalPages = pagination[section].totalPages;
-    if (page < 1 || page > totalPages) return;
-    pagination[section].currentPage = page;
+    let html = '';
+    const combos = Object.keys(evidenciaImagenes).sort((a, b) => Number(a) - Number(b));
     
-    switch(section) {
-        case 'contabilidadBS': renderContabilidadBS(); break;
-        case 'contabilidadUSD': renderContabilidadUSD(); break;
-        case 'inventario': renderInventario(); break;
-        case 'entradas': renderEntradas(); break;
-        case 'donado': renderDonado(); break;
+    combos.forEach(combo => {
+        const imagenes = evidenciaImagenes[combo] || [];
+        html += `<div style="grid-column: 1 / -1; margin-top: 8px;">`;
+        html += `<h4 style="font-weight: 600; color: #003f87; margin-bottom: 8px; font-size: 16px;">Combo ${combo}</h4>`;
+        html += `<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">`;
+        imagenes.forEach(img => {
+            html += `
+                <div class="img-container" style="min-height: 150px;">
+                    <img src="${img}" alt="Combo ${combo}" style="max-height: 250px;" onclick="window.open('${img}', '_blank')">
+                </div>
+            `;
+        });
+        html += `</div></div>`;
+    });
+    
+    if (!html) {
+        html = `<div style="text-align: center; padding: 40px; color: #727784; grid-column: 1 / -1;">
+            <span class="material-symbols-outlined" style="font-size: 48px;">image_not_supported</span>
+            <p style="margin-top: 12px;">No hay evidencias disponibles</p>
+        </div>`;
     }
+    
+    galeria.innerHTML = html;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
 }
 
 // ============================================
@@ -712,6 +708,7 @@ function showError() {
 document.addEventListener('DOMContentLoaded', function() {
     loadAllData();
     
+    // Event listeners para modales
     document.getElementById('facturaModalClose').addEventListener('click', cerrarFacturaModal);
     document.getElementById('evidenciaModalClose').addEventListener('click', cerrarEvidenciaModal);
     
@@ -732,8 +729,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 setInterval(loadAllData, 300000);
 
-window.goToPage = goToPage;
+// ============================================
+// EXPORTAR FUNCIONES PARA USO GLOBAL
+// ============================================
+
+window.goToPage = function() {}; // Ya no se usa, pero lo dejamos por compatibilidad
 window.verEvidencia = verEvidencia;
 window.verFactura = verFactura;
 window.cerrarFacturaModal = cerrarFacturaModal;
 window.cerrarEvidenciaModal = cerrarEvidenciaModal;
+window.abrirTodasEvidencias = abrirTodasEvidencias;

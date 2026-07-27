@@ -6,6 +6,7 @@
     <title>LOS BUENOS SOMOS MÁS | Panel de Transparencia</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries">
     </script>
+    <link rel="icon" type="image/x-icon" href="/img/logo_pestaña.ico">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
 
@@ -213,6 +214,84 @@
         .btn-factura:hover {
             background: #ffc9c4;
         }
+
+        /* Estilos para el formulario */
+        .form-input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1.5px solid #dbe4ed;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.2s;
+            background: white;
+            color: #141d23;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #003f87;
+            box-shadow: 0 0 0 3px rgba(0, 63, 135, 0.15);
+        }
+        .form-input::placeholder {
+            color: #a0a8b5;
+        }
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #424752;
+            margin-bottom: 4px;
+        }
+
+        /* Galería de evidencias mejorada */
+        #evidenciaGaleria {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            padding: 10px;
+        }
+        #evidenciaGaleria img {
+            width: 100%;
+            height: auto;
+            max-height: 350px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        #evidenciaGaleria .img-container {
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #e6eff8;
+            background: #f6faff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+        }
+
+        /* Botón flotante de evidencias */
+        .btn-evidencias-flotante {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            z-index: 50;
+            background: #003f87;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        .btn-evidencias-flotante:hover {
+            background: #0056b3;
+            transform: scale(1.02);
+        }
+
         /* Ajustes responsive */
         @media (max-width: 768px) {
             .text-display-lg {
@@ -266,6 +345,18 @@
                 padding: 10px 18px;
                 font-size: 14px;
             }
+            .btn-evidencias-flotante {
+                bottom: 16px;
+                left: 16px;
+                padding: 10px 16px;
+                font-size: 12px;
+            }
+            #evidenciaGaleria {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+            #evidenciaGaleria img {
+                max-height: 200px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -307,6 +398,18 @@
             .btn-whatsapp {
                 padding: 8px 14px;
                 font-size: 13px;
+            }
+            .btn-evidencias-flotante {
+                bottom: 12px;
+                left: 12px;
+                padding: 8px 12px;
+                font-size: 11px;
+            }
+            #evidenciaGaleria {
+                grid-template-columns: 1fr 1fr;
+            }
+            #evidenciaGaleria img {
+                max-height: 150px;
             }
         }
     </style>
@@ -414,7 +517,11 @@
     <!-- TopNavBar -->
     <header class="fixed top-0 left-0 w-full z-50 bg-surface border-b border-outline-variant flex justify-between items-center px-gutter h-16 max-w-container-max mx-auto">
         <div class="flex items-center gap-md min-w-0">
-            <h1 class="text-headline-md font-headline-md font-bold text-primary truncate">LOS BUENOS SOMOS MÁS</h1>
+            <!-- LOGO REEMPLAZA TEXTO -->
+            <a href="/" class="flex items-center gap-2">
+                <img src="/img/logo_menu.png" alt="LOS BUENOS SOMOS MÁS" class="h-8 md:h-10 w-auto" onerror="this.style.display='none'">
+                <span class="text-headline-md font-headline-md font-bold text-primary truncate hidden sm:block">LOS BUENOS SOMOS MÁS</span>
+            </a>
             <nav class="hidden md:flex gap-md items-center h-full">
                 <a class="text-primary border-b-2 border-primary pb-1 font-label-bold text-label-bold" href="#">Panel</a>
                 <a class="text-on-surface-variant hover:text-primary transition-colors font-label-bold text-label-bold" href="#inventario">Inventario</a>
@@ -450,6 +557,10 @@
                 <span class="material-symbols-outlined">volunteer_activism</span>
                 <span class="text-label-bold font-label-bold">Donaciones</span>
             </a>
+            <a class="hover:bg-surface-container px-4 py-3 rounded-lg flex items-center gap-md transition-all duration-200 text-on-surface-variant" href="#formulario">
+                <span class="material-symbols-outlined">help</span>
+                <span class="text-label-bold font-label-bold">Solicitar Ayuda</span>
+            </a>
         </nav>
     </aside>
 
@@ -458,7 +569,6 @@
         <div class="max-w-container-max mx-auto p-gutter space-y-lg">
 
             <!-- Tarjetas de resumen - 4 tarjetas -->
-           <!-- Tarjetas de resumen - 4 tarjetas con títulos más pequeños -->
             <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-md" id="summaryCards">
                 <div class="bg-white border border-outline-variant rounded-xl p-lg shadow-sm hover:shadow-md transition-shadow fade-in">
                     <div class="flex justify-between items-start mb-sm">
@@ -502,10 +612,10 @@
                         </h3>
                         <span class="text-body-sm text-on-surface-variant" id="contabilidadCountBS">0 registros</span>
                     </div>
-                    <div class="overflow-x-auto">
+                    <div class="overflow-x-auto" style="max-height: 600px; overflow-y: auto;">
                         <table class="w-full text-left text-xs sm:text-sm">
-                            <thead>
-                                <tr class="bg-surface-container-low border-b border-outline-variant">
+                            <thead class="sticky top-0 bg-surface-container-low z-10">
+                                <tr class="border-b border-outline-variant">
                                     <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant">Cuenta</th>
                                     <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant">Fecha</th>
                                     <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant">Concepto</th>
@@ -520,8 +630,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <!-- ⭐ IMPORTANTE: este ID debe ser contabilidadPaginationBS -->
-                    <div class="pagination-container" id="contabilidadBSPagination"></div>
+                    <div class="pagination-container" id="contabilidadBSPagination" style="display: none;"></div>
                 </div>
 
                 <!-- Tabla de Cuenta USD -->
@@ -533,16 +642,17 @@
                         </h3>
                         <span class="text-body-sm text-on-surface-variant" id="contabilidadCountUSD">0 registros</span>
                     </div>
-                    <div class="overflow-x-auto">
+                    <div class="overflow-x-auto" style="max-height: 600px; overflow-y: auto;">
                         <table class="w-full text-left text-xs sm:text-sm">
-                            <thead>
-                                <tr class="bg-surface-container-low border-b border-outline-variant">
+                            <thead class="sticky top-0 bg-surface-container-low z-10">
+                                <tr class="border-b border-outline-variant">
                                     <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant">Cuenta</th>
                                     <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant">Fecha</th>
                                     <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant">Concepto</th>
                                     <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant text-right">Ingreso</th>
                                     <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant text-right">Egreso</th>
                                     <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant text-right">Saldo</th>
+                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant text-center">Factura</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-outline-variant" id="contabilidadBodyUSD">
@@ -550,8 +660,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <!-- ⭐ IMPORTANTE: este ID debe ser contabilidadPaginationUSD -->
-                    <div class="pagination-container" id="contabilidadUSDPagination"></div>
+                    <div class="pagination-container" id="contabilidadUSDPagination" style="display: none;"></div>
                 </div>
                 
             </section>
@@ -567,9 +676,9 @@
                         <h4 class="text-headline-sm font-headline-sm text-primary">Stock Actual</h4>
                         <span class="text-body-sm text-on-surface-variant" id="inventarioCount">0 productos</span>
                     </div>
-                    <div class="overflow-x-auto">
+                    <div class="overflow-x-auto" style="max-height: 600px; overflow-y: auto;">
                         <table class="w-full text-left text-xs sm:text-sm">
-                            <thead class="bg-surface-container-low">
+                            <thead class="sticky top-0 bg-surface-container-low z-10">
                                 <tr>
                                     <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold font-label-bold text-on-surface-variant">Código</th>
                                     <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold font-label-bold text-on-surface-variant">Producto</th>
@@ -583,7 +692,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="pagination-container" id="inventarioPagination"></div>
+                    <div class="pagination-container" id="inventarioPagination" style="display: none;"></div>
                 </div>
             </section>
 
@@ -594,9 +703,9 @@
                         <h4 class="text-headline-sm font-headline-sm text-primary">Registro de Entradas</h4>
                         <span class="text-body-sm text-on-surface-variant" id="entradasCount">0 registros</span>
                     </div>
-                    <div class="overflow-x-auto">
+                    <div class="overflow-x-auto" style="max-height: 600px; overflow-y: auto;">
                         <table class="w-full text-left text-xs sm:text-sm">
-                            <thead class="bg-surface-container-low">
+                            <thead class="sticky top-0 bg-surface-container-low z-10">
                                 <tr>
                                     <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold font-label-bold text-on-surface-variant">Fecha</th>
                                     <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold font-label-bold text-on-surface-variant">Producto</th>
@@ -608,7 +717,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="pagination-container" id="entradasPagination"></div>
+                    <div class="pagination-container" id="entradasPagination" style="display: none;"></div>
                 </div>
             </section>
 
@@ -619,27 +728,28 @@
                         <h4 class="text-headline-sm font-headline-sm text-primary">Donaciones y Salidas</h4>
                         <span class="text-body-sm text-on-surface-variant" id="donadoCount">0 registros</span>
                     </div>
-                    <div class="overflow-x-auto">
+                    <div class="overflow-x-auto" style="max-height: 600px; overflow-y: auto;">
                         <table class="w-full text-left text-xs sm:text-sm">
-                            <thead class="bg-surface-container-low">
+                            <thead class="sticky top-0 bg-surface-container-low z-10">
                                 <tr>
                                     <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold font-label-bold text-on-surface-variant">Fecha</th>
                                     <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold font-label-bold text-on-surface-variant">Producto</th>
                                     <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold font-label-bold text-on-surface-variant text-right">Cantidad</th>
                                     <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold font-label-bold text-on-surface-variant">Centro</th>
                                     <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold font-label-bold text-on-surface-variant">Combo</th>
+                                    <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold font-label-bold text-on-surface-variant text-center">Evidencia</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-outline-variant" id="donadoBody">
-                                <tr><td colspan="5" class="px-2 sm:px-md py-2 sm:py-md text-center text-on-surface-variant">Cargando datos...</td></tr>
+                                <tr><td colspan="6" class="px-2 sm:px-md py-2 sm:py-md text-center text-on-surface-variant">Cargando datos...</td></tr>
                             </tbody>
                         </table>
                     </div>
-                    <div class="pagination-container" id="donadoPagination"></div>
+                    <div class="pagination-container" id="donadoPagination" style="display: none;"></div>
                 </div>
             </section>
 
-            <!-- Métodos de Donación - Agregar Western Union -->
+            <!-- Métodos de Donación -->
             <section class="bg-surface-container-low rounded-xl p-lg border border-primary-container">
                 <div class="flex flex-col md:flex-row gap-lg items-center">
                     <div class="md:w-1/3 space-y-md text-center md:text-left">
@@ -715,6 +825,46 @@
                 </div>
             </section>
 
+            <!-- Formulario de Solicitud de Ayuda -->
+            <section class="space-y-lg" id="formulario">
+                <div class="flex items-center gap-md">
+                    <h3 class="text-headline-md font-headline-md text-primary font-bold text-lg sm:text-xl">Solicitud de Ayuda para Voluntarios</h3>
+                    <div class="h-[2px] flex-grow bg-outline-variant"></div>
+                </div>
+                
+                <div class="bg-white border border-outline-variant rounded-xl shadow-sm p-lg">
+                    <form id="formSolicitud" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <!-- Fila 1 -->
+                        <div>
+                            <label class="form-label">Nombre y Apellido</label>
+                            <input type="text" id="nombre" placeholder="Ej. Juan Pérez" required class="form-input">
+                        </div>
+                        <div>
+                            <label class="form-label">Institución/Cuerpo de Ayuda</label>
+                            <input type="text" id="institucion" placeholder="Ej. Bomberos Voluntarios" required class="form-input">
+                        </div>
+                        <div>
+                            <label class="form-label">Teléfono de Contacto</label>
+                            <input type="tel" id="telefono" placeholder="+58 412..." required class="form-input">
+                        </div>
+                        <!-- Fila 2 -->
+                        <div>
+                            <label class="form-label">Tipo de Productos Necesitados</label>
+                            <input type="text" id="producto" placeholder="Ej. Insumos Médicos" required class="form-input">
+                        </div>
+                        <div>
+                            <label class="form-label">Zona de Donación</label>
+                            <input type="text" id="zona" placeholder="Ej. Macuto, La Guaira" required class="form-input">
+                        </div>
+                        <div class="flex items-end">
+                            <button type="submit" id="btnEnviarSolicitud" class="w-full bg-primary text-on-primary font-bold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-all">
+                                Enviar Solicitud
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
         </div>
     </main>
 
@@ -738,7 +888,45 @@
         </div>
     </div>
 
-    <script src="js/app.js?v=6"></script>
+    <!-- Modal de Factura -->
+    <div class="modal-overlay" id="facturaModal">
+        <div class="modal-content" style="max-width: 800px;">
+            <button class="modal-close" id="facturaModalClose">✕</button>
+            <div class="modal-title">
+                <span class="material-symbols-outlined">receipt</span>
+                <span id="facturaModalTitulo">Factura</span>
+            </div>
+            <div class="modal-body" id="facturaModalBody">
+                <div style="text-align: center; padding: 20px;">
+                    <img id="facturaImagen" src="" alt="Factura" style="max-width: 100%; max-height: 70vh; border-radius: 8px; display: block; margin: 0 auto;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Evidencia/Combos -->
+    <div class="modal-overlay" id="evidenciaModal">
+        <div class="modal-content" style="max-width: 900px;">
+            <button class="modal-close" id="evidenciaModalClose">✕</button>
+            <div class="modal-title">
+                <span class="material-symbols-outlined">image</span>
+                <span id="evidenciaModalTitulo">Evidencia</span>
+            </div>
+            <div class="modal-body" id="evidenciaModalBody">
+                <div id="evidenciaGaleria">
+                    <!-- Imágenes dinámicas -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botón flotante "Ver Evidencias" -->
+    <button onclick="abrirTodasEvidencias()" class="btn-evidencias-flotante">
+        <span class="material-symbols-outlined" style="font-size: 20px;">visibility</span>
+        Ver Evidencias
+    </button>
+
+    <script src="js/app.js?v=7"></script>
 
     <!-- Scripts -->
     <script>
@@ -821,8 +1009,8 @@
                 </p>
                 <div style="text-align: center; margin-bottom: 16px;">
                     <a href="https://wa.me/${numeroWhatsApp}?text=Hola%2C%20quiero%20donar%20por%20${nombre.replace(/ /g, '%20')}" target="_blank" class="btn-whatsapp">
-                        <span class="material-symbols-outlined" style="font-size: 20px;"></span>
-                        + ${numeroWhatsApp}
+                        <span class="material-symbols-outlined" style="font-size: 20px;">whatsapp</span>
+                        +58 ${numeroWhatsApp}
                     </a>
                 </div>
                 <div style="margin-top: 12px; text-align: center; font-size: 13px; color: #727784;">
@@ -869,41 +1057,23 @@
             }
         });
 
+        // ======================
+        // FUNCIÓN PARA VER TODAS LAS EVIDENCIAS
+        // ======================
+        function abrirTodasEvidencias() {
+            // Esta función ahora está en app.js
+            if (typeof window.abrirTodasEvidencias === 'function') {
+                window.abrirTodasEvidencias();
+            } else {
+                alert('Las evidencias se cargan desde el panel principal');
+            }
+        }
+
         // Exponer funciones globalmente
         window.abrirModal = abrirModal;
         window.cerrarModal = cerrarModal;
+        window.abrirTodasEvidencias = abrirTodasEvidencias;
     </script>
-
- <div class="modal-overlay" id="facturaModal">
-        <div class="modal-content" style="max-width: 800px;">
-            <button class="modal-close" id="facturaModalClose">✕</button>
-            <div class="modal-title">
-                <span class="material-symbols-outlined">receipt</span>
-                <span id="facturaModalTitulo">Factura</span>
-            </div>
-            <div class="modal-body" id="facturaModalBody">
-                <div style="text-align: center; padding: 20px;">
-                    <img id="facturaImagen" src="" alt="Factura" style="max-width: 100%; max-height: 70vh; border-radius: 8px;">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal de Evidencia/Combos -->
-    <div class="modal-overlay" id="evidenciaModal">
-        <div class="modal-content" style="max-width: 900px;">
-            <button class="modal-close" id="evidenciaModalClose">✕</button>
-            <div class="modal-title">
-                <span class="material-symbols-outlined">image</span>
-                <span id="evidenciaModalTitulo">Evidencia</span>
-            </div>
-            <div class="modal-body" id="evidenciaModalBody">
-                <div id="evidenciaGaleria" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; padding: 10px;">
-                    <!-- Imágenes dinámicas -->
-                </div>
-            </div>
-        </div>
-    </div>
 
 </body>
 </html>
