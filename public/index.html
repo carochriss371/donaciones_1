@@ -80,7 +80,7 @@
             color: #424752;
             margin-right: 12px;
         }
-        .modal-overlay {
+       .modal-overlay {
             display: none;
             position: fixed;
             top: 0;
@@ -88,11 +88,11 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
+            z-index: 1000; /* Mantén este */
             align-items: center;
             justify-content: center;
         }
-        .modal-overlay.active {
+                .modal-overlay.active {
             display: flex !important; /* Añadir !important para asegurar */
         }
         .modal-content {
@@ -197,6 +197,9 @@
         .btn-evidencia:hover {
             background: #d7e2ff;
         }
+        #facturaModal {
+            z-index: 1100 !important; /* Mayor que el de evidencias */
+        }
         .btn-factura {
             display: inline-flex;
             align-items: center;
@@ -292,6 +295,15 @@
             background: #0056b3;
             transform: scale(1.02);
         }
+        .modal-overlay.active {
+            display: flex !important;
+        }
+
+        /* Cuando el modal de factura está activo dentro del de evidencias */
+        #evidenciaModal.active ~ #facturaModal.active,
+        #facturaModal.active {
+            z-index: 1100 !important;
+        }
 
         /* Ajustes responsive */
         @media (max-width: 768px) {
@@ -359,6 +371,7 @@
                 max-height: 200px;
             }
         }
+
 
         @media (max-width: 480px) {
             .text-display-lg {

@@ -816,20 +816,50 @@ document.addEventListener('DOMContentLoaded', function() {
     loadAllData();
     
     // Event listeners para modales
-    document.getElementById('facturaModalClose').addEventListener('click', cerrarFacturaModal);
-    document.getElementById('evidenciaModalClose').addEventListener('click', cerrarEvidenciaModal);
+    const facturaModalClose = document.getElementById('facturaModalClose');
+    const evidenciaModalClose = document.getElementById('evidenciaModalClose');
+    const facturaModal = document.getElementById('facturaModal');
+    const evidenciaModal = document.getElementById('evidenciaModal');
     
-    document.getElementById('facturaModal').addEventListener('click', function(e) {
-        if (e.target === this) cerrarFacturaModal();
-    });
-    document.getElementById('evidenciaModal').addEventListener('click', function(e) {
-        if (e.target === this) cerrarEvidenciaModal();
-    });
+    // Cerrar factura
+    if (facturaModalClose) {
+        facturaModalClose.addEventListener('click', cerrarFacturaModal);
+    }
     
+    // Cerrar evidencia - Asegurar que el evento esté bien asignado
+    if (evidenciaModalClose) {
+        evidenciaModalClose.addEventListener('click', function(e) {
+            e.stopPropagation();
+            cerrarEvidenciaModal();
+        });
+    }
+    
+    // Cerrar al hacer clic fuera del modal
+    if (facturaModal) {
+        facturaModal.addEventListener('click', function(e) {
+            if (e.target === this) cerrarFacturaModal();
+        });
+    }
+    
+    if (evidenciaModal) {
+        evidenciaModal.addEventListener('click', function(e) {
+            if (e.target === this) cerrarEvidenciaModal();
+        });
+    }
+    
+    // Cerrar con tecla ESC
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
-            cerrarFacturaModal();
-            cerrarEvidenciaModal();
+            // Primero cerrar factura si está abierta
+            const facturaModal = document.getElementById('facturaModal');
+            if (facturaModal && facturaModal.classList.contains('active')) {
+                cerrarFacturaModal();
+            }
+            // Luego cerrar evidencia
+            const evidenciaModal = document.getElementById('evidenciaModal');
+            if (evidenciaModal && evidenciaModal.classList.contains('active')) {
+                cerrarEvidenciaModal();
+            }
         }
     });
 });
