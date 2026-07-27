@@ -643,36 +643,87 @@ function cerrarEvidenciaModal() {
 // VER TODAS LAS EVIDENCIAS (Botón flotante)
 // ============================================
 
+// ============================================
+// VER TODAS LAS EVIDENCIAS (Listado completo)
+// ============================================
+
 function abrirTodasEvidencias() {
     const modal = document.getElementById('evidenciaModal');
     const titulo = document.getElementById('evidenciaModalTitulo');
     const galeria = document.getElementById('evidenciaGaleria');
     
-    titulo.textContent = '📸 Todas las Evidencias';
+    titulo.textContent = '📋 Facturas y Combos';
     
     let html = '';
-    const combos = Object.keys(evidenciaImagenes).sort((a, b) => Number(a) - Number(b));
     
-    combos.forEach(combo => {
-        const imagenes = evidenciaImagenes[combo] || [];
-        html += `<div style="grid-column: 1 / -1; margin-top: 8px;">`;
-        html += `<h4 style="font-weight: 600; color: #003f87; margin-bottom: 8px; font-size: 16px;">Combo ${combo}</h4>`;
-        html += `<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">`;
-        imagenes.forEach(img => {
+    // ============================================
+    // SECCIÓN 1: FACTURAS
+    // ============================================
+    const facturasKeys = Object.keys(facturaImagenes).sort((a, b) => Number(a) - Number(b));
+    
+    if (facturasKeys.length > 0) {
+        html += `
+            <div style="grid-column: 1 / -1; margin-bottom: 8px;">
+                <h3 style="font-weight: 700; color: #003f87; font-size: 18px; border-bottom: 2px solid #003f87; padding-bottom: 8px;">
+                    📄 Facturas
+                </h3>
+            </div>
+        `;
+        
+        facturasKeys.forEach(num => {
+            const imgSrc = facturaImagenes[num];
             html += `
-                <div class="img-container" style="min-height: 150px;">
-                    <img src="${img}" alt="Combo ${combo}" style="max-height: 250px;" onclick="window.open('${img}', '_blank')">
+                <div style="border: 1px solid #e6eff8; border-radius: 8px; padding: 12px; background: white; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                    <div style="font-weight: 600; color: #141d23; font-size: 14px; width: 100%; text-align: center; background: #f6faff; padding: 4px 8px; border-radius: 4px;">
+                        Factura #${num}
+                    </div>
+                    <button onclick="verFactura('${num}')" class="btn-factura" style="padding: 6px 16px; font-size: 0.8rem;">
+                        <span class="material-symbols-outlined" style="font-size: 16px;">visibility</span>
+                        Ver Factura
+                    </button>
                 </div>
             `;
         });
-        html += `</div></div>`;
-    });
+    }
     
+    // ============================================
+    // SECCIÓN 2: COMBOS (Orden descendente)
+    // ============================================
+    const combosKeys = Object.keys(evidenciaImagenes).sort((a, b) => Number(b) - Number(a));
+    
+    if (combosKeys.length > 0) {
+        html += `
+            <div style="grid-column: 1 / -1; margin-top: 20px; margin-bottom: 8px;">
+                <h3 style="font-weight: 700; color: #003f87; font-size: 18px; border-bottom: 2px solid #003f87; padding-bottom: 8px;">
+                    📦 Combos
+                </h3>
+            </div>
+        `;
+        
+        combosKeys.forEach(combo => {
+            const imagenes = evidenciaImagenes[combo] || [];
+            html += `
+                <div style="border: 1px solid #e6eff8; border-radius: 8px; padding: 12px; background: white; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                    <div style="font-weight: 600; color: #141d23; font-size: 14px; width: 100%; text-align: center; background: #f6faff; padding: 4px 8px; border-radius: 4px;">
+                        Combo #${combo} (${imagenes.length} imagen${imagenes.length > 1 ? 'es' : ''})
+                    </div>
+                    <button onclick="verEvidencia('${combo}')" class="btn-evidencia" style="padding: 6px 16px; font-size: 0.8rem;">
+                        <span class="material-symbols-outlined" style="font-size: 16px;">visibility</span>
+                        Ver Evidencia
+                    </button>
+                </div>
+            `;
+        });
+    }
+    
+    // Si no hay nada
     if (!html) {
-        html = `<div style="text-align: center; padding: 40px; color: #727784; grid-column: 1 / -1;">
-            <span class="material-symbols-outlined" style="font-size: 48px;">image_not_supported</span>
-            <p style="margin-top: 12px;">No hay evidencias disponibles</p>
-        </div>`;
+        html = `
+            <div style="text-align: center; padding: 40px; color: #727784; grid-column: 1 / -1;">
+                <span class="material-symbols-outlined" style="font-size: 48px;">image_not_supported</span>
+                <p style="margin-top: 12px;">No hay facturas ni combos disponibles</p>
+            </div>
+        `;
     }
     
     galeria.innerHTML = html;
