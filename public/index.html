@@ -519,7 +519,7 @@
         <div class="flex items-center gap-md min-w-0">
             <!-- LOGO REEMPLAZA TEXTO -->
             <a href="/" class="flex items-center gap-2">
-                <img src="/img/logo_menu.png" alt="LOS BUENOS SOMOS MÁS" class="h-8 md:h-10 w-auto" onerror="this.style.display='none'">
+                <img src="/img/logo_menu.png" alt="LOS BUENOS SOMOS MÁS" class="h-10 md:h-14 w-auto" onerror="this.style.display='none'">
                 <span class="text-headline-md font-headline-md font-bold text-primary truncate hidden sm:block">LOS BUENOS SOMOS MÁS</span>
             </a>
             <nav class="hidden md:flex gap-md items-center h-full">
@@ -1058,17 +1058,34 @@
         });
 
         // ======================
-        // FUNCIÓN PARA VER TODAS LAS EVIDENCIAS
-        // ======================
-        function abrirTodasEvidencias() {
-            // Esta función ahora está en app.js
-            if (typeof window.abrirTodasEvidencias === 'function') {
-                window.abrirTodasEvidencias();
-            } else {
-                alert('Las evidencias se cargan desde el panel principal');
-            }
+// FUNCIÓN PARA VER TODAS LAS EVIDENCIAS (CORREGIDA)
+// ======================
+function abrirTodasEvidencias() {
+    if (typeof window.abrirTodasEvidenciasApp === 'function') {
+        window.abrirTodasEvidenciasApp();
+    } else if (typeof verEvidencia === 'function') {
+        // Si no funciona, intentar abrir directamente desde app.js
+        alert('Las evidencias se cargan desde el panel principal');
+    } else {
+        // Fallback: abrir el modal de evidencia manualmente
+        const modal = document.getElementById('evidenciaModal');
+        const titulo = document.getElementById('evidenciaModalTitulo');
+        const galeria = document.getElementById('evidenciaGaleria');
+        
+        if (modal) {
+            titulo.textContent = '📸 Todas las Evidencias';
+            galeria.innerHTML = `
+                <div style="text-align: center; padding: 40px; color: #727784; grid-column: 1 / -1;">
+                    <span class="material-symbols-outlined" style="font-size: 48px;">image_not_supported</span>
+                    <p style="margin-top: 12px;">No hay evidencias disponibles</p>
+                    <p style="font-size: 12px; margin-top: 8px;">Verifica que los datos estén cargados correctamente.</p>
+                </div>
+            `;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
-
+    }
+}
         // Exponer funciones globalmente
         window.abrirModal = abrirModal;
         window.cerrarModal = cerrarModal;
