@@ -1083,61 +1083,61 @@
         window.abrirTodasEvidencias = abrirTodasEvidencias;
     </script>
 <script>
-// ============================================
-// ENVÍO DEL FORMULARIO A GOOGLE APPS SCRIPT
-// ============================================
-
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('formSolicitud');
     const statusDiv = document.getElementById('formStatusMessage');
     const submitBtn = document.getElementById('btnEnviarSolicitud');
 
-    // !!! CAMBIA ESTA URL POR LA NUEVA QUE COPIASSTE !!!
     const SCRIPT_URL = 'https://script.google.com/macros/s/TU_NUEVA_URL/exec';
 
     if (form) {
         form.addEventListener('submit', function(e) {
             e.preventDefault();
 
-            // Deshabilitar botón
             submitBtn.disabled = true;
             submitBtn.innerHTML = `
                 <span class="material-symbols-outlined" style="font-size:20px; animation: spin 1s linear infinite;">sync</span>
                 Enviando...
             `;
             statusDiv.innerHTML = '';
-            statusDiv.style.color = '#424752';
 
-            // Recoger los datos del formulario
             const formData = new FormData(form);
             const data = Object.fromEntries(formData.entries());
             
             console.log('📤 Enviando datos:', data);
 
-            // Enviar usando URLSearchParams (más compatible)
+            // Enviar como JSON
             fetch(SCRIPT_URL, {
                 method: 'POST',
-                mode: 'no-cors', // Necesario para evitar CORS
+                mode: 'cors', // Cambiar a cors
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Content-Type': 'application/json',
                 },
-                body: new URLSearchParams(data).toString()
+                body: JSON.stringify(data)
             })
-            .then(() => {
-                // Con 'no-cors' no podemos leer la respuesta
-                // Pero si no hubo error de red, asumimos éxito
-                console.log('✅ Formulario enviado (no-cors)');
-                statusDiv.innerHTML = '✅ ¡Tu solicitud se ha enviado correctamente!';
-                statusDiv.style.color = '#2e7d32';
-                form.reset();
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error de red: ' + response.status);
+                }
+                return response.json();
+            })
+            .then(result => {
+                console.log('📥 Respuesta:', result);
+                if (result.status === 'success') {
+                    statusDiv.innerHTML = '✅ ' + result.message;
+                    statusDiv.style.color = '#2e7d32';
+                    form.reset();
+                } else {
+                    statusDiv.innerHTML = '❌ ' + (result.message || 'Error al enviar');
+                    statusDiv.style.color = '#ba1a1a';
+                }
             })
             .catch((error) => {
                 console.error('❌ Error:', error);
-                statusDiv.innerHTML = '❌ Ocurrió un error. Por favor, inténtalo de nuevo.';
+                statusDiv.innerHTML = '❌ Error de conexión. Por favor, inténtalo de nuevo.';
                 statusDiv.style.color = '#ba1a1a';
             })
             .finally(() => {
-                // Restaurar botón
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = `
                     <span class="material-symbols-outlined" style="font-size: 20px;">send</span>
@@ -1147,17 +1147,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
-
-// Añadir animación de spin
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes spin {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
-    }
-`;
-document.head.appendChild(style);
-</script>
-
+</script>s
 </body>
 </html>
