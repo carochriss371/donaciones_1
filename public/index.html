@@ -842,43 +842,46 @@
 
             <!-- Formulario de Solicitud de Ayuda -->
             <section class="space-y-lg" id="formulario">
-                <div class="flex items-center gap-md">
-                    <h3 class="text-headline-md font-headline-md text-primary font-bold text-lg sm:text-xl">Solicitud de Ayuda para Voluntarios</h3>
-                    <div class="h-[2px] flex-grow bg-outline-variant"></div>
-                </div>
-                
-                <div class="bg-white border border-outline-variant rounded-xl shadow-sm p-lg">
-                    <form id="formSolicitud" class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <!-- Fila 1 -->
-                        <div>
-                            <label class="form-label">Nombre y Apellido</label>
-                            <input type="text" id="nombre" placeholder="Ej. Juan Pérez" required class="form-input">
-                        </div>
-                        <div>
-                            <label class="form-label">Institución/Cuerpo de Ayuda</label>
-                            <input type="text" id="institucion" placeholder="Ej. Bomberos Voluntarios" required class="form-input">
-                        </div>
-                        <div>
-                            <label class="form-label">Teléfono de Contacto</label>
-                            <input type="tel" id="telefono" placeholder="+58 412..." required class="form-input">
-                        </div>
-                        <!-- Fila 2 -->
-                        <div>
-                            <label class="form-label">Tipo de Productos Necesitados</label>
-                            <input type="text" id="producto" placeholder="Ej. Insumos Médicos" required class="form-input">
-                        </div>
-                        <div>
-                            <label class="form-label">Zona de Donación</label>
-                            <input type="text" id="zona" placeholder="Ej. Macuto, La Guaira" required class="form-input">
-                        </div>
-                        <div class="flex items-end">
-                            <button type="submit" id="btnEnviarSolicitud" class="w-full bg-primary text-on-primary font-bold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-all">
-                                Enviar Solicitud
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </section>
+            <div class="flex items-center gap-md">
+                <h3 class="text-headline-md font-headline-md text-primary font-bold text-lg sm:text-xl">Solicitud de Ayuda para Voluntarios</h3>
+                <div class="h-[2px] flex-grow bg-outline-variant"></div>
+            </div>
+            
+            <div class="bg-white border border-outline-variant rounded-xl shadow-sm p-lg">
+                <form id="formSolicitud" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <!-- Fila 1 -->
+                    <div>
+                        <label class="form-label">Nombre y Apellido</label>
+                        <input type="text" id="nombre" name="Nombre" placeholder="Ej. Juan Pérez" required class="form-input">
+                    </div>
+                    <div>
+                        <label class="form-label">Institución/Cuerpo de Ayuda</label>
+                        <input type="text" id="institucion" name="Institucion" placeholder="Ej. Bomberos Voluntarios" required class="form-input">
+                    </div>
+                    <div>
+                        <label class="form-label">Teléfono de Contacto</label>
+                        <input type="tel" id="telefono" name="Telefono" placeholder="+58 412..." required class="form-input">
+                    </div>
+                    <!-- Fila 2 -->
+                    <div>
+                        <label class="form-label">Tipo de Productos Necesitados</label>
+                        <input type="text" id="producto" name="Producto" placeholder="Ej. Insumos Médicos" required class="form-input">
+                    </div>
+                    <div>
+                        <label class="form-label">Zona de Donación</label>
+                        <input type="text" id="zona" name="Zona" placeholder="Ej. Macuto, La Guaira" required class="form-input">
+                    </div>
+                    <div class="flex items-end">
+                        <button type="submit" id="btnEnviarSolicitud" class="w-full bg-primary text-on-primary font-bold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-all flex items-center justify-center gap-2">
+                            <span class="material-symbols-outlined" style="font-size: 20px;">send</span>
+                            Enviar Solicitud
+                        </button>
+                    </div>
+                </form>
+                <!-- Contenedor para mensajes de estado -->
+                <div id="formStatusMessage" class="mt-4 text-center text-sm font-medium"></div>
+            </div>
+        </section>
 
         </div>
     </main>
@@ -938,7 +941,7 @@
     <!-- Botón flotante "Ver Evidencias" -->
     <button onclick="abrirTodasEvidencias()" class="btn-evidencias-flotante">
         <span class="material-symbols-outlined" style="font-size: 20px;">collections</span>
-        Ver Evidencias y Facturas
+        Ver Evidencias 
     </button>
 
     <script src="js/app.js?v=7"></script>
@@ -1079,6 +1082,77 @@
         window.cerrarModal = cerrarModal;
         window.abrirTodasEvidencias = abrirTodasEvidencias;
     </script>
+<script>
+// ============================================
+// ENVÍO DEL FORMULARIO A GOOGLE APPS SCRIPT
+// ============================================
 
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('formSolicitud');
+    const statusDiv = document.getElementById('formStatusMessage');
+    const submitBtn = document.getElementById('btnEnviarSolicitud');
+
+    // !!! CAMBIA ESTA URL POR LA DE TU WEB APP !!!
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx0xbRFNe4LVqMApyysMfm6d6jLjUExhtL023d5yOMWRKrIeJc5rV4R26ASoVDkK_EP/exec';
+
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Deshabilitar botón y mostrar estado de carga
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `
+                <span class="material-symbols-outlined" style="font-size:20px; animation: spin 1s linear infinite;">sync</span>
+                Enviando...
+            `;
+            statusDiv.innerHTML = '';
+            statusDiv.style.color = '#424752';
+
+            // Recoger los datos del formulario
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+
+            // Enviar a Apps Script
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams(data)
+            })
+            .then(() => {
+                // Con 'no-cors' no podemos leer la respuesta, asumimos éxito
+                statusDiv.innerHTML = '✅ ¡Tu solicitud se ha enviado correctamente!';
+                statusDiv.style.color = '#2e7d32';
+                form.reset();
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                statusDiv.innerHTML = '❌ Ocurrió un error. Por favor, inténtalo de nuevo.';
+                statusDiv.style.color = '#ba1a1a';
+            })
+            .finally(() => {
+                // Restaurar botón
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = `
+                    <span class="material-symbols-outlined" style="font-size: 20px;">send</span>
+                    Enviar Solicitud
+                `;
+            });
+        });
+    }
+});
+
+// Añadir animación de spin para el ícono de carga
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+`;
+document.head.appendChild(style);
+</script>
 </body>
 </html>
