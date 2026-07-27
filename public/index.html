@@ -298,7 +298,9 @@
         .modal-overlay.active {
             display: flex !important;
         }
-
+        #evidenciaModal {
+            z-index: 1000;
+        }
         /* Cuando el modal de factura está activo dentro del de evidencias */
         #evidenciaModal.active ~ #facturaModal.active,
         #facturaModal.active {
@@ -920,7 +922,7 @@
     <!-- Modal de Evidencia/Combos -->
     <div class="modal-overlay" id="evidenciaModal">
         <div class="modal-content" style="max-width: 900px;">
-            <button class="modal-close" id="evidenciaModalClose">✕</button>
+            <button class="modal-close" id="evidenciaModalClose" onclick="cerrarEvidenciaModal()">✕</button>
             <div class="modal-title">
                 <span class="material-symbols-outlined">image</span>
                 <span id="evidenciaModalTitulo">Evidencia</span>

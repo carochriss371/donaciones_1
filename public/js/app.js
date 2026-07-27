@@ -671,7 +671,12 @@ function cerrarFacturaModal() {
 }
 
 function cerrarEvidenciaModal() {
-    document.getElementById('evidenciaModal').classList.remove('active');
+    console.log('❌ Cerrando modal de evidencias');
+    const modal = document.getElementById('evidenciaModal');
+    if (modal) {
+        modal.classList.remove('active');
+        modal.style.display = 'none';
+    }
     document.body.style.overflow = '';
 }
 
