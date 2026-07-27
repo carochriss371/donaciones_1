@@ -1092,14 +1092,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const statusDiv = document.getElementById('formStatusMessage');
     const submitBtn = document.getElementById('btnEnviarSolicitud');
 
-    // !!! CAMBIA ESTA URL POR LA DE TU WEB APP !!!
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxzbPBeK15Gwzua9CyAwaBmlwFSBEkHZXq3m2JidiiwyMuzcRfOCXE6Nvt2WIEsrWuI/exec';
+    // !!! CAMBIA ESTA URL POR LA NUEVA QUE COPIASSTE !!!
+    const SCRIPT_URL = 'https://script.google.com/macros/s/TU_NUEVA_URL/exec';
 
     if (form) {
         form.addEventListener('submit', function(e) {
             e.preventDefault();
 
-            // Deshabilitar botón y mostrar estado de carga
+            // Deshabilitar botón
             submitBtn.disabled = true;
             submitBtn.innerHTML = `
                 <span class="material-symbols-outlined" style="font-size:20px; animation: spin 1s linear infinite;">sync</span>
@@ -1111,24 +1111,28 @@ document.addEventListener('DOMContentLoaded', function() {
             // Recoger los datos del formulario
             const formData = new FormData(form);
             const data = Object.fromEntries(formData.entries());
+            
+            console.log('📤 Enviando datos:', data);
 
-            // Enviar a Apps Script
+            // Enviar usando URLSearchParams (más compatible)
             fetch(SCRIPT_URL, {
                 method: 'POST',
-                mode: 'no-cors',
+                mode: 'no-cors', // Necesario para evitar CORS
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: new URLSearchParams(data)
+                body: new URLSearchParams(data).toString()
             })
             .then(() => {
-                // Con 'no-cors' no podemos leer la respuesta, asumimos éxito
+                // Con 'no-cors' no podemos leer la respuesta
+                // Pero si no hubo error de red, asumimos éxito
+                console.log('✅ Formulario enviado (no-cors)');
                 statusDiv.innerHTML = '✅ ¡Tu solicitud se ha enviado correctamente!';
                 statusDiv.style.color = '#2e7d32';
                 form.reset();
             })
             .catch((error) => {
-                console.error('Error:', error);
+                console.error('❌ Error:', error);
                 statusDiv.innerHTML = '❌ Ocurrió un error. Por favor, inténtalo de nuevo.';
                 statusDiv.style.color = '#ba1a1a';
             })
@@ -1144,7 +1148,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Añadir animación de spin para el ícono de carga
+// Añadir animación de spin
 const style = document.createElement('style');
 style.textContent = `
     @keyframes spin {
@@ -1154,5 +1158,6 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 </script>
+
 </body>
 </html>
