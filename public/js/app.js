@@ -657,9 +657,9 @@ function abrirTodasEvidencias() {
     let html = '';
     
     // ============================================
-    // SECCIÓN 1: FACTURAS
+    // SECCIÓN 1: FACTURAS (Descendente)
     // ============================================
-    const facturasKeys = Object.keys(facturaImagenes).sort((a, b) => Number(a) - Number(b));
+    const facturasKeys = Object.keys(facturaImagenes).sort((a, b) => Number(b) - Number(a));
     
     if (facturasKeys.length > 0) {
         html += `
@@ -671,14 +671,13 @@ function abrirTodasEvidencias() {
         `;
         
         facturasKeys.forEach(num => {
-            const imgSrc = facturaImagenes[num];
             html += `
-                <div style="border: 1px solid #e6eff8; border-radius: 8px; padding: 12px; background: white; display: flex; flex-direction: column; align-items: center; gap: 8px;">
-                    <div style="font-weight: 600; color: #141d23; font-size: 14px; width: 100%; text-align: center; background: #f6faff; padding: 4px 8px; border-radius: 4px;">
+                <div style="border: 1px solid #e6eff8; border-radius: 8px; padding: 12px; background: white; display: flex; items-center; justify-content: space-between; gap: 8px;">
+                    <span style="font-weight: 600; color: #141d23; font-size: 14px;">
                         Factura #${num}
-                    </div>
-                    <button onclick="verFactura('${num}')" class="btn-factura" style="padding: 6px 16px; font-size: 0.8rem;">
-                        <span class="material-symbols-outlined" style="font-size: 16px;">visibility</span>
+                    </span>
+                    <button onclick="verFactura('${num}')" class="btn-factura" style="padding: 6px 12px; font-size: 0.75rem;">
+                        <span class="material-symbols-outlined" style="font-size: 16px;">receipt</span>
                         Ver Factura
                     </button>
                 </div>
@@ -703,11 +702,11 @@ function abrirTodasEvidencias() {
         combosKeys.forEach(combo => {
             const imagenes = evidenciaImagenes[combo] || [];
             html += `
-                <div style="border: 1px solid #e6eff8; border-radius: 8px; padding: 12px; background: white; display: flex; flex-direction: column; align-items: center; gap: 8px;">
-                    <div style="font-weight: 600; color: #141d23; font-size: 14px; width: 100%; text-align: center; background: #f6faff; padding: 4px 8px; border-radius: 4px;">
-                        Combo #${combo} (${imagenes.length} imagen${imagenes.length > 1 ? 'es' : ''})
-                    </div>
-                    <button onclick="verEvidencia('${combo}')" class="btn-evidencia" style="padding: 6px 16px; font-size: 0.8rem;">
+                <div style="border: 1px solid #e6eff8; border-radius: 8px; padding: 12px; background: white; display: flex; items-center; justify-content: space-between; gap: 8px;">
+                    <span style="font-weight: 600; color: #141d23; font-size: 14px;">
+                        Combo #${combo} <small style="color: #727784;">(${imagenes.length} img)</small>
+                    </span>
+                    <button onclick="verEvidencia('${combo}')" class="btn-evidencia" style="padding: 6px 12px; font-size: 0.75rem;">
                         <span class="material-symbols-outlined" style="font-size: 16px;">visibility</span>
                         Ver Evidencia
                     </button>
@@ -716,7 +715,6 @@ function abrirTodasEvidencias() {
         });
     }
     
-    // Si no hay nada
     if (!html) {
         html = `
             <div style="text-align: center; padding: 40px; color: #727784; grid-column: 1 / -1;">

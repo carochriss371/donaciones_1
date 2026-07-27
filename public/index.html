@@ -243,10 +243,10 @@
         }
 
         /* Galería de evidencias mejorada */
-        #evidenciaGaleria {
+       #evidenciaGaleria {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 16px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
             padding: 10px;
         }
         #evidenciaGaleria img {
@@ -256,6 +256,7 @@
             object-fit: contain;
             border-radius: 8px;
         }
+        
         #evidenciaGaleria .img-container {
             border-radius: 8px;
             overflow: hidden;
@@ -533,7 +534,7 @@
     </header>
 
     <!-- SideNavBar -->
-    <aside class="hidden lg:flex flex-col fixed left-0 top-16 bottom-0 w-64 p-md bg-surface-container-lowest border-r border-outline-variant shadow-sm z-40">
+    <aside class="hidden lg:flex flex-col sticky top-16 h-[calc(100vh-4rem)] w-64 p-md bg-surface-container-lowest border-r border-outline-variant shadow-sm z-40 float-left">
         <div class="mb-lg px-sm">
             <div class="flex items-center gap-sm mb-xs">
                 <div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center">
@@ -1059,29 +1060,8 @@
 // FUNCIÓN PARA VER TODAS LAS EVIDENCIAS (CORREGIDA)
 // ======================
 function abrirTodasEvidencias() {
-    if (typeof window.abrirTodasEvidenciasApp === 'function') {
-        window.abrirTodasEvidenciasApp();
-    } else if (typeof verEvidencia === 'function') {
-        // Si no funciona, intentar abrir directamente desde app.js
-        alert('Las evidencias se cargan desde el panel principal');
-    } else {
-        // Fallback: abrir el modal de evidencia manualmente
-        const modal = document.getElementById('evidenciaModal');
-        const titulo = document.getElementById('evidenciaModalTitulo');
-        const galeria = document.getElementById('evidenciaGaleria');
-        
-        if (modal) {
-            titulo.textContent = '📸 Todas las Evidencias';
-            galeria.innerHTML = `
-                <div style="text-align: center; padding: 40px; color: #727784; grid-column: 1 / -1;">
-                    <span class="material-symbols-outlined" style="font-size: 48px;">image_not_supported</span>
-                    <p style="margin-top: 12px;">No hay evidencias disponibles</p>
-                    <p style="font-size: 12px; margin-top: 8px;">Verifica que los datos estén cargados correctamente.</p>
-                </div>
-            `;
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
+    if (typeof window.abrirTodasEvidencias === 'function') {
+        window.abrirTodasEvidencias();
     }
 }
         // Exponer funciones globalmente
