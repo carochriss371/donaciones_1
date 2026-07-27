@@ -511,13 +511,21 @@ const facturaImagenes = {
 // ============================================
 
 function verEvidencia(combo) {
+    console.log('🔍 Ver evidencia para combo:', combo);
+    
     const modal = document.getElementById('evidenciaModal');
     const titulo = document.getElementById('evidenciaModalTitulo');
     const galeria = document.getElementById('evidenciaGaleria');
     
+    if (!modal) {
+        console.error('❌ Modal de evidencia no encontrado');
+        return;
+    }
+    
     titulo.textContent = `Evidencia - Combo ${combo}`;
     
     const imagenes = evidenciaImagenes[combo] || [];
+    console.log('📸 Imágenes encontradas:', imagenes.length);
     
     if (imagenes.length === 0) {
         galeria.innerHTML = `
@@ -535,6 +543,7 @@ function verEvidencia(combo) {
     }
     
     modal.classList.add('active');
+    modal.style.display = 'flex'; // Asegurar que se muestre
     document.body.style.overflow = 'hidden';
 }
 

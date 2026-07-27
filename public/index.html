@@ -93,7 +93,7 @@
             justify-content: center;
         }
         .modal-overlay.active {
-            display: flex;
+            display: flex !important; /* Añadir !important para asegurar */
         }
         .modal-content {
             background: white;
@@ -1058,13 +1058,7 @@
         });
 
         // ======================
-// FUNCIÓN PARA VER TODAS LAS EVIDENCIAS (CORREGIDA)
-// ======================
-function abrirTodasEvidencias() {
-    if (typeof window.abrirTodasEvidencias === 'function') {
-        window.abrirTodasEvidencias();
-    }
-}
+
         // Exponer funciones globalmente
         window.abrirModal = abrirModal;
         window.cerrarModal = cerrarModal;
