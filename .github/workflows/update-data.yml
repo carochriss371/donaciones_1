@@ -27,7 +27,8 @@ jobs:
 
       - name: Procesar y Guardar JSON
         env:
-          PAYLOAD_DATA: ${{ toJson(github.event.client_payload.data) }}
+          RAW_DATA: ${{ github.event.client_payload.data }}
+          IS_COMPRESSED: ${{ github.event.client_payload.compressed }}
         shell: python
         run: |
           import json
@@ -35,30 +36,28 @@ jobs:
           import base64
           import zlib
 
-          raw_data = os.environ.get("PAYLOAD_DATA", "")
-
-          # Verificar si los datos están comprimidos
-          is_compressed = os.environ.get("compressed", "false").lower() == "true"
+          raw_data = os.environ.get("RAW_DATA", "")
+          is_compressed = str(os.environ.get("IS_COMPRESSED", "false")).lower() == "true"
           
           try:
               if is_compressed:
                   # Decodificar base64
                   decoded = base64.b64decode(raw_data)
-                  # Descomprimir gzip
+                  # Descomprimir gzip/zlib
                   decompressed = zlib.decompress(decoded, 16 + zlib.MAX_WBITS)
                   # Parsear JSON
                   data = json.loads(decompressed.decode('utf-8'))
                   print("✅ Datos descomprimidos correctamente")
               else:
-                  # Datos sin comprimir (backward compatibility)
+                  # Datos sin comprimir
                   data = json.loads(raw_data)
                   if isinstance(data, str):
                       data = json.loads(data)
           except Exception as e:
-              print(f"❌ Error al decodificar JSON: {e}")
+              print(f"❌ Error al decodificar payload: {e}")
               raise SystemExit(1)
 
-          # Crear ambas carpetas para compatibilidad
+          # Crear carpetas si no existen
           os.makedirs("data", exist_ok=True)
           os.makedirs("public/data", exist_ok=True)
 
@@ -86,8 +85,6 @@ jobs:
                   json.dump(content, f, ensure_ascii=False, indent=2)
 
           print("✅ Todos los archivos JSON fueron procesados y guardados correctamente.")
-          print(f"📊 Donado: {len(data.get('donado', []))} registros")
-          print(f"📊 Contabilidad: {len(data.get('contabilidades', []))} cuentas")
 
       - name: Commit and push changes
         run: |
