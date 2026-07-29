@@ -444,8 +444,8 @@
     "cod": "64",
     "producto": "Ibuprofeno caja",
     "entradas": 10,
-    "salidas": 0,
-    "stock": 10
+    "salidas": 10,
+    "stock": 0
   },
   {
     "cod": "65",
