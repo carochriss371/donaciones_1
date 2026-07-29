@@ -102,10 +102,16 @@ function renderAll() {
     updateCounts();
 }
 
+// ============================================
+// RENDERIZADO DE RESUMEN (CORREGIDO - SIN DUPLICADOS)
+// ============================================
+
 function renderSummary() {
-    // Calcular totales SOLO de donativos/donativas
-    let totalBs = 0;
-    let totalUsd = 0;
+    console.log('📊 Renderizando resumen...');
+    
+    // === 1. Calcular totales de DONATIVOS para "Total Recaudado" ===
+    let totalDonativosBs = 0;
+    let totalDonativosUsd = 0;
     
     state.contabilidad.forEach(account => {
         const isBs = account.currency === 'Bs.';
@@ -115,55 +121,62 @@ function renderSummary() {
             const asiento = (row.asiento || '').toLowerCase();
             if (asiento.includes('donativo') || asiento.includes('donativa')) {
                 if (row.debe) {
-                    if (isBs) totalBs += row.debe;
-                    if (isUsd) totalUsd += row.debe;
+                    if (isBs) totalDonativosBs += row.debe;
+                    if (isUsd) totalDonativosUsd += row.debe;
                 }
             }
         });
     });
-
-    // Calcular saldos netos (todos los movimientos)
-    const saldoRealBs = calcularSaldoReal('Bs.');
-    const saldoRealUsd = calcularSaldoReal('$');
     
-    // Actualizar DOM
-    document.getElementById('totalBs').textContent = `Bs. ${formatNumber(totalBs)}`;
-    document.getElementById('totalUsd').textContent = `$ ${formatNumber(totalUsd)}`;
-    document.getElementById('saldoNetoBs').textContent = `Bs. ${formatNumber(saldoRealBs)}`;
-    document.getElementById('saldoNetoUsd').textContent = `$ ${formatNumber(saldoRealUsd)}`;
-    
-    const totalRecaudadoText = `Bs. ${formatNumber(totalBs)} | $ ${formatNumber(totalUsd)}`;
-    document.getElementById('totalRecaudado').textContent = totalRecaudadoText;
-    const heroElement = document.getElementById('totalRecaudadoHero');
-    if (heroElement) heroElement.textContent = totalRecaudadoText;
-}
+    console.log('💰 Donativos Bs:', totalDonativosBs);
+    console.log('💰 Donativos USD:', totalDonativosUsd);
 
-    // 2. Saldos netos (pueden venir del summary o calcularse)
-    const s = state.summary;
+    // === 2. Calcular SALDOS NETOS (todos los movimientos) ===
     let saldoBs = 0;
     let saldoUsd = 0;
     
-    if (s) {
-        // Usar summary si existe
-        saldoBs = (s.bs && s.bs.saldoNeto) ? s.bs.saldoNeto : calcularSaldoReal('Bs.');
-        saldoUsd = (s.usd && s.usd.saldoNeto) ? s.usd.saldoNeto : calcularSaldoReal('$');
-    } else {
-        // Calcular directamente
-        saldoBs = calcularSaldoReal('Bs.');
-        saldoUsd = calcularSaldoReal('$');
-    }
-
-    // 3. Actualizar DOM
-    document.getElementById('totalBs').textContent = `Bs. ${formatNumber(totalBs)}`;
-    document.getElementById('totalUsd').textContent = `$ ${formatNumber(totalUsd)}`;
-    document.getElementById('saldoNetoBs').textContent = `Bs. ${formatNumber(saldoBs)}`;
-    document.getElementById('saldoNetoUsd').textContent = `$ ${formatNumber(saldoUsd)}`;
+    state.contabilidad.forEach(account => {
+        const isBs = account.currency === 'Bs.';
+        const isUsd = account.currency === '$';
+        
+        (account.rows || []).forEach(row => {
+            // Sumar ingresos (debe)
+            if (row.debe) {
+                if (isBs) saldoBs += row.debe;
+                if (isUsd) saldoUsd += row.debe;
+            }
+            // Restar egresos (haber)
+            if (row.haber) {
+                if (isBs) saldoBs -= row.haber;
+                if (isUsd) saldoUsd -= row.haber;
+            }
+        });
+    });
     
-    const totalRecaudadoText = `Bs. ${formatNumber(totalBs)} | $ ${formatNumber(totalUsd)}`;
-    document.getElementById('totalRecaudado').textContent = totalRecaudadoText;
-    const heroElement = document.getElementById('totalRecaudadoHero');
-    if (heroElement) heroElement.textContent = totalRecaudadoText;
+    console.log('💵 Saldo Bs:', saldoBs);
+    console.log('💵 Saldo USD:', saldoUsd);
+
+    // === 3. Actualizar DOM ===
+    const totalBsEl = document.getElementById('totalBs');
+    const totalUsdEl = document.getElementById('totalUsd');
+    const saldoNetoBsEl = document.getElementById('saldoNetoBs');
+    const saldoNetoUsdEl = document.getElementById('saldoNetoUsd');
+    const totalRecaudadoEl = document.getElementById('totalRecaudado');
+    const totalRecaudadoHeroEl = document.getElementById('totalRecaudadoHero');
+    
+    if (totalBsEl) totalBsEl.textContent = `Bs. ${formatNumber(totalDonativosBs)}`;
+    if (totalUsdEl) totalUsdEl.textContent = `$ ${formatNumber(totalDonativosUsd)}`;
+    if (saldoNetoBsEl) saldoNetoBsEl.textContent = `Bs. ${formatNumber(saldoBs)}`;
+    if (saldoNetoUsdEl) saldoNetoUsdEl.textContent = `$ ${formatNumber(saldoUsd)}`;
+    
+    const totalRecaudadoText = `Bs. ${formatNumber(totalDonativosBs)} | $ ${formatNumber(totalDonativosUsd)}`;
+    if (totalRecaudadoEl) totalRecaudadoEl.textContent = totalRecaudadoText;
+    if (totalRecaudadoHeroEl) totalRecaudadoHeroEl.textContent = totalRecaudadoText;
 }
+
+// ============================================
+// CALCULAR SALDO REAL (PARA USAR EN OTROS LADOS)
+// ============================================
 
 function calcularSaldoReal(moneda) {
     let saldo = 0;
@@ -171,15 +184,38 @@ function calcularSaldoReal(moneda) {
     state.contabilidad.forEach(account => {
         if (account.currency === moneda) {
             (account.rows || []).forEach(row => {
-                // El debe es ingreso (positivo)
                 if (row.debe) saldo += row.debe;
-                // El haber es egreso (positivo, lo restamos)
                 if (row.haber) saldo -= row.haber;
             });
         }
     });
     
     return saldo;
+}
+
+// ============================================
+// CONTAR DONANTES ÚNICOS DESDE CONTABILIDAD
+// ============================================
+
+function contarDonantesUnicos() {
+    const donantes = new Set();
+    
+    state.contabilidad.forEach(account => {
+        (account.rows || []).forEach(row => {
+            const asiento = row.asiento || '';
+            if (asiento.toLowerCase().includes('donativo') || asiento.toLowerCase().includes('donativa')) {
+                const match = asiento.match(/\(([^)]+)\)\s*$/);
+                if (match) {
+                    const nombre = match[1].trim();
+                    if (nombre && nombre.length > 0) {
+                        donantes.add(nombre);
+                    }
+                }
+            }
+        });
+    });
+    
+    return donantes.size;
 }
 
 // ============================================
@@ -215,7 +251,6 @@ function renderContabilidadBS() {
         return new Date(b.fecha) - new Date(a.fecha);
     });
 
-    // MOSTRAR TODOS LOS REGISTROS (SIN PAGINACIÓN)
     tbody.innerHTML = allRows.map(row => {
         const moneda = 'Bs.';
         const ingreso = row.debe ? `${moneda} ${formatNumber(row.debe)}` : '-';
@@ -244,7 +279,6 @@ function renderContabilidadBS() {
         `;
     }).join('');
 
-    // Ocultar paginación
     const pagContainer = document.getElementById('contabilidadBSPagination');
     if (pagContainer) pagContainer.style.display = 'none';
 }
@@ -282,7 +316,6 @@ function renderContabilidadUSD() {
         return new Date(b.fecha) - new Date(a.fecha);
     });
 
-    // MOSTRAR TODOS LOS REGISTROS (SIN PAGINACIÓN)
     tbody.innerHTML = allRows.map(row => {
         const moneda = '$';
         const ingreso = row.debe ? `${moneda} ${formatNumber(row.debe)}` : '-';
@@ -311,7 +344,6 @@ function renderContabilidadUSD() {
         `;
     }).join('');
 
-    // Ocultar paginación
     const pagContainer = document.getElementById('contabilidadUSDPagination');
     if (pagContainer) pagContainer.style.display = 'none';
 }
@@ -331,7 +363,6 @@ function renderInventario() {
 
     const sorted = [...rows].sort((a, b) => (a.stock || 0) - (b.stock || 0));
 
-    // MOSTRAR TODOS LOS REGISTROS (SIN PAGINACIÓN)
     tbody.innerHTML = sorted.map(row => {
         const stock = row.stock || 0;
         const isLow = stock < 5;
@@ -351,7 +382,6 @@ function renderInventario() {
         `;
     }).join('');
 
-    // Ocultar paginación
     const pagContainer = document.getElementById('inventarioPagination');
     if (pagContainer) pagContainer.style.display = 'none';
 }
@@ -375,7 +405,6 @@ function renderEntradas() {
         return new Date(b.fecha) - new Date(a.fecha);
     });
 
-    // MOSTRAR TODOS LOS REGISTROS (SIN PAGINACIÓN)
     tbody.innerHTML = sorted.map(row => `
         <tr class="hover:bg-surface-container-lowest transition-colors fade-in">
             <td class="px-md py-md text-body-sm font-body-sm text-on-surface">${formatDate(row.fecha)}</td>
@@ -384,7 +413,6 @@ function renderEntradas() {
         </tr>
     `).join('');
 
-    // Ocultar paginación
     const pagContainer = document.getElementById('entradasPagination');
     if (pagContainer) pagContainer.style.display = 'none';
 }
@@ -402,16 +430,13 @@ function renderDonado() {
         return;
     }
 
-    // Función auxiliar para parsear correctamente "DD/MM/YYYY" o "YYYY-MM-DD"
     const parseFecha = (fechaStr) => {
         if (!fechaStr) return 0;
         if (fechaStr instanceof Date) return fechaStr.getTime();
         
-        // Si la fecha viene en formato DD/MM/YYYY
         if (typeof fechaStr === 'string' && fechaStr.includes('/')) {
             const partes = fechaStr.split('/');
             if (partes.length === 3) {
-                // partes[2] = YYYY, partes[1] = MM, partes[0] = DD
                 return new Date(partes[2], partes[1] - 1, partes[0]).getTime();
             }
         }
@@ -424,18 +449,15 @@ function renderDonado() {
         const fechaA = parseFecha(a.fecha);
         const fechaB = parseFecha(b.fecha);
 
-        // 1. Primer criterio: Orden descendente por Fecha
         if (fechaB !== fechaA) {
             return fechaB - fechaA;
         }
 
-        // 2. Segundo criterio (Desempate): Orden descendente por Combo (22, 21, 20...)
         const comboA = Number(String(a.combo || '0').replace(/[^0-9]/g, ''));
         const comboB = Number(String(b.combo || '0').replace(/[^0-9]/g, ''));
         return comboB - comboA;
     });
 
-    // MOSTRAR TODOS LOS REGISTROS (SIN PAGINACIÓN)
     tbody.innerHTML = sorted.map(row => {
         let evidenciaBtn = '';
         if (row.combo) {
@@ -456,7 +478,6 @@ function renderDonado() {
         `;
     }).join('');
 
-    // Ocultar paginación
     const pagContainer = document.getElementById('donadoPagination');
     if (pagContainer) pagContainer.style.display = 'none';
 }
@@ -479,40 +500,10 @@ function renderImpacto() {
     const totalDonado = state.donado.reduce((sum, d) => sum + (parseInt(d.cantidad) || 0), 0);
     document.getElementById('productosDonados').textContent = totalDonado;
     
-    // === NUEVO: Personas donantes ===
+    // Personas donantes
     const donantesUnicos = contarDonantesUnicos();
     document.getElementById('personasDonantes').textContent = donantesUnicos;
 }
-
-
-// ============================================
-// CONTAR DONANTES ÚNICOS DESDE CONTABILIDAD
-// ============================================
-
-function contarDonantesUnicos() {
-    const donantes = new Set();
-    
-    // Recorrer todas las cuentas de contabilidad (Bs. y USD)
-    state.contabilidad.forEach(account => {
-        (account.rows || []).forEach(row => {
-            const asiento = row.asiento || '';
-            // Buscar "Donativo" o "Donativa" (insensible a mayúsculas)
-            if (asiento.toLowerCase().includes('donativo') || asiento.toLowerCase().includes('donativa')) {
-                // Extraer el nombre entre paréntesis al final
-                const match = asiento.match(/\(([^)]+)\)\s*$/);
-                if (match) {
-                    const nombre = match[1].trim();
-                    if (nombre && nombre.length > 0) {
-                        donantes.add(nombre);
-                    }
-                }
-            }
-        });
-    });
-    
-    return donantes.size;
-}
-
 
 // ============================================
 // CONTADORES
@@ -590,7 +581,7 @@ const facturaImagenes = {
 };
 
 // ============================================
-// VER EVIDENCIA - Mejorado con object-fit: contain
+// VER EVIDENCIA
 // ============================================
 
 function verEvidencia(combo) {
@@ -626,12 +617,12 @@ function verEvidencia(combo) {
     }
     
     modal.classList.add('active');
-    modal.style.display = 'flex'; // Asegurar que se muestre
+    modal.style.display = 'flex';
     document.body.style.overflow = 'hidden';
 }
 
 // ============================================
-// VER FACTURA - Con zoom
+// VER FACTURA
 // ============================================
 
 function verFactura(numeroFactura) {
@@ -642,16 +633,13 @@ function verFactura(numeroFactura) {
     const imagen = document.getElementById('facturaImagen');
     const modalBody = document.getElementById('facturaModalBody');
     
-    // Limpiar mensajes anteriores
     const oldMsg = modalBody.querySelector('.no-disponible');
     if (oldMsg) oldMsg.remove();
     
-    // Buscar la imagen en el mapeo
     const imgSrc = facturaImagenes[numeroFactura] || null;
     console.log('🖼️ Ruta de imagen:', imgSrc);
     
     if (imgSrc) {
-        // Configurar y mostrar la imagen
         imagen.style.display = 'block';
         imagen.src = imgSrc;
         imagen.alt = `Factura ${numeroFactura}`;
@@ -661,11 +649,9 @@ function verFactura(numeroFactura) {
         imagen.style.margin = '0 auto';
         imagen.style.cursor = 'zoom-in';
         
-        // Eliminar clase de zoom previa
         imagen.classList.remove('zoom-active');
         imagen.style.transform = 'scale(1)';
         
-        // Detectar error de carga
         imagen.onerror = function() {
             console.error('❌ Error al cargar la imagen:', imgSrc);
             imagen.style.display = 'none';
@@ -700,13 +686,12 @@ function verFactura(numeroFactura) {
         titulo.textContent = `Factura - ${numeroFactura} (no disponible)`;
     }
     
-    // Abrir el modal
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
 }
 
 // ============================================
-// ZOOM EN FACTURA (Click para zoom)
+// ZOOM EN FACTURA
 // ============================================
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -764,11 +749,7 @@ function cerrarEvidenciaModal() {
 }
 
 // ============================================
-// VER TODAS LAS EVIDENCIAS (Botón flotante)
-// ============================================
-
-// ============================================
-// VER TODAS LAS EVIDENCIAS (Listado completo)
+// VER TODAS LAS EVIDENCIAS
 // ============================================
 
 function abrirTodasEvidencias() {
@@ -788,11 +769,9 @@ function abrirTodasEvidencias() {
 
         let html = '';
 
-        // Asegurar que las variables globales existan
         const facturasObj = typeof facturaImagenes !== 'undefined' ? facturaImagenes : {};
         const combosObj = typeof evidenciaImagenes !== 'undefined' ? evidenciaImagenes : {};
 
-        // 1. FACTURAS (Orden Descendente: de mayor a menor)
         const facturasKeys = Object.keys(facturasObj)
             .map(Number)
             .filter(n => !isNaN(n))
@@ -822,7 +801,6 @@ function abrirTodasEvidencias() {
             });
         }
 
-        // 2. COMBOS (Orden Descendente: de mayor a menor -> 22, 21, 20, 19, 18, 17...)
         const combosKeys = Object.keys(combosObj)
             .map(Number)
             .filter(n => !isNaN(n))
@@ -842,7 +820,7 @@ function abrirTodasEvidencias() {
                 html += `
                     <div style="border: 1px solid #e6eff8; border-radius: 8px; padding: 12px; background: white; display: flex; align-items: center; justify-content: space-between; gap: 8px;">
                         <span style="font-weight: 600; color: #141d23; font-size: 14px;">
-                            Combo #${combo} </small>
+                            Combo #${combo}
                         </span>
                         <button onclick="verEvidencia('${combo}')" class="btn-evidencia" style="padding: 6px 12px; font-size: 0.75rem; cursor: pointer;">
                             <span class="material-symbols-outlined" style="font-size: 16px; vertical-align: middle;">visibility</span>
@@ -864,7 +842,7 @@ function abrirTodasEvidencias() {
 
         galeria.innerHTML = html;
         modal.classList.add('active');
-        modal.style.display = 'flex'; // Garantiza visibilidad en caso de que active no aplique display
+        modal.style.display = 'flex';
         document.body.style.overflow = 'hidden';
 
     } catch (error) {
@@ -872,7 +850,6 @@ function abrirTodasEvidencias() {
     }
 }
 
-// Hacer explícitamente accesible la función globalmente
 window.abrirTodasEvidencias = abrirTodasEvidencias;
 
 // ============================================
@@ -903,18 +880,15 @@ function showError() {
 document.addEventListener('DOMContentLoaded', function() {
     loadAllData();
     
-    // Event listeners para modales
     const facturaModalClose = document.getElementById('facturaModalClose');
     const evidenciaModalClose = document.getElementById('evidenciaModalClose');
     const facturaModal = document.getElementById('facturaModal');
     const evidenciaModal = document.getElementById('evidenciaModal');
     
-    // Cerrar factura
     if (facturaModalClose) {
         facturaModalClose.addEventListener('click', cerrarFacturaModal);
     }
     
-    // Cerrar evidencia - Asegurar que el evento esté bien asignado
     if (evidenciaModalClose) {
         evidenciaModalClose.addEventListener('click', function(e) {
             e.stopPropagation();
@@ -922,7 +896,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Cerrar al hacer clic fuera del modal
     if (facturaModal) {
         facturaModal.addEventListener('click', function(e) {
             if (e.target === this) cerrarFacturaModal();
@@ -935,15 +908,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Cerrar con tecla ESC
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
-            // Primero cerrar factura si está abierta
             const facturaModal = document.getElementById('facturaModal');
             if (facturaModal && facturaModal.classList.contains('active')) {
                 cerrarFacturaModal();
             }
-            // Luego cerrar evidencia
             const evidenciaModal = document.getElementById('evidenciaModal');
             if (evidenciaModal && evidenciaModal.classList.contains('active')) {
                 cerrarEvidenciaModal();
@@ -958,9 +928,11 @@ setInterval(loadAllData, 300000);
 // EXPORTAR FUNCIONES PARA USO GLOBAL
 // ============================================
 
-window.goToPage = function() {}; // Ya no se usa, pero lo dejamos por compatibilidad
+window.goToPage = function() {};
 window.verEvidencia = verEvidencia;
 window.verFactura = verFactura;
 window.cerrarFacturaModal = cerrarFacturaModal;
 window.cerrarEvidenciaModal = cerrarEvidenciaModal;
 window.abrirTodasEvidencias = abrirTodasEvidencias;
+window.formatNumber = formatNumber;
+window.formatDate = formatDate;
