@@ -103,7 +103,7 @@ function renderAll() {
 }
 
 function renderSummary() {
-    // 1. Calcular totales SOLO de donativos/donativas desde los datos
+    // Calcular totales SOLO de donativos/donativas
     let totalBs = 0;
     let totalUsd = 0;
     
@@ -121,6 +121,22 @@ function renderSummary() {
             }
         });
     });
+
+    // Calcular saldos netos (todos los movimientos)
+    const saldoRealBs = calcularSaldoReal('Bs.');
+    const saldoRealUsd = calcularSaldoReal('$');
+    
+    // Actualizar DOM
+    document.getElementById('totalBs').textContent = `Bs. ${formatNumber(totalBs)}`;
+    document.getElementById('totalUsd').textContent = `$ ${formatNumber(totalUsd)}`;
+    document.getElementById('saldoNetoBs').textContent = `Bs. ${formatNumber(saldoRealBs)}`;
+    document.getElementById('saldoNetoUsd').textContent = `$ ${formatNumber(saldoRealUsd)}`;
+    
+    const totalRecaudadoText = `Bs. ${formatNumber(totalBs)} | $ ${formatNumber(totalUsd)}`;
+    document.getElementById('totalRecaudado').textContent = totalRecaudadoText;
+    const heroElement = document.getElementById('totalRecaudadoHero');
+    if (heroElement) heroElement.textContent = totalRecaudadoText;
+}
 
     // 2. Saldos netos (pueden venir del summary o calcularse)
     const s = state.summary;
@@ -155,7 +171,9 @@ function calcularSaldoReal(moneda) {
     state.contabilidad.forEach(account => {
         if (account.currency === moneda) {
             (account.rows || []).forEach(row => {
+                // El debe es ingreso (positivo)
                 if (row.debe) saldo += row.debe;
+                // El haber es egreso (positivo, lo restamos)
                 if (row.haber) saldo -= row.haber;
             });
         }

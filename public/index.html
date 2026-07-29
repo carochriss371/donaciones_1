@@ -740,60 +740,59 @@
 
             <!-- ===== INVENTARIO (SEPARADO: STOCK + ENTRADAS) ===== -->
             <section id="inventario" class="space-y-lg">
-                <div class="flex items-center gap-md">
-                    <h3 class="text-headline-md font-bold text-primary">Control de Existencias</h3>
-                    <div class="h-[1px] flex-grow bg-outline-variant"></div>
+            <div class="flex items-center gap-md">
+                <h3 class="text-headline-md font-bold text-primary">Control de Existencias</h3>
+                <div class="h-[1px] flex-grow bg-outline-variant"></div>
+            </div>
+            
+            <!-- Stock Actual (arriba) -->
+            <div class="bg-white border border-outline-variant rounded-2xl shadow-sm overflow-hidden">
+                <div class="p-md bg-surface-container border-b border-outline-variant flex justify-between items-center">
+                    <h4 class="text-headline-sm font-bold text-primary">Stock Actual</h4>
+                    <span class="text-body-sm text-on-surface-variant" id="inventarioCount">0 productos</span>
                 </div>
-                <div class="grid grid-cols-1 xl:grid-cols-2 gap-lg">
-                    <!-- Stock Actual -->
-                    <div class="bg-white border border-outline-variant rounded-2xl shadow-sm overflow-hidden h-full">
-                        <div class="p-md bg-surface-container border-b border-outline-variant flex justify-between items-center">
-                            <h4 class="text-headline-sm font-bold text-primary">Stock Actual</h4>
-                            <span class="text-body-sm text-on-surface-variant" id="inventarioCount">0 productos</span>
-                        </div>
-                        <div class="tabla-scroll">
-                            <table class="w-full text-left text-xs sm:text-sm">
-                                <thead class="sticky top-0 bg-surface-container-low z-10">
-                                    <tr>
-                                        <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold text-on-surface-variant">Código</th>
-                                        <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold text-on-surface-variant">Producto</th>
-                                        <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold text-on-surface-variant text-right">Entradas</th>
-                                        <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold text-on-surface-variant text-right">Salidas</th>
-                                        <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold text-on-surface-variant text-right">Stock</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-outline-variant" id="inventarioBody">
-                                    <tr><td colspan="5" class="px-2 sm:px-md py-2 sm:py-md text-center text-on-surface-variant">Cargando datos...</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="pagination-container" id="inventarioPagination" style="display: none;"></div>
-                    </div>
+                <div class="tabla-scroll">
+                    <table class="w-full text-left text-xs sm:text-sm">
+                        <thead class="sticky top-0 bg-surface-container-low z-10">
+                            <tr>
+                                <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold text-on-surface-variant">Código</th>
+                                <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold text-on-surface-variant">Producto</th>
+                                <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold text-on-surface-variant text-right">Entradas</th>
+                                <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold text-on-surface-variant text-right">Salidas</th>
+                                <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold text-on-surface-variant text-right">Stock</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-outline-variant" id="inventarioBody">
+                            <tr><td colspan="5" class="px-2 sm:px-md py-2 sm:py-md text-center text-on-surface-variant">Cargando datos...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pagination-container" id="inventarioPagination" style="display: none;"></div>
+            </div>
 
-                    <!-- Entradas Recientes -->
-                    <div class="bg-white border border-outline-variant rounded-2xl shadow-sm overflow-hidden h-full">
-                        <div class="p-md bg-surface-container border-b border-outline-variant flex justify-between items-center">
-                            <h4 class="text-headline-sm font-bold text-primary">Registro de Entradas</h4>
-                            <span class="text-body-sm text-on-surface-variant" id="entradasCount">0 registros</span>
-                        </div>
-                        <div class="tabla-scroll">
-                            <table class="w-full text-left text-xs sm:text-sm">
-                                <thead class="sticky top-0 bg-surface-container-low z-10">
-                                    <tr>
-                                        <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold text-on-surface-variant">Fecha</th>
-                                        <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold text-on-surface-variant">Producto</th>
-                                        <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold text-on-surface-variant text-right">Cantidad</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-outline-variant" id="entradasBody">
-                                    <tr><td colspan="3" class="px-2 sm:px-md py-2 sm:py-md text-center text-on-surface-variant">Cargando datos...</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="pagination-container" id="entradasPagination" style="display: none;"></div>
-                    </div>
+            <!-- Entradas Recientes (abajo) -->
+            <div class="bg-white border border-outline-variant rounded-2xl shadow-sm overflow-hidden">
+                <div class="p-md bg-surface-container border-b border-outline-variant flex justify-between items-center">
+                    <h4 class="text-headline-sm font-bold text-primary">Registro de Entradas</h4>
+                    <span class="text-body-sm text-on-surface-variant" id="entradasCount">0 registros</span>
                 </div>
-            </section>
+                <div class="tabla-scroll">
+                    <table class="w-full text-left text-xs sm:text-sm">
+                        <thead class="sticky top-0 bg-surface-container-low z-10">
+                            <tr>
+                                <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold text-on-surface-variant">Fecha</th>
+                                <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold text-on-surface-variant">Producto</th>
+                                <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold text-on-surface-variant text-right">Cantidad</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-outline-variant" id="entradasBody">
+                            <tr><td colspan="3" class="px-2 sm:px-md py-2 sm:py-md text-center text-on-surface-variant">Cargando datos...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pagination-container" id="entradasPagination" style="display: none;"></div>
+            </div>
+        </section>
 
             <!-- ===== DONACIONES ===== -->
             <section id="donaciones" class="space-y-lg">
@@ -932,20 +931,11 @@
     </main>
 
     <!-- ==================== FOOTER ==================== -->
-    <footer class="w-full py-xl px-gutter bg-surface-container-highest border-t border-outline-variant mt-xl">
-        <div class="max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-lg">
-            <div class="text-center md:text-left">
-                <h4 class="text-headline-sm font-bold text-primary mb-xs">LOS BUENOS SOMOS MÁS</h4>
-                <p class="text-body-sm text-on-surface-variant max-w-sm">
-                    Plataforma de transparencia y rendición de cuentas pública. © 2026 Auditado por la comunidad.
-                </p>
-            </div>
-            <div class="flex gap-lg flex-wrap justify-center">
-                <a class="text-on-surface-variant hover:text-primary text-label-bold transition-colors" href="#">Privacidad</a>
-                <a class="text-on-surface-variant hover:text-primary text-label-bold transition-colors" href="#">Auditorías</a>
-                <a class="text-on-surface-variant hover:text-primary text-label-bold transition-colors" href="#">Soporte</a>
-                <a class="text-on-surface-variant hover:text-primary text-label-bold transition-colors" href="#">Prensa</a>
-            </div>
+    <footer class="w-full py-md px-gutter bg-surface-container-highest border-t border-outline-variant mt-xl">
+        <div class="max-w-container-max mx-auto flex flex-col sm:flex-row justify-between items-center gap-sm text-center sm:text-left">
+            <span class="text-label-bold font-label-bold text-primary text-xs">LOS BUENOS SOMOS MÁS</span>
+            <p class="text-body-sm font-body-sm text-on-surface-variant text-xs">© 2026 Plataforma de Transparencia</p>
+            <span class="text-body-sm font-body-sm text-on-surface-variant text-xs">Datos actualizados automáticamente</span>
         </div>
     </footer>
 
