@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Los buenos somos más</title>
+    <title>LOS BUENOS SOMOS MÁS | Panel de Transparencia</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries">
     </script>
     <link rel="icon" type="image/x-icon" href="/img/logo_pestaña.ico">
@@ -11,15 +11,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
 
     <style>
+        /* ===== ESTILOS EXISTENTES (MANTENIDOS) ===== */
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
         body {
             font-family: 'Inter', sans-serif;
         }
+        .hero-gradient {
+            background: linear-gradient(135deg, #003f87 0%, #0056b3 100%);
+        }
+        .cta-gradient {
+            background: linear-gradient(90deg, #006e25 0%, #00a839 100%);
+        }
         .glass-card {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(8px);
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
         }
         .stock-low {
             background-color: #ffdad6;
@@ -80,7 +87,7 @@
             color: #424752;
             margin-right: 12px;
         }
-       .modal-overlay {
+        .modal-overlay {
             display: none;
             position: fixed;
             top: 0;
@@ -88,12 +95,12 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.5);
-            z-index: 1000; /* Mantén este */
+            z-index: 1000;
             align-items: center;
             justify-content: center;
         }
-                .modal-overlay.active {
-            display: flex !important; /* Añadir !important para asegurar */
+        .modal-overlay.active {
+            display: flex !important;
         }
         .modal-content {
             background: white;
@@ -179,7 +186,6 @@
         .btn-whatsapp:hover {
             background: #1da851;
         }
-        /*Nuevos botones*/
         .btn-evidencia {
             display: inline-flex;
             align-items: center;
@@ -198,7 +204,7 @@
             background: #d7e2ff;
         }
         #facturaModal {
-            z-index: 1100 !important; /* Mayor que el de evidencias */
+            z-index: 1100 !important;
         }
         .btn-factura {
             display: inline-flex;
@@ -246,7 +252,7 @@
         }
 
         /* Galería de evidencias mejorada */
-       #evidenciaGaleria {
+        #evidenciaGaleria {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 12px;
@@ -259,7 +265,6 @@
             object-fit: contain;
             border-radius: 8px;
         }
-        
         #evidenciaGaleria .img-container {
             border-radius: 8px;
             overflow: hidden;
@@ -295,16 +300,19 @@
             background: #0056b3;
             transform: scale(1.02);
         }
-        .modal-overlay.active {
-            display: flex !important;
-        }
         #evidenciaModal {
             z-index: 1000;
         }
-        /* Cuando el modal de factura está activo dentro del de evidencias */
         #evidenciaModal.active ~ #facturaModal.active,
         #facturaModal.active {
             z-index: 1100 !important;
+        }
+
+        /* Altura fija para tablas con scroll */
+        .tabla-scroll {
+            max-height: 400px;
+            overflow-y: auto;
+            overflow-x: auto;
         }
 
         /* Ajustes responsive */
@@ -338,7 +346,8 @@
             table {
                 font-size: 12px;
             }
-            table th, table td {
+            table th,
+            table td {
                 padding: 8px 6px !important;
             }
             .metodo-donacion {
@@ -372,8 +381,10 @@
             #evidenciaGaleria img {
                 max-height: 200px;
             }
+            .tabla-scroll {
+                max-height: 300px;
+            }
         }
-
 
         @media (max-width: 480px) {
             .text-display-lg {
@@ -427,6 +438,9 @@
             #evidenciaGaleria img {
                 max-height: 150px;
             }
+            .tabla-scroll {
+                max-height: 250px;
+            }
         }
     </style>
 
@@ -435,72 +449,54 @@
             darkMode: "class",
             theme: {
                 extend: {
-                    "colors": {
+                    colors: {
+                        "primary": "#003f87",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#bbd0ff",
+                        "on-primary-container": "#001a40",
+                        "secondary": "#006e25",
+                        "on-secondary": "#ffffff",
+                        "secondary-container": "#83fc8e",
+                        "on-secondary-container": "#002106",
+                        "tertiary": "#5e3900",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#ffddb9",
+                        "on-tertiary-container": "#2b1700",
                         "error": "#ba1a1a",
                         "on-error": "#ffffff",
-                        "on-secondary-fixed-variant": "#00531a",
-                        "on-tertiary-container": "#ffc581",
-                        "primary-container": "#0056b3",
-                        "on-background": "#141d23",
-                        "on-secondary": "#ffffff",
-                        "surface-container-low": "#ecf5fe",
-                        "on-surface": "#141d23",
-                        "on-tertiary-fixed": "#2b1700",
-                        "tertiary": "#5e3900",
-                        "surface-container-high": "#e0e9f2",
-                        "surface-container-lowest": "#ffffff",
-                        "surface-container": "#e6eff8",
-                        "tertiary-fixed": "#ffddb9",
-                        "on-tertiary-fixed-variant": "#663e00",
-                        "inverse-surface": "#293138",
-                        "secondary-fixed-dim": "#66df75",
                         "error-container": "#ffdad6",
-                        "primary-fixed": "#d7e2ff",
-                        "surface-dim": "#d2dbe4",
-                        "on-secondary-fixed": "#002106",
-                        "secondary-fixed": "#83fc8e",
-                        "primary": "#003f87",
-                        "inverse-on-surface": "#e9f2fb",
-                        "on-primary-fixed": "#001a40",
-                        "on-primary": "#ffffff",
-                        "tertiary-fixed-dim": "#ffb961",
-                        "surface-tint": "#115cb9",
-                        "outline-variant": "#c2c6d4",
-                        "on-surface-variant": "#424752",
-                        "secondary-container": "#80f98b",
-                        "on-primary-container": "#bbd0ff",
-                        "secondary": "#006e25",
-                        "surface-bright": "#f6faff",
-                        "tertiary-container": "#7e4e00",
-                        "on-secondary-container": "#007327",
-                        "on-error-container": "#93000a",
-                        "surface-container-highest": "#dbe4ed",
-                        "inverse-primary": "#acc7ff",
-                        "primary-fixed-dim": "#acc7ff",
-                        "on-tertiary": "#ffffff",
-                        "on-primary-fixed-variant": "#004491",
-                        "outline": "#727784",
+                        "on-error-container": "#410002",
                         "background": "#f6faff",
+                        "on-background": "#141d23",
                         "surface": "#f6faff",
-                        "surface-variant": "#dbe4ed"
+                        "on-surface": "#141d23",
+                        "surface-variant": "#dbe4ed",
+                        "on-surface-variant": "#424752",
+                        "outline": "#727784",
+                        "outline-variant": "#c2c6d4",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#ecf5fe",
+                        "surface-container": "#e6eff8",
+                        "surface-container-high": "#e0e9f2",
+                        "surface-container-highest": "#dbe4ed"
                     },
-                    "borderRadius": {
-                        "DEFAULT": "0.125rem",
-                        "lg": "0.25rem",
-                        "xl": "0.5rem",
-                        "full": "0.75rem"
+                    borderRadius: {
+                        DEFAULT: "0.125rem",
+                        lg: "0.25rem",
+                        xl: "0.5rem",
+                        full: "0.75rem"
                     },
-                    "spacing": {
-                        "sm": "8px",
-                        "lg": "24px",
-                        "base": "4px",
-                        "md": "16px",
-                        "gutter": "24px",
-                        "xs": "4px",
+                    spacing: {
+                        sm: "8px",
+                        lg: "24px",
+                        base: "4px",
+                        md: "16px",
+                        gutter: "24px",
+                        xs: "4px",
                         "container-max": "1280px",
-                        "xl": "48px"
+                        xl: "48px"
                     },
-                    "fontFamily": {
+                    fontFamily: {
                         "headline-md": ["Inter"],
                         "body-lg": ["Inter"],
                         "label-bold": ["Inter"],
@@ -511,7 +507,7 @@
                         "display-lg-mobile": ["Inter"],
                         "tabular-nums": ["Inter"]
                     },
-                    "fontSize": {
+                    fontSize: {
                         "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
                         "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
                         "label-bold": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
@@ -530,106 +526,177 @@
 
 <body class="bg-surface text-on-surface min-h-screen">
 
-    <!-- TopNavBar -->
-    <header class="fixed top-0 left-0 w-full z-50 bg-surface border-b border-outline-variant flex justify-between items-center px-gutter h-16">
-
-        <div class="flex items-center gap-md min-w-0">
-            <!-- LOGO REEMPLAZA TEXTO -->
-            <a href="/" class="flex items-center gap-2">
-                <img src="/img/logo_menu.png" alt="LOS BUENOS SOMOS MÁS" class="h-10 md:h-14 w-auto" onerror="this.style.display='none'">            </a>
-            <nav class="hidden md:flex gap-md items-center h-full">
-                <a class="text-primary border-b-2 border-primary pb-1 font-label-bold text-label-bold" href="#">Panel</a>
-                <a class="text-on-surface-variant hover:text-primary transition-colors font-label-bold text-label-bold" href="#inventario">Inventario</a>
-                <a class="text-on-surface-variant hover:text-primary transition-colors font-label-bold text-label-bold" href="#donaciones">Donar</a>
-            </nav>
-        </div>
-        <div class="flex items-center gap-md flex-shrink-0">
-            <span class="text-headline-sm font-headline-sm text-primary font-bold hidden sm:block" id="totalRecaudado">Cargando...</span>
-            <span class="text-sm font-bold text-primary sm:hidden" id="totalRecaudadoMobile">Cargando...</span>
+    <!-- ==================== TOP NAV BAR ==================== -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-white border-b border-outline-variant shadow-sm h-16">
+        <div class="max-w-container-max mx-auto h-full flex justify-between items-center px-gutter">
+            <div class="flex items-center gap-xl">
+                <a href="/" class="flex items-center gap-2">
+                    <img src="/img/logo_menu.png" alt="LOS BUENOS SOMOS MÁS" class="h-10 md:h-12 w-auto" onerror="this.style.display='none'">
+                </a>
+                <nav class="hidden lg:flex gap-md items-center">
+                    <a class="text-primary font-semibold border-b-2 border-primary pb-1" href="#">Panel</a>
+                    <a class="text-on-surface-variant hover:text-primary transition-colors font-medium" href="#inventario">Inventario</a>
+                    <a class="text-on-surface-variant hover:text-primary transition-colors font-medium" href="#contabilidad">Contabilidad</a>
+                    <a class="text-on-surface-variant hover:text-primary transition-colors font-medium" href="#donaciones">Donaciones</a>
+                    <a class="text-on-surface-variant hover:text-primary transition-colors font-medium" href="#formulario">Solicitar Ayuda</a>
+                </nav>
+            </div>
+            <div class="flex items-center gap-md">
+                <div class="hidden sm:flex flex-col items-end">
+                    <span class="text-body-sm font-semibold text-primary" id="totalRecaudado">Cargando...</span>
+                    <span class="text-[10px] text-on-surface-variant uppercase tracking-widest font-bold">Transparencia Total</span>
+                </div>
+                <a class="cta-gradient text-on-primary px-lg py-sm rounded-full text-label-bold font-bold hover:shadow-lg hover:scale-105 transition-all flex items-center gap-sm shadow-md" href="#donaciones">
+                    <span class="material-symbols-outlined">favorite</span>
+                    ¡DONA AHORA!
+                </a>
+            </div>
         </div>
     </header>
 
-    <!-- SideNavBar -->
-    <aside class="hidden lg:flex flex-col sticky top-16 h-[calc(100vh-4rem)] w-64 p-md bg-surface-container-lowest border-r border-outline-variant shadow-sm z-40 float-left">
+    <!-- ==================== SIDE NAV ==================== -->
+    <aside class="hidden lg:flex flex-col fixed left-0 top-16 bottom-0 w-64 p-md bg-white border-r border-outline-variant z-40">
         <nav class="flex flex-col gap-xs flex-grow">
-            <a class="rounded-lg px-4 py-3 flex items-center gap-md transition-all duration-200 bg-secondary-container text-on-secondary-container" href="#contabilidad">
+            <a class="rounded-lg px-4 py-3 flex items-center gap-md transition-all duration-200 bg-surface-container-high text-primary font-semibold" href="#contabilidad">
                 <span class="material-symbols-outlined">account_balance_wallet</span>
-                <span class="text-label-bold font-label-bold">Contabilidad</span>
+                <span class="text-body-sm">Contabilidad</span>
             </a>
-            <a class="hover:bg-surface-container px-4 py-3 rounded-lg flex items-center gap-md transition-all duration-200 text-on-surface-variant" href="#inventario">
+            <a class="hover:bg-surface-container-low px-4 py-3 rounded-lg flex items-center gap-md transition-all duration-200 text-on-surface-variant" href="#inventario">
                 <span class="material-symbols-outlined">inventory_2</span>
-                <span class="text-label-bold font-label-bold">Inventario</span>
+                <span class="text-body-sm">Inventario</span>
             </a>
-            <a class="hover:bg-surface-container px-4 py-3 rounded-lg flex items-center gap-md transition-all duration-200 text-on-surface-variant" href="#donaciones">
+            <a class="hover:bg-surface-container-low px-4 py-3 rounded-lg flex items-center gap-md transition-all duration-200 text-on-surface-variant" href="#donaciones">
                 <span class="material-symbols-outlined">volunteer_activism</span>
-                <span class="text-label-bold font-label-bold">Donaciones</span>
+                <span class="text-body-sm">Donaciones</span>
             </a>
-            <a class="hover:bg-surface-container px-4 py-3 rounded-lg flex items-center gap-md transition-all duration-200 text-on-surface-variant" href="#formulario">
+            <a class="hover:bg-surface-container-low px-4 py-3 rounded-lg flex items-center gap-md transition-all duration-200 text-on-surface-variant" href="#formulario">
                 <span class="material-symbols-outlined">help</span>
-                <span class="text-label-bold font-label-bold">Solicitar Ayuda</span>
+                <span class="text-body-sm">Solicitar Ayuda</span>
             </a>
         </nav>
     </aside>
 
-    <!-- Main Content -->
+    <!-- ==================== MAIN CONTENT ==================== -->
     <main class="lg:pl-64 pt-16 min-h-screen">
-        <div class="max-w-container-max mx-auto p-gutter space-y-lg">
 
-            <!-- Tarjetas de resumen - 4 tarjetas -->
-            <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-md" id="summaryCards">
-                <div class="bg-white border border-outline-variant rounded-xl p-lg shadow-sm hover:shadow-md transition-shadow fade-in">
-                    <div class="flex justify-between items-start mb-sm">
-                        <span class="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">TOTAL RECAUDADO (Bs.)</span>
-                        <span class="material-symbols-outlined text-primary text-xl sm:text-2xl">payments</span>
-                    </div>
-                    <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-primary" id="totalBs">Bs. 0</div>
+        <!-- ===== HERO SECTION ===== -->
+        <section class="hero-gradient px-gutter py-xl text-on-primary mb-lg">
+            <div class="max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-lg">
+                <div class="space-y-md max-w-2xl">
+                    <span class="inline-block bg-secondary px-sm py-1 rounded text-[10px] font-bold uppercase tracking-widest mb-xs">Misión Solidaria</span>
+                    <h2 class="text-display-lg-mobile md:text-display-lg font-bold">Transparencia para transformar vidas</h2>
+                    <p class="text-body-lg opacity-90">Cada aporte llega a quienes más lo necesitan. Consulta en tiempo real el impacto de tu solidaridad y nuestro compromiso con la honestidad.</p>
                 </div>
-                <div class="bg-white border border-outline-variant rounded-xl p-lg shadow-sm hover:shadow-md transition-shadow fade-in">
-                    <div class="flex justify-between items-start mb-sm">
-                        <span class="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">TOTAL RECAUDADO (USD)</span>
-                        <span class="material-symbols-outlined text-secondary text-xl sm:text-2xl">attach_money</span>
+                <div class="glass-card p-lg rounded-2xl border border-white/20 text-on-surface min-w-[280px] w-full md:w-auto">
+                    <div class="text-label-bold text-primary uppercase mb-base">Fondos Recaudados</div>
+                    <div class="text-display-lg text-primary font-bold mb-xs" id="totalRecaudadoHero">Cargando...</div>
+                    <div class="w-full bg-outline-variant h-2 rounded-full overflow-hidden mb-sm">
+                        <div class="bg-secondary h-full" style="width: 77%;"></div>
                     </div>
-                    <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-secondary" id="totalUsd">$ 0</div>
+                    <div class="flex justify-between items-center text-sm">
+                        <span class="text-body-sm font-bold text-on-surface-variant">Meta mensual</span>
+                        <span class="text-body-sm font-bold text-secondary">+12.5%</span>
+                    </div>
                 </div>
-                <div class="bg-white border border-outline-variant rounded-xl p-lg shadow-sm hover:shadow-md transition-shadow fade-in">
-                    <div class="flex justify-between items-start mb-sm">
-                        <span class="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">SALDO NETO (Bs.)</span>
-                        <span class="material-symbols-outlined text-secondary text-xl sm:text-2xl">account_balance</span>
-                    </div>
-                    <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-secondary" id="saldoNetoBs">Bs. 0</div>
+            </div>
+        </section>
+
+        <div class="max-w-container-max mx-auto p-gutter space-y-xl">
+
+            <!-- ===== IMPACT METRICS ===== -->
+            <section class="grid grid-cols-1 md:grid-cols-4 gap-lg">
+                <div class="bg-primary text-on-primary p-lg rounded-2xl shadow-md">
+                    <div class="text-label-bold uppercase opacity-80 mb-xs">Total Recaudado (Bs.)</div>
+                    <div class="text-headline-md font-bold" id="totalBs">Bs. 0</div>
+                    <div class="text-xs mt-sm opacity-70">Actualizado hoy</div>
                 </div>
-                <div class="bg-white border border-outline-variant rounded-xl p-lg shadow-sm hover:shadow-md transition-shadow fade-in">
-                    <div class="flex justify-between items-start mb-sm">
-                        <span class="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">SALDO NETO (USD)</span>
-                        <span class="material-symbols-outlined text-secondary text-xl sm:text-2xl">account_balance</span>
-                    </div>
-                    <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-secondary" id="saldoNetoUsd">$ 0</div>
+                <div class="bg-[#1e7e34] text-white p-lg rounded-2xl shadow-md">
+                    <div class="text-label-bold uppercase opacity-80 mb-xs">Total Recaudado (USD)</div>
+                    <div class="text-headline-md font-bold" id="totalUsd">$ 0</div>
+                    <div class="text-xs mt-sm opacity-70">Actualizado hoy</div>
+                </div>
+                <div class="bg-white border-2 border-primary-container p-lg rounded-2xl shadow-sm">
+                    <div class="text-label-bold text-primary uppercase mb-xs">Saldo Neto (Bs.)</div>
+                    <div class="text-headline-md font-bold text-primary" id="saldoNetoBs">Bs. 0</div>
+                    <div class="text-xs mt-sm text-on-surface-variant">Fondos disponibles</div>
+                </div>
+                <div class="bg-white border-2 border-secondary-container p-lg rounded-2xl shadow-sm">
+                    <div class="text-label-bold text-secondary uppercase mb-xs">Saldo Neto (USD)</div>
+                    <div class="text-headline-md font-bold text-secondary" id="saldoNetoUsd">$ 0</div>
+                    <div class="text-xs mt-sm text-on-surface-variant">Fondos disponibles</div>
                 </div>
             </section>
 
-            <!-- Contabilidad - Dos tablas separadas (BS y USD) -->
-            <section id="contabilidad" class="space-y-lg">
-                
-                <!-- Tabla de Cuenta BS -->
-                <div class="bg-white border border-outline-variant rounded-xl shadow-sm overflow-hidden">
-                    <div class="p-md border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest flex-wrap gap-2">
-                        <h3 class="text-headline-sm font-headline-sm text-primary flex items-center gap-sm">
-                            <span class="material-symbols-outlined">account_balance</span>
-                            Cuenta BS
-                        </h3>
-                        <span class="text-body-sm text-on-surface-variant" id="contabilidadCountBS">0 registros</span>
+            <!-- ===== IMPACTO SOCIAL ===== -->
+            <section class="space-y-lg">
+                <div class="flex flex-col md:flex-row justify-between items-end gap-md">
+                    <div class="space-y-xs">
+                        <h3 class="text-headline-md font-bold text-primary">Tu apoyo transforma realidades</h3>
+                        <p class="text-on-surface-variant">Métricas verificadas de impacto directo en la comunidad.</p>
                     </div>
-                    <div class="overflow-x-auto" style="max-height: 400px; overflow-y: auto;">
+                    <a class="text-primary font-bold flex items-center gap-xs hover:underline" href="#donaciones">
+                        ¿Cómo ayudar más? <span class="material-symbols-outlined">arrow_forward</span>
+                    </a>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+                    <div class="bg-white border-2 border-primary-container rounded-2xl p-lg shadow-sm hover:shadow-xl transition-all transform hover:-translate-y-1">
+                        <div class="w-12 h-12 bg-primary-container rounded-full flex items-center justify-center mb-md">
+                            <span class="material-symbols-outlined text-primary text-3xl">volunteer_activism</span>
+                        </div>
+                        <div class="text-display-lg text-primary font-bold" id="combosEntregados">0</div>
+                        <div class="text-headline-sm font-bold text-on-surface mb-xs">Combos entregados</div>
+                        <p class="text-body-sm text-on-surface-variant">Familias que hoy tienen alimentos seguros gracias a ti.</p>
+                    </div>
+                    <div class="bg-white border-2 border-secondary-container rounded-2xl p-lg shadow-sm hover:shadow-xl transition-all transform hover:-translate-y-1">
+                        <div class="w-12 h-12 bg-secondary-container rounded-full flex items-center justify-center mb-md">
+                            <span class="material-symbols-outlined text-secondary text-3xl">package_2</span>
+                        </div>
+                        <div class="text-display-lg text-secondary font-bold" id="productosDonados">0</div>
+                        <div class="text-headline-sm font-bold text-on-surface mb-xs">Productos donados</div>
+                        <p class="text-body-sm text-on-surface-variant">Artículos de higiene, medicinas e insumos básicos distribuidos.</p>
+                    </div>
+                    <div class="bg-white border-2 border-tertiary-container rounded-2xl p-lg shadow-sm hover:shadow-xl transition-all transform hover:-translate-y-1">
+                        <div class="w-12 h-12 bg-tertiary-container rounded-full flex items-center justify-center mb-md">
+                            <span class="material-symbols-outlined text-tertiary text-3xl">person_heart</span>
+                        </div>
+                        <div class="text-display-lg text-tertiary font-bold" id="personasDonantes">0</div>
+                        <div class="text-headline-sm font-bold text-on-surface mb-xs">Personas donantes</div>
+                        <p class="text-body-sm text-on-surface-variant">Únete a esta iniciativa</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== CONTABILIDAD (TABLAS SEPARADAS) ===== -->
+            <section id="contabilidad" class="space-y-lg">
+                <div class="flex items-center gap-md">
+                    <h3 class="text-headline-md font-bold text-primary">Registro Contable</h3>
+                    <div class="h-[1px] flex-grow bg-outline-variant"></div>
+                    <div class="flex gap-2 text-xs font-medium">
+                        <span class="px-2 py-1 bg-primary/10 text-primary rounded-full">Bs.</span>
+                        <span class="px-2 py-1 bg-[#1e7e34]/10 text-[#1e7e34] rounded-full">USD</span>
+                    </div>
+                </div>
+
+                <!-- Tabla BS -->
+                <div class="bg-white border border-primary/20 rounded-2xl shadow-sm overflow-hidden">
+                    <div class="p-md border-b border-primary/20 flex justify-between items-center bg-primary/5 flex-wrap gap-2">
+                        <h4 class="text-headline-sm font-bold text-primary flex items-center gap-sm">
+                            <span class="material-symbols-outlined">payments</span>
+                            Cuenta en Bolívares (Bs.)
+                        </h4>
+                        <span class="text-body-sm text-primary/70" id="contabilidadCountBS">0 registros</span>
+                    </div>
+                    <div class="tabla-scroll">
                         <table class="w-full text-left text-xs sm:text-sm">
                             <thead class="sticky top-0 bg-surface-container-low z-10">
                                 <tr class="border-b border-outline-variant">
-                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant">Cuenta</th>
-                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant">Fecha</th>
-                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant">Concepto</th>
-                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant text-right">Ingreso</th>
-                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant text-right">Egreso</th>
-                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant text-right">Saldo</th>
-                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant text-center">Factura</th>
+                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold text-on-surface-variant">Cuenta</th>
+                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold text-on-surface-variant">Fecha</th>
+                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold text-on-surface-variant">Concepto</th>
+                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold text-on-surface-variant text-right">Ingreso</th>
+                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold text-on-surface-variant text-right">Egreso</th>
+                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold text-on-surface-variant text-right">Saldo</th>
+                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold text-on-surface-variant text-center">Factura</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-outline-variant" id="contabilidadBodyBS">
@@ -640,26 +707,26 @@
                     <div class="pagination-container" id="contabilidadBSPagination" style="display: none;"></div>
                 </div>
 
-                <!-- Tabla de Cuenta USD -->
-                <div class="bg-white border border-outline-variant rounded-xl shadow-sm overflow-hidden">
-                    <div class="p-md border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest flex-wrap gap-2">
-                        <h3 class="text-headline-sm font-headline-sm text-primary flex items-center gap-sm">
+                <!-- Tabla USD -->
+                <div class="bg-white border border-[#1e7e34]/20 rounded-2xl shadow-sm overflow-hidden">
+                    <div class="p-md border-b border-[#1e7e34]/20 flex justify-between items-center bg-[#1e7e34]/5 flex-wrap gap-2">
+                        <h4 class="text-headline-sm font-bold text-[#1e7e34] flex items-center gap-sm">
                             <span class="material-symbols-outlined">attach_money</span>
-                            Cuenta USD
-                        </h3>
-                        <span class="text-body-sm text-on-surface-variant" id="contabilidadCountUSD">0 registros</span>
+                            Cuenta en Dólares (USD)
+                        </h4>
+                        <span class="text-body-sm text-[#1e7e34]/70" id="contabilidadCountUSD">0 registros</span>
                     </div>
-                    <div class="overflow-x-auto" style="max-height: 400px; overflow-y: auto;">
+                    <div class="tabla-scroll">
                         <table class="w-full text-left text-xs sm:text-sm">
                             <thead class="sticky top-0 bg-surface-container-low z-10">
                                 <tr class="border-b border-outline-variant">
-                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant">Cuenta</th>
-                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant">Fecha</th>
-                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant">Concepto</th>
-                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant text-right">Ingreso</th>
-                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant text-right">Egreso</th>
-                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant text-right">Saldo</th>
-                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold font-label-bold text-on-surface-variant text-center">Factura</th>
+                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold text-on-surface-variant">Cuenta</th>
+                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold text-on-surface-variant">Fecha</th>
+                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold text-on-surface-variant">Concepto</th>
+                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold text-on-surface-variant text-right">Ingreso</th>
+                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold text-on-surface-variant text-right">Egreso</th>
+                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold text-on-surface-variant text-right">Saldo</th>
+                                    <th class="px-2 sm:px-md py-2 sm:py-md text-label-bold text-on-surface-variant text-center">Factura</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-outline-variant" id="contabilidadBodyUSD">
@@ -669,82 +736,86 @@
                     </div>
                     <div class="pagination-container" id="contabilidadUSDPagination" style="display: none;"></div>
                 </div>
-                
             </section>
 
-            <!-- Inventario -->
-            <section id="inventario">
-                <div class="flex items-center gap-md mb-lg">
-                    <h3 class="text-headline-md font-headline-md text-on-background text-lg sm:text-xl">Control de Inventario</h3>
-                    <div class="h-[2px] flex-grow bg-outline-variant"></div>
+            <!-- ===== INVENTARIO (SEPARADO: STOCK + ENTRADAS) ===== -->
+            <section id="inventario" class="space-y-lg">
+                <div class="flex items-center gap-md">
+                    <h3 class="text-headline-md font-bold text-primary">Control de Existencias</h3>
+                    <div class="h-[1px] flex-grow bg-outline-variant"></div>
                 </div>
-                <div class="bg-white border border-outline-variant rounded-xl shadow-sm overflow-hidden">
-                    <div class="p-md bg-surface-container border-b border-outline-variant flex justify-between items-center flex-wrap gap-2">
-                        <h4 class="text-headline-sm font-headline-sm text-primary">Stock Actual</h4>
-                        <span class="text-body-sm text-on-surface-variant" id="inventarioCount">0 productos</span>
+                <div class="grid grid-cols-1 xl:grid-cols-2 gap-lg">
+                    <!-- Stock Actual -->
+                    <div class="bg-white border border-outline-variant rounded-2xl shadow-sm overflow-hidden h-full">
+                        <div class="p-md bg-surface-container border-b border-outline-variant flex justify-between items-center">
+                            <h4 class="text-headline-sm font-bold text-primary">Stock Actual</h4>
+                            <span class="text-body-sm text-on-surface-variant" id="inventarioCount">0 productos</span>
+                        </div>
+                        <div class="tabla-scroll">
+                            <table class="w-full text-left text-xs sm:text-sm">
+                                <thead class="sticky top-0 bg-surface-container-low z-10">
+                                    <tr>
+                                        <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold text-on-surface-variant">Código</th>
+                                        <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold text-on-surface-variant">Producto</th>
+                                        <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold text-on-surface-variant text-right">Entradas</th>
+                                        <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold text-on-surface-variant text-right">Salidas</th>
+                                        <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold text-on-surface-variant text-right">Stock</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-outline-variant" id="inventarioBody">
+                                    <tr><td colspan="5" class="px-2 sm:px-md py-2 sm:py-md text-center text-on-surface-variant">Cargando datos...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="pagination-container" id="inventarioPagination" style="display: none;"></div>
                     </div>
-                    <div class="overflow-x-auto" style="max-height: 400px; overflow-y: auto;">
+
+                    <!-- Entradas Recientes -->
+                    <div class="bg-white border border-outline-variant rounded-2xl shadow-sm overflow-hidden h-full">
+                        <div class="p-md bg-surface-container border-b border-outline-variant flex justify-between items-center">
+                            <h4 class="text-headline-sm font-bold text-primary">Registro de Entradas</h4>
+                            <span class="text-body-sm text-on-surface-variant" id="entradasCount">0 registros</span>
+                        </div>
+                        <div class="tabla-scroll">
+                            <table class="w-full text-left text-xs sm:text-sm">
+                                <thead class="sticky top-0 bg-surface-container-low z-10">
+                                    <tr>
+                                        <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold text-on-surface-variant">Fecha</th>
+                                        <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold text-on-surface-variant">Producto</th>
+                                        <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold text-on-surface-variant text-right">Cantidad</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-outline-variant" id="entradasBody">
+                                    <tr><td colspan="3" class="px-2 sm:px-md py-2 sm:py-md text-center text-on-surface-variant">Cargando datos...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="pagination-container" id="entradasPagination" style="display: none;"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== DONACIONES ===== -->
+            <section id="donaciones" class="space-y-lg">
+                <div class="flex items-center gap-md">
+                    <h3 class="text-headline-md font-bold text-primary">Donaciones y Salidas</h3>
+                    <div class="h-[1px] flex-grow bg-outline-variant"></div>
+                    <span class="text-body-sm text-on-surface-variant" id="donadoCount">0 registros</span>
+                </div>
+                <div class="bg-white border border-outline-variant rounded-2xl shadow-sm overflow-hidden">
+                    <div class="p-md bg-surface-container border-b border-outline-variant">
+                        <h4 class="text-headline-sm font-bold text-primary">Salidas de Inventario (Egresos)</h4>
+                    </div>
+                    <div class="tabla-scroll">
                         <table class="w-full text-left text-xs sm:text-sm">
                             <thead class="sticky top-0 bg-surface-container-low z-10">
                                 <tr>
-                                    <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold font-label-bold text-on-surface-variant">Código</th>
-                                    <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold font-label-bold text-on-surface-variant">Producto</th>
-                                    <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold font-label-bold text-on-surface-variant text-right">Entradas</th>
-                                    <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold font-label-bold text-on-surface-variant text-right">Salidas</th>
-                                    <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold font-label-bold text-on-surface-variant text-right">Stock</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-outline-variant" id="inventarioBody">
-                                <tr><td colspan="5" class="px-2 sm:px-md py-2 sm:py-md text-center text-on-surface-variant">Cargando datos...</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="pagination-container" id="inventarioPagination" style="display: none;"></div>
-                </div>
-            </section>
-
-            <!-- Entradas -->
-            <section>
-                <div class="bg-white border border-outline-variant rounded-xl shadow-sm overflow-hidden">
-                    <div class="p-md bg-surface-container border-b border-outline-variant flex justify-between items-center flex-wrap gap-2">
-                        <h4 class="text-headline-sm font-headline-sm text-primary">Registro de Entradas</h4>
-                        <span class="text-body-sm text-on-surface-variant" id="entradasCount">0 registros</span>
-                    </div>
-                    <div class="overflow-x-auto" style="max-height: 400px; overflow-y: auto;">
-                        <table class="w-full text-left text-xs sm:text-sm">
-                            <thead class="sticky top-0 bg-surface-container-low z-10">
-                                <tr>
-                                    <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold font-label-bold text-on-surface-variant">Fecha</th>
-                                    <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold font-label-bold text-on-surface-variant">Producto</th>
-                                    <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold font-label-bold text-on-surface-variant text-right">Cantidad</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-outline-variant" id="entradasBody">
-                                <tr><td colspan="3" class="px-2 sm:px-md py-2 sm:py-md text-center text-on-surface-variant">Cargando datos...</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="pagination-container" id="entradasPagination" style="display: none;"></div>
-                </div>
-            </section>
-
-            <!-- Donaciones -->
-            <section id="donaciones">
-                <div class="bg-white border border-outline-variant rounded-xl shadow-sm overflow-hidden">
-                    <div class="p-md bg-surface-container border-b border-outline-variant flex justify-between items-center flex-wrap gap-2">
-                        <h4 class="text-headline-sm font-headline-sm text-primary">Donaciones y Salidas</h4>
-                        <span class="text-body-sm text-on-surface-variant" id="donadoCount">0 registros</span>
-                    </div>
-                    <div class="overflow-x-auto" style="max-height: 400px; overflow-y: auto;">
-                        <table class="w-full text-left text-xs sm:text-sm">
-                            <thead class="sticky top-0 bg-surface-container-low z-10">
-                                <tr>
-                                    <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold font-label-bold text-on-surface-variant">Fecha</th>
-                                    <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold font-label-bold text-on-surface-variant">Producto</th>
-                                    <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold font-label-bold text-on-surface-variant text-right">Cantidad</th>
-                                    <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold font-label-bold text-on-surface-variant">Centro</th>
-                                    <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold font-label-bold text-on-surface-variant">Combo</th>
-                                    <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold font-label-bold text-on-surface-variant text-center">Evidencia</th>
+                                    <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold text-on-surface-variant">Fecha</th>
+                                    <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold text-on-surface-variant">Producto</th>
+                                    <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold text-on-surface-variant text-right">Cantidad</th>
+                                    <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold text-on-surface-variant">Centro</th>
+                                    <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold text-on-surface-variant">Combo</th>
+                                    <th class="px-2 sm:px-md py-1 sm:py-sm text-label-bold text-on-surface-variant text-center">Evidencia</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-outline-variant" id="donadoBody">
@@ -756,134 +827,129 @@
                 </div>
             </section>
 
-            <!-- Métodos de Donación -->
-            <section class="bg-surface-container-low rounded-xl p-lg border border-primary-container">
-                <div class="flex flex-col md:flex-row gap-lg items-center">
-                    <div class="md:w-1/3 space-y-md text-center md:text-left">
-                        <h3 class="text-headline-md font-headline-md text-primary text-xl sm:text-2xl">Métodos de Donación</h3>
-                        <p class="text-body-md font-body-md text-on-surface-variant text-sm sm:text-base">
-                            Para realizar tu donación, escríbenos al siguiente número y te indicaremos los datos según el método de pago que prefieras.
-                        </p>
-                        <div class="flex flex-col sm:flex-row gap-3 items-center md:items-start">
-                            <a href="https://wa.me/584123663847?text=Hola%2C%20quiero%20donar" target="_blank" class="btn-whatsapp">
-                                <span class="material-symbols-outlined" style="font-size: 20px;"></span>
-                                +58 412 366 3847
-                            </a>
+            <!-- ===== MÉTODOS DE DONACIÓN ===== -->
+            <section class="bg-surface-container-low rounded-3xl p-xl border-2 border-primary shadow-xl">
+                <div class="flex flex-col lg:flex-row gap-xl items-center">
+                    <div class="lg:w-1/2 space-y-lg">
+                        <div class="space-y-sm">
+                            <h3 class="text-display-lg-mobile md:text-headline-md font-bold text-primary">Métodos de Donación</h3>
+                            <p class="text-body-lg text-on-surface-variant">Tu transparencia es nuestra prioridad. Tu aporte es sagrado y garantizamos que llegue a su destino.</p>
                         </div>
-                        <p class="text-body-sm font-body-sm text-on-surface-variant text-xs sm:text-sm">
-                            💬 Contáctanos y te ayudaremos con el proceso de donación.
-                        </p>
-                    </div>
-                    <div class="md:w-2/3 grid grid-cols-2 sm:grid-cols-3 gap-md w-full">
-                        <div class="bg-white p-md rounded-xl border border-outline-variant flex flex-col items-center gap-sm text-center hover:border-primary transition-colors cursor-pointer metodo-donacion" data-metodo="zelle">
-                            <span class="material-symbols-outlined text-primary" style="font-size: 32px;">account_balance</span>
-                            <span class="text-label-bold font-label-bold text-xs sm:text-sm">Zelle</span>
-                        </div>
-                        <div class="bg-white p-md rounded-xl border border-outline-variant flex flex-col items-center gap-sm text-center hover:border-primary transition-colors cursor-pointer metodo-donacion" data-metodo="pago-movil">
-                            <span class="material-symbols-outlined text-primary" style="font-size: 32px;">smartphone</span>
-                            <span class="text-label-bold font-label-bold text-xs sm:text-sm">Pago Móvil</span>
-                        </div>
-                        <div class="bg-white p-md rounded-xl border border-outline-variant flex flex-col items-center gap-sm text-center hover:border-primary transition-colors cursor-pointer metodo-donacion" data-metodo="binance">
-                            <span class="material-symbols-outlined text-primary" style="font-size: 32px;">currency_bitcoin</span>
-                            <span class="text-label-bold font-label-bold text-xs sm:text-sm">Binance</span>
-                        </div>
-                        <div class="bg-white p-md rounded-xl border border-outline-variant flex flex-col items-center gap-sm text-center hover:border-primary transition-colors cursor-pointer metodo-donacion" data-metodo="zinli">
-                            <span class="material-symbols-outlined text-primary" style="font-size: 32px;">credit_card</span>
-                            <span class="text-label-bold font-label-bold text-xs sm:text-sm">Zinli</span>
-                        </div>
-                        <div class="bg-white p-md rounded-xl border border-outline-variant flex flex-col items-center gap-sm text-center hover:border-primary transition-colors cursor-pointer metodo-donacion" data-metodo="transferencia">
-                            <span class="material-symbols-outlined text-primary" style="font-size: 32px;">account_balance_wallet</span>
-                            <span class="text-label-bold font-label-bold text-xs sm:text-sm">Transferencia</span>
-                        </div>
-                        <div class="bg-white p-md rounded-xl border border-outline-variant flex flex-col items-center gap-sm text-center hover:border-primary transition-colors cursor-pointer metodo-donacion" data-metodo="efectivo">
-                            <span class="material-symbols-outlined text-primary" style="font-size: 32px;">payments</span>
-                            <span class="text-label-bold font-label-bold text-xs sm:text-sm">Efectivo</span>
-                        </div>
-                        <!-- Western Union -->
-                        <div class="bg-white p-md rounded-xl border border-outline-variant flex flex-col items-center gap-sm text-center hover:border-primary transition-colors cursor-pointer metodo-donacion" data-metodo="western-union">
-                            <span class="material-symbols-outlined text-primary" style="font-size: 32px;">swap_horiz</span>
-                            <span class="text-label-bold font-label-bold text-xs sm:text-sm">Western Union</span>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
+                            <div class="flex items-center gap-md bg-white p-lg rounded-2xl border border-outline-variant">
+                                <div class="w-10 h-10 bg-primary-container rounded-full flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-primary">phone_iphone</span>
+                                </div>
+                                <div>
+                                    <p class="text-label-bold text-on-surface-variant uppercase">Atención WhatsApp</p>
+                                    <p class="text-headline-sm font-bold text-primary">+58 412 366 3847</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-md bg-white p-lg rounded-2xl border border-outline-variant">
+                                <div class="w-10 h-10 bg-secondary-container rounded-full flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-secondary">verified_user</span>
+                                </div>
+                                <div>
+                                    <p class="text-label-bold text-on-surface-variant uppercase">Garantía</p>
+                                    <p class="text-headline-sm font-bold text-secondary">Canal Oficial</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
-
-            <!-- Impacto -->
-            <section class="space-y-lg">
-                <div class="flex items-center gap-md">
-                    <h3 class="text-headline-md font-headline-md text-on-background text-lg sm:text-xl">Impacto de tu Ayuda</h3>
-                    <div class="h-[2px] flex-grow bg-outline-variant"></div>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
-                    <div class="bg-white border border-outline-variant rounded-xl p-lg shadow-sm hover:shadow-md transition-shadow text-center">
-                        <div class="w-12 h-12 bg-secondary-container rounded-full flex items-center justify-center mx-auto mb-sm">
-                            <span class="material-symbols-outlined text-on-secondary-container">package_2</span>
+                    <div class="lg:w-1/2 grid grid-cols-2 sm:grid-cols-3 gap-md w-full">
+                        <div class="bg-white p-lg rounded-2xl border border-outline-variant flex flex-col items-center gap-md text-center hover:border-primary hover:shadow-lg transition-all group cursor-pointer metodo-donacion" data-metodo="zelle">
+                            <span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform" style="font-size: 40px;">account_balance</span>
+                            <span class="text-body-sm font-bold">Zelle</span>
                         </div>
-                        <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-secondary" id="combosEntregados">0</div>
-                        <div class="text-label-bold font-label-bold text-on-surface-variant uppercase tracking-wider text-xs sm:text-sm">Combos entregados</div>
-                    </div>
-                    <div class="bg-white border border-outline-variant rounded-xl p-lg shadow-sm hover:shadow-md transition-shadow text-center">
-                        <div class="w-12 h-12 bg-error-container rounded-full flex items-center justify-center mx-auto mb-sm">
-                            <span class="material-symbols-outlined text-on-error-container">shopping_bag</span>
+                        <div class="bg-white p-lg rounded-2xl border border-outline-variant flex flex-col items-center gap-md text-center hover:border-primary hover:shadow-lg transition-all group cursor-pointer metodo-donacion" data-metodo="pago-movil">
+                            <span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform" style="font-size: 40px;">smartphone</span>
+                            <span class="text-body-sm font-bold">Pago Móvil</span>
                         </div>
-                        <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-on-background" id="productosDonados">0</div>
-                        <div class="text-label-bold font-label-bold text-on-surface-variant uppercase tracking-wider text-xs sm:text-sm">Productos donados</div>
+                        <div class="bg-white p-lg rounded-2xl border border-outline-variant flex flex-col items-center gap-md text-center hover:border-primary hover:shadow-lg transition-all group cursor-pointer metodo-donacion" data-metodo="binance">
+                            <span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform" style="font-size: 40px;">currency_bitcoin</span>
+                            <span class="text-body-sm font-bold">Binance</span>
+                        </div>
+                        <div class="bg-white p-lg rounded-2xl border border-outline-variant flex flex-col items-center gap-md text-center hover:border-primary hover:shadow-lg transition-all group cursor-pointer metodo-donacion" data-metodo="zinli">
+                            <span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform" style="font-size: 40px;">wallet</span>
+                            <span class="text-body-sm font-bold">Zinli</span>
+                        </div>
+                        <div class="bg-white p-lg rounded-2xl border border-outline-variant flex flex-col items-center gap-md text-center hover:border-primary hover:shadow-lg transition-all group cursor-pointer metodo-donacion" data-metodo="transferencia">
+                            <span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform" style="font-size: 40px;">sync_alt</span>
+                            <span class="text-body-sm font-bold">Transferencia</span>
+                        </div>
+                        <div class="bg-white p-lg rounded-2xl border border-outline-variant flex flex-col items-center gap-md text-center hover:border-primary hover:shadow-lg transition-all group cursor-pointer metodo-donacion" data-metodo="efectivo">
+                            <span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform" style="font-size: 40px;">payments</span>
+                            <span class="text-body-sm font-bold">Efectivo</span>
+                        </div>
+                        <div class="bg-white p-lg rounded-2xl border border-outline-variant flex flex-col items-center gap-md text-center hover:border-primary hover:shadow-lg transition-all group cursor-pointer metodo-donacion" data-metodo="western-union">
+                            <span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform" style="font-size: 40px;">public</span>
+                            <span class="text-body-sm font-bold">Western Union</span>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Formulario de Solicitud de Ayuda -->
+            <!-- ===== FORMULARIO DE SOLICITUD ===== -->
             <section class="space-y-lg" id="formulario">
-            <div class="flex items-center gap-md">
-                <h3 class="text-headline-md font-headline-md text-primary font-bold text-lg sm:text-xl">Solicitud de Ayuda</h3>
-                <div class="h-[2px] flex-grow bg-outline-variant"></div>
-            </div>
-            
-            <div class="bg-white border border-outline-variant rounded-xl shadow-sm p-lg">
-                <form id="formSolicitud" class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <!-- Fila 1 -->
-                    <div>
-                        <label class="form-label">Nombre y Apellido</label>
-                        <input type="text" id="nombre" name="Nombre" placeholder="Ej. Juan Pérez" required class="form-input">
-                    </div>
-                    <div>
-                        <label class="form-label">Institución/Cuerpo de Ayuda</label>
-                        <input type="text" id="institucion" name="Institucion" placeholder="Ej. Bomberos Voluntarios" required class="form-input">
-                    </div>
-                    <div>
-                        <label class="form-label">Teléfono de Contacto</label>
-                        <input type="tel" id="telefono" name="Telefono" placeholder="+58 412..." required class="form-input">
-                    </div>
-                    <!-- Fila 2 -->
-                    <div>
-                        <label class="form-label">Tipo de Productos Necesitados</label>
-                        <input type="text" id="producto" name="Producto" placeholder="Ej. Insumos Médicos" required class="form-input">
-                    </div>
-                    <div>
-                        <label class="form-label">Zona de Donación</label>
-                        <input type="text" id="zona" name="Zona" placeholder="Ej. Macuto, La Guaira" required class="form-input">
-                    </div>
-                    <div class="flex items-end">
-                        <button type="submit" id="btnEnviarSolicitud" class="w-full bg-primary text-on-primary font-bold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-all flex items-center justify-center gap-2">
-                            <span class="material-symbols-outlined" style="font-size: 20px;">send</span>
-                            Enviar Solicitud
-                        </button>
-                    </div>
-                </form>
-                <!-- Contenedor para mensajes de estado -->
-                <div id="formStatusMessage" class="mt-4 text-center text-sm font-medium"></div>
-            </div>
-        </section>
+                <div class="flex items-center gap-md">
+                    <h3 class="text-headline-md font-bold text-primary">Solicitud de Ayuda para Voluntarios</h3>
+                    <div class="h-[1px] flex-grow bg-outline-variant"></div>
+                </div>
+                <div class="bg-white border border-outline-variant rounded-2xl p-lg shadow-sm">
+                    <form id="formSolicitud" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="form-label">Nombre y Apellido</label>
+                            <input type="text" id="nombre" name="Nombre" placeholder="Ej. Juan Pérez" required class="form-input">
+                        </div>
+                        <div>
+                            <label class="form-label">Institución/Cuerpo de Ayuda</label>
+                            <input type="text" id="institucion" name="Institucion" placeholder="Ej. Bomberos Voluntarios" required class="form-input">
+                        </div>
+                        <div>
+                            <label class="form-label">Teléfono de Contacto</label>
+                            <input type="tel" id="telefono" name="Telefono" placeholder="+58 412..." required class="form-input">
+                        </div>
+                        <div>
+                            <label class="form-label">Tipo de Productos Necesitados</label>
+                            <input type="text" id="producto" name="Producto" placeholder="Ej. Insumos Médicos" required class="form-input">
+                        </div>
+                        <div>
+                            <label class="form-label">Zona de Donación</label>
+                            <input type="text" id="zona" name="Zona" placeholder="Ej. Macuto, La Guaira" required class="form-input">
+                        </div>
+                        <div class="flex items-end">
+                            <button type="submit" id="btnEnviarSolicitud" class="w-full bg-primary text-on-primary font-bold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-all flex items-center justify-center gap-2">
+                                <span class="material-symbols-outlined" style="font-size: 20px;">send</span>
+                                Enviar Solicitud
+                            </button>
+                        </div>
+                    </form>
+                    <div id="formStatusMessage" class="mt-4 text-center text-sm font-medium"></div>
+                </div>
+            </section>
 
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="w-full py-lg px-gutter flex flex-col md:flex-row justify-between items-center gap-md bg-surface-container-highest border-t border-outline-variant mt-8">
-        <span class="text-label-bold font-label-bold text-primary text-xs sm:text-sm">LOS BUENOS SOMOS MÁS</span>
-        <p class="text-body-sm font-body-sm text-on-surface-variant text-xs sm:text-sm text-center">© 2026 Plataforma de Transparencia. Datos actualizados automáticamente.</p>
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="w-full py-xl px-gutter bg-surface-container-highest border-t border-outline-variant mt-xl">
+        <div class="max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-lg">
+            <div class="text-center md:text-left">
+                <h4 class="text-headline-sm font-bold text-primary mb-xs">LOS BUENOS SOMOS MÁS</h4>
+                <p class="text-body-sm text-on-surface-variant max-w-sm">
+                    Plataforma de transparencia y rendición de cuentas pública. © 2026 Auditado por la comunidad.
+                </p>
+            </div>
+            <div class="flex gap-lg flex-wrap justify-center">
+                <a class="text-on-surface-variant hover:text-primary text-label-bold transition-colors" href="#">Privacidad</a>
+                <a class="text-on-surface-variant hover:text-primary text-label-bold transition-colors" href="#">Auditorías</a>
+                <a class="text-on-surface-variant hover:text-primary text-label-bold transition-colors" href="#">Soporte</a>
+                <a class="text-on-surface-variant hover:text-primary text-label-bold transition-colors" href="#">Prensa</a>
+            </div>
+        </div>
     </footer>
 
+    <!-- ==================== MODALES ==================== -->
     <!-- Modal de Donación -->
     <div class="modal-overlay" id="donationModal">
         <div class="modal-content">
@@ -892,9 +958,7 @@
                 <span class="material-symbols-outlined">volunteer_activism</span>
                 <span id="modalMetodoNombre">Donar</span>
             </div>
-            <div class="modal-body" id="modalBody">
-                <!-- Contenido dinámico -->
-            </div>
+            <div class="modal-body" id="modalBody"></div>
         </div>
     </div>
 
@@ -923,9 +987,7 @@
                 <span id="evidenciaModalTitulo">Evidencia</span>
             </div>
             <div class="modal-body" id="evidenciaModalBody">
-                <div id="evidenciaGaleria">
-                    <!-- Imágenes dinámicas -->
-                </div>
+                <div id="evidenciaGaleria"></div>
             </div>
         </div>
     </div>
@@ -933,65 +995,49 @@
     <!-- Botón flotante "Ver Evidencias" -->
     <button onclick="abrirTodasEvidencias()" class="btn-evidencias-flotante">
         <span class="material-symbols-outlined" style="font-size: 20px;">collections</span>
-        Ver Evidencias 
+        Ver Evidencias
     </button>
 
+    <!-- ==================== SCRIPTS ==================== -->
     <script src="js/app.js?v=7"></script>
 
-    <!-- Scripts -->
+    <!-- Scripts de UI -->
     <script>
-        // Smooth scroll for side nav
-        document.querySelectorAll('aside nav a').forEach(anchor => {
+        // Smooth scroll para navegación
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                const targetId = this.getAttribute('href').substring(1);
-                const targetElement = document.getElementById(targetId);
-
-                if (targetElement) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
                     window.scrollTo({
-                        top: targetElement.offsetTop - 80,
+                        top: target.offsetTop - 80,
                         behavior: 'smooth'
                     });
-
-                    document.querySelectorAll('aside nav a').forEach(a => {
-                        a.classList.remove('bg-secondary-container', 'text-on-secondary-container');
-                        a.classList.add('text-on-surface-variant');
-                    });
-                    this.classList.add('bg-secondary-container', 'text-on-secondary-container');
-                    this.classList.remove('text-on-surface-variant');
                 }
             });
         });
 
-        // Visibility observer for active nav
-        const observerOptions = {
-            root: null,
-            rootMargin: '-20% 0px -70% 0px',
-            threshold: 0
-        };
-
+        // Intersection Observer para resaltar navegación lateral
+        const options = { threshold: 0.3 };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const id = entry.target.getAttribute('id');
-                    const navLink = document.querySelector(`aside nav a[href="#${id}"]`);
-                    if (navLink) {
-                        document.querySelectorAll('aside nav a').forEach(a => {
-                            a.classList.remove('bg-secondary-container', 'text-on-secondary-container');
-                            a.classList.add('text-on-surface-variant');
-                        });
-                        navLink.classList.add('bg-secondary-container', 'text-on-secondary-container');
-                        navLink.classList.remove('text-on-surface-variant');
-                    }
+                    document.querySelectorAll('aside nav a').forEach(a => {
+                        a.classList.remove('bg-surface-container-high', 'text-primary', 'font-semibold');
+                        a.classList.add('text-on-surface-variant');
+                        if (a.getAttribute('href') === '#' + id) {
+                            a.classList.add('bg-surface-container-high', 'text-primary', 'font-semibold');
+                            a.classList.remove('text-on-surface-variant');
+                        }
+                    });
                 }
             });
-        }, observerOptions);
+        }, options);
 
         document.querySelectorAll('section[id]').forEach(section => observer.observe(section));
 
-        // ======================
-        // MODAL DE DONACIÓN
-        // ======================
+        // ===== MODAL DE DONACIÓN =====
         const modal = document.getElementById('donationModal');
         const modalClose = document.getElementById('modalClose');
         const modalMetodoNombre = document.getElementById('modalMetodoNombre');
@@ -1010,7 +1056,6 @@
 
             const nombre = nombres[metodoKey] || 'Donación';
             modalMetodoNombre.textContent = `Donar por ${nombre}`;
-
             const numeroWhatsApp = '584123663847';
 
             modalBody.innerHTML = `
@@ -1037,15 +1082,12 @@
             document.body.style.overflow = '';
         }
 
-        // Event listeners para los métodos de donación
         document.querySelectorAll('.metodo-donacion').forEach(el => {
             el.addEventListener('click', function() {
-                const metodo = this.dataset.metodo;
-                abrirModal(metodo);
+                abrirModal(this.dataset.metodo);
             });
         });
 
-        // Cerrar modal
         modalClose.addEventListener('click', cerrarModal);
         modal.addEventListener('click', function(e) {
             if (e.target === this) cerrarModal();
@@ -1054,94 +1096,94 @@
             if (e.key === 'Escape') cerrarModal();
         });
 
-        // Función para mostrar el total en mobile también
+        // Sincronizar total recaudado en mobile
         document.addEventListener('DOMContentLoaded', function() {
             const totalRecaudado = document.getElementById('totalRecaudado');
             const totalRecaudadoMobile = document.getElementById('totalRecaudadoMobile');
-            
+            const totalRecaudadoHero = document.getElementById('totalRecaudadoHero');
+
             if (totalRecaudado && totalRecaudadoMobile) {
                 const observer = new MutationObserver(() => {
                     totalRecaudadoMobile.textContent = totalRecaudado.textContent;
+                    if (totalRecaudadoHero) totalRecaudadoHero.textContent = totalRecaudado.textContent;
                 });
                 observer.observe(totalRecaudado, { childList: true, characterData: true, subtree: true });
             }
         });
-
-        // ======================
 
         // Exponer funciones globalmente
         window.abrirModal = abrirModal;
         window.cerrarModal = cerrarModal;
         window.abrirTodasEvidencias = abrirTodasEvidencias;
     </script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('formSolicitud');
-    const statusDiv = document.getElementById('formStatusMessage');
-    const submitBtn = document.getElementById('btnEnviarSolicitud');
 
-    // !!! REEMPLAZA CON TU URL !!!
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxzbPBeK15Gwzua9CyAwaBmlwFSBEkHZXq3m2JidiiwyMuzcRfOCXE6Nvt2WIEsrWuI/exec';
+    <!-- Script del formulario con Apps Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('formSolicitud');
+            const statusDiv = document.getElementById('formStatusMessage');
+            const submitBtn = document.getElementById('btnEnviarSolicitud');
 
-    if (form) {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
+            // !!! REEMPLAZA CON TU URL DE APPS SCRIPT !!!
+            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxzbPBeK15Gwzua9CyAwaBmlwFSBEkHZXq3m2JidiiwyMuzcRfOCXE6Nvt2WIEsrWuI/exec';
 
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = `
-                <span class="material-symbols-outlined" style="font-size:20px; animation: spin 1s linear infinite;">sync</span>
-                Enviando...
-            `;
-            statusDiv.innerHTML = '';
-            statusDiv.style.color = '#424752';
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
 
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData.entries());
-            
-            console.log('📤 Enviando datos:', data);
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = `
+                        <span class="material-symbols-outlined" style="font-size:20px; animation: spin 1s linear infinite;">sync</span>
+                        Enviando...
+                    `;
+                    statusDiv.innerHTML = '';
+                    statusDiv.style.color = '#424752';
 
-            // Usar no-cors para evitar CORS
-            fetch(SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data)
-            })
-            .then(() => {
-                // Con no-cors no podemos leer la respuesta
-                // Asumimos éxito si no hubo error de red
-                console.log('✅ Formulario enviado');
-                statusDiv.innerHTML = '✅ ¡Tu solicitud se ha enviado correctamente!';
-                statusDiv.style.color = '#2e7d32';
-                form.reset();
-            })
-            .catch((error) => {
-                console.error('❌ Error:', error);
-                statusDiv.innerHTML = '❌ Error de conexión. Por favor, inténtalo de nuevo.';
-                statusDiv.style.color = '#ba1a1a';
-            })
-            .finally(() => {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = `
-                    <span class="material-symbols-outlined" style="font-size: 20px;">send</span>
-                    Enviar Solicitud
-                `;
-            });
+                    const formData = new FormData(form);
+                    const data = Object.fromEntries(formData.entries());
+
+                    console.log('📤 Enviando datos:', data);
+
+                    fetch(SCRIPT_URL, {
+                            method: 'POST',
+                            mode: 'no-cors',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(data)
+                        })
+                        .then(() => {
+                            console.log('✅ Formulario enviado');
+                            statusDiv.innerHTML = '✅ ¡Tu solicitud se ha enviado correctamente!';
+                            statusDiv.style.color = '#2e7d32';
+                            form.reset();
+                        })
+                        .catch((error) => {
+                            console.error('❌ Error:', error);
+                            statusDiv.innerHTML = '❌ Error de conexión. Por favor, inténtalo de nuevo.';
+                            statusDiv.style.color = '#ba1a1a';
+                        })
+                        .finally(() => {
+                            submitBtn.disabled = false;
+                            submitBtn.innerHTML = `
+                                <span class="material-symbols-outlined" style="font-size: 20px;">send</span>
+                                Enviar Solicitud
+                            `;
+                        });
+                });
+            }
         });
-    }
-});
 
-// Añadir animación
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes spin {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
-    }
-`;
-document.head.appendChild(style);
-</script>
+        // Animación de spin
+        const styleSpin = document.createElement('style');
+        styleSpin.textContent = `
+            @keyframes spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(styleSpin);
+    </script>
+
 </body>
 </html>

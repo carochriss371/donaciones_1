@@ -103,21 +103,50 @@ function renderAll() {
 }
 
 function renderSummary() {
+    // 1. Calcular totales SOLO de donativos/donativas desde los datos
+    let totalBs = 0;
+    let totalUsd = 0;
+    
+    state.contabilidad.forEach(account => {
+        const isBs = account.currency === 'Bs.';
+        const isUsd = account.currency === '$';
+        
+        (account.rows || []).forEach(row => {
+            const asiento = (row.asiento || '').toLowerCase();
+            if (asiento.includes('donativo') || asiento.includes('donativa')) {
+                if (row.debe) {
+                    if (isBs) totalBs += row.debe;
+                    if (isUsd) totalUsd += row.debe;
+                }
+            }
+        });
+    });
+
+    // 2. Saldos netos (pueden venir del summary o calcularse)
     const s = state.summary;
-    if (!s) return;
-
-    const bs = s.bs || {};
-    const usd = s.usd || {};
-
-    document.getElementById('totalBs').textContent = `Bs. ${formatNumber(bs.totalRecaudado || 0)}`;
-    document.getElementById('totalUsd').textContent = `$ ${formatNumber(usd.totalRecaudado || 0)}`;
+    let saldoBs = 0;
+    let saldoUsd = 0;
     
-    const saldoRealBs = calcularSaldoReal('Bs.');
-    const saldoRealUsd = calcularSaldoReal('$');
+    if (s) {
+        // Usar summary si existe
+        saldoBs = (s.bs && s.bs.saldoNeto) ? s.bs.saldoNeto : calcularSaldoReal('Bs.');
+        saldoUsd = (s.usd && s.usd.saldoNeto) ? s.usd.saldoNeto : calcularSaldoReal('$');
+    } else {
+        // Calcular directamente
+        saldoBs = calcularSaldoReal('Bs.');
+        saldoUsd = calcularSaldoReal('$');
+    }
+
+    // 3. Actualizar DOM
+    document.getElementById('totalBs').textContent = `Bs. ${formatNumber(totalBs)}`;
+    document.getElementById('totalUsd').textContent = `$ ${formatNumber(totalUsd)}`;
+    document.getElementById('saldoNetoBs').textContent = `Bs. ${formatNumber(saldoBs)}`;
+    document.getElementById('saldoNetoUsd').textContent = `$ ${formatNumber(saldoUsd)}`;
     
-    document.getElementById('saldoNetoBs').textContent = `Bs. ${formatNumber(saldoRealBs)}`;
-    document.getElementById('saldoNetoUsd').textContent = `$ ${formatNumber(saldoRealUsd)}`;
-    document.getElementById('totalRecaudado').textContent = `Bs. ${formatNumber(bs.totalRecaudado || 0)} | $ ${formatNumber(usd.totalRecaudado || 0)}`;
+    const totalRecaudadoText = `Bs. ${formatNumber(totalBs)} | $ ${formatNumber(totalUsd)}`;
+    document.getElementById('totalRecaudado').textContent = totalRecaudadoText;
+    const heroElement = document.getElementById('totalRecaudadoHero');
+    if (heroElement) heroElement.textContent = totalRecaudadoText;
 }
 
 function calcularSaldoReal(moneda) {
@@ -419,6 +448,7 @@ function renderDonado() {
 // ============================================
 
 function renderImpacto() {
+    // Combos entregados
     const combosUnicos = new Set();
     state.donado.forEach(d => {
         if (d.combo && d.combo.trim() !== '') {
@@ -427,9 +457,44 @@ function renderImpacto() {
     });
     document.getElementById('combosEntregados').textContent = combosUnicos.size;
     
+    // Productos donados
     const totalDonado = state.donado.reduce((sum, d) => sum + (parseInt(d.cantidad) || 0), 0);
     document.getElementById('productosDonados').textContent = totalDonado;
+    
+    // === NUEVO: Personas donantes ===
+    const donantesUnicos = contarDonantesUnicos();
+    document.getElementById('personasDonantes').textContent = donantesUnicos;
 }
+
+
+// ============================================
+// CONTAR DONANTES ÚNICOS DESDE CONTABILIDAD
+// ============================================
+
+function contarDonantesUnicos() {
+    const donantes = new Set();
+    
+    // Recorrer todas las cuentas de contabilidad (Bs. y USD)
+    state.contabilidad.forEach(account => {
+        (account.rows || []).forEach(row => {
+            const asiento = row.asiento || '';
+            // Buscar "Donativo" o "Donativa" (insensible a mayúsculas)
+            if (asiento.toLowerCase().includes('donativo') || asiento.toLowerCase().includes('donativa')) {
+                // Extraer el nombre entre paréntesis al final
+                const match = asiento.match(/\(([^)]+)\)\s*$/);
+                if (match) {
+                    const nombre = match[1].trim();
+                    if (nombre && nombre.length > 0) {
+                        donantes.add(nombre);
+                    }
+                }
+            }
+        });
+    });
+    
+    return donantes.size;
+}
+
 
 // ============================================
 // CONTADORES
