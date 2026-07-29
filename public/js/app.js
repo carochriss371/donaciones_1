@@ -204,7 +204,8 @@ function contarDonantesUnicos() {
         (account.rows || []).forEach(row => {
             const asiento = row.asiento || '';
             if (asiento.toLowerCase().includes('donativo') || asiento.toLowerCase().includes('donativa')) {
-                const match = asiento.match(/\(([^)]+)\)\s*$/);
+                // Buscar el primer paréntesis que contiene el nombre
+                const match = asiento.match(/\(([^)]+)\)/);
                 if (match) {
                     const nombre = match[1].trim();
                     if (nombre && nombre.length > 0) {
@@ -214,6 +215,9 @@ function contarDonantesUnicos() {
             }
         });
     });
+    
+    console.log('📊 Donantes únicos:', [...donantes]);
+    console.log('📊 Total:', donantes.size);
     
     return donantes.size;
 }
