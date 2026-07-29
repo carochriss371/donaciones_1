@@ -409,7 +409,7 @@ function renderEntradas() {
         <tr class="hover:bg-surface-container-lowest transition-colors fade-in">
             <td class="px-md py-md text-body-sm font-body-sm text-on-surface">${formatDate(row.fecha)}</td>
             <td class="px-md py-md text-body-sm font-body-sm font-medium text-on-surface">${row.producto || 'Sin nombre'}</td>
-            <td class="px-md py-md text-body-sm font-body-sm text-right text-secondary font-medium">+${formatNumberSinDecimales(row.cantidad || 0)}</td>
+            <td class="px-md py-md text-body-sm font-body-sm text-left text-secondary font-medium">+${formatNumberSinDecimales(row.cantidad || 0)}</td>
         </tr>
     `).join('');
 
