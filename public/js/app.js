@@ -373,10 +373,10 @@ function renderInventario() {
             <tr class="hover:bg-surface-container-lowest transition-colors fade-in">
                 <td class="px-md py-md text-body-sm font-body-sm font-mono text-on-surface">${row.cod || '-'}</td>
                 <td class="px-md py-md text-body-sm font-body-sm font-medium text-on-surface">${row.producto || 'Sin nombre'}</td>
-                <td class="px-md py-md text-body-sm font-body-sm text-right text-on-surface">${formatNumber(row.entradas || 0)}</td>
-                <td class="px-md py-md text-body-sm font-body-sm text-right text-on-surface">${formatNumber(row.salidas || 0)}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-right text-on-surface">${formatNumberSinDecimales(row.entradas || 0)}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-right text-on-surface">${formatNumberSinDecimales(row.salidas || 0)}</td>
                 <td class="px-md py-md text-body-sm font-body-sm text-right">
-                    <span class="${badgeClass}">${formatNumber(stock)} ${badgeText}</span>
+                    <span class="${badgeClass}">${formatNumberSinDecimales(stock)} ${badgeText}</span>
                 </td>
             </tr>
         `;
@@ -409,7 +409,7 @@ function renderEntradas() {
         <tr class="hover:bg-surface-container-lowest transition-colors fade-in">
             <td class="px-md py-md text-body-sm font-body-sm text-on-surface">${formatDate(row.fecha)}</td>
             <td class="px-md py-md text-body-sm font-body-sm font-medium text-on-surface">${row.producto || 'Sin nombre'}</td>
-            <td class="px-md py-md text-body-sm font-body-sm text-right text-secondary font-medium">+${formatNumber(row.cantidad || 0)}</td>
+            <td class="px-md py-md text-body-sm font-body-sm text-right text-secondary font-medium">+${formatNumberSinDecimales(row.cantidad || 0)}</td>
         </tr>
     `).join('');
 
@@ -861,6 +861,14 @@ function formatNumber(num) {
     return Number(num).toLocaleString('es-VE', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
+    });
+}
+
+function formatNumberSinDecimales(num) {
+    if (num === null || num === undefined) return '0';
+    return Number(num).toLocaleString('es-VE', {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
     });
 }
 
