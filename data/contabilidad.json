@@ -440,6 +440,22 @@
         "haber": 176141.87,
         "saldo": 2499.789999999979,
         "numeroFactura": null
+      },
+      {
+        "fecha": "Mon Jul 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+        "asiento": "Cambio de Binance a BS",
+        "debe": 8173,
+        "haber": null,
+        "saldo": 10672.789999999979,
+        "numeroFactura": null
+      },
+      {
+        "fecha": "Mon Jul 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+        "asiento": "Compra insumos medicos (Victima del terremoto)",
+        "debe": null,
+        "haber": 8173,
+        "saldo": 2499.789999999979,
+        "numeroFactura": "17"
       }
     ]
   },
@@ -597,6 +613,14 @@
         "debe": 201.24,
         "haber": null,
         "saldo": 201.23999999999992,
+        "numeroFactura": null
+      },
+      {
+        "fecha": "Mon Jul 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+        "asiento": "Cambio de Binance a BS",
+        "debe": null,
+        "haber": 11.02,
+        "saldo": 190.2199999999999,
         "numeroFactura": null
       }
     ]
