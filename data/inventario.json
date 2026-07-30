@@ -516,5 +516,19 @@
     "entradas": 12,
     "salidas": 12,
     "stock": 0
+  },
+  {
+    "cod": "75",
+    "producto": "Sulfadiazina de plata",
+    "entradas": 1,
+    "salidas": 0,
+    "stock": 1
+  },
+  {
+    "cod": "76",
+    "producto": "Gasa para quemados",
+    "entradas": 2,
+    "salidas": 0,
+    "stock": 2
   }
 ]

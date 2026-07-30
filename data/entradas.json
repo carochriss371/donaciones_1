@@ -652,5 +652,17 @@
     "producto": "Paquete de vasos",
     "fecha": "Sat Jun 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 1
+  },
+  {
+    "cod": "75",
+    "producto": "Sulfadiazina de plata",
+    "fecha": "Mon Jul 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1
+  },
+  {
+    "cod": "76",
+    "producto": "Gasa para quemados",
+    "fecha": "Mon Jul 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 2
   }
 ]
