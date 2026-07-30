@@ -238,21 +238,22 @@ function renderContabilidadBS() {
     }
 
     let allRows = [];
+    let index = 0;
     cuentasBS.forEach(account => {
         (account.rows || []).forEach(row => {
             allRows.push({
                 accountName: 'Cuenta BS',
                 currency: 'Bs.',
                 numeroFactura: row.numeroFactura || null,
+                _index: index++, // Guardar el orden original
                 ...row
             });
         });
     });
 
-    // Ordenar por fecha (más reciente primero)
-    // Si misma fecha, primero los ingresos (debe) y luego egresos (haber)
+    // Ordenar: primero por fecha (más reciente primero), luego por índice original
     allRows.sort((a, b) => {
-        if (!a.fecha && !b.fecha) return 0;
+        if (!a.fecha && !b.fecha) return a._index - b._index;
         if (!a.fecha) return 1;
         if (!b.fecha) return -1;
         
@@ -263,10 +264,8 @@ function renderContabilidadBS() {
             return dateB - dateA;
         }
         
-        // Misma fecha: primero ingresos (debe), luego egresos (haber)
-        if (a.debe && !b.debe) return -1;
-        if (!a.debe && b.debe) return 1;
-        return 0;
+        // Misma fecha: mantener el orden original
+        return a._index - b._index;
     });
 
     tbody.innerHTML = allRows.map(row => {
@@ -317,21 +316,21 @@ function renderContabilidadUSD() {
     }
 
     let allRows = [];
+    let index = 0;
     cuentasUSD.forEach(account => {
         (account.rows || []).forEach(row => {
             allRows.push({
                 accountName: 'Cuenta USD',
                 currency: '$',
                 numeroFactura: row.numeroFactura || null,
+                _index: index++,
                 ...row
             });
         });
     });
 
-    // Ordenar por fecha (más reciente primero)
-    // Si misma fecha, primero los ingresos (debe) y luego egresos (haber)
     allRows.sort((a, b) => {
-        if (!a.fecha && !b.fecha) return 0;
+        if (!a.fecha && !b.fecha) return a._index - b._index;
         if (!a.fecha) return 1;
         if (!b.fecha) return -1;
         
@@ -342,10 +341,7 @@ function renderContabilidadUSD() {
             return dateB - dateA;
         }
         
-        // Misma fecha: primero ingresos (debe), luego egresos (haber)
-        if (a.debe && !b.debe) return -1;
-        if (!a.debe && b.debe) return 1;
-        return 0;
+        return a._index - b._index;
     });
 
     tbody.innerHTML = allRows.map(row => {
