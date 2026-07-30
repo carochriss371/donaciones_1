@@ -1296,10 +1296,18 @@
     "combo": "22"
   },
   {
-    "cod": "",
-    "producto": "NO EXISTE",
+    "cod": "75",
+    "producto": "Sulfadiazina de plata",
     "fecha": "Mon Jul 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
-    "cantidad": 20,
+    "cantidad": 1,
+    "centro": "Miembros Voluntarios La Guaira",
+    "combo": "23"
+  },
+  {
+    "cod": "76",
+    "producto": "Gasa para quemados",
+    "fecha": "Mon Jul 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 2,
     "centro": "Miembros Voluntarios La Guaira",
     "combo": "23"
   }
