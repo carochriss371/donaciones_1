@@ -1310,5 +1310,29 @@
     "cantidad": 2,
     "centro": "Miembros Voluntarios La Guaira",
     "combo": "23"
+  },
+  {
+    "cod": "24",
+    "producto": "Metamizol Ampolla",
+    "fecha": "Mon Jul 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 9,
+    "centro": "Miembros Voluntarios La Guaira",
+    "combo": "24"
+  },
+  {
+    "cod": "11",
+    "producto": "Dexametasona Ampolla",
+    "fecha": "Mon Jul 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 5,
+    "centro": "Miembros Voluntarios La Guaira",
+    "combo": "24"
+  },
+  {
+    "cod": "72",
+    "producto": "Paquete de agua ",
+    "fecha": "Mon Jul 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Miembros Voluntarios La Guaira",
+    "combo": "24"
   }
 ]

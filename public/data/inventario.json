@@ -73,8 +73,8 @@
     "cod": "11",
     "producto": "Dexametasona Ampolla",
     "entradas": 25,
-    "salidas": 8,
-    "stock": 17
+    "salidas": 13,
+    "stock": 12
   },
   {
     "cod": "12",
@@ -164,8 +164,8 @@
     "cod": "24",
     "producto": "Metamizol Ampolla",
     "entradas": 36,
-    "salidas": 9,
-    "stock": 27
+    "salidas": 18,
+    "stock": 18
   },
   {
     "cod": "25",
@@ -500,8 +500,8 @@
     "cod": "72",
     "producto": "Paquete de agua ",
     "entradas": 8,
-    "salidas": 2,
-    "stock": 6
+    "salidas": 3,
+    "stock": 5
   },
   {
     "cod": "73",
