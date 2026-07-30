@@ -562,7 +562,10 @@ const evidenciaImagenes = {
     '19': ['img/combos/Combo_19.webp','img/combos/Combo_19(1).webp'],
     '20': ['img/combos/Combo_20.webp','img/combos/Combo_20(1).webp'],
     '21': ['img/combos/Combo_21.webp','img/combos/Combo_21(1).webp'],
-    '22': ['img/combos/Combo_22.webp','img/combos/Combo_22(1).webp']
+    '22': ['img/combos/Combo_22.webp','img/combos/Combo_22(1).webp'],
+    '23': ['img/combos/Combo_23.webp', 'img/combos/Combo_23(1).webp','img/combos/Combo_23(2).webp'],
+    '24': ['img/combos/Combo_24.webp', 'img/combos/Combo_24(1).webp','img/combos/Combo_24(2).webp']
+    
 };
 
 const facturaImagenes = {
@@ -581,7 +584,8 @@ const facturaImagenes = {
     '13': '/img/facturas/Factura_13.webp',
     '14': '/img/facturas/Factura_14.webp',
     '15': '/img/facturas/Factura_15.webp',
-    '16': '/img/facturas/Factura_16.webp'
+    '16': '/img/facturas/Factura_16.webp',
+    '17': '/img/facturas/Factura_17.webp'
 };
 
 // ============================================
