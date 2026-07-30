@@ -244,33 +244,57 @@ function renderContabilidadBS() {
                 accountName: 'Cuenta BS',
                 currency: 'Bs.',
                 numeroFactura: row.numeroFactura || null,
-                // Guardar el índice original para mantener el orden
-                _index: allRows.length,
                 ...row
             });
         });
     });
 
-    // Ordenar por fecha (más reciente primero) y luego por índice original
+    // Ordenar por fecha (más reciente primero)
+    // Si misma fecha, primero los ingresos (debe) y luego egresos (haber)
     allRows.sort((a, b) => {
-        // Si no tienen fecha, usar el índice
-        if (!a.fecha && !b.fecha) return a._index - b._index;
+        if (!a.fecha && !b.fecha) return 0;
         if (!a.fecha) return 1;
         if (!b.fecha) return -1;
         
         const dateA = new Date(a.fecha);
         const dateB = new Date(b.fecha);
         
-        // Si la fecha es igual, mantener el orden original
-        if (dateA.getTime() === dateB.getTime()) {
-            return a._index - b._index;
+        if (dateA.getTime() !== dateB.getTime()) {
+            return dateB - dateA;
         }
         
-        return dateB - dateA; // Más reciente primero
+        // Misma fecha: primero ingresos (debe), luego egresos (haber)
+        if (a.debe && !b.debe) return -1;
+        if (!a.debe && b.debe) return 1;
+        return 0;
     });
 
     tbody.innerHTML = allRows.map(row => {
-        // ... resto del código igual ...
+        const moneda = 'Bs.';
+        const ingreso = row.debe ? `${moneda} ${formatNumber(row.debe)}` : '-';
+        const egreso = row.haber ? `${moneda} ${formatNumber(row.haber)}` : '-';
+        const saldo = row.saldo ? `${moneda} ${formatNumber(row.saldo)}` : '-';
+        const colorIngreso = row.debe ? 'text-primary font-medium' : 'text-on-surface-variant';
+        const colorEgreso = row.haber ? 'text-error font-medium' : 'text-on-surface-variant';
+        
+        let facturaBtn = '';
+        if (row.numeroFactura) {
+            facturaBtn = `<button class="btn-factura" onclick="verFactura('${row.numeroFactura}')">
+                <span class="material-symbols-outlined" style="font-size: 14px;">receipt</span> Factura
+            </button>`;
+        }
+        
+        return `
+            <tr class="hover:bg-surface-container-lowest transition-colors fade-in">
+                <td class="px-md py-md text-body-sm font-body-sm font-medium text-on-surface">${row.accountName}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-on-surface">${formatDate(row.fecha)}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-on-surface max-w-xs truncate">${row.asiento || '-'}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-right ${colorIngreso}">${ingreso}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-right ${colorEgreso}">${egreso}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-right font-medium text-on-surface">${saldo}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-center">${facturaBtn}</td>
+            </tr>
+        `;
     }).join('');
 
     const pagContainer = document.getElementById('contabilidadBSPagination');
@@ -299,34 +323,63 @@ function renderContabilidadUSD() {
                 accountName: 'Cuenta USD',
                 currency: '$',
                 numeroFactura: row.numeroFactura || null,
-                _index: allRows.length,
                 ...row
             });
         });
     });
 
+    // Ordenar por fecha (más reciente primero)
+    // Si misma fecha, primero los ingresos (debe) y luego egresos (haber)
     allRows.sort((a, b) => {
-        if (!a.fecha && !b.fecha) return a._index - b._index;
+        if (!a.fecha && !b.fecha) return 0;
         if (!a.fecha) return 1;
         if (!b.fecha) return -1;
         
         const dateA = new Date(a.fecha);
         const dateB = new Date(b.fecha);
         
-        if (dateA.getTime() === dateB.getTime()) {
-            return a._index - b._index;
+        if (dateA.getTime() !== dateB.getTime()) {
+            return dateB - dateA;
         }
         
-        return dateB - dateA;
+        // Misma fecha: primero ingresos (debe), luego egresos (haber)
+        if (a.debe && !b.debe) return -1;
+        if (!a.debe && b.debe) return 1;
+        return 0;
     });
 
     tbody.innerHTML = allRows.map(row => {
-        // ... resto del código igual ...
+        const moneda = '$';
+        const ingreso = row.debe ? `${moneda} ${formatNumber(row.debe)}` : '-';
+        const egreso = row.haber ? `${moneda} ${formatNumber(row.haber)}` : '-';
+        const saldo = row.saldo ? `${moneda} ${formatNumber(row.saldo)}` : '-';
+        const colorIngreso = row.debe ? 'text-primary font-medium' : 'text-on-surface-variant';
+        const colorEgreso = row.haber ? 'text-error font-medium' : 'text-on-surface-variant';
+        
+        let facturaBtn = '';
+        if (row.numeroFactura) {
+            facturaBtn = `<button class="btn-factura" onclick="verFactura('${row.numeroFactura}')">
+                <span class="material-symbols-outlined" style="font-size: 14px;">receipt</span> Factura
+            </button>`;
+        }
+        
+        return `
+            <tr class="hover:bg-surface-container-lowest transition-colors fade-in">
+                <td class="px-md py-md text-body-sm font-body-sm font-medium text-on-surface">${row.accountName}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-on-surface">${formatDate(row.fecha)}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-on-surface max-w-xs truncate">${row.asiento || '-'}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-right ${colorIngreso}">${ingreso}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-right ${colorEgreso}">${egreso}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-right font-medium text-on-surface">${saldo}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-center">${facturaBtn}</td>
+            </tr>
+        `;
     }).join('');
 
     const pagContainer = document.getElementById('contabilidadUSDPagination');
     if (pagContainer) pagContainer.style.display = 'none';
 }
+
 // ============================================
 // INVENTARIO (CON SCROLL)
 // ============================================
