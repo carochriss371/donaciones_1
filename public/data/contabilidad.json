@@ -638,6 +638,14 @@
         "haber": null,
         "saldo": 215.2199999999999,
         "numeroFactura": null
+      },
+      {
+        "fecha": "Mon Aug 03 2026 03:00:00 GMT-0400 (Venezuela Time)",
+        "asiento": "Donativo Binance (Miguel)",
+        "debe": 5,
+        "haber": null,
+        "saldo": 220.2199999999999,
+        "numeroFactura": null
       }
     ]
   }
