@@ -456,6 +456,14 @@
         "haber": 8173,
         "saldo": 2499.789999999979,
         "numeroFactura": "17"
+      },
+      {
+        "fecha": "Mon Aug 03 2026 03:00:00 GMT-0400 (Venezuela Time)",
+        "asiento": "Donativo en BS (Ingrid)",
+        "debe": 1500,
+        "haber": null,
+        "saldo": 3999.789999999979,
+        "numeroFactura": null
       }
     ]
   },
@@ -633,7 +641,7 @@
       },
       {
         "fecha": "Fri Jul 31 2026 03:00:00 GMT-0400 (Venezuela Time)",
-        "asiento": "Donativo Binance (Maybelis)",
+        "asiento": "Donativo Binance 7520 (Maybelis)",
         "debe": 15,
         "haber": null,
         "saldo": 215.2199999999999,
@@ -641,10 +649,18 @@
       },
       {
         "fecha": "Mon Aug 03 2026 03:00:00 GMT-0400 (Venezuela Time)",
-        "asiento": "Donativo Binance (Miguel)",
+        "asiento": "Donativo Binance 9424 (Miguel)",
         "debe": 5,
         "haber": null,
         "saldo": 220.2199999999999,
+        "numeroFactura": null
+      },
+      {
+        "fecha": "Mon Aug 03 2026 03:00:00 GMT-0400 (Venezuela Time)",
+        "asiento": "Donativo Binance (Ingrid)",
+        "debe": 30,
+        "haber": null,
+        "saldo": 250.2199999999999,
         "numeroFactura": null
       }
     ]
