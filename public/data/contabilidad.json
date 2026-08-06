@@ -662,6 +662,14 @@
         "haber": null,
         "saldo": 250.2199999999999,
         "numeroFactura": null
+      },
+      {
+        "fecha": "Wed Aug 05 2026 03:00:00 GMT-0400 (Venezuela Time)",
+        "asiento": "Donativo Binance (Leyver)",
+        "debe": 5,
+        "haber": null,
+        "saldo": 255.2199999999999,
+        "numeroFactura": null
       }
     ]
   }

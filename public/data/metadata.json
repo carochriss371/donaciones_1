@@ -7,12 +7,12 @@
       "currency": "Bs."
     },
     "usd": {
-      "totalRecaudado": 699.3199999999999,
+      "totalRecaudado": 704.3199999999999,
       "totalEjecutado": 669.09,
-      "saldoNeto": 30.229999999999905,
+      "saldoNeto": 35.229999999999905,
       "currency": "$"
     },
-    "lastUpdate": "05 de agosto de 2026 a las 21:45"
+    "lastUpdate": "05 de agosto de 2026 a las 22:13"
   },
-  "timestamp": "2026-08-06T01:45:58.687Z"
+  "timestamp": "2026-08-06T02:13:17.360Z"
 }
