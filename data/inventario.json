@@ -530,5 +530,26 @@
     "entradas": 2,
     "salidas": 2,
     "stock": 0
+  },
+  {
+    "cod": "77",
+    "producto": "Jabón de Baño Redondo 30g",
+    "entradas": 100,
+    "salidas": 0,
+    "stock": 100
+  },
+  {
+    "cod": "78",
+    "producto": "Champu 30ml",
+    "entradas": 99,
+    "salidas": 0,
+    "stock": 99
+  },
+  {
+    "cod": "79",
+    "producto": "Acondicionador 30ml",
+    "entradas": 100,
+    "salidas": 0,
+    "stock": 100
   }
 ]
