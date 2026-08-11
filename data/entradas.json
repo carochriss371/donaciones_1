@@ -675,12 +675,12 @@
     "cod": "78",
     "producto": "Champu 30ml",
     "fecha": "Wed Aug 05 2026 03:00:00 GMT-0400 (Venezuela Time)",
-    "cantidad": 99
+    "cantidad": 100
   },
   {
     "cod": "79",
     "producto": "Acondicionador 30ml",
     "fecha": "Wed Aug 05 2026 03:00:00 GMT-0400 (Venezuela Time)",
-    "cantidad": 100
+    "cantidad": 99
   }
 ]

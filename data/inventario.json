@@ -541,15 +541,15 @@
   {
     "cod": "78",
     "producto": "Champu 30ml",
-    "entradas": 99,
+    "entradas": 100,
     "salidas": 0,
-    "stock": 99
+    "stock": 100
   },
   {
     "cod": "79",
     "producto": "Acondicionador 30ml",
-    "entradas": 100,
+    "entradas": 99,
     "salidas": 0,
-    "stock": 100
+    "stock": 99
   }
 ]
