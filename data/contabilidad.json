@@ -699,8 +699,8 @@
         "fecha": "Thu Aug 06 2026 03:00:00 GMT-0400 (Venezuela Time)",
         "asiento": "Cambio de Binance a BS",
         "debe": null,
-        "haber": null,
-        "saldo": null,
+        "haber": 75.92,
+        "saldo": 175.2999999999999,
         "numeroFactura": null
       }
     ]
