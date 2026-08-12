@@ -483,11 +483,35 @@
       },
       {
         "fecha": "Fri Aug 07 2026 03:00:00 GMT-0400 (Venezuela Time)",
-        "asiento": "Compra insumos de higiene personal",
+        "asiento": "Compra insumos de higiene personal (Toallitas)",
         "debe": null,
         "haber": 34372.33,
         "saldo": 38427.45999999998,
         "numeroFactura": "18"
+      },
+      {
+        "fecha": "Tue Aug 11 2026 03:00:00 GMT-0400 (Venezuela Time)",
+        "asiento": "Compra insumos de higiene personal (Cepillos)",
+        "debe": null,
+        "haber": 10656.94,
+        "saldo": 27770.519999999975,
+        "numeroFactura": "19"
+      },
+      {
+        "fecha": "Wed Aug 12 2026 03:00:00 GMT-0400 (Venezuela Time)",
+        "asiento": "Cambio de Binance a BS",
+        "debe": 114250,
+        "haber": null,
+        "saldo": 142020.51999999996,
+        "numeroFactura": null
+      },
+      {
+        "fecha": "",
+        "asiento": "Compra insumos de higiene personal (Cepillos)",
+        "debe": null,
+        "haber": null,
+        "saldo": null,
+        "numeroFactura": null
       }
     ]
   },
