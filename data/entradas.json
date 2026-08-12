@@ -666,21 +666,33 @@
     "cantidad": 2
   },
   {
+    "cod": "81",
+    "producto": "Mini toallitas húmedas",
+    "fecha": "Thu Aug 06 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 104
+  },
+  {
+    "cod": "80",
+    "producto": "Cepillo de dientes",
+    "fecha": "Tue Aug 11 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 108
+  },
+  {
     "cod": "77",
     "producto": "Jabón de Baño Redondo 30g",
-    "fecha": "Wed Aug 05 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "fecha": "Wed Aug 12 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 100
   },
   {
     "cod": "78",
     "producto": "Champu 30ml",
-    "fecha": "Wed Aug 05 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "fecha": "Wed Aug 12 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 100
   },
   {
     "cod": "79",
     "producto": "Acondicionador 30ml",
-    "fecha": "Wed Aug 05 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "fecha": "Wed Aug 12 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 99
   }
 ]

@@ -551,5 +551,19 @@
     "entradas": 99,
     "salidas": 0,
     "stock": 99
+  },
+  {
+    "cod": "80",
+    "producto": "Cepillo de dientes",
+    "entradas": 108,
+    "salidas": 0,
+    "stock": 108
+  },
+  {
+    "cod": "81",
+    "producto": "Mini toallitas húmedas",
+    "entradas": 104,
+    "salidas": 0,
+    "stock": 104
   }
 ]
