@@ -609,7 +609,10 @@ const facturaImagenes = {
     '14': '/img/facturas/Factura_14.webp',
     '15': '/img/facturas/Factura_15.webp',
     '16': '/img/facturas/Factura_16.webp',
-    '17': '/img/facturas/Factura_17.webp'
+    '17': '/img/facturas/Factura_17.webp',
+    '18': '/img/facturas/Factura_18.webp',
+    '19': '/img/facturas/Factura_19.webp',
+    '20': '/img/facturas/Factura_20.webp'
 };
 
 // ============================================
