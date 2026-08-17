@@ -734,6 +734,14 @@
         "haber": 130.54,
         "saldo": 44.759999999999906,
         "numeroFactura": null
+      },
+      {
+        "fecha": "Mon Aug 17 2026 03:00:00 GMT-0400 (Venezuela Time)",
+        "asiento": "Donativo Binance 0176 (Marianyeli)",
+        "debe": 5,
+        "haber": null,
+        "saldo": 49.759999999999906,
+        "numeroFactura": null
       }
     ]
   }
