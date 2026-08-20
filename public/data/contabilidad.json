@@ -774,6 +774,14 @@
         "haber": null,
         "saldo": 27.799999999999905,
         "numeroFactura": null
+      },
+      {
+        "fecha": "Wed Aug 19 2026 03:00:00 GMT-0400 (Venezuela Time)",
+        "asiento": "Donativo Binance (Ingrid)",
+        "debe": 30,
+        "haber": null,
+        "saldo": 57.799999999999905,
+        "numeroFactura": null
       }
     ]
   }
