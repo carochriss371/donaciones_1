@@ -512,6 +512,22 @@
         "haber": 126578.53,
         "saldo": 15441.989999999962,
         "numeroFactura": "20"
+      },
+      {
+        "fecha": "Mon Aug 17 2026 03:00:00 GMT-0400 (Venezuela Time)",
+        "asiento": "Cambio de Binance a BS",
+        "debe": 20243,
+        "haber": null,
+        "saldo": 35684.98999999996,
+        "numeroFactura": null
+      },
+      {
+        "fecha": "Mon Aug 17 2026 03:00:00 GMT-0400 (Venezuela Time)",
+        "asiento": "Compra insumos de higiene personal (papel higiénico)",
+        "debe": null,
+        "haber": 20611.36,
+        "saldo": 15073.629999999961,
+        "numeroFactura": "21"
       }
     ]
   },
@@ -741,6 +757,22 @@
         "debe": 5,
         "haber": null,
         "saldo": 49.759999999999906,
+        "numeroFactura": null
+      },
+      {
+        "fecha": "Mon Aug 17 2026 03:00:00 GMT-0400 (Venezuela Time)",
+        "asiento": "Cambio de Binance a BS",
+        "debe": null,
+        "haber": 22.96,
+        "saldo": 26.799999999999905,
+        "numeroFactura": null
+      },
+      {
+        "fecha": "Mon Aug 17 2026 03:00:00 GMT-0400 (Venezuela Time)",
+        "asiento": "Donativo Binance (Leyver)",
+        "debe": 1,
+        "haber": null,
+        "saldo": 27.799999999999905,
         "numeroFactura": null
       }
     ]
