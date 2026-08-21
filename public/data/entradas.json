@@ -694,5 +694,17 @@
     "producto": "Acondicionador 30ml",
     "fecha": "Wed Aug 12 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 99
+  },
+  {
+    "cod": "82",
+    "producto": "Cremas dentales",
+    "fecha": "Fri Aug 21 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 108
+  },
+  {
+    "cod": "83",
+    "producto": "Bolsas plastica mediana",
+    "fecha": "Fri Aug 21 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 100
   }
 ]
