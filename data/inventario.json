@@ -565,5 +565,19 @@
     "entradas": 104,
     "salidas": 0,
     "stock": 104
+  },
+  {
+    "cod": "82",
+    "producto": "Cremas dentales",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
+  },
+  {
+    "cod": "83",
+    "producto": "Bolsas plastica mediana",
+    "entradas": 0,
+    "salidas": 0,
+    "stock": 0
   }
 ]
