@@ -263,75 +263,55 @@ function renderContabilidadBS() {
 
     console.log('📊 Total registros:', todosLosRegistros.length);
     
-    // === 2. Separar por cuenta ===
-    const registrosPersonal = todosLosRegistros.filter(r => !r._esDayana);
-    const registrosDayana = todosLosRegistros.filter(r => r._esDayana);
+    // === 2. Calcular saldo para TODOS los registros en orden original ===
+    // Ordenar por _ordenOriginal (orden del sheet)
+    const registrosPorOrden = [...todosLosRegistros].sort((a, b) => a._ordenOriginal - b._ordenOriginal);
     
-    console.log('📊 Personal:', registrosPersonal.length);
-    console.log('📊 Dayana:', registrosDayana.length);
+    let saldo = 0;
+    const saldoPorOrden = {};
     
-    // === 3. Función para procesar cada cuenta ===
-    const procesarCuenta = (registros) => {
-        if (registros.length === 0) return [];
-        
-        // 3a. Calcular el saldo usando el orden ORIGINAL del sheet (ascendente)
-        const registrosPorOrden = [...registros].sort((a, b) => a._ordenOriginal - b._ordenOriginal);
-        
-        let saldo = 0;
-        const saldoPorOrden = {};
-        
-        registrosPorOrden.forEach(row => {
-            if (row.debe) saldo += row.debe;
-            if (row.haber) saldo -= row.haber;
-            saldoPorOrden[row._ordenOriginal] = saldo;
-        });
-        
-        // 3b. Ordenar para MOSTRAR: de más NUEVO a más VIEJO
-        const registrosMostrar = [...registros];
-        
-        registrosMostrar.sort((a, b) => {
-            if (!a.fecha && !b.fecha) return 0;
-            if (!a.fecha) return 1;
-            if (!b.fecha) return -1;
-            
-            const dateA = new Date(a.fecha);
-            const dateB = new Date(b.fecha);
-            
-            // Fecha descendente (más nuevo primero)
-            if (dateA.getTime() !== dateB.getTime()) {
-                return dateB - dateA;
-            }
-            
-            // Misma fecha: invertir orden original
-            return b._ordenOriginal - a._ordenOriginal;
-        });
-        
-        // 3c. Asignar el saldo calculado
-        registrosMostrar.forEach(row => {
-            row._saldoCalculado = saldoPorOrden[row._ordenOriginal] || 0;
-        });
-        
-        return registrosMostrar;
-    };
+    registrosPorOrden.forEach(row => {
+        if (row.debe) saldo += row.debe;
+        if (row.haber) saldo -= row.haber;
+        saldoPorOrden[row._ordenOriginal] = saldo;
+    });
     
-    // === 4. Procesar cada cuenta por separado ===
-    const personalProcesado = procesarCuenta(registrosPersonal);
-    const dayanaProcesado = procesarCuenta(registrosDayana);
+    // === 3. Asignar saldo a todos los registros ===
+    todosLosRegistros.forEach(row => {
+        row._saldoCalculado = saldoPorOrden[row._ordenOriginal] || 0;
+    });
     
-    // === 5. UNIR: PRIMERO Dayana, LUEGO Personal ===
-    const allRows = [...dayanaProcesado, ...personalProcesado];
+    // === 4. ORDENAR PARA MOSTRAR: por día y dentro del día Dayana primero ===
+    todosLosRegistros.sort((a, b) => {
+        // Primero: fecha descendente (más reciente primero)
+        if (!a.fecha && !b.fecha) return 0;
+        if (!a.fecha) return 1;
+        if (!b.fecha) return -1;
+        
+        const dateA = new Date(a.fecha);
+        const dateB = new Date(b.fecha);
+        
+        if (dateA.getTime() !== dateB.getTime()) {
+            return dateB - dateA;
+        }
+        
+        // Misma fecha: Dayana primero, Personal después
+        if (a._esDayana && !b._esDayana) return -1;
+        if (!a._esDayana && b._esDayana) return 1;
+        
+        // Misma fecha y misma cuenta: invertir orden original (último del sheet primero)
+        return b._ordenOriginal - a._ordenOriginal;
+    });
     
-    console.log('📊 Total a mostrar:', allRows.length);
-    console.log('📊 Dayana mostrados (primero):', dayanaProcesado.length);
-    console.log('📊 Personal mostrados (después):', personalProcesado.length);
+    console.log('📊 Total a mostrar:', todosLosRegistros.length);
     
-    // === 6. Mostrar ===
-    if (allRows.length === 0) {
+    // === 5. Mostrar ===
+    if (todosLosRegistros.length === 0) {
         tbody.innerHTML = `<tr><td colspan="6" class="px-md py-md text-center text-on-surface-variant">No hay datos disponibles</td></tr>`;
         return;
     }
     
-    tbody.innerHTML = allRows.map(row => {
+    tbody.innerHTML = todosLosRegistros.map(row => {
         const moneda = 'Bs.';
         const ingreso = row.debe ? `${moneda} ${formatNumber(row.debe)}` : '-';
         const egreso = row.haber ? `${moneda} ${formatNumber(row.haber)}` : '-';
