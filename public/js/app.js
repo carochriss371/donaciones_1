@@ -246,7 +246,7 @@ function renderContabilidadBS() {
             const asiento = row.asiento || '';
             const asientoLower = asiento.toLowerCase();
             
-            // SOLO detectar si contiene "dayana"
+            // Detectar si contiene "dayana"
             const esDayana = asientoLower.includes('dayana');
             
             todosLosRegistros.push({
@@ -274,37 +274,45 @@ function renderContabilidadBS() {
     const procesarCuenta = (registros) => {
         if (registros.length === 0) return [];
         
-        // 3a. Ordenar por fecha DESCENDENTE (más nuevo primero) para mostrar
-        const registrosOrdenados = [...registros].sort((a, b) => {
-            if (!a.fecha && !b.fecha) return 0;
-            if (!a.fecha) return 1;
-            if (!b.fecha) return -1;
-            return new Date(b.fecha) - new Date(a.fecha);
-        });
-        
-        // 3b. Calcular saldo usando el orden ASCENDENTE (más viejo a más nuevo)
-        const registrosAsc = [...registros].sort((a, b) => {
-            if (!a.fecha && !b.fecha) return 0;
-            if (!a.fecha) return 1;
-            if (!b.fecha) return -1;
-            return new Date(a.fecha) - new Date(b.fecha);
-        });
+        // 3a. Primero, calcular el saldo usando el orden ORIGINAL del sheet (ascendente)
+        // Ordenar por _ordenOriginal (que es el orden en el sheet)
+        const registrosPorOrden = [...registros].sort((a, b) => a._ordenOriginal - b._ordenOriginal);
         
         let saldo = 0;
         const saldoPorOrden = {};
         
-        registrosAsc.forEach(row => {
+        registrosPorOrden.forEach(row => {
             if (row.debe) saldo += row.debe;
             if (row.haber) saldo -= row.haber;
             saldoPorOrden[row._ordenOriginal] = saldo;
         });
         
-        // 3c. Asignar saldo calculado
-        registrosOrdenados.forEach(row => {
+        // 3b. Ahora ordenar para MOSTRAR: de más NUEVO a más VIEJO (descendente por fecha)
+        // Y si misma fecha, invertir el orden original (último del sheet primero)
+        const registrosMostrar = [...registros].sort((a, b) => {
+            // Si no tienen fecha
+            if (!a.fecha && !b.fecha) return 0;
+            if (!a.fecha) return 1;
+            if (!b.fecha) return -1;
+            
+            const dateA = new Date(a.fecha);
+            const dateB = new Date(b.fecha);
+            
+            // Fecha descendente (más nuevo primero)
+            if (dateA.getTime() !== dateB.getTime()) {
+                return dateB - dateA;
+            }
+            
+            // Misma fecha: invertir orden original (último del sheet primero)
+            return b._ordenOriginal - a._ordenOriginal;
+        });
+        
+        // 3c. Asignar el saldo calculado a cada registro
+        registrosMostrar.forEach(row => {
             row._saldoCalculado = saldoPorOrden[row._ordenOriginal] || 0;
         });
         
-        return registrosOrdenados;
+        return registrosMostrar;
     };
     
     // === 4. Procesar cada cuenta por separado ===
@@ -313,6 +321,10 @@ function renderContabilidadBS() {
     
     // === 5. Unir: PRIMERO Personal, LUEGO Dayana ===
     const allRows = [...personalProcesado, ...dayanaProcesado];
+    
+    console.log('📊 Total a mostrar:', allRows.length);
+    console.log('📊 Personal mostrados:', personalProcesado.length);
+    console.log('📊 Dayana mostrados:', dayanaProcesado.length);
     
     // === 6. Mostrar ===
     if (allRows.length === 0) {
@@ -335,10 +347,13 @@ function renderContabilidadBS() {
             </button>`;
         }
         
+        // Agregar indicador de cuenta para depuración
+        const cuentaTag = row._esDayana ? ' <span class="text-xs text-secondary">(Dayana)</span>' : ' <span class="text-xs text-primary">(Personal)</span>';
+        
         return `
             <tr class="hover:bg-surface-container-lowest transition-colors fade-in">
                 <td class="px-md py-md text-body-sm font-body-sm text-on-surface">${formatDate(row.fecha)}</td>
-                <td class="px-md py-md text-body-sm font-body-sm text-on-surface max-w-xs truncate">${row.asiento || '-'}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-on-surface max-w-xs truncate">${row.asiento || '-'}${cuentaTag}</td>
                 <td class="px-md py-md text-body-sm font-body-sm text-right ${colorIngreso}">${ingreso}</td>
                 <td class="px-md py-md text-body-sm font-body-sm text-right ${colorEgreso}">${egreso}</td>
                 <td class="px-md py-md text-body-sm font-body-sm text-right font-medium text-on-surface">${saldo}</td>
