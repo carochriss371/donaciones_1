@@ -267,9 +267,10 @@ function renderContabilidadBS() {
         });
     });
 
-    // 1. Ordenar por fecha descendente (más nuevo primero)
+    // === ORDEN: DE MÁS NUEVO A MÁS VIEJO ===
+    // 1. Fecha descendente (más nuevo primero)
     // 2. Misma fecha: Personal primero, Dayana después
-    // 3. Misma fecha y misma cuenta: mantener orden del JSON (de más viejo a más nuevo)
+    // 3. Misma fecha y misma cuenta: invertir orden dentro de la cuenta
     allRows.sort((a, b) => {
         if (!a.fecha && !b.fecha) return 0;
         if (!a.fecha) return 1;
@@ -290,17 +291,19 @@ function renderContabilidadBS() {
             return a.accountName.localeCompare(b.accountName);
         }
         
-        // Misma cuenta: mantener orden del JSON (de más viejo a más nuevo)
-        return a._ordenEnCuenta - b._ordenEnCuenta;
+        // Misma cuenta: invertir orden (último del sheet primero)
+        return b._ordenEnCuenta - a._ordenEnCuenta;
     });
 
-    // Calcular saldo en tiempo real
+    // === CALCULAR SALDO EN TIEMPO REAL ===
+    // Para calcular el saldo, necesitamos el orden de más viejo a más nuevo
+    // Creamos una copia invertida para el cálculo
+    const allRowsForSaldo = [...allRows].reverse();
+    
     const saldoInicial = {};
     const cuentasProcesadas = new Set();
     
-    // Recorrer de más viejo a más nuevo para obtener saldo inicial
-    const sortedAsc = [...allRows].reverse();
-    sortedAsc.forEach(row => {
+    allRowsForSaldo.forEach(row => {
         const key = row.accountName;
         if (!cuentasProcesadas.has(key)) {
             saldoInicial[key] = row._saldoOriginal || 0;
@@ -308,14 +311,13 @@ function renderContabilidadBS() {
         }
     });
 
-    // Calcular saldo acumulado (de más viejo a más nuevo)
     const tempSaldo = {};
     Object.keys(saldoInicial).forEach(key => {
         tempSaldo[key] = saldoInicial[key];
     });
 
-    const sortedAscForSaldo = [...allRows].reverse();
-    sortedAscForSaldo.forEach(row => {
+    // Recorrer de más viejo a más nuevo para acumular saldo
+    allRowsForSaldo.forEach(row => {
         const key = row.accountName;
         if (row.debe) tempSaldo[key] += row.debe;
         if (row.haber) tempSaldo[key] -= row.haber;
@@ -353,7 +355,6 @@ function renderContabilidadBS() {
     const pagContainer = document.getElementById('contabilidadBSPagination');
     if (pagContainer) pagContainer.style.display = 'none';
 }
-
 
 function renderContabilidadUSD() {
     const tbody = document.getElementById('contabilidadBodyUSD');
