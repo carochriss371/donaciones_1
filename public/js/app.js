@@ -226,6 +226,10 @@ function contarDonantesUnicos() {
 // CONTABILIDAD - CUENTA BS (CON SCROLL)
 // ============================================
 
+// ============================================
+// CONTABILIDAD - CUENTA BS (AGRUPADA POR CUENTA, SIN BADGE)
+// ============================================
+
 function renderContabilidadBS() {
     const tbody = document.getElementById('contabilidadBodyBS');
     const rows = state.contabilidad;
@@ -233,27 +237,37 @@ function renderContabilidadBS() {
     const cuentasBS = rows.filter(account => account.currency === 'Bs.');
     
     if (!cuentasBS || cuentasBS.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7" class="px-md py-md text-center text-on-surface-variant">No hay datos disponibles</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="6" class="px-md py-md text-center text-on-surface-variant">No hay datos disponibles</td></tr>`;
         return;
     }
 
     let allRows = [];
-    let index = 0;
+    
     cuentasBS.forEach(account => {
+        let esDayana = false;
+        
+        (account.rows || []).forEach(row => {
+            if (row.asiento && row.asiento.toLowerCase().includes('dayana')) {
+                esDayana = true;
+            }
+        });
+        
+        const cuentaNombre = esDayana ? 'Cuenta Dayana' : 'Cuenta Personal';
+        
         (account.rows || []).forEach(row => {
             allRows.push({
-                accountName: 'Cuenta BS',
+                accountName: cuentaNombre,
                 currency: 'Bs.',
                 numeroFactura: row.numeroFactura || null,
-                _index: index++, // Guardar el orden original
+                _ordenCuenta: allRows.length,
                 ...row
             });
         });
     });
 
-    // Ordenar: primero por fecha (más reciente primero), luego por índice original
+    // Ordenar: primero por fecha (más reciente), luego por cuenta (Dayana primero)
     allRows.sort((a, b) => {
-        if (!a.fecha && !b.fecha) return a._index - b._index;
+        if (!a.fecha && !b.fecha) return 0;
         if (!a.fecha) return 1;
         if (!b.fecha) return -1;
         
@@ -264,8 +278,14 @@ function renderContabilidadBS() {
             return dateB - dateA;
         }
         
-        // Misma fecha: mantener el orden original
-        return a._index - b._index;
+        // Misma fecha: agrupar por cuenta (Dayana primero, luego Personal)
+        if (a.accountName !== b.accountName) {
+            if (a.accountName === 'Cuenta Dayana') return -1;
+            if (b.accountName === 'Cuenta Dayana') return 1;
+            return a.accountName.localeCompare(b.accountName);
+        }
+        
+        return a._ordenCuenta - b._ordenCuenta;
     });
 
     tbody.innerHTML = allRows.map(row => {
@@ -285,7 +305,6 @@ function renderContabilidadBS() {
         
         return `
             <tr class="hover:bg-surface-container-lowest transition-colors fade-in">
-                <td class="px-md py-md text-body-sm font-body-sm font-medium text-on-surface">${row.accountName}</td>
                 <td class="px-md py-md text-body-sm font-body-sm text-on-surface">${formatDate(row.fecha)}</td>
                 <td class="px-md py-md text-body-sm font-body-sm text-on-surface max-w-xs truncate">${row.asiento || '-'}</td>
                 <td class="px-md py-md text-body-sm font-body-sm text-right ${colorIngreso}">${ingreso}</td>
