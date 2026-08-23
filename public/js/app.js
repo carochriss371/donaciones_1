@@ -238,85 +238,76 @@ function renderContabilidadBS() {
         return;
     }
 
-    let allRows = [];
+    // === 1. Extraer TODOS los registros y clasificarlos por cuenta ===
+    const registrosPersonal = [];
+    const registrosDayana = [];
     
     cuentasBS.forEach(account => {
-        let esDayana = false;
-        
         (account.rows || []).forEach(row => {
-            if (row.asiento && row.asiento.toLowerCase().includes('dayana')) {
-                esDayana = true;
-            }
-        });
-        
-        const cuentaNombre = esDayana ? 'Cuenta Dayana' : 'Cuenta Personal';
-        
-        // Asignar orden dentro de la cuenta (de 0 en adelante)
-        (account.rows || []).forEach((row, index) => {
-            allRows.push({
-                accountName: cuentaNombre,
-                currency: 'Bs.',
-                numeroFactura: row.numeroFactura || null,
-                _ordenEnCuenta: index, // Índice dentro de su cuenta
+            const asiento = row.asiento || '';
+            const asientoLower = asiento.toLowerCase();
+            
+            // Detectar si es cuenta Dayana
+            const esDayana = asientoLower.includes('dayana') || 
+                            asientoLower.includes('traspaso') && asientoLower.includes('dayana');
+            
+            // Crear objeto con todos los datos
+            const registro = {
+                fecha: row.fecha,
+                asiento: asiento,
                 debe: row.debe || 0,
                 haber: row.haber || 0,
-                fecha: row.fecha,
-                asiento: row.asiento || ''
-            });
+                numeroFactura: row.numeroFactura || null,
+                _saldoOriginal: row.saldo || 0
+            };
+            
+            if (esDayana) {
+                registrosDayana.push(registro);
+            } else {
+                registrosPersonal.push(registro);
+            }
         });
     });
-
-    // ORDEN: De más nuevo a más viejo
-    allRows.sort((a, b) => {
+    
+    console.log('📊 Personal:', registrosPersonal.length);
+    console.log('📊 Dayana:', registrosDayana.length);
+    
+    // === 2. Ordenar cada cuenta de más nuevo a más viejo ===
+    const ordenarPorFecha = (a, b) => {
         if (!a.fecha && !b.fecha) return 0;
         if (!a.fecha) return 1;
         if (!b.fecha) return -1;
-        
-        const dateA = new Date(a.fecha);
-        const dateB = new Date(b.fecha);
-        
-        if (dateA.getTime() !== dateB.getTime()) {
-            return dateB - dateA;
-        }
-        
-        // Misma fecha: Personal primero, Dayana después
-        if (a.accountName !== b.accountName) {
-            if (a.accountName === 'Cuenta Personal') return -1;
-            if (b.accountName === 'Cuenta Personal') return 1;
-            return a.accountName.localeCompare(b.accountName);
-        }
-        
-        // Misma cuenta: invertir orden (último primero)
-        return b._ordenEnCuenta - a._ordenEnCuenta;
-    });
-
-    // === CALCULAR SALDO EN TIEMPO REAL ===
-    // Para cada cuenta, calcular saldo acumulado desde el primer registro
-    const saldoPorCuenta = {};
+        return new Date(b.fecha) - new Date(a.fecha);
+    };
     
-    // Agrupar por cuenta
-    const rowsPorCuenta = {};
-    allRows.forEach(row => {
-        if (!rowsPorCuenta[row.accountName]) {
-            rowsPorCuenta[row.accountName] = [];
-        }
-        rowsPorCuenta[row.accountName].push(row);
-    });
+    registrosPersonal.sort(ordenarPorFecha);
+    registrosDayana.sort(ordenarPorFecha);
     
-    // Para cada cuenta, calcular saldo acumulado
-    Object.keys(rowsPorCuenta).forEach(cuenta => {
+    // === 3. Calcular saldo para cada cuenta ===
+    const calcularSaldo = (registros) => {
         // Ordenar de más viejo a más nuevo para calcular saldo
-        const rowsCuenta = rowsPorCuenta[cuenta].sort((a, b) => a._ordenEnCuenta - b._ordenEnCuenta);
-        let saldo = 0;
+        const sortedAsc = [...registros].sort((a, b) => {
+            if (!a.fecha && !b.fecha) return 0;
+            if (!a.fecha) return 1;
+            if (!b.fecha) return -1;
+            return new Date(a.fecha) - new Date(b.fecha);
+        });
         
-        rowsCuenta.forEach(row => {
+        let saldo = 0;
+        sortedAsc.forEach(row => {
             if (row.debe) saldo += row.debe;
             if (row.haber) saldo -= row.haber;
             row._saldoCalculado = saldo;
         });
-    });
-
-    // Mostrar en pantalla (orden: más nuevo primero)
+    };
+    
+    calcularSaldo(registrosPersonal);
+    calcularSaldo(registrosDayana);
+    
+    // === 4. Unir: primero Personal, luego Dayana ===
+    const allRows = [...registrosPersonal, ...registrosDayana];
+    
+    // === 5. Mostrar ===
     tbody.innerHTML = allRows.map(row => {
         const moneda = 'Bs.';
         const ingreso = row.debe ? `${moneda} ${formatNumber(row.debe)}` : '-';
