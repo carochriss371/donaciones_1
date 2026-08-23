@@ -612,7 +612,8 @@ const facturaImagenes = {
     '17': '/img/facturas/Factura_17.webp',
     '18': '/img/facturas/Factura_18.webp',
     '19': '/img/facturas/Factura_19.webp',
-    '20': '/img/facturas/Factura_20.webp'
+    '20': '/img/facturas/Factura_20.webp',
+    '21': '/img/facturas/Factura_21.webp'
 };
 
 // ============================================
