@@ -249,7 +249,7 @@ function renderContabilidadBS() {
             
             // Detectar si es cuenta Dayana
             const esDayana = asientoLower.includes('dayana') || 
-                            asientoLower.includes('traspaso') && asientoLower.includes('dayana');
+                            (asientoLower.includes('traspaso') && asientoLower.includes('dayana'));
             
             // Crear objeto con todos los datos
             const registro = {
@@ -272,20 +272,20 @@ function renderContabilidadBS() {
     console.log('📊 Personal:', registrosPersonal.length);
     console.log('📊 Dayana:', registrosDayana.length);
     
-    // === 2. Ordenar cada cuenta de más nuevo a más viejo ===
-    const ordenarPorFecha = (a, b) => {
+    // === 2. Ordenar cada cuenta de más NUEVO a más VIEJO (descendente) ===
+    const ordenarPorFechaDesc = (a, b) => {
         if (!a.fecha && !b.fecha) return 0;
         if (!a.fecha) return 1;
         if (!b.fecha) return -1;
         return new Date(b.fecha) - new Date(a.fecha);
     };
     
-    registrosPersonal.sort(ordenarPorFecha);
-    registrosDayana.sort(ordenarPorFecha);
+    registrosPersonal.sort(ordenarPorFechaDesc);
+    registrosDayana.sort(ordenarPorFechaDesc);
     
-    // === 3. Calcular saldo para cada cuenta ===
+    // === 3. Calcular saldo para cada cuenta (en orden ascendente) ===
     const calcularSaldo = (registros) => {
-        // Ordenar de más viejo a más nuevo para calcular saldo
+        // Ordenar de más VIEJO a más NUEVO para calcular saldo (ascendente)
         const sortedAsc = [...registros].sort((a, b) => {
             if (!a.fecha && !b.fecha) return 0;
             if (!a.fecha) return 1;
@@ -304,8 +304,10 @@ function renderContabilidadBS() {
     calcularSaldo(registrosPersonal);
     calcularSaldo(registrosDayana);
     
-    // === 4. Unir: primero Personal, luego Dayana ===
+    // === 4. Unir: PRIMERO Personal, LUEGO Dayana ===
     const allRows = [...registrosPersonal, ...registrosDayana];
+    
+    console.log('📊 Total registros a mostrar:', allRows.length);
     
     // === 5. Mostrar ===
     tbody.innerHTML = allRows.map(row => {
