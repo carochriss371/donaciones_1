@@ -250,13 +250,14 @@ function renderContabilidadBS() {
         });
         
         const cuentaNombre = esDayana ? 'Cuenta Dayana' : 'Cuenta Personal';
+        let ordenEnCuenta = 0;
         
         (account.rows || []).forEach(row => {
             allRows.push({
                 accountName: cuentaNombre,
                 currency: 'Bs.',
                 numeroFactura: row.numeroFactura || null,
-                _ordenCuenta: allRows.length,
+                _ordenEnCuenta: ordenEnCuenta++,
                 debe: row.debe || 0,
                 haber: row.haber || 0,
                 fecha: row.fecha,
@@ -266,6 +267,9 @@ function renderContabilidadBS() {
         });
     });
 
+    // 1. Ordenar por fecha descendente (más nuevo primero)
+    // 2. Misma fecha: Personal primero, Dayana después
+    // 3. Misma fecha y misma cuenta: mantener orden del JSON (de más viejo a más nuevo)
     allRows.sort((a, b) => {
         if (!a.fecha && !b.fecha) return 0;
         if (!a.fecha) return 1;
@@ -274,23 +278,27 @@ function renderContabilidadBS() {
         const dateA = new Date(a.fecha);
         const dateB = new Date(b.fecha);
         
+        // Fecha descendente (más nuevo primero)
         if (dateA.getTime() !== dateB.getTime()) {
             return dateB - dateA;
         }
         
+        // Misma fecha: Personal primero, Dayana después
         if (a.accountName !== b.accountName) {
-            if (a.accountName === 'Cuenta Dayana') return -1;
-            if (b.accountName === 'Cuenta Dayana') return 1;
+            if (a.accountName === 'Cuenta Personal') return -1;
+            if (b.accountName === 'Cuenta Personal') return 1;
             return a.accountName.localeCompare(b.accountName);
         }
         
-        return a._ordenCuenta - b._ordenCuenta;
+        // Misma cuenta: mantener orden del JSON (de más viejo a más nuevo)
+        return a._ordenEnCuenta - b._ordenEnCuenta;
     });
 
     // Calcular saldo en tiempo real
     const saldoInicial = {};
     const cuentasProcesadas = new Set();
     
+    // Recorrer de más viejo a más nuevo para obtener saldo inicial
     const sortedAsc = [...allRows].reverse();
     sortedAsc.forEach(row => {
         const key = row.accountName;
@@ -300,6 +308,7 @@ function renderContabilidadBS() {
         }
     });
 
+    // Calcular saldo acumulado (de más viejo a más nuevo)
     const tempSaldo = {};
     Object.keys(saldoInicial).forEach(key => {
         tempSaldo[key] = saldoInicial[key];
@@ -313,6 +322,7 @@ function renderContabilidadBS() {
         row._saldoCalculado = tempSaldo[key];
     });
 
+    // Mostrar en pantalla (orden: más nuevo primero)
     tbody.innerHTML = allRows.map(row => {
         const moneda = 'Bs.';
         const ingreso = row.debe ? `${moneda} ${formatNumber(row.debe)}` : '-';
