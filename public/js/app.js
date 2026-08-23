@@ -260,7 +260,12 @@ function renderContabilidadBS() {
                 currency: 'Bs.',
                 numeroFactura: row.numeroFactura || null,
                 _ordenCuenta: allRows.length,
-                ...row
+                debe: row.debe || 0,
+                haber: row.haber || 0,
+                fecha: row.fecha,
+                asiento: row.asiento || '',
+                // Guardamos el saldo original para referencia
+                _saldoOriginal: row.saldo || 0
             });
         });
     });
@@ -278,7 +283,6 @@ function renderContabilidadBS() {
             return dateB - dateA;
         }
         
-        // Misma fecha: agrupar por cuenta (Dayana primero, luego Personal)
         if (a.accountName !== b.accountName) {
             if (a.accountName === 'Cuenta Dayana') return -1;
             if (b.accountName === 'Cuenta Dayana') return 1;
@@ -288,11 +292,74 @@ function renderContabilidadBS() {
         return a._ordenCuenta - b._ordenCuenta;
     });
 
+    // === CALCULAR SALDO EN TIEMPO REAL ===
+    // Orden inverso para calcular saldo (de más antiguo a más reciente)
+    const sortedForSaldo = [...allRows].reverse();
+    const saldos = {};
+    
+    sortedForSaldo.forEach(row => {
+        const key = row.accountName;
+        if (!saldos[key]) {
+            saldos[key] = 0;
+        }
+        // Primero sumar todos los debe y restar todos los haber de esta cuenta
+        // pero necesitamos el saldo inicial de cada cuenta
+    });
+
+    // Encontrar el saldo inicial de cada cuenta (el primer registro de cada cuenta)
+    const saldoInicial = {};
+    const cuentasProcesadas = new Set();
+    
+    // Recorrer de más antiguo a más reciente para obtener el saldo inicial
+    const sortedAsc = [...allRows].reverse();
+    sortedAsc.forEach(row => {
+        const key = row.accountName;
+        if (!cuentasProcesadas.has(key)) {
+            // Este es el primer registro de esta cuenta (el más antiguo)
+            // Usamos el saldo original como saldo inicial
+            saldoInicial[key] = row._saldoOriginal || 0;
+            cuentasProcesadas.add(key);
+        }
+    });
+
+    // Ahora calcular saldos en tiempo real (de más reciente a más antiguo)
+    // pero empezando desde el saldo inicial
+    const saldoActual = {};
+    Object.keys(saldoInicial).forEach(key => {
+        saldoActual[key] = saldoInicial[key];
+    });
+
+    // Recorrer de más reciente a más antiguo para mostrar
+    // Necesitamos calcular el saldo final primero
+    const saldoFinal = {};
+    Object.keys(saldoInicial).forEach(key => {
+        saldoFinal[key] = saldoInicial[key];
+    });
+
+    // Calcular saldo final sumando todos los debe y restando todos los haber
+    // pero solo para los registros que vamos a mostrar
+    const rowsConSaldo = [];
+    const tempSaldo = {};
+    Object.keys(saldoInicial).forEach(key => {
+        tempSaldo[key] = saldoInicial[key];
+    });
+
+    // Recorrer de más antiguo a más reciente para acumular saldo
+    const sortedAscForSaldo = [...allRows].reverse();
+    sortedAscForSaldo.forEach(row => {
+        const key = row.accountName;
+        if (row.debe) tempSaldo[key] += row.debe;
+        if (row.haber) tempSaldo[key] -= row.haber;
+        // Guardar el saldo acumulado
+        row._saldoCalculado = tempSaldo[key];
+    });
+
+    // Ahora mostrar en el orden correcto (más reciente primero)
     tbody.innerHTML = allRows.map(row => {
         const moneda = 'Bs.';
         const ingreso = row.debe ? `${moneda} ${formatNumber(row.debe)}` : '-';
         const egreso = row.haber ? `${moneda} ${formatNumber(row.haber)}` : '-';
-        const saldo = row.saldo ? `${moneda} ${formatNumber(row.saldo)}` : '-';
+        const saldo = row._saldoCalculado !== undefined ? `${moneda} ${formatNumber(row._saldoCalculado)}` : '-';
         const colorIngreso = row.debe ? 'text-primary font-medium' : 'text-on-surface-variant';
         const colorEgreso = row.haber ? 'text-error font-medium' : 'text-on-surface-variant';
         
@@ -316,82 +383,6 @@ function renderContabilidadBS() {
     }).join('');
 
     const pagContainer = document.getElementById('contabilidadBSPagination');
-    if (pagContainer) pagContainer.style.display = 'none';
-}
-
-// ============================================
-// CONTABILIDAD - CUENTA USD (CON SCROLL)
-// ============================================
-
-function renderContabilidadUSD() {
-    const tbody = document.getElementById('contabilidadBodyUSD');
-    const rows = state.contabilidad;
-    
-    const cuentasUSD = rows.filter(account => account.currency === '$');
-    
-    if (!cuentasUSD || cuentasUSD.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7" class="px-md py-md text-center text-on-surface-variant">No hay datos disponibles</td></tr>`;
-        return;
-    }
-
-    let allRows = [];
-    let index = 0;
-    cuentasUSD.forEach(account => {
-        (account.rows || []).forEach(row => {
-            allRows.push({
-                accountName: 'Cuenta USD',
-                currency: '$',
-                numeroFactura: row.numeroFactura || null,
-                _index: index++,
-                ...row
-            });
-        });
-    });
-
-    allRows.sort((a, b) => {
-        if (!a.fecha && !b.fecha) return a._index - b._index;
-        if (!a.fecha) return 1;
-        if (!b.fecha) return -1;
-        
-        const dateA = new Date(a.fecha);
-        const dateB = new Date(b.fecha);
-        
-        if (dateA.getTime() !== dateB.getTime()) {
-            return dateB - dateA;
-        }
-        
-        return a._index - b._index;
-    });
-
-    tbody.innerHTML = allRows.map(row => {
-        const moneda = '$';
-        const ingreso = row.debe ? `${moneda} ${formatNumber(row.debe)}` : '-';
-        const egreso = row.haber ? `${moneda} ${formatNumber(row.haber)}` : '-';
-        const saldo = row.saldo ? `${moneda} ${formatNumber(row.saldo)}` : '-';
-        const colorIngreso = row.debe ? 'text-primary font-medium' : 'text-on-surface-variant';
-        const colorEgreso = row.haber ? 'text-error font-medium' : 'text-on-surface-variant';
-        
-        let facturaBtn = '';
-        if (row.numeroFactura) {
-            facturaBtn = `<button class="btn-factura" onclick="verFactura('${row.numeroFactura}')">
-                <span class="material-symbols-outlined" style="font-size: 14px;">receipt</span> Factura
-            </button>`;
-        }
-        
-        return `
-            <tr class="hover:bg-surface-container-lowest transition-colors fade-in">
-                <td class="px-md py-md text-body-sm font-body-sm font-medium text-on-surface">${row.accountName}</td>
-                <td class="px-md py-md text-body-sm font-body-sm text-on-surface">${formatDate(row.fecha)}</td>
-                <td class="px-md py-md text-body-sm font-body-sm text-on-surface max-w-xs truncate">${row.asiento || '-'}</td>
-                <td class="px-md py-md text-body-sm font-body-sm text-right ${colorIngreso}">${ingreso}</td>
-                <td class="px-md py-md text-body-sm font-body-sm text-right ${colorEgreso}">${egreso}</td>
-                <td class="px-md py-md text-body-sm font-body-sm text-right font-medium text-on-surface">${saldo}</td>
-                <td class="px-md py-md text-body-sm font-body-sm text-center">${facturaBtn}</td>
-            </tr>
-        `;
-    }).join('');
-
-    const pagContainer = document.getElementById('contabilidadUSDPagination');
     if (pagContainer) pagContainer.style.display = 'none';
 }
 
