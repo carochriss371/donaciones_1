@@ -266,7 +266,6 @@ function renderContabilidadBS() {
         });
     });
 
-    // Ordenar: primero por fecha (más reciente), luego por cuenta (Dayana primero)
     allRows.sort((a, b) => {
         if (!a.fecha && !b.fecha) return 0;
         if (!a.fecha) return 1;
@@ -288,8 +287,7 @@ function renderContabilidadBS() {
         return a._ordenCuenta - b._ordenCuenta;
     });
 
-    // === CALCULAR SALDO EN TIEMPO REAL ===
-    // Encontrar el saldo inicial de cada cuenta
+    // Calcular saldo en tiempo real
     const saldoInicial = {};
     const cuentasProcesadas = new Set();
     
@@ -302,7 +300,6 @@ function renderContabilidadBS() {
         }
     });
 
-    // Calcular saldo acumulado
     const tempSaldo = {};
     Object.keys(saldoInicial).forEach(key => {
         tempSaldo[key] = saldoInicial[key];
@@ -316,7 +313,6 @@ function renderContabilidadBS() {
         row._saldoCalculado = tempSaldo[key];
     });
 
-    // Mostrar en el orden correcto
     tbody.innerHTML = allRows.map(row => {
         const moneda = 'Bs.';
         const ingreso = row.debe ? `${moneda} ${formatNumber(row.debe)}` : '-';
@@ -356,7 +352,7 @@ function renderContabilidadUSD() {
     const cuentasUSD = rows.filter(account => account.currency === '$');
     
     if (!cuentasUSD || cuentasUSD.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7" class="px-md py-md text-center text-on-surface-variant">No hay datos disponibles</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="6" class="px-md py-md text-center text-on-surface-variant">No hay datos disponibles</td></tr>`;
         return;
     }
 
@@ -365,7 +361,6 @@ function renderContabilidadUSD() {
     cuentasUSD.forEach(account => {
         (account.rows || []).forEach(row => {
             allRows.push({
-                accountName: 'Cuenta USD',
                 currency: '$',
                 numeroFactura: row.numeroFactura || null,
                 _index: index++,
@@ -374,7 +369,6 @@ function renderContabilidadUSD() {
         });
     });
 
-    // Ordenar por fecha (más reciente primero)
     allRows.sort((a, b) => {
         if (!a.fecha && !b.fecha) return 0;
         if (!a.fecha) return 1;
@@ -407,7 +401,6 @@ function renderContabilidadUSD() {
         
         return `
             <tr class="hover:bg-surface-container-lowest transition-colors fade-in">
-                <td class="px-md py-md text-body-sm font-body-sm font-medium text-on-surface">${row.accountName}</td>
                 <td class="px-md py-md text-body-sm font-body-sm text-on-surface">${formatDate(row.fecha)}</td>
                 <td class="px-md py-md text-body-sm font-body-sm text-on-surface max-w-xs truncate">${row.asiento || '-'}</td>
                 <td class="px-md py-md text-body-sm font-body-sm text-right ${colorIngreso}">${ingreso}</td>
