@@ -262,7 +262,28 @@ function renderContabilidadBS() {
         });
     });
 
-    // === 2. ORDENAR PARA MOSTRAR ===
+    // === 2. PRIMERO: Calcular saldo en orden original del sheet (del más antiguo al más nuevo) ===
+    // Ordenar por _ordenOriginal (ascendente = como aparece en el sheet)
+    const registrosOriginal = [...todosLosRegistros].sort((a, b) => a._ordenOriginal - b._ordenOriginal);
+    
+    let saldoAcumulado = 0;
+    const saldoPorOrden = {};
+    
+    registrosOriginal.forEach(row => {
+        // Primero sumamos el debe o restamos el haber para obtener el saldo después de este movimiento
+        if (row.debe) saldoAcumulado += row.debe;
+        if (row.haber) saldoAcumulado -= row.haber;
+        
+        // Guardamos el saldo resultante para este registro
+        saldoPorOrden[row._ordenOriginal] = saldoAcumulado;
+    });
+    
+    // === 3. Asignar el saldo calculado a cada registro ===
+    todosLosRegistros.forEach(row => {
+        row._saldoCalculado = saldoPorOrden[row._ordenOriginal] || 0;
+    });
+    
+    // === 4. ORDENAR PARA MOSTRAR ===
     // Primero: fecha descendente (más reciente primero)
     // Segundo: misma fecha → Dayana primero, Personal después
     // Tercero: misma fecha y misma cuenta → invertir orden original
@@ -287,21 +308,9 @@ function renderContabilidadBS() {
         return b._ordenOriginal - a._ordenOriginal;
     });
     
-    // === 3. CALCULAR SALDO ACUMULADO EN EL ORDEN DE VISUALIZACIÓN ===
-    let saldoAcumulado = 0;
-    
-    todosLosRegistros.forEach(row => {
-        // Sumar debe, restar haber
-        if (row.debe) saldoAcumulado += row.debe;
-        if (row.haber) saldoAcumulado -= row.haber;
-        
-        // Asignar el saldo calculado
-        row._saldoCalculado = saldoAcumulado;
-    });
-    
     console.log('📊 Total registros:', todosLosRegistros.length);
     
-    // === 4. Mostrar ===
+    // === 5. Mostrar ===
     if (todosLosRegistros.length === 0) {
         tbody.innerHTML = `<tr><td colspan="6" class="px-md py-md text-center text-on-surface-variant">No hay datos disponibles</td></tr>`;
         return;
