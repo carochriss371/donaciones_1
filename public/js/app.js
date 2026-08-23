@@ -250,14 +250,14 @@ function renderContabilidadBS() {
         });
         
         const cuentaNombre = esDayana ? 'Cuenta Dayana' : 'Cuenta Personal';
-        let ordenEnCuenta = 0;
         
-        (account.rows || []).forEach(row => {
+        // Asignar orden dentro de la cuenta (de 0 en adelante)
+        (account.rows || []).forEach((row, index) => {
             allRows.push({
                 accountName: cuentaNombre,
                 currency: 'Bs.',
                 numeroFactura: row.numeroFactura || null,
-                _ordenEnCuenta: ordenEnCuenta++,
+                _ordenEnCuenta: index, // Índice dentro de su cuenta
                 debe: row.debe || 0,
                 haber: row.haber || 0,
                 fecha: row.fecha,
@@ -279,13 +279,14 @@ function renderContabilidadBS() {
             return dateB - dateA;
         }
         
+        // Misma fecha: Personal primero, Dayana después
         if (a.accountName !== b.accountName) {
             if (a.accountName === 'Cuenta Personal') return -1;
             if (b.accountName === 'Cuenta Personal') return 1;
             return a.accountName.localeCompare(b.accountName);
         }
         
-        // Invertir orden dentro de cada cuenta (último primero)
+        // Misma cuenta: invertir orden (último primero)
         return b._ordenEnCuenta - a._ordenEnCuenta;
     });
 
@@ -293,7 +294,7 @@ function renderContabilidadBS() {
     // Para cada cuenta, calcular saldo acumulado desde el primer registro
     const saldoPorCuenta = {};
     
-    // Primero, obtener el orden original (de más viejo a más nuevo) para cada cuenta
+    // Agrupar por cuenta
     const rowsPorCuenta = {};
     allRows.forEach(row => {
         if (!rowsPorCuenta[row.accountName]) {
