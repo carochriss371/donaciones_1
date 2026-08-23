@@ -227,6 +227,128 @@ function contarDonantesUnicos() {
 // CONTABILIDAD - CUENTA BS (AGRUPADA POR CUENTA, SIN BADGE)
 // ============================================
 
+function renderContabilidadBS() {
+    const tbody = document.getElementById('contabilidadBodyBS');
+    const rows = state.contabilidad;
+    
+    const cuentasBS = rows.filter(account => account.currency === 'Bs.');
+    
+    if (!cuentasBS || cuentasBS.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="px-md py-md text-center text-on-surface-variant">No hay datos disponibles</td></tr>`;
+        return;
+    }
+
+    let allRows = [];
+    
+    cuentasBS.forEach(account => {
+        let esDayana = false;
+        
+        (account.rows || []).forEach(row => {
+            if (row.asiento && row.asiento.toLowerCase().includes('dayana')) {
+                esDayana = true;
+            }
+        });
+        
+        const cuentaNombre = esDayana ? 'Cuenta Dayana' : 'Cuenta Personal';
+        
+        (account.rows || []).forEach(row => {
+            allRows.push({
+                accountName: cuentaNombre,
+                currency: 'Bs.',
+                numeroFactura: row.numeroFactura || null,
+                _ordenCuenta: allRows.length,
+                debe: row.debe || 0,
+                haber: row.haber || 0,
+                fecha: row.fecha,
+                asiento: row.asiento || '',
+                _saldoOriginal: row.saldo || 0
+            });
+        });
+    });
+
+    // Ordenar: primero por fecha (más reciente), luego por cuenta (Dayana primero)
+    allRows.sort((a, b) => {
+        if (!a.fecha && !b.fecha) return 0;
+        if (!a.fecha) return 1;
+        if (!b.fecha) return -1;
+        
+        const dateA = new Date(a.fecha);
+        const dateB = new Date(b.fecha);
+        
+        if (dateA.getTime() !== dateB.getTime()) {
+            return dateB - dateA;
+        }
+        
+        if (a.accountName !== b.accountName) {
+            if (a.accountName === 'Cuenta Dayana') return -1;
+            if (b.accountName === 'Cuenta Dayana') return 1;
+            return a.accountName.localeCompare(b.accountName);
+        }
+        
+        return a._ordenCuenta - b._ordenCuenta;
+    });
+
+    // === CALCULAR SALDO EN TIEMPO REAL ===
+    // Encontrar el saldo inicial de cada cuenta
+    const saldoInicial = {};
+    const cuentasProcesadas = new Set();
+    
+    const sortedAsc = [...allRows].reverse();
+    sortedAsc.forEach(row => {
+        const key = row.accountName;
+        if (!cuentasProcesadas.has(key)) {
+            saldoInicial[key] = row._saldoOriginal || 0;
+            cuentasProcesadas.add(key);
+        }
+    });
+
+    // Calcular saldo acumulado
+    const tempSaldo = {};
+    Object.keys(saldoInicial).forEach(key => {
+        tempSaldo[key] = saldoInicial[key];
+    });
+
+    const sortedAscForSaldo = [...allRows].reverse();
+    sortedAscForSaldo.forEach(row => {
+        const key = row.accountName;
+        if (row.debe) tempSaldo[key] += row.debe;
+        if (row.haber) tempSaldo[key] -= row.haber;
+        row._saldoCalculado = tempSaldo[key];
+    });
+
+    // Mostrar en el orden correcto
+    tbody.innerHTML = allRows.map(row => {
+        const moneda = 'Bs.';
+        const ingreso = row.debe ? `${moneda} ${formatNumber(row.debe)}` : '-';
+        const egreso = row.haber ? `${moneda} ${formatNumber(row.haber)}` : '-';
+        const saldo = row._saldoCalculado !== undefined ? `${moneda} ${formatNumber(row._saldoCalculado)}` : '-';
+        const colorIngreso = row.debe ? 'text-primary font-medium' : 'text-on-surface-variant';
+        const colorEgreso = row.haber ? 'text-error font-medium' : 'text-on-surface-variant';
+        
+        let facturaBtn = '';
+        if (row.numeroFactura) {
+            facturaBtn = `<button class="btn-factura" onclick="verFactura('${row.numeroFactura}')">
+                <span class="material-symbols-outlined" style="font-size: 14px;">receipt</span> Factura
+            </button>`;
+        }
+        
+        return `
+            <tr class="hover:bg-surface-container-lowest transition-colors fade-in">
+                <td class="px-md py-md text-body-sm font-body-sm text-on-surface">${formatDate(row.fecha)}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-on-surface max-w-xs truncate">${row.asiento || '-'}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-right ${colorIngreso}">${ingreso}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-right ${colorEgreso}">${egreso}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-right font-medium text-on-surface">${saldo}</td>
+                <td class="px-md py-md text-body-sm font-body-sm text-center">${facturaBtn}</td>
+            </tr>
+        `;
+    }).join('');
+
+    const pagContainer = document.getElementById('contabilidadBSPagination');
+    if (pagContainer) pagContainer.style.display = 'none';
+}
+
+
 function renderContabilidadUSD() {
     const tbody = document.getElementById('contabilidadBodyUSD');
     const rows = state.contabilidad;
