@@ -262,25 +262,10 @@ function renderContabilidadBS() {
         });
     });
 
-    // === 2. PRIMERO: Calcular saldo en orden original del sheet ===
-    // Ordenar por _ordenOriginal (ascendente = como aparece en el sheet)
-    const registrosOriginal = [...todosLosRegistros].sort((a, b) => a._ordenOriginal - b._ordenOriginal);
-    
-    let saldoAcumulado = 0;
-    const saldoPorOrden = {};
-    
-    registrosOriginal.forEach((row, index) => {
-        // Guardar el saldo ANTES de aplicar este movimiento
-        // Para el primer registro (Saldo inicial), el saldo anterior es 0
-        // Pero como el Saldo inicial tiene un debe de 16.981,68, el saldo después es 16.981,68
-        saldoPorOrden[row._ordenOriginal] = saldoAcumulado;
-        
-        // Aplicar el movimiento para el siguiente registro
-        if (row.debe) saldoAcumulado += row.debe;
-        if (row.haber) saldoAcumulado -= row.haber;
-    });
-    
-    // === 3. ORDENAR PARA MOSTRAR ===
+    // === 2. ORDENAR PARA MOSTRAR ===
+    // Primero: fecha descendente (más reciente primero)
+    // Segundo: misma fecha → Dayana primero, Personal después
+    // Tercero: misma fecha y misma cuenta → invertir orden original
     todosLosRegistros.sort((a, b) => {
         // Fecha descendente
         if (!a.fecha && !b.fecha) return 0;
@@ -302,30 +287,23 @@ function renderContabilidadBS() {
         return b._ordenOriginal - a._ordenOriginal;
     });
     
-    // === 4. Asignar el saldo calculado ===
-    todosLosRegistros.forEach(row => {
-        row._saldoCalculado = saldoPorOrden[row._ordenOriginal] || 0;
-        // Si el saldo es 0 y es el primer registro, no mostrar 0
-        if (row._saldoCalculado === 0 && row._ordenOriginal === 0) {
-            // El saldo inicial se calcula después del debe
-            // Lo corregimos manualmente
-            if (row.debe) {
-                row._saldoCalculado = row.debe;
-            }
-        }
-    });
+    // === 3. CALCULAR SALDO EN EL ORDEN DE VISUALIZACIÓN ===
+    // Comenzamos desde 0 y acumulamos registro por registro
+    let saldoAcumulado = 0;
     
-    // Corrección: Para el Saldo inicial, el saldo debe ser el debe
-    // Buscar el registro con "Saldo inicial" y asignarle su debe como saldo
+    // Primera pasada: calcular el saldo acumulado
     todosLosRegistros.forEach(row => {
-        if (row.asiento && row.asiento.toLowerCase().includes('saldo inicial')) {
-            row._saldoCalculado = row.debe || 0;
-        }
+        // Primero sumamos/restamos el movimiento
+        if (row.debe) saldoAcumulado += row.debe;
+        if (row.haber) saldoAcumulado -= row.haber;
+        
+        // Guardamos el saldo
+        row._saldoCalculado = saldoAcumulado;
     });
     
     console.log('📊 Total registros:', todosLosRegistros.length);
     
-    // === 5. Mostrar ===
+    // === 4. Mostrar ===
     if (todosLosRegistros.length === 0) {
         tbody.innerHTML = `<tr><td colspan="6" class="px-md py-md text-center text-on-surface-variant">No hay datos disponibles</td></tr>`;
         return;
