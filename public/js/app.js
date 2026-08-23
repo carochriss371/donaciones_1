@@ -261,16 +261,12 @@ function renderContabilidadBS() {
                 debe: row.debe || 0,
                 haber: row.haber || 0,
                 fecha: row.fecha,
-                asiento: row.asiento || '',
-                _saldoOriginal: row.saldo || 0
+                asiento: row.asiento || ''
             });
         });
     });
 
-    // === ORDEN: DE MÁS NUEVO A MÁS VIEJO ===
-    // 1. Fecha descendente (más nuevo primero)
-    // 2. Misma fecha: Personal primero, Dayana después
-    // 3. Misma fecha y misma cuenta: invertir orden dentro de la cuenta
+    // ORDEN: De más nuevo a más viejo
     allRows.sort((a, b) => {
         if (!a.fecha && !b.fecha) return 0;
         if (!a.fecha) return 1;
@@ -279,49 +275,44 @@ function renderContabilidadBS() {
         const dateA = new Date(a.fecha);
         const dateB = new Date(b.fecha);
         
-        // Fecha descendente (más nuevo primero)
         if (dateA.getTime() !== dateB.getTime()) {
             return dateB - dateA;
         }
         
-        // Misma fecha: Personal primero, Dayana después
         if (a.accountName !== b.accountName) {
             if (a.accountName === 'Cuenta Personal') return -1;
             if (b.accountName === 'Cuenta Personal') return 1;
             return a.accountName.localeCompare(b.accountName);
         }
         
-        // Misma cuenta: invertir orden (último del sheet primero)
+        // Invertir orden dentro de cada cuenta (último primero)
         return b._ordenEnCuenta - a._ordenEnCuenta;
     });
 
     // === CALCULAR SALDO EN TIEMPO REAL ===
-    // Para calcular el saldo, necesitamos el orden de más viejo a más nuevo
-    // Creamos una copia invertida para el cálculo
-    const allRowsForSaldo = [...allRows].reverse();
+    // Para cada cuenta, calcular saldo acumulado desde el primer registro
+    const saldoPorCuenta = {};
     
-    const saldoInicial = {};
-    const cuentasProcesadas = new Set();
-    
-    allRowsForSaldo.forEach(row => {
-        const key = row.accountName;
-        if (!cuentasProcesadas.has(key)) {
-            saldoInicial[key] = row._saldoOriginal || 0;
-            cuentasProcesadas.add(key);
+    // Primero, obtener el orden original (de más viejo a más nuevo) para cada cuenta
+    const rowsPorCuenta = {};
+    allRows.forEach(row => {
+        if (!rowsPorCuenta[row.accountName]) {
+            rowsPorCuenta[row.accountName] = [];
         }
+        rowsPorCuenta[row.accountName].push(row);
     });
-
-    const tempSaldo = {};
-    Object.keys(saldoInicial).forEach(key => {
-        tempSaldo[key] = saldoInicial[key];
-    });
-
-    // Recorrer de más viejo a más nuevo para acumular saldo
-    allRowsForSaldo.forEach(row => {
-        const key = row.accountName;
-        if (row.debe) tempSaldo[key] += row.debe;
-        if (row.haber) tempSaldo[key] -= row.haber;
-        row._saldoCalculado = tempSaldo[key];
+    
+    // Para cada cuenta, calcular saldo acumulado
+    Object.keys(rowsPorCuenta).forEach(cuenta => {
+        // Ordenar de más viejo a más nuevo para calcular saldo
+        const rowsCuenta = rowsPorCuenta[cuenta].sort((a, b) => a._ordenEnCuenta - b._ordenEnCuenta);
+        let saldo = 0;
+        
+        rowsCuenta.forEach(row => {
+            if (row.debe) saldo += row.debe;
+            if (row.haber) saldo -= row.haber;
+            row._saldoCalculado = saldo;
+        });
     });
 
     // Mostrar en pantalla (orden: más nuevo primero)
