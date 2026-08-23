@@ -227,6 +227,7 @@ function contarDonantesUnicos() {
 // CONTABILIDAD - CUENTA BS (AGRUPADA POR CUENTA, SIN BADGE)
 // ============================================
 
+
 function renderContabilidadBS() {
     const tbody = document.getElementById('contabilidadBodyBS');
     const rows = state.contabilidad;
@@ -263,7 +264,26 @@ function renderContabilidadBS() {
 
     console.log('📊 Total registros:', todosLosRegistros.length);
     
-    // === 2. ORDENAR PARA MOSTRAR ===
+    // === 2. PRIMERO: Calcular saldo en orden original del sheet ===
+    // Ordenar por _ordenOriginal (ascendente = del más antiguo al más nuevo en el sheet)
+    const registrosOriginal = [...todosLosRegistros].sort((a, b) => a._ordenOriginal - b._ordenOriginal);
+    
+    let saldoAcumulado = 0;
+    const saldoPorOrden = {};
+    
+    registrosOriginal.forEach(row => {
+        // El saldo inicial es 0, luego sumamos debe y restamos haber
+        if (row.debe) saldoAcumulado += row.debe;
+        if (row.haber) saldoAcumulado -= row.haber;
+        saldoPorOrden[row._ordenOriginal] = saldoAcumulado;
+    });
+    
+    // === 3. Asignar el saldo calculado a cada registro ===
+    todosLosRegistros.forEach(row => {
+        row._saldoCalculado = saldoPorOrden[row._ordenOriginal] || 0;
+    });
+    
+    // === 4. ORDENAR PARA MOSTRAR ===
     // Primero: fecha descendente (más reciente primero)
     // Segundo: misma fecha → Dayana primero, Personal después
     // Tercero: misma fecha y misma cuenta → invertir orden original
@@ -288,32 +308,9 @@ function renderContabilidadBS() {
         return b._ordenOriginal - a._ordenOriginal;
     });
     
-    // === 3. CALCULAR SALDO EN EL ORDEN DE VISUALIZACIÓN ===
-    // Agrupar por fecha para reiniciar el saldo en cada día
-    const saldoPorFecha = {};
-    let fechaActual = null;
-    let saldoAcumulado = 0;
-    
-    todosLosRegistros.forEach(row => {
-        const fechaKey = row.fecha || 'sin-fecha';
-        
-        // Si cambia la fecha, reiniciar el saldo
-        if (fechaKey !== fechaActual) {
-            fechaActual = fechaKey;
-            saldoAcumulado = 0;
-        }
-        
-        // Calcular saldo acumulado
-        if (row.debe) saldoAcumulado += row.debe;
-        if (row.haber) saldoAcumulado -= row.haber;
-        
-        // Asignar saldo calculado
-        row._saldoCalculado = saldoAcumulado;
-    });
-    
     console.log('📊 Total a mostrar:', todosLosRegistros.length);
     
-    // === 4. Mostrar ===
+    // === 5. Mostrar ===
     if (todosLosRegistros.length === 0) {
         tbody.innerHTML = `<tr><td colspan="6" class="px-md py-md text-center text-on-surface-variant">No hay datos disponibles</td></tr>`;
         return;
@@ -349,6 +346,7 @@ function renderContabilidadBS() {
     const pagContainer = document.getElementById('contabilidadBSPagination');
     if (pagContainer) pagContainer.style.display = 'none';
 }
+
 function renderContabilidadUSD() {
     const tbody = document.getElementById('contabilidadBodyUSD');
     const rows = state.contabilidad;
