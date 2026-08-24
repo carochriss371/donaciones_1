@@ -560,6 +560,14 @@
         "haber": 31585.49,
         "saldo": 7775.689999999962,
         "numeroFactura": "23"
+      },
+      {
+        "fecha": "Mon Aug 24 2026 03:00:00 GMT-0400 (Venezuela Time)",
+        "asiento": "Donativo en BS (Anderson)",
+        "debe": 50551.14,
+        "haber": null,
+        "saldo": 58326.82999999996,
+        "numeroFactura": null
       }
     ]
   },
