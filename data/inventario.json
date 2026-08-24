@@ -500,8 +500,8 @@
     "cod": "72",
     "producto": "Paquete de agua ",
     "entradas": 8,
-    "salidas": 3,
-    "stock": 5
+    "salidas": 5,
+    "stock": 3
   },
   {
     "cod": "73",
@@ -570,14 +570,14 @@
     "cod": "82",
     "producto": "Cremas dentales",
     "entradas": 108,
-    "salidas": 0,
-    "stock": 108
+    "salidas": 60,
+    "stock": 48
   },
   {
     "cod": "83",
     "producto": "Bolsas plastica mediana",
     "entradas": 100,
-    "salidas": 0,
-    "stock": 100
+    "salidas": 60,
+    "stock": 40
   }
 ]
