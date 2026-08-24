@@ -535,36 +535,36 @@
     "cod": "77",
     "producto": "Jabón de Baño Redondo 30g",
     "entradas": 100,
-    "salidas": 0,
-    "stock": 100
+    "salidas": 60,
+    "stock": 40
   },
   {
     "cod": "78",
     "producto": "Champu 30ml",
     "entradas": 100,
-    "salidas": 0,
-    "stock": 100
+    "salidas": 60,
+    "stock": 40
   },
   {
     "cod": "79",
     "producto": "Acondicionador 30ml",
     "entradas": 99,
-    "salidas": 0,
-    "stock": 99
+    "salidas": 60,
+    "stock": 39
   },
   {
     "cod": "80",
     "producto": "Cepillo de dientes",
     "entradas": 108,
-    "salidas": 0,
-    "stock": 108
+    "salidas": 60,
+    "stock": 48
   },
   {
     "cod": "81",
     "producto": "Mini toallitas húmedas",
     "entradas": 104,
-    "salidas": 0,
-    "stock": 104
+    "salidas": 60,
+    "stock": 44
   },
   {
     "cod": "82",

@@ -1300,7 +1300,7 @@
     "producto": "Sulfadiazina de plata",
     "fecha": "Mon Jul 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 1,
-    "centro": "Miembros Voluntarios La Guaira",
+    "centro": "Tratamiento para afectado por el terremoto",
     "combo": "23"
   },
   {
@@ -1308,7 +1308,7 @@
     "producto": "Gasa para quemados",
     "fecha": "Mon Jul 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 2,
-    "centro": "Miembros Voluntarios La Guaira",
+    "centro": "Tratamiento para afectado por el terremoto",
     "combo": "23"
   },
   {
@@ -1316,7 +1316,7 @@
     "producto": "Metamizol Ampolla",
     "fecha": "Mon Jul 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 9,
-    "centro": "Miembros Voluntarios La Guaira",
+    "centro": "McDonald's Caraballeda",
     "combo": "24"
   },
   {
@@ -1324,7 +1324,7 @@
     "producto": "Dexametasona Ampolla",
     "fecha": "Mon Jul 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 5,
-    "centro": "Miembros Voluntarios La Guaira",
+    "centro": "McDonald's Caraballeda",
     "combo": "24"
   },
   {
@@ -1332,7 +1332,47 @@
     "producto": "Paquete de agua ",
     "fecha": "Mon Jul 27 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 1,
-    "centro": "Miembros Voluntarios La Guaira",
+    "centro": "McDonald's Caraballeda",
     "combo": "24"
+  },
+  {
+    "cod": "77",
+    "producto": "Jabón de Baño Redondo 30g",
+    "fecha": "Sat Aug 22 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 60,
+    "centro": "Playa Grande",
+    "combo": "25"
+  },
+  {
+    "cod": "78",
+    "producto": "Champu 30ml",
+    "fecha": "Sat Aug 22 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 60,
+    "centro": "Playa Grande",
+    "combo": "25"
+  },
+  {
+    "cod": "79",
+    "producto": "Acondicionador 30ml",
+    "fecha": "Sat Aug 22 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 60,
+    "centro": "Playa Grande",
+    "combo": "25"
+  },
+  {
+    "cod": "80",
+    "producto": "Cepillo de dientes",
+    "fecha": "Sat Aug 22 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 60,
+    "centro": "Playa Grande",
+    "combo": "25"
+  },
+  {
+    "cod": "81",
+    "producto": "Mini toallitas húmedas",
+    "fecha": "Sat Aug 22 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 60,
+    "centro": "Playa Grande",
+    "combo": ""
   }
 ]
