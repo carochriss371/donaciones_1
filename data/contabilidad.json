@@ -568,6 +568,14 @@
         "haber": null,
         "saldo": 58326.82999999996,
         "numeroFactura": null
+      },
+      {
+        "fecha": "Mon Aug 24 2026 03:00:00 GMT-0400 (Venezuela Time)",
+        "asiento": "Cambio de BS a Binance",
+        "debe": null,
+        "haber": 50522,
+        "saldo": 7804.829999999958,
+        "numeroFactura": null
       }
     ]
   },
@@ -837,6 +845,14 @@
         "debe": 25,
         "haber": null,
         "saldo": 53.589999999999904,
+        "numeroFactura": null
+      },
+      {
+        "fecha": "Fri Aug 21 2026 03:00:00 GMT-0400 (Venezuela Time)",
+        "asiento": "Cambio de BS a Binance",
+        "debe": 53.93,
+        "haber": null,
+        "saldo": 107.5199999999999,
         "numeroFactura": null
       }
     ]
