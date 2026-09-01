@@ -1398,5 +1398,53 @@
     "cantidad": 2,
     "centro": "Playa Grande",
     "combo": "25"
+  },
+  {
+    "cod": "77",
+    "producto": "Jabón de Baño Redondo 30g",
+    "fecha": "Sat Aug 22 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 0,
+    "centro": "",
+    "combo": ""
+  },
+  {
+    "cod": "",
+    "producto": "NO EXISTE",
+    "fecha": "",
+    "cantidad": 0,
+    "centro": "",
+    "combo": ""
+  },
+  {
+    "cod": "",
+    "producto": "NO EXISTE",
+    "fecha": "",
+    "cantidad": 0,
+    "centro": "",
+    "combo": ""
+  },
+  {
+    "cod": "",
+    "producto": "NO EXISTE",
+    "fecha": "",
+    "cantidad": 0,
+    "centro": "",
+    "combo": ""
+  },
+  {
+    "cod": "",
+    "producto": "NO EXISTE",
+    "fecha": "",
+    "cantidad": 0,
+    "centro": "",
+    "combo": ""
+  },
+  {
+    "cod": "",
+    "producto": "NO EXISTE",
+    "fecha": "",
+    "cantidad": 0,
+    "centro": "",
+    "combo": ""
   }
 ]
