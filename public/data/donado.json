@@ -1403,48 +1403,96 @@
     "cod": "77",
     "producto": "Jabón de Baño Redondo 30g",
     "fecha": "Sat Aug 22 2026 03:00:00 GMT-0400 (Venezuela Time)",
-    "cantidad": 0,
-    "centro": "",
-    "combo": ""
+    "cantidad": 40,
+    "centro": "Campo de Golf",
+    "combo": "26"
+  },
+  {
+    "cod": "78",
+    "producto": "Champu 30ml",
+    "fecha": "Sat Aug 22 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 40,
+    "centro": "Campo de Golf",
+    "combo": "26"
+  },
+  {
+    "cod": "79",
+    "producto": "Acondicionador 30ml",
+    "fecha": "Sat Aug 22 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 39,
+    "centro": "Campo de Golf",
+    "combo": "26"
+  },
+  {
+    "cod": "80",
+    "producto": "Cepillo de dientes",
+    "fecha": "Sat Aug 22 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 40,
+    "centro": "Campo de Golf",
+    "combo": "26"
+  },
+  {
+    "cod": "81",
+    "producto": "Mini toallitas húmedas",
+    "fecha": "Sat Aug 22 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 42,
+    "centro": "Campo de Golf",
+    "combo": "26"
+  },
+  {
+    "cod": "82",
+    "producto": "Cremas dentales",
+    "fecha": "Sat Aug 22 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 40,
+    "centro": "Campo de Golf",
+    "combo": "26"
+  },
+  {
+    "cod": "83",
+    "producto": "Bolsas plastica mediana",
+    "fecha": "Sat Aug 22 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 40,
+    "centro": "Campo de Golf",
+    "combo": "26"
+  },
+  {
+    "cod": "72",
+    "producto": "Paquete de agua ",
+    "fecha": "Sat Aug 22 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 3,
+    "centro": "Campo de Golf",
+    "combo": "26"
   },
   {
     "cod": "",
     "producto": "NO EXISTE",
-    "fecha": "",
+    "fecha": "Sat Aug 22 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 0,
     "centro": "",
-    "combo": ""
+    "combo": "27"
   },
   {
     "cod": "",
     "producto": "NO EXISTE",
-    "fecha": "",
+    "fecha": "Sat Aug 22 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 0,
     "centro": "",
-    "combo": ""
+    "combo": "27"
   },
   {
     "cod": "",
     "producto": "NO EXISTE",
-    "fecha": "",
+    "fecha": "Sat Aug 22 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 0,
     "centro": "",
-    "combo": ""
+    "combo": "27"
   },
   {
     "cod": "",
     "producto": "NO EXISTE",
-    "fecha": "",
+    "fecha": "Sat Aug 22 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 0,
     "centro": "",
-    "combo": ""
-  },
-  {
-    "cod": "",
-    "producto": "NO EXISTE",
-    "fecha": "",
-    "cantidad": 0,
-    "centro": "",
-    "combo": ""
+    "combo": "27"
   }
 ]
