@@ -963,7 +963,7 @@
     "cod": "2",
     "producto": "Acetaminofen Tab ",
     "fecha": "Wed Jul 01 2026 03:00:00 GMT-0400 (Venezuela Time)",
-    "cantidad": 14,
+    "cantidad": 8,
     "centro": "Hospital Domingo Luciani",
     "combo": "16"
   },
@@ -1464,35 +1464,91 @@
     "combo": "26"
   },
   {
-    "cod": "",
-    "producto": "NO EXISTE",
+    "cod": "24",
+    "producto": "Metamizol Ampolla",
     "fecha": "Sat Aug 22 2026 03:00:00 GMT-0400 (Venezuela Time)",
-    "cantidad": 0,
-    "centro": "",
+    "cantidad": 9,
+    "centro": "McDonald's Caraballeda",
     "combo": "27"
   },
   {
-    "cod": "",
-    "producto": "NO EXISTE",
+    "cod": "52",
+    "producto": "Caja de algodòn",
     "fecha": "Sat Aug 22 2026 03:00:00 GMT-0400 (Venezuela Time)",
-    "cantidad": 0,
-    "centro": "",
+    "cantidad": 6,
+    "centro": "McDonald's Caraballeda",
     "combo": "27"
   },
   {
-    "cod": "",
-    "producto": "NO EXISTE",
+    "cod": "29",
+    "producto": "Solución 0,9%",
     "fecha": "Sat Aug 22 2026 03:00:00 GMT-0400 (Venezuela Time)",
-    "cantidad": 0,
-    "centro": "",
+    "cantidad": 2,
+    "centro": "McDonald's Caraballeda",
     "combo": "27"
   },
   {
-    "cod": "",
-    "producto": "NO EXISTE",
+    "cod": "4",
+    "producto": "Adrenalina Ampolla",
     "fecha": "Sat Aug 22 2026 03:00:00 GMT-0400 (Venezuela Time)",
-    "cantidad": 0,
-    "centro": "",
+    "cantidad": 4,
+    "centro": "McDonald's Caraballeda",
+    "combo": "27"
+  },
+  {
+    "cod": "38",
+    "producto": "Kit de nebulizaciòn Pediatrica",
+    "fecha": "Sat Aug 22 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 2,
+    "centro": "McDonald's Caraballeda",
+    "combo": "27"
+  },
+  {
+    "cod": "26",
+    "producto": "Scalp 21G",
+    "fecha": "Sat Aug 22 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 10,
+    "centro": "McDonald's Caraballeda",
+    "combo": "27"
+  },
+  {
+    "cod": "28",
+    "producto": "Scalp 25G",
+    "fecha": "Sat Aug 22 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 10,
+    "centro": "McDonald's Caraballeda",
+    "combo": "27"
+  },
+  {
+    "cod": "33",
+    "producto": "Esparflin Pediatrico",
+    "fecha": "Sat Aug 22 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 6,
+    "centro": "McDonald's Caraballeda",
+    "combo": "27"
+  },
+  {
+    "cod": "62",
+    "producto": "Tapabocas",
+    "fecha": "Sat Aug 22 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "McDonald's Caraballeda",
+    "combo": "27"
+  },
+  {
+    "cod": "50",
+    "producto": "Venda elastica 20cm",
+    "fecha": "Sat Aug 22 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 3,
+    "centro": "McDonald's Caraballeda",
+    "combo": "27"
+  },
+  {
+    "cod": "2",
+    "producto": "Acetaminofen Tab ",
+    "fecha": "Sat Aug 22 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 6,
+    "centro": "McDonald's Caraballeda",
     "combo": "27"
   }
 ]

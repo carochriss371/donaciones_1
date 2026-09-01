@@ -24,8 +24,8 @@
     "cod": "4",
     "producto": "Adrenalina Ampolla",
     "entradas": 15,
-    "salidas": 10,
-    "stock": 5
+    "salidas": 14,
+    "stock": 1
   },
   {
     "cod": "5",
@@ -164,8 +164,8 @@
     "cod": "24",
     "producto": "Metamizol Ampolla",
     "entradas": 36,
-    "salidas": 18,
-    "stock": 18
+    "salidas": 27,
+    "stock": 9
   },
   {
     "cod": "25",
@@ -178,8 +178,8 @@
     "cod": "26",
     "producto": "Scalp 21G",
     "entradas": 42,
-    "salidas": 17,
-    "stock": 25
+    "salidas": 27,
+    "stock": 15
   },
   {
     "cod": "27",
@@ -192,15 +192,15 @@
     "cod": "28",
     "producto": "Scalp 25G",
     "entradas": 35,
-    "salidas": 15,
-    "stock": 20
+    "salidas": 25,
+    "stock": 10
   },
   {
     "cod": "29",
     "producto": "Solución 0,9%",
     "entradas": 7,
-    "salidas": 2,
-    "stock": 5
+    "salidas": 4,
+    "stock": 3
   },
   {
     "cod": "30",
@@ -227,8 +227,8 @@
     "cod": "33",
     "producto": "Esparflin Pediatrico",
     "entradas": 6,
-    "salidas": 0,
-    "stock": 6
+    "salidas": 6,
+    "stock": 0
   },
   {
     "cod": "34",
@@ -262,8 +262,8 @@
     "cod": "38",
     "producto": "Kit de nebulizaciòn Pediatrica",
     "entradas": 4,
-    "salidas": 1,
-    "stock": 3
+    "salidas": 3,
+    "stock": 1
   },
   {
     "cod": "39",
@@ -346,8 +346,8 @@
     "cod": "50",
     "producto": "Venda elastica 20cm",
     "entradas": 6,
-    "salidas": 0,
-    "stock": 6
+    "salidas": 3,
+    "stock": 3
   },
   {
     "cod": "51",
@@ -360,8 +360,8 @@
     "cod": "52",
     "producto": "Caja de algodòn",
     "entradas": 18,
-    "salidas": 5,
-    "stock": 13
+    "salidas": 11,
+    "stock": 7
   },
   {
     "cod": "53",
@@ -430,8 +430,8 @@
     "cod": "62",
     "producto": "Tapabocas",
     "entradas": 5,
-    "salidas": 0,
-    "stock": 5
+    "salidas": 1,
+    "stock": 4
   },
   {
     "cod": "63",
