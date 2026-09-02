@@ -1555,17 +1555,17 @@
     "cod": "14",
     "producto": "Gasas individuales",
     "fecha": "Sat Aug 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
-    "cantidad": 0,
-    "centro": "",
-    "combo": ""
+    "cantidad": 3,
+    "centro": "Tratamiento para afectado por el terremoto",
+    "combo": "28"
   },
   {
     "cod": "16",
     "producto": "Guantes de latex individuales",
     "fecha": "Sat Aug 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 3,
-    "centro": "",
-    "combo": ""
+    "centro": "Tratamiento para afectado por el terremoto",
+    "combo": "28"
   },
   {
     "cod": "",
