@@ -684,22 +684,52 @@ function verEvidencia(combo) {
     
     titulo.textContent = `Evidencia - Combo ${combo}`;
     
-    const imagenes = evidenciaImagenes[combo] || [];
-    console.log('📸 Imágenes encontradas:', imagenes.length);
+    const archivos = evidenciaImagenes[combo] || [];
+    console.log('📸 Archivos encontrados:', archivos.length);
     
-    if (imagenes.length === 0) {
+    if (archivos.length === 0) {
         galeria.innerHTML = `
             <div style="text-align: center; padding: 40px; color: #727784; grid-column: 1 / -1;">
                 <span class="material-symbols-outlined" style="font-size: 48px;">image_not_supported</span>
-                <p style="margin-top: 12px;">No hay imágenes disponibles para el combo ${combo}</p>
+                <p style="margin-top: 12px;">No hay evidencias disponibles para el combo ${combo}</p>
             </div>
         `;
     } else {
-        galeria.innerHTML = imagenes.map(img => `
-            <div class="img-container">
-                <img src="${img}" alt="Evidencia Combo ${combo}" onclick="window.open('${img}', '_blank')">
-            </div>
-        `).join('');
+        // Función para detectar si es video por extensión
+        const esVideo = (url) => {
+            const extensionesVideo = ['.webm', '.mp4', '.mov', '.avi', '.mkv', '.ogg'];
+            const lowerUrl = url.toLowerCase();
+            return extensionesVideo.some(ext => lowerUrl.endsWith(ext));
+        };
+
+        galeria.innerHTML = archivos.map(archivo => {
+            const isVideo = esVideo(archivo);
+            
+            if (isVideo) {
+                return `
+                    <div class="img-container" style="background: #1a1a2e; position: relative;">
+                        <video 
+                            controls 
+                            preload="metadata"
+                            style="width: 100%; max-height: 350px; border-radius: 8px; background: #1a1a2e;"
+                            onclick="this.paused ? this.play() : this.pause()"
+                        >
+                            <source src="${archivo}" type="video/${archivo.split('.').pop()}">
+                            Tu navegador no soporta videos.
+                        </video>
+                        <span style="position: absolute; bottom: 8px; right: 12px; background: rgba(0,0,0,0.6); color: white; padding: 2px 10px; border-radius: 4px; font-size: 11px; pointer-events: none;">
+                            ▶ Video
+                        </span>
+                    </div>
+                `;
+            } else {
+                return `
+                    <div class="img-container">
+                        <img src="${archivo}" alt="Evidencia Combo ${combo}" onclick="window.open('${archivo}', '_blank')">
+                    </div>
+                `;
+            }
+        }).join('');
     }
     
     modal.classList.add('active');
@@ -858,6 +888,19 @@ function abrirTodasEvidencias() {
         const facturasObj = typeof facturaImagenes !== 'undefined' ? facturaImagenes : {};
         const combosObj = typeof evidenciaImagenes !== 'undefined' ? evidenciaImagenes : {};
 
+        // Función para detectar si es video por extensión
+        const esVideo = (url) => {
+            const extensionesVideo = ['.webm', '.mp4', '.mov', '.avi', '.mkv', '.ogg'];
+            const lowerUrl = url.toLowerCase();
+            return extensionesVideo.some(ext => lowerUrl.endsWith(ext));
+        };
+
+        // Función para obtener la primera imagen/video de un combo
+        const obtenerVistaPrevia = (archivos) => {
+            if (!archivos || archivos.length === 0) return null;
+            return archivos[0];
+        };
+
         const facturasKeys = Object.keys(facturasObj)
             .map(Number)
             .filter(n => !isNaN(n))
@@ -902,12 +945,18 @@ function abrirTodasEvidencias() {
             `;
 
             combosKeys.forEach(combo => {
-                const imagenes = combosObj[combo] || [];
+                const archivos = combosObj[combo] || [];
+                const preview = obtenerVistaPrevia(archivos);
+                const isVideo = preview ? esVideo(preview) : false;
+                
                 html += `
                     <div style="border: 1px solid #e6eff8; border-radius: 8px; padding: 12px; background: white; display: flex; align-items: center; justify-content: space-between; gap: 8px;">
-                        <span style="font-weight: 600; color: #141d23; font-size: 14px;">
-                            Combo #${combo}
-                        </span>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="font-weight: 600; color: #141d23; font-size: 14px;">
+                                Combo #${combo}
+                            </span>
+                            ${archivos.length > 0 ? `<span style="font-size: 11px; color: #727784;">(${archivos.length} archivos${isVideo ? ' • incluye video' : ''})</span>` : ''}
+                        </div>
                         <button onclick="verEvidencia('${combo}')" class="btn-evidencia" style="padding: 6px 12px; font-size: 0.75rem; cursor: pointer;">
                             <span class="material-symbols-outlined" style="font-size: 16px; vertical-align: middle;">visibility</span>
                             Ver Evidencia
