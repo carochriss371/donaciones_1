@@ -38,8 +38,8 @@
     "cod": "6",
     "producto": "Caja de guantes Nitrillo 100 Ud",
     "entradas": 1,
-    "salidas": 0,
-    "stock": 1
+    "salidas": 1,
+    "stock": 0
   },
   {
     "cod": "7",
@@ -269,8 +269,8 @@
     "cod": "39",
     "producto": "Nylon",
     "entradas": 7,
-    "salidas": 0,
-    "stock": 7
+    "salidas": 3,
+    "stock": 4
   },
   {
     "cod": "40",

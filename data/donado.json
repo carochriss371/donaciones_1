@@ -1570,17 +1570,25 @@
   {
     "cod": "14",
     "producto": "Gasas individuales",
-    "fecha": "",
+    "fecha": "Sat Aug 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
     "cantidad": 42,
     "centro": "Tratamiento para afectado por el terremoto",
     "combo": "29"
   },
   {
-    "cod": "",
-    "producto": "NO EXISTE",
-    "fecha": "",
-    "cantidad": 0,
-    "centro": "",
-    "combo": ""
+    "cod": "6",
+    "producto": "Caja de guantes Nitrillo 100 Ud",
+    "fecha": "Sat Aug 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 1,
+    "centro": "Tratamiento para afectado por el terremoto",
+    "combo": "29"
+  },
+  {
+    "cod": "39",
+    "producto": "Nylon",
+    "fecha": "Sat Aug 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
+    "cantidad": 3,
+    "centro": "Tratamiento para afectado por el terremoto",
+    "combo": "29"
   }
 ]
