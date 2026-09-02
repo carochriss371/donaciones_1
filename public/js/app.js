@@ -622,7 +622,17 @@ const evidenciaImagenes = {
     '21': ['img/combos/Combo_21.webp','img/combos/Combo_21(1).webp'],
     '22': ['img/combos/Combo_22.webp','img/combos/Combo_22(1).webp'],
     '23': ['img/combos/Combo_23.webp', 'img/combos/Combo_23(1).webp','img/combos/Combo_23(2).webp'],
-    '24': ['img/combos/Combo_24.webp', 'img/combos/Combo_24(1).webp','img/combos/Combo_24(2).webp']
+    '24': ['img/combos/Combo_24.webp', 'img/combos/Combo_24(1).webp','img/combos/Combo_24(2).webp'],
+    '25': ['img/combos/Combo_25.webp', 'img/combos/Combo_25(1).webp','img/combos/Combo_25(2).webp'],
+    '26': ['img/combos/Combo_26.webp', 'img/combos/Combo_26(1).webp','img/combos/Combo_26(2).webp'],
+    '27': ['img/combos/Combo_27.webp', 'img/combos/Combo_27(1).webp','img/combos/Combo_27(2).webp'],
+    '28': ['img/combos/Combo_28.webp', 'img/combos/Combo_28(1).webp','img/combos/Combo_28(2).webp'],
+    '29': ['img/combos/Combo_29.webp', 'img/combos/Combo_29(1).webp','img/combos/Combo_29(2).webp'],
+    '30': ['img/combos/Combo_30.webp', 'img/combos/Combo_30(1).webp','img/combos/Combo_30(2).webp'],
+    '31': ['img/combos/Combo_31.webp', 'img/combos/Combo_31(1).webp','img/combos/Combo_31(2).webp'],
+    '32': ['img/combos/Combo_32.webp', 'img/combos/Combo_32(1).webp','img/combos/Combo_32(2).webp'],
+    '33': ['img/combos/Combo_33.webp', 'img/combos/Combo_33(1).webp','img/combos/Combo_33(2).webp'],
+    '34': ['img/combos/Combo_34.webp', 'img/combos/Combo_34(1).webp','img/combos/Combo_34(2).webp']
     
 };
 
@@ -647,7 +657,13 @@ const facturaImagenes = {
     '18': '/img/facturas/Factura_18.webp',
     '19': '/img/facturas/Factura_19.webp',
     '20': '/img/facturas/Factura_20.webp',
-    '21': '/img/facturas/Factura_21.webp'
+    '21': '/img/facturas/Factura_21.webp',
+    '22': '/img/facturas/Factura_22.webp',
+    '23': '/img/facturas/Factura_23.webp',
+    '24': '/img/facturas/Factura_24.webp',
+    '25': '/img/facturas/Factura_25.webp',
+    '26': '/img/facturas/Factura_26.webp',
+    '27': '/img/facturas/Factura_27.webp'
 };
 
 // ============================================
