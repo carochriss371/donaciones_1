@@ -1555,7 +1555,7 @@
     "cod": "14",
     "producto": "Gasas individuales",
     "fecha": "Sat Aug 29 2026 03:00:00 GMT-0400 (Venezuela Time)",
-    "cantidad": 3,
+    "cantidad": 6,
     "centro": "Tratamiento para afectado por el terremoto",
     "combo": "28"
   },
@@ -1568,12 +1568,12 @@
     "combo": "28"
   },
   {
-    "cod": "",
-    "producto": "NO EXISTE",
+    "cod": "14",
+    "producto": "Gasas individuales",
     "fecha": "",
-    "cantidad": 0,
-    "centro": "",
-    "combo": ""
+    "cantidad": 42,
+    "centro": "Tratamiento para afectado por el terremoto",
+    "combo": "29"
   },
   {
     "cod": "",

@@ -94,8 +94,8 @@
     "cod": "14",
     "producto": "Gasas individuales",
     "entradas": 80,
-    "salidas": 35,
-    "stock": 45
+    "salidas": 80,
+    "stock": 0
   },
   {
     "cod": "15",
