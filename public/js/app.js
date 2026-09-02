@@ -627,8 +627,7 @@ const evidenciaImagenes = {
     '26': ['img/combos/Combo_26.webp', 'img/combos/Combo_26(1).webp','img/combos/Combo_26(2).webp','img/combos/Combo_26(3).webp','img/combos/Combo_26(4).webp','img/combos/Combo_26(5).webp'],
     '27': ['img/combos/Combo_27.webp', 'img/combos/Combo_27(1).webp','img/combos/Combo_27(2).webp','img/combos/Combo_27(3).webp'],
     '28': ['img/combos/Combo_28.webp', 'img/combos/Combo_28(1).webp','img/combos/Combo_28(2).webp'],
-    '29': ['img/combos/Combo_29.webp', 'img/combos/Combo_29(1).webp','img/combos/Combo_29(2).webp','img/combos/Combo_29(3).webp'],
-    '30': ['img/combos/Combo_30.webp', 'img/combos/Combo_30(1).webp','img/combos/Combo_30(2).webp']
+    '29': ['img/combos/Combo_29.webp', 'img/combos/Combo_29(1).webp','img/combos/Combo_29(2).webp','img/combos/Combo_29(3).webp']
 };
 
 const facturaImagenes = {
